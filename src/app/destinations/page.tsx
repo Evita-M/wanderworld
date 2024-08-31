@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import PageContent from './PageContent';
 
 export const metadata: Metadata = {
-  title: 'Expeditions',
-  description: 'An amazing app about expeditions',
+  title: 'Destinations',
+  description: 'Wander the World',
 };
 
-const ExpeditionPage = () => {
+const Destinations = () => {
   return <PageContent />;
 };
 
-export default ExpeditionPage;
+export default Destinations;

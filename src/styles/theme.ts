@@ -17,15 +17,20 @@ const theme = createTheme({
   typography: {
     htmlFontSize: 10,
     fontFamily: notoSans.style.fontFamily,
+    allVariants: {
+      color: grey[900],
+    },
     h1: {
       fontFamily: museoModerno.style.fontFamily,
-      fontSize: '10rem',
+      fontSize: '7.6rem',
     },
     h2: {
       fontFamily: museoModerno.style.fontFamily,
+      fontSize: '6rem',
     },
     h3: {
       fontFamily: museoModerno.style.fontFamily,
+      fontSize: '4.8rem',
     },
   },
   components: {

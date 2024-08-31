@@ -23,7 +23,7 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
     <Link href={link.href}>
       <Typography
         component='span'
-        color={isActive ? deepOrange[700] : grey[900]}
+        color={isActive ? deepOrange[900] : grey[900]}
         fontWeight={600}
         fontSize='1.8rem'
       >

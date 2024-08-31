@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import PageContent from './PageContent';
 
 export const metadata: Metadata = {
-  title: 'Welcome',
-  description: 'An amazing app about marvel characters',
+  title: 'About',
+  description: 'Wander the World',
 };
 
-const Dashboard = () => {
+const About = () => {
   return <PageContent />;
 };
 
-export default Dashboard;
+export default About;

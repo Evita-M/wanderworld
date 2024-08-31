@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import Image from 'next/image';
 import React, { FC } from 'react';
 
-type Image = {
+export type Image = {
   alt: string;
   width: number;
   height: number;

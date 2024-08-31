@@ -11,17 +11,12 @@
 }
 
 body {
-  height: 100vh;
-  background-color: black;
-  color: white;
+  height: 100%;
 }
 
 html {
-  font-family: var(--font-inter);
-}
-
-h1 {
-  font-family: var(--font-roboto-mono);
+  font-size: 62.5%;
+  height: 100%;
 }
 
 ul {
@@ -32,6 +27,7 @@ a {
   text-decoration: none;
 }
 
+/* Remove scrollbar */
 div {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -39,4 +35,12 @@ div {
 
 div::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Remove default blue background in input */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }

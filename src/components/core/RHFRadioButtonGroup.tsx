@@ -1,0 +1,52 @@
+import { Option } from '@/type/option';
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+
+type RHFRadioButtonGroupProps<T extends FieldValues> = {
+  name: Path<T>;
+  options?: Option[];
+  label: string;
+};
+
+export function RHFRadioButtonGroup<T extends FieldValues>({
+  name,
+  options,
+  label,
+}: RHFRadioButtonGroupProps<T>) {
+  const { control } = useFormContext<T>();
+  console.log(options);
+  return (
+    <Stack>
+      {label && (
+        <Typography fontSize='22px' mb='24px'>
+          {label}
+        </Typography>
+      )}
+      <Controller
+        control={control}
+        name={name}
+        render={({ field, fieldState: { error } }) => (
+          <FormControl {...field} error={!!error}>
+            <RadioGroup>
+              {options?.map((option) => (
+                <FormControlLabel
+                  label={option.label}
+                  value={option.id}
+                  key={option.id}
+                  control={<Radio checked={option.id === field.value} />}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        )}
+      ></Controller>
+    </Stack>
+  );
+}

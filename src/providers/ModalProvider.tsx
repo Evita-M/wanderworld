@@ -1,5 +1,4 @@
 import { Box, Modal, Typography } from '@mui/material';
-import { Props } from 'next/script';
 import React, {
   createContext,
   useState,

@@ -8,21 +8,31 @@ import { Link as LinkType, NavLink } from '@/components/core/NavLink';
 const navLinks: LinkType[] = [
   {
     label: 'About',
-    href: '/about',
+    href: routes.about,
   },
   {
     label: 'Expeditions',
-    href: '/expeditions',
+    href: routes.expeditions,
   },
   {
     label: 'Destinations',
-    href: '/destinations',
+    href: routes.destinations,
+  },
+  {
+    label: 'Guides',
+    href: routes.guides,
   },
 ];
 
 export const Header = () => {
   return (
-    <Stack component='nav' direction='row' justifyContent='space-between' p={4}>
+    <Stack
+      component='nav'
+      direction='row'
+      justifyContent='space-between'
+      px={2}
+      py={3}
+    >
       <Link href={routes.home} aria-label='Go home'>
         <Logo />
       </Link>

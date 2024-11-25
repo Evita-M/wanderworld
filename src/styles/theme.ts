@@ -1,17 +1,14 @@
 import { createTheme } from '@mui/material/styles';
-import { green, grey, brown } from '@mui/material/colors';
-import { MuseoModerno, Noto_Sans } from 'next/font/google';
+import { green, grey, brown, lightGreen } from '@mui/material/colors';
+import { museoModerno, notoSans } from './fonts';
 
-const notoSans = Noto_Sans({ subsets: ['latin'], weight: ['400', '600'] });
-const museoModerno = MuseoModerno({
-  subsets: ['latin'],
-  weight: ['400', '600'],
-});
+export const bgColor = '#F6F7F6';
 
 const theme = createTheme({
   palette: {
+    primary: { main: '#0C7C59' },
     background: {
-      default: brown[50],
+      default: bgColor,
     },
   },
   typography: {
@@ -19,6 +16,7 @@ const theme = createTheme({
     fontFamily: notoSans.style.fontFamily,
     allVariants: {
       color: grey[900],
+      letterSpacing: '0.025em',
     },
     h1: {
       fontFamily: museoModerno.style.fontFamily,
@@ -31,6 +29,18 @@ const theme = createTheme({
     h3: {
       fontFamily: museoModerno.style.fontFamily,
       fontSize: '4.8rem',
+    },
+    h4: {
+      fontFamily: museoModerno.style.fontFamily,
+      fontSize: '3.6rem',
+    },
+    h5: {
+      fontFamily: museoModerno.style.fontFamily,
+      fontSize: '2.8rem',
+    },
+    h6: {
+      fontFamily: museoModerno.style.fontFamily,
+      fontSize: '2.2rem',
     },
   },
   components: {
@@ -62,6 +72,41 @@ const theme = createTheme({
           '&:hover': {
             color: '#fff',
           },
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: '#0C7C59',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          minWidth: '20rem',
+          '&:hover': {
+            backgroundColor: bgColor,
+          },
+        },
+      },
+    },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '1.2rem',
+          boxShadow: 'none',
+          border: `1px solid ${grey[300]}`,
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          margin: '0.5rem 0',
+          backgroundColor: grey[300],
+          opacity: 0.5,
         },
       },
     },
@@ -136,6 +181,16 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&.MuiButtonBase:disabled': {
+            cursor: 'not-allowed',
+            pointerEvents: 'auto',
+          },
+        },
+      },
+    },
     MuiCheckbox: {
       styleOverrides: {
         root: {
@@ -180,6 +235,16 @@ const theme = createTheme({
           '&.Mui-checked': {
             backgroundColor: green[400],
             opacity: 1,
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiFormHelperText-root.Mui-error': {
+            position: 'absolute',
+            top: '100%',
           },
         },
       },

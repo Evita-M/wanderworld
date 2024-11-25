@@ -1,21 +1,15 @@
 import React, { FC } from 'react';
-import { MuseoModerno } from 'next/font/google';
 import Image from 'next/image';
 import { Box, Stack, Typography } from '@mui/material';
-
-const museoModerno = MuseoModerno({
-  subsets: ['latin'],
-  weight: ['400', '600'],
-});
 
 export const Logo: FC = () => {
   const renderLogoText = (text: string) => (
     <Typography
-      fontSize='24px'
+      variant='h5'
+      component='p'
       fontWeight={600}
       color='black'
       letterSpacing='0.025em'
-      className={`${museoModerno.className}`}
     >
       {text}
     </Typography>

@@ -1,4 +1,5 @@
 import { languages } from '@/lib/data/languages';
+import { getLanguagesNames } from '@/utils/get-languages-names';
 import { Chip, darken, Stack } from '@mui/material';
 import React, { FC } from 'react';
 

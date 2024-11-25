@@ -1,6 +1,7 @@
 import { Image, ResponsiveImage } from '@/components/core/ResponsiveImage';
+import { Typewriter } from '@/components/core/Typewriter';
 import { Box, Stack, Typography } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { deepOrange, green, grey, lightGreen } from '@mui/material/colors';
 import React, { FC } from 'react';
 
 type HeroProps = {
@@ -14,8 +15,8 @@ export const Hero: FC<HeroProps> = ({ images }) => {
         <Typography
           variant='h1'
           fontWeight={600}
-          color={deepOrange[900]}
-          className='-rotate-180 transform [writing-mode:vertical-rl]'
+          color={lightGreen[900]}
+          sx={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
         >
           Wander
         </Typography>
@@ -25,14 +26,22 @@ export const Hero: FC<HeroProps> = ({ images }) => {
           <Typography
             variant='h1'
             fontWeight={600}
-            color={deepOrange[900]}
+            color={lightGreen[900]}
             pr='3.2rem'
           >
             The World
           </Typography>
-          <Typography variant='h3' component='h2' pb='0.8rem'>
-            Journey Beyond the Ordinary
-          </Typography>
+
+          <Typewriter>
+            <Typography
+              variant='h3'
+              component='h2'
+              pb='0.8rem'
+              color={grey[900]}
+            >
+              Journey Beyond the Ordinary.
+            </Typography>
+          </Typewriter>
         </Stack>
         <Box
           borderTop='2px solid black'

@@ -1,36 +1,38 @@
 import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
+import { Controller, FieldValues, Path } from 'react-hook-form';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Option } from '@/type/option';
 
 type RHFAutocompleteProps<T extends FieldValues> = {
   name: Path<T>;
-  options?: Option[];
+  options: Option[];
   label: string;
+  control: any;
 };
 
 export function RHFAutocomplete<T extends FieldValues>({
   name,
   options,
   label,
+  control,
 }: RHFAutocompleteProps<T>) {
-  const { control } = useFormContext();
-
   return (
     <Controller
-      control={control}
       name={name}
-      render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
+      control={control}
+      render={({
+        field: { value = [], onChange, ref },
+        fieldState: { error },
+      }) => (
         <Autocomplete
           options={options || []}
-          getOptionLabel={(option) =>
-            options?.find((item) => item.id === option.id)?.label ?? ''
+          getOptionLabel={(option: Option) =>
+            options.find((item) => item.id === option.id)?.label ?? ''
           }
-          value={value.map((id: string) =>
-            options?.find((item) => item.id === id)
-          )}
+          value={value
+            .map((id: string) => options?.find((item) => item.id === id))
+            .filter((option): option is Option => option !== undefined)}
           onChange={(_, newValue) => {
             onChange(newValue.map((item) => item.id));
           }}

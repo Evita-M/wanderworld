@@ -4,7 +4,9 @@ import { Typography } from '@mui/material';
 const Destinations: FC = () => {
   return (
     <>
-      <Typography variant='h1'>Destinations</Typography>
+      <Typography variant='h1' mb='4.8rem'>
+        Destinations
+      </Typography>
     </>
   );
 };

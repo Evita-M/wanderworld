@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username     String         @unique
+  email        String         @unique
+  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+  @@map("user")
+}
+
+model Guide {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  firstName    String
+  lastName     String
+  email        String         @unique
+  phoneNumber  String
+  languages    String[]
+  description  String?
+  avatar       String         @default("https://w7.pngwing.com/pngs/728/256/png-transparent-avatar-general-human-office-person-smile-user-general-office-icon.png")
+  expeditions  Expedition[]   @relation("ExpeditionGuide")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+  @@map("guide")
+}
+
+model Participant {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  firstName    String
+  lastName     String
+  email        String         @unique
+  phoneNumber  String
+  expeditions  Expedition[]   @relation("ExpeditionParticipant")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+  @@map("participant")
+}
+
+enum Status {
+  PENDING
+  FINALIZED
+}
+
+model Expedition {
+ id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+ name         String
+ description  String?
+ countries    String[]
+ languages    String[]
+ activities   String[]
+ meetingDate  DateTime
+ startDate    DateTime
+ endDate      DateTime
+ minGroupSize    Int
+ maxGroupSize    Int
+ guide        Guide?         @relation("ExpeditionGuide", fields:[guideId], references: [id])
+ guideId      String?        @db.Uuid
+ participants Participant[]  @relation("ExpeditionParticipant")
+ createdAt    DateTime       @default(now())
+ updatedAt    DateTime?      @updatedAt
+ status       Status         @default(PENDING)
+ @@map("expedition")
+}

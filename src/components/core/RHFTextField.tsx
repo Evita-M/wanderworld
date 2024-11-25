@@ -1,27 +1,31 @@
-import { TextField, TextFieldProps } from '@mui/material'
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form'
+import { TextField, TextFieldProps } from '@mui/material';
+import React, { forwardRef, Ref } from 'react';
+import { FieldValues, Path } from 'react-hook-form';
 
-type RHFTextFieldProps<T extends FieldValues> = {
-    name: Path<T>
-} & Pick<TextFieldProps, 'label'>
-
-export function RHFTextField<T extends FieldValues>({
-    name,
-    ...props
-}: RHFTextFieldProps<T>) {
-    const { control } = useFormContext<T>()
-    return (
-        <Controller
-            control={control}
-            name={name}
-            render={({ field, fieldState: { error } }) => (
-                <TextField
-                    {...field}
-                    {...props}
-                    error={!!error}
-                    helperText={error?.message}
-                />
-            )}
-        />
-    )
+interface RHFTextFieldProps<T extends FieldValues>
+  extends Omit<TextFieldProps, 'name'> {
+  name: Path<T>;
+  errorMessage?: string;
+  inputRef?: Ref<HTMLInputElement>;
 }
+
+const RHFTextField = <T extends FieldValues>(
+  { name, errorMessage, inputRef, ...props }: RHFTextFieldProps<T>,
+  ref: Ref<HTMLInputElement>
+) => {
+  return (
+    <TextField
+      name={name}
+      inputRef={inputRef || ref}
+      error={!!errorMessage}
+      helperText={errorMessage}
+      {...props}
+    />
+  );
+};
+
+RHFTextField.displayName = 'RHFTextField';
+
+export default forwardRef(RHFTextField) as <T extends FieldValues>(
+  props: RHFTextFieldProps<T> & { ref?: Ref<HTMLInputElement> }
+) => JSX.Element;

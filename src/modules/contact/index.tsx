@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { Stack, Typography } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import { lightGreen } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 
-const ICON_COLOR = lightGreen[800];
-const ICON_BG_COLOR = lightGreen[50];
+const ICON_COLOR = '#0C7C59';
+const ICON_BG_COLOR = green[50];
 
 interface ContactProps {
   email?: string;

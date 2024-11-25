@@ -7,13 +7,14 @@ import { Stack, Typography } from '@mui/material';
 type RHFDateRangePickerProps<T extends FieldValues> = {
   name: Path<T>;
   label?: string;
+  control: any;
 };
 
 export function RHFDateRangePicker<T extends FieldValues>({
   name,
   label,
+  control,
 }: RHFDateRangePickerProps<T>) {
-  const { control } = useFormContext<T>();
   return (
     <Controller
       control={control}

@@ -4,6 +4,8 @@ import { Stack } from '@mui/material';
 import { Providers } from '@/providers/index';
 import { Header } from '@/modules/Header';
 
+import { museoModerno, notoSans } from '@/styles/fonts';
+
 export const metadata: Metadata = {
   title: 'WanderWorld',
   openGraph: {
@@ -17,15 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className={`${notoSans.variable} ${museoModerno.variable}`}>
       <head></head>
       <body>
         <Providers>
           <Stack height='100%'>
             <Header />
-            <Stack component='main' flex={1} p={4}>
-              {children}
-            </Stack>
+            <>{children}</>
           </Stack>
         </Providers>
       </body>

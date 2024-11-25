@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 
 interface PageHeaderProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   buttonLabel?: string;
-  href: string;
+  href?: string;
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -19,7 +19,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
     <div>
       <Stack direction='row' alignItems='center' justifyContent='space-between'>
         <Typography variant='h1'>{title}</Typography>
-        {href && (
+        {href && buttonLabel && (
           <Box>
             <Link href={href} passHref>
               <Button size='large' variant='contained' color='success'>
@@ -29,9 +29,11 @@ export const PageHeader: FC<PageHeaderProps> = ({
           </Box>
         )}
       </Stack>
-      <Typography fontSize='1.8rem' maxWidth='140rem' lineHeight={1.6}>
-        {subtitle}
-      </Typography>
+      {subtitle && (
+        <Typography fontSize='1.8rem' maxWidth='140rem' lineHeight={1.6}>
+          {subtitle}
+        </Typography>
+      )}
     </div>
   );
 };

@@ -1,0 +1,17 @@
+export const activities = [
+  { id: 'CWLK', label: 'City Walking Tours' },
+  { id: 'CUI', label: 'Culinary Tours' },
+  { id: 'ARC', label: 'Architectural Tours' },
+  { id: 'WINE', label: 'Wine Tasting' },
+  { id: 'MUEM', label: 'Museum Visits' },
+  { id: 'MARK', label: 'Local Market Tours' },
+  { id: 'HIST', label: 'Historical Landmarks Visits' },
+  { id: 'SPAT', label: 'Spa and Wellness Retreats' },
+  { id: 'THEA', label: 'Theater and Performing Arts' },
+  { id: 'PHOT', label: 'Photography Tours' },
+  { id: 'GARD', label: 'Garden and Park Tours' },
+  { id: 'CRUI', label: 'River or City Cruises' },
+  { id: 'COOK', label: 'Cooking Classes' },
+  { id: 'FEST', label: 'Cultural Festivals' },
+  { id: 'ARTG', label: 'Art Gallery Visits' },
+];

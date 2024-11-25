@@ -10,20 +10,21 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+import { Controller, FieldValues, Path } from 'react-hook-form';
 
 type RHFCheckboxProps<T extends FieldValues> = {
   name: Path<T>;
+  control: any;
   options?: Option[];
   label?: string;
 };
 
 export function RHFCheckbox<T extends FieldValues>({
   name,
+  control,
   options,
   label,
 }: RHFCheckboxProps<T>) {
-  const { control } = useFormContext<T>();
   return (
     <Stack>
       {label && (
@@ -32,8 +33,8 @@ export function RHFCheckbox<T extends FieldValues>({
         </Typography>
       )}
       <Controller
-        control={control}
         name={name}
+        control={control}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <FormControl error={!!error}>
             <FormGroup>
@@ -48,7 +49,7 @@ export function RHFCheckbox<T extends FieldValues>({
                             if (value.includes(option.id)) {
                               onChange(
                                 (value as string[]).filter(
-                                  (item) => item !== option.label
+                                  (item) => item !== option.id
                                 )
                               );
                             } else {

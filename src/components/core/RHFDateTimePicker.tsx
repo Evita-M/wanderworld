@@ -6,13 +6,14 @@ import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 type RHFDateTimePickerProps<T extends FieldValues> = {
   name: Path<T>;
   label?: string;
+  control: any;
 };
 
 export function RHFDateTimePicker<T extends FieldValues>({
   name,
   label,
+  control,
 }: RHFDateTimePickerProps<T>) {
-  const { control } = useFormContext<T>();
   return (
     <Stack>
       {label && (

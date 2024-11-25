@@ -13,15 +13,15 @@ type RHFRadioButtonGroupProps<T extends FieldValues> = {
   name: Path<T>;
   options?: Option[];
   label: string;
+  control: any;
 };
 
 export function RHFRadioButtonGroup<T extends FieldValues>({
   name,
   options,
   label,
+  control,
 }: RHFRadioButtonGroupProps<T>) {
-  const { control } = useFormContext<T>();
-  console.log(options);
   return (
     <Stack>
       {label && (

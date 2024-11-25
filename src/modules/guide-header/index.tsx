@@ -28,7 +28,7 @@ const SIZE_STYLES: Record<
 > = {
   [GuideHeaderSize.LG]: {
     avatarSize: 160,
-    spacing: '1.8rem',
+    spacing: '1.6rem',
     typographyVariant: 'h4',
   },
   [GuideHeaderSize.DEFAULT]: {

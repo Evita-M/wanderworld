@@ -29,7 +29,8 @@
       "@/styles/*": ["styles/*"],
       "@/type/*": ["types/*"],
       "@/routes/*": ["routes/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"],
+      "@/redux/*": ["redux/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

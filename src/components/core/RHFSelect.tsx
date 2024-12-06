@@ -8,6 +8,7 @@ type RHFSelectProps<T extends FieldValues> = {
   options: Option[];
   label: string;
   control: any;
+  defaultValue?: string;
 };
 
 export function RHFSelect<T extends FieldValues>({
@@ -15,16 +16,19 @@ export function RHFSelect<T extends FieldValues>({
   options,
   label,
   control,
+  defaultValue = '',
 }: RHFSelectProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
+      defaultValue={defaultValue}
       render={({ field }) => (
         <>
           <InputLabel id={`${name}-label`}>{label}</InputLabel>
           <Select
             labelId={`${name}-label`}
+            defaultValue={defaultValue}
             {...field} // Spread field props here
             id={name} // Provide the id here for the Select component
           >

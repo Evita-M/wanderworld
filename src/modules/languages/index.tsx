@@ -1,52 +1,44 @@
-import { languages } from '@/lib/data/languages';
-import { getLanguagesNames } from '@/utils/get-languages-names';
-import { Chip, darken, Stack } from '@mui/material';
 import React, { FC } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { Chip, darken, Stack } from '@mui/material';
+import { getLanguageColor } from '@/utils/get-languages-color';
+import { languages } from '@/lib/data/languages';
 
-interface LangColor {
-  background: string;
-  text: string;
-}
-
-const langColors: Record<string, LangColor> = {
-  en: { background: '#D0EEFF', text: '#3A5F5B' },
-  es: { background: '#FFEDAE', text: '#6C5208' },
-  pt: { background: '#E3E2D8', text: '#555451' },
-  ar: { background: '#D7ECDF', text: '#3D5A4F' },
-  de: { background: '#FFE5E5', text: '#A13453' },
-  ru: { background: '#E4E7E4', text: '#3B4859' },
-  zh: { background: '#EAD7EC', text: '#582C5D' },
-  hi: { background: '#FFD890', text: '#754513' },
-  fr: { background: '#D3E5C5', text: '#3A6E3A' },
-};
-
-export type LanguageCode = keyof typeof langColors;
+export type LanguageCode =
+  | 'en'
+  | 'es'
+  | 'pt'
+  | 'ar'
+  | 'de'
+  | 'ru'
+  | 'zh'
+  | 'hi'
+  | 'fr';
 
 interface LanguagesProps {
   langCodes: LanguageCode[];
 }
 
 export const Languages: FC<LanguagesProps> = ({ langCodes }) => {
+  const theme = useTheme();
+
   return (
     <Stack direction='row' flexWrap='wrap' gap='0.8rem'>
       {langCodes.map((langCode) => {
         const language = languages.find((lang) => lang.id === langCode);
-        const color = langColors[langCode as keyof typeof langColors];
+        const color = getLanguageColor(theme, langCode);
         return (
           <Chip
             key={langCode}
-            label={language ? language.label : langCode}
+            label={language?.label}
             sx={{
               cursor: 'default',
-              backgroundColor: color?.background,
+              backgroundColor: color?.bg,
               '& .MuiChip-label': {
                 color: color?.text,
-                fontWeight: 500,
               },
               '&:hover': {
-                backgroundColor: color?.background
-                  ? darken(color.background, 0.05)
-                  : undefined,
+                backgroundColor: color?.bg ? darken(color.bg, 0.05) : undefined,
               },
             }}
           />

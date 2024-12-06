@@ -1,39 +1,49 @@
 'use client';
 
-import {
-  SubmitHandler,
-  useFieldArray,
-  useFormContext,
-  useWatch,
-} from 'react-hook-form';
-import {
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { Button, Container, Stack } from '@mui/material';
+import { FC, useEffect, useMemo } from 'react';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { RHFCheckbox } from '@/components/core/RHFCheckbox';
 import { RHFDateTimePicker } from '@/components/core/RHFDateTimePicker';
 import { RHFDateRangePicker } from '@/components/core/RHFDateRangePicker';
 import { RHFSlider } from '@/components/core/RHFSlider';
-import { ExpeditionSchema, defaultValues } from '@/type/expeditionSchema';
-import { Option } from '@/type/option';
+import {
+  ExpeditionSchema,
+  defaultValues,
+  expeditionSchema,
+} from '@/type/expeditionSchema';
+
 import RHFTextField from '@/components/core/RHFTextField';
-import { useCreateExpeditionMutation } from '@/redux/api/expeditionApi';
-import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  useCreateExpeditionMutation,
+  useUpdateExpeditionMutation,
+} from '@/redux/api/expeditionApi';
 import { RHFSelect } from '@/components/core/RHFSelect';
 import { countries } from '@/lib/data/countries';
 import { languages } from '@/lib/data/languages';
-import { RHFToggleButtonGroup } from '@/components/core/RHCToggleButtonGroup';
-import { RHFSwitch } from '@/components/core/RHFSwitch';
-import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
 import { activities } from '@/lib/data/activities';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Expedition, Guide } from '@prisma/client';
+import { useSnackbar } from 'hooks/useSnackbar';
+import { useGetGuidesQuery } from '@/redux/api/guideApi';
+import { routes } from '@/routes/index';
+import { useRouter } from 'next/navigation';
 
-export const ExpeditionsForm = () => {
+type ExpeditionFormProps = {
+  onClose?: VoidFunction;
+  expedition?: Expedition;
+  isEdit?: boolean;
+  setIsEdit: any;
+};
+
+export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
+  expedition,
+  onClose,
+  isEdit = false,
+  setIsEdit,
+}) => {
+  const router = useRouter();
   const [
     createExpedition,
     {
@@ -41,7 +51,34 @@ export const ExpeditionsForm = () => {
       isSuccess: isCreateExpeditionSuccess,
     },
   ] = useCreateExpeditionMutation();
-  const { data: guides, isLoading: isGetGuidesLoading } = useGetGuidesQuery();
+
+  const [
+    updateExedition,
+    {
+      isLoading: isUpdateExeditionLoading,
+      isSuccess: isUpdateExeditionSuccess,
+    },
+  ] = useUpdateExpeditionMutation();
+
+  const { data: guides } = useGetGuidesQuery();
+
+  const expDefaultValues = expedition
+    ? {
+        ...defaultValues,
+        name: expedition.name,
+        description: expedition.description || '',
+        countries: expedition.countries,
+        languages: expedition.languages,
+        activities: expedition.activities,
+        meetingDateTime: new Date(expedition.meetingDate),
+        tourDuration: [
+          new Date(expedition.startDate),
+          new Date(expedition.endDate),
+        ],
+        groupSize: [expedition.minGroupSize, expedition.maxGroupSize],
+        guide: expedition.guideId ?? '',
+      }
+    : defaultValues;
 
   const {
     watch,
@@ -51,67 +88,71 @@ export const ExpeditionsForm = () => {
     setValue,
     handleSubmit,
     register,
-    formState: { isSubmitting, isDirty, isValid },
-  } = useFormContext<ExpeditionSchema>();
-  const hasParticipants = useWatch({ control, name: 'hasParticipants' });
-
-  useEffect(() => {
-    const sub = watch((value) => console.log({ value, isValid }));
-    return () => sub.unsubscribe();
-  }, [watch, isValid]);
-
-  const { append, remove, replace, fields } = useFieldArray({
-    control,
-    name: 'participants',
+    formState: { isValid },
+  } = useForm<ExpeditionSchema>({
+    defaultValues: isEdit && expedition ? expDefaultValues : defaultValues,
+    resolver: zodResolver(expeditionSchema),
   });
 
+  const { showSnackBar } = useSnackbar();
+
   useEffect(() => {
-    if (!hasParticipants) {
-      replace([]);
-      unregister('participants');
+    if (isCreateExpeditionSuccess) {
+      reset();
     }
-  }, [hasParticipants, replace, unregister]);
+    if (isUpdateExeditionSuccess) {
+      setIsEdit(false);
+    }
+  }, [
+    reset,
+    isCreateExpeditionSuccess,
+    isUpdateExeditionSuccess,
+    setIsEdit,
+    expedition,
+  ]);
 
-  //   useEffect(() => {
-  //     if (userQuery.data) {
-  //       reset(userQuery.data);
-  //     }
-  //   }, [reset, userQuery.data]);
-
-  useEffect(() => {
-    isCreateExpeditionSuccess && reset(defaultValues);
-  }, [reset, isCreateExpeditionSuccess]);
-
-  //   const handleOnExpeditionClick = (id: string) => {
-  //     setValue('id', id);
-  //   };
-
-  const onSubmit: SubmitHandler<ExpeditionSchema> = (data) => {
-    const newExpedition: CreateExpeditionRequestBody = {
-      name: data.name,
-      description: data.description,
-      activities: data.activities,
-      countries: data.countries,
-      languages: data.languages,
-      meetingDate: data.meetingDateTime,
-      minGroupSize: data.groupSize[0],
-      maxGroupSize: data.groupSize[1],
-      startDate: data.tourDuration[0],
-      endDate: data.tourDuration[1],
-      participants: {
-        create: data.hasParticipants ? data?.participants : [],
-      },
-      guide: data.guide ? { connect: { id: data.guide } } : undefined,
-    };
-    createExpedition(newExpedition);
-  };
-
+  // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
-    return guides?.map((guide) => ({
+    return guides?.map((guide: Guide) => ({
       id: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
     }));
   }, [guides]);
+
+  // Submit handler
+  async function onSubmit(data: ExpeditionSchema) {
+    const expeditionData = {
+      name: data.name,
+      description: data.description,
+      activities: data.activities,
+      countries: data.countries,
+      languages: data.languages || [],
+      meetingDate: new Date(data.meetingDate),
+      minGroupSize: data.groupSize[0],
+      maxGroupSize: data.groupSize[1],
+      startDate: new Date(data.tourDuration[0]) ?? undefined,
+      endDate: new Date(data.tourDuration[1]) ?? undefined,
+      guide: data.guide ? { connect: { id: data.guide } } : undefined,
+    };
+
+    try {
+      if (isEdit && expedition) {
+        await updateExedition({
+          id: expedition.id,
+          data: expeditionData,
+        });
+        showSnackBar('Expedition updated successfully!', 'success');
+      } else {
+        await createExpedition(expeditionData);
+        showSnackBar('New expedition created successfully!', 'success');
+      }
+      onClose?.();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      showSnackBar(errorMessage, 'warning');
+    }
+  }
 
   return (
     <Stack
@@ -152,7 +193,7 @@ export const ExpeditionsForm = () => {
           <RHFDateTimePicker<ExpeditionSchema>
             label='First expedition meeting'
             control={control}
-            {...register('meetingDateTime')}
+            {...register('meetingDate')}
           />
           <RHFDateRangePicker<ExpeditionSchema>
             label='Expedition duration'
@@ -172,60 +213,6 @@ export const ExpeditionsForm = () => {
             {...register('guide')}
           />
         </Stack>
-        {/* Switch for enabling/disabling participants */}
-        <RHFSwitch
-          label='Has Participants'
-          control={control}
-          {...register('hasParticipants')}
-        />
-
-        {hasParticipants && (
-          <>
-            {fields.map((field, index) => (
-              <Stack key={field.id} position='relative' mb={2}>
-                <Typography mb='14px'>Participant No {index + 1}</Typography>
-                <RHFTextField<ExpeditionSchema>
-                  label='First name'
-                  {...register(`participants.${index}.firstName`)}
-                />
-                <RHFTextField<ExpeditionSchema>
-                  label='Last name'
-                  {...register(`participants.${index}.lastName`)}
-                />
-                <RHFTextField<ExpeditionSchema>
-                  label='Email'
-                  {...register(`participants.${index}.email`)}
-                />
-                <RHFTextField<ExpeditionSchema>
-                  label='Phone number'
-                  {...register(`participants.${index}.phoneNumber`)}
-                />
-                <IconButton
-                  aria-label='Remove'
-                  onClick={() => remove(index)}
-                  type='button'
-                  sx={{ position: 'absolute', top: 0, right: 0 }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Stack>
-            ))}
-            <Button
-              type='button'
-              onClick={() =>
-                append({
-                  firstName: '',
-                  lastName: '',
-                  email: '',
-                  phoneNumber: '',
-                })
-              }
-            >
-              Add Participant
-            </Button>
-          </>
-        )}
-
         <Stack
           marginTop='32px'
           sx={{
@@ -245,9 +232,11 @@ export const ExpeditionsForm = () => {
             type='submit'
             variant='contained'
             color='success'
-            disabled={!isValid}
+            disabled={
+              !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
+            }
           >
-            Add expedition
+            {expedition ? 'Edit expedition' : 'Add expedition'}
           </Button>
         </Stack>
       </Container>

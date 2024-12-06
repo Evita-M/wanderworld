@@ -1,45 +1,88 @@
 import { createTheme } from '@mui/material/styles';
-import { green, grey, brown, lightGreen } from '@mui/material/colors';
-import { museoModerno, notoSans } from './fonts';
+import { green, grey } from '@mui/material/colors';
+import { PaddingRounded } from '@mui/icons-material';
 
-export const bgColor = '#F6F7F6';
+export const bgColor = '#fff';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    custom: Record<string, { bg: string; text: string }>;
+  }
+  interface PaletteOptions {
+    custom?: Record<string, { bg: string; text: string }>;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    customBlue: true;
+    customYellow: true;
+    customGreen: true;
+  }
+}
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#0C7C59' },
     background: {
       default: bgColor,
+    },
+    primary: {
+      main: '#27A562', // Green shade for primary color
+      contrastText: '#FFFFFF', // White text for strong contrast
+    },
+    secondary: {
+      main: '#FFD866', // Brighter yellow for emphasis
+      contrastText: '#3C2E00', // Darker text for better readability
+    },
+    error: {
+      main: '#B33951', // Stronger red for better contrast
+      contrastText: '#FFFFFF', // Darker red text
+    },
+    warning: {
+      main: '#F5A65B', // Stronger red for better contrast
+      contrastText: '#FFFFFF', // Darker red text
+    },
+    custom: {
+      blue: { bg: '#D0EEFF', text: '#3A5F5B' },
+      yellow: { bg: '#FFEDAE', text: '#6C5208' },
+      beige: { bg: '#E3E2D8', text: '#555451' },
+      mint: { bg: '#D7ECDF', text: '#3D5A4F' },
+      red: { bg: '#FFE5E5', text: '#A13453' },
+      gray: { bg: '#E4E7E4', text: '#3B4859' },
+      lavender: { bg: '#EAD7EC', text: '#582C5D' },
+      peach: { bg: '#FFD890', text: '#754513' },
+      green: { bg: '#D3E5C5', text: '#3A6E3A' },
     },
   },
   typography: {
     htmlFontSize: 10,
-    fontFamily: notoSans.style.fontFamily,
+    fontFamily: `var(--noto-sans), sans-serif`,
     allVariants: {
       color: grey[900],
       letterSpacing: '0.025em',
     },
     h1: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '7.6rem',
     },
     h2: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '6rem',
     },
     h3: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '4.8rem',
     },
     h4: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '3.6rem',
     },
     h5: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '2.8rem',
     },
     h6: {
-      fontFamily: museoModerno.style.fontFamily,
+      fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '2.2rem',
     },
   },
@@ -52,11 +95,82 @@ const theme = createTheme({
         },
       },
     },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          borderBottom: 'none', // Remove the default underline
+          paddingBottom: 0, // Remove extra space under the tabs
+        },
+        indicator: {
+          display: 'none',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontFamily: `var(--museo-moderno), cursive`,
+          fontSize: '1.8rem',
+          textTransform: 'none',
+          borderRight: '1px solid rgba(0, 0, 0, 0.12)', // Vertical separator between items
+          borderBottom: 'none',
+          padding: '0 12px 0 12px',
+          '&:last-child': {
+            borderRight: 'none',
+            paddingRight: '0',
+          },
+          '&:first-child': {
+            paddingLeft: '0',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+          textTransform: 'none',
+        },
+      },
+      variants: [
+        {
+          props: { color: 'customBlue' },
+          style: {
+            backgroundColor: '#D0EEFF',
+            color: '#3A5F5B',
+            '&:hover': {
+              backgroundColor: '#B8D7EE',
+            },
+          },
+        },
+        {
+          props: { color: 'customYellow' },
+          style: {
+            backgroundColor: '#FFEDAE',
+            color: '#6C5208',
+            '&:hover': {
+              backgroundColor: '#FFE08C',
+            },
+          },
+        },
+        {
+          props: { color: 'customGreen' },
+          style: {
+            backgroundColor: '#D3E5C5',
+            color: '#3A6E3A',
+            '&:hover': {
+              backgroundColor: '#C4D7B3',
+            },
+          },
+        },
+      ],
+    },
     MuiChip: {
       styleOverrides: {
         root: {
           backgroundColor: green[500],
           color: '#fff',
+          height: '34px',
           '&:hover': {
             backgroundColor: green[600],
           },
@@ -65,7 +179,7 @@ const theme = createTheme({
           },
         },
         label: {
-          color: '#fff',
+          fontWeight: 500,
         },
         deleteIcon: {
           color: '#fff',
@@ -178,16 +292,6 @@ const theme = createTheme({
       styleOverrides: {
         input: {
           backgroundColor: '#fff',
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          '&.MuiButtonBase:disabled': {
-            cursor: 'not-allowed',
-            pointerEvents: 'auto',
-          },
         },
       },
     },

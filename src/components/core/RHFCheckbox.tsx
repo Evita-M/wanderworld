@@ -25,6 +25,7 @@ export function RHFCheckbox<T extends FieldValues>({
   options,
   label,
 }: RHFCheckboxProps<T>) {
+  console.log(options);
   return (
     <Stack>
       {label && (
@@ -44,9 +45,9 @@ export function RHFCheckbox<T extends FieldValues>({
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={value.includes(option.id)}
+                          checked={value?.includes(option.id)}
                           onChange={() => {
-                            if (value.includes(option.id)) {
+                            if (value?.includes(option.id)) {
                               onChange(
                                 (value as string[]).filter(
                                   (item) => item !== option.id

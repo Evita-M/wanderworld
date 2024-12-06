@@ -1,6 +1,6 @@
 import { ExpeditionsForm } from '@/modules/forms/ExpeditionForm';
 import { PageHeader } from '@/modules/page-header';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 
 const PageContent = async () => {

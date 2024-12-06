@@ -22,7 +22,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {href && buttonLabel && (
           <Box>
             <Link href={href} passHref>
-              <Button size='large' variant='contained' color='success'>
+              <Button size='large' variant='contained'>
                 {buttonLabel}
               </Button>
             </Link>

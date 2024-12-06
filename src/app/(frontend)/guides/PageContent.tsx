@@ -87,11 +87,6 @@ const Guides: FC = () => {
     >
       <PageHeader
         title='Guides'
-        subtitle=' Looking for the perfect guide for your next tour? This is the place to
-        find and manage all the essential details!
-        <br /> Whether you’re planning a specific tour or building a reliable
-        team, this makes it easy to ensure every guide is ready to deliver an
-        unforgettable travel experience.'
         href={routes.newGuide}
         buttonLabel='Add new guide'
       />
@@ -117,7 +112,7 @@ const Guides: FC = () => {
             />
           ))}
         </Stack>
-        <Stack height='100%' sx={{ height: '100%', overflowY: 'auto' }}>
+        <Stack width='100%' height='100%' sx={{ overflowY: 'auto' }}>
           {selectedGuide && (
             <GuideDetail
               guide={selectedGuide}

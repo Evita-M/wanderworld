@@ -1,14 +1,7 @@
-/** @type {import('next').NextConfig} */
+// next.config.mjs
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        hostname: 'flagsapi.com',
-      },
-      {
-        hostname: 'cdn.flagsapi.com',
-      },
-    ],
+    domains: ['picsum.photos'],
   },
 };
 

@@ -4,7 +4,7 @@ export const Loader = () => {
   return (
     <div className='flex items-center justify-center'>
       <svg
-        className='animate-spin-slow h-56 w-56'
+        className='h-56 w-56 animate-spin-slow'
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 230 230'
       >

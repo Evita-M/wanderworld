@@ -78,7 +78,7 @@ export const GuideDetail = ({
   ];
 
   return (
-    <Stack p={4} borderRadius='1.2rem' bgcolor='white'>
+    <Stack p={4} borderRadius='1.2rem' bgcolor='white' height='100%'>
       <Stack mb={4} position='relative'>
         <GuideHeader
           fullName={fullName}

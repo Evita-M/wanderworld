@@ -24,7 +24,7 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
             aria-label={`View details for ${name} expedition`}
           >
             <Stack
-              p='0.6rem 1.2rem'
+              py='1.2rem'
               borderRadius='0.8rem'
               direction='row'
               alignItems='center'

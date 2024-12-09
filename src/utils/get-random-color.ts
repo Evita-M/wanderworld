@@ -6,6 +6,6 @@ export const getRandomColor = (
   darkenBy?: number
 ) => {
   const colors = Object.values(theme.palette.custom);
-  const baseColor = colors[index % colors.length].bg;
+  const baseColor = colors[index % colors.length].main;
   return darkenBy ? darken(baseColor, darkenBy) : baseColor;
 };

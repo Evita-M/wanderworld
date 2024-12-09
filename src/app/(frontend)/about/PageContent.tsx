@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
+import { PageHeader } from '@/modules/page-header';
 
 const About: FC = () => {
   return (
     <>
-      <Typography variant='h1'>About</Typography>
+      <PageHeader title='About' />
     </>
   );
 };

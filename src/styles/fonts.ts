@@ -6,7 +6,6 @@ export const notoSans = Noto_Sans({
   variable: '--noto-sans',
   display: 'swap',
   preload: true,
-  //   fallback: ['system-ui', 'sans-serif'],
 });
 
 export const museoModerno = MuseoModerno({
@@ -15,5 +14,4 @@ export const museoModerno = MuseoModerno({
   variable: '--museo-moderno',
   display: 'swap',
   preload: true,
-  //   fallback: ['system-ui', 'sans-serif'],
 });

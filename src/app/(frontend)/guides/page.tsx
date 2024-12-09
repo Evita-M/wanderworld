@@ -1,13 +1,16 @@
 import { Metadata } from 'next';
 import PageContent from './PageContent';
+import { PageContainer } from '@/components/core/PageContainer';
+import { routes } from '@/routes/index';
 
 export const metadata: Metadata = {
   title: 'Guides',
-  description: 'See our professional guides',
 };
 
-const Guides = () => {
-  return <PageContent />;
-};
-
-export default Guides;
+export default function GuidesPage() {
+  return (
+    <PageContainer>
+      <PageContent />
+    </PageContainer>
+  );
+}

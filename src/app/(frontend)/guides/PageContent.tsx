@@ -7,14 +7,15 @@ import {
   useGetGuidesQuery,
   useUpdateGuideMutation,
 } from '@/redux/api/guideApi';
-
 import { GuideForm } from '@/modules/forms/GuideForm';
 import { useModal } from 'hooks/useModal';
 import { GuideItem } from '@/modules/guide-item';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { GuideDetail } from '@/modules/guide-details';
 import { Guide } from '@prisma/client';
 import { PageHeader } from '@/modules/page-header';
+import { Loader } from '@/components/core/Loader';
+import { EmptyState } from '@/components/core/EmptyState';
 import { routes } from '@/routes/index';
 
 const Guides: FC = () => {
@@ -25,6 +26,7 @@ const Guides: FC = () => {
     refetch: refetchGuides,
   } = useGetGuidesQuery();
   const router = useRouter();
+
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const guideId = searchParams.get('guideId');
@@ -41,15 +43,15 @@ const Guides: FC = () => {
     }
   }, [refetchGuides, isUpdateGuideSuccess]);
 
-  const handleOpenModal = () => {
-    openModal({
-      content: <GuideForm onClose={closeModal} />,
-      title: 'Add new guide',
-    });
-  };
+  useEffect(() => {
+    if (guides?.length && !guideId) {
+      const firstGuide = guides[0];
+      params.set('guideId', firstGuide.id);
+      router.push(`?${params.toString()}`, { scroll: false });
+    }
+  }, [guides, guideId, router, params]);
 
   const handleGuideClick = (guide: Guide) => {
-    // Set the guideId in the URL, which will automatically update selectedGuide
     params.set('guideId', guide.id);
     router.push(`?${params.toString()}`);
   };
@@ -74,54 +76,56 @@ const Guides: FC = () => {
     router.push(`?${params.toString()}`);
   };
 
-  // Derive selectedGuide based on guideId from the URL
   const selectedGuide = guides?.find((guide) => guide.id === guideId) || null;
 
+  const handleAddNewGuide = () => router.push(routes.newGuide);
+
   return (
-    <Stack
-      height='100%'
-      flex='1 1 auto'
-      overflow='hidden'
-      gap='2.4rem'
-      p='1.6rem'
-    >
+    <Stack height='100%' gap='3rem'>
       <PageHeader
         title='Guides'
-        href={routes.newGuide}
         buttonLabel='Add new guide'
+        onClick={handleAddNewGuide}
       />
       <Stack
-        height='100%'
-        flex='1 1 auto'
-        overflow='hidden'
-        direction='row'
-        gap='2.4rem'
-        p='1.6rem'
+        sx={{
+          height: 'calc(100vh - 24rem)',
+          overflow: 'hidden',
+        }}
       >
-        <Stack
-          gap='2.4rem'
-          pb='0.6rem'
-          sx={{ height: '100%', overflowY: 'auto', flex: '0 0 40%' }}
-        >
-          {guides?.map((guide) => (
-            <GuideItem
-              guide={guide}
-              onClick={() => handleGuideClick(guide)}
-              isSelected={selectedGuide?.id === guide.id}
-              key={guide.id}
+        {isGetGuidesLoading ? (
+          <Loader />
+        ) : guides?.length ? (
+          <Stack direction='row' flex={1} spacing={3} overflow='hidden'>
+            <Stack spacing={3} width='40%' sx={{ overflowY: 'auto' }}>
+              {guides.map((guide) => (
+                <GuideItem
+                  key={guide.id}
+                  guide={guide}
+                  onClick={() => handleGuideClick(guide)}
+                  isSelected={selectedGuide?.id === guide.id}
+                />
+              ))}
+            </Stack>
+            <Stack flex={1} overflow='auto'>
+              {selectedGuide && (
+                <GuideDetail
+                  guide={selectedGuide}
+                  onDelete={handleDeleteGuide}
+                  onEdit={handleEditGuide}
+                  isDisabled={isDeleteGuideLoading}
+                />
+              )}
+            </Stack>
+          </Stack>
+        ) : (
+          <Stack height='100%'>
+            <EmptyState
+              title='No Guides Found'
+              description='Get started by adding your first guide'
             />
-          ))}
-        </Stack>
-        <Stack width='100%' height='100%' sx={{ overflowY: 'auto' }}>
-          {selectedGuide && (
-            <GuideDetail
-              guide={selectedGuide}
-              onDelete={handleDeleteGuide}
-              onEdit={handleEditGuide}
-              isDisabled={isDeleteGuideLoading}
-            />
-          )}
-        </Stack>
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );

@@ -4,10 +4,10 @@ import { styled } from '@mui/material/styles';
 
 import Masonry from '@mui/lab/Masonry';
 
-const heights = [495, 240, 240, 240, 240];
+const heights = [395, 220, 160, 220, 160];
 
 const Item = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.main,
+  backgroundColor: theme.palette.info.main,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -23,7 +23,7 @@ const ResponsiveImage = styled('img')({
 
 export const BasicMasonry = () => {
   return (
-    <Box sx={{ maxWidth: '1200px', minHeight: 480 }}>
+    <Box sx={{ minHeight: 395 }}>
       <Masonry columns={3} spacing={2}>
         {heights.map((height, index) => (
           <Item key={index} sx={{ height }}>

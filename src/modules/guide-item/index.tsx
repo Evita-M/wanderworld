@@ -5,6 +5,7 @@ import { GuideHeader } from '../guide-header';
 
 import { TruncatedText } from '@/components/core/TruncatedText';
 import theme from '@/styles/theme';
+import { grey } from '@mui/material/colors';
 
 interface GuideItemProps {
   guide: Guide;
@@ -23,13 +24,14 @@ export const GuideItem: FC<GuideItemProps> = ({
   return (
     <Stack
       bgcolor='#fff'
+      height='26rem'
       gap='1rem'
-      p={2}
+      p='2.4rem'
       borderRadius='1.2rem'
-      border={`1px solid ${isSelected ? theme.palette.primary.main : 'transparent'}`}
+      border={`1px solid ${isSelected ? theme.palette.info.main : grey[300]}`}
       position='relative'
       onClick={() => onClick(id)}
-      boxShadow={isSelected ? `0 6px  ${theme.palette.primary.main}` : 'none'}
+      boxShadow={isSelected ? `0 6px  ${theme.palette.info.main}` : grey[300]}
       sx={{
         transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
       }}

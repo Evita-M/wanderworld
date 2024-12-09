@@ -6,6 +6,7 @@ import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 import { routes } from '@/routes/index';
 import { getNames } from '@/utils/get-names';
+import { grey } from '@mui/material/colors';
 
 interface ExpeditionItemProps {
   expedition: Expedition;
@@ -16,27 +17,19 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
   const { id, name, countries, startDate, endDate } = expedition;
   const countriesNames = getNames(countries, countrieList);
 
-  // Memoize a random color from theme.palette.custom
-  const randomColor = useMemo(() => {
-    const customColors = theme.palette.custom;
-    const keys = Object.keys(customColors) as Array<keyof typeof customColors>;
-    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-    return customColors[randomKey];
-  }, [theme]);
-
   return (
     <Link href={`${routes.expeditions}/${id}`}>
       <Stack
         justifyContent='center'
         alignItems='center'
-        height='40rem'
+        height='30rem'
         width='40rem'
-        borderRadius='40rem'
+        borderRadius='2rem'
         p={2}
         gap={1}
+        border={`1px solid ${grey[300]}`}
         textAlign='center'
         sx={{
-          backgroundColor: randomColor.bg,
           transition: 'transform 0.3s',
           '&:hover': { transform: 'scale(1.05)' },
         }}
@@ -47,12 +40,12 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
         <Typography
           variant='h6'
           fontWeight={500}
-          color={randomColor.text}
+          color={theme.palette.tertiary.main}
           textTransform='uppercase'
         >
           {countriesNames}
         </Typography>
-        <Typography fontWeight={500}>
+        <Typography fontWeight={500} color={theme.palette.tertiary.main}>
           {format(startDate, 'dd/MM/yyyy')} – {format(endDate, 'dd/MM/yyyy')}
         </Typography>
       </Stack>

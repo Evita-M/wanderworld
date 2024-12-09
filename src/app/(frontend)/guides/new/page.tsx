@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import PageContent from './PageContent';
+import { PageContainer } from '@/components/core/PageContainer';
 
 export const metadata: Metadata = {
   title: 'New Guide',
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
 };
 
 const NewGuidePage = () => {
-  return <PageContent />;
+  return (
+    <PageContainer>
+      <PageContent />
+    </PageContainer>
+  );
 };
 
 export default NewGuidePage;

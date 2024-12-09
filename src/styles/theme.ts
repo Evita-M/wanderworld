@@ -1,25 +1,38 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green, grey } from '@mui/material/colors';
-import { PaddingRounded } from '@mui/icons-material';
 
 export const bgColor = '#fff';
 
+// Primary color palette
+const primary = {
+  main: '#219ebc',
+  light: '#8ecae6',
+  lighter: '#e6f4f8',
+  dark: '#1a7b94',
+};
+
 declare module '@mui/material/styles' {
   interface Palette {
-    custom: Record<string, { bg: string; text: string }>;
+    custom: Record<string, { main: string; text: string }>;
+    tertiary: Palette['primary'];
   }
   interface PaletteOptions {
-    custom?: Record<string, { bg: string; text: string }>;
+    custom?: Record<string, { main: string; text: string }>;
+    tertiary?: PaletteOptions['primary'];
   }
 }
 
-declare module '@mui/material/Button' {
-  interface ButtonPropsColorOverrides {
-    customBlue: true;
-    customYellow: true;
-    customGreen: true;
-  }
-}
+const customColors = {
+  blue: { main: '#d1f0ff', text: '#3A5F5B' },
+  yellow: { main: '#FFEDAE', text: '#6C5208' },
+  beige: { main: '#E3E2D8', text: '#555451' },
+  mint: { main: '#D7ECDF', text: '#3D5A4F' },
+  red: { main: '#FFE5E5', text: '#A13453' },
+  gray: { main: '#E4E7E4', text: '#3B4859' },
+  lavender: { main: '#EAD7EC', text: '#582C5D' },
+  peach: { main: '#FFD890', text: '#754513' },
+  green: { main: '#D3E5C5', text: '#3A6E3A' },
+};
 
 const theme = createTheme({
   palette: {
@@ -27,32 +40,32 @@ const theme = createTheme({
       default: bgColor,
     },
     primary: {
-      main: '#27A562', // Green shade for primary color
-      contrastText: '#FFFFFF', // White text for strong contrast
+      main: primary.main,
+      light: primary.light,
+      dark: primary.dark,
+      contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#FFD866', // Brighter yellow for emphasis
-      contrastText: '#3C2E00', // Darker text for better readability
+      main: '#fb8500', // Orange
+      contrastText: '#FFFFFF',
     },
-    error: {
-      main: '#B33951', // Stronger red for better contrast
-      contrastText: '#FFFFFF', // Darker red text
+    tertiary: {
+      main: '#023047', // Dark Blue
+      contrastText: '#FFFFFF',
     },
     warning: {
-      main: '#F5A65B', // Stronger red for better contrast
+      main: '#ffb703', // Yellow
+      contrastText: '#000000',
+    },
+    info: {
+      main: '#d4ebf2', // Light Blue
+      contrastText: '#000000',
+    },
+    error: {
+      main: '#9a031e', // Stronger red for better contrast
       contrastText: '#FFFFFF', // Darker red text
     },
-    custom: {
-      blue: { bg: '#D0EEFF', text: '#3A5F5B' },
-      yellow: { bg: '#FFEDAE', text: '#6C5208' },
-      beige: { bg: '#E3E2D8', text: '#555451' },
-      mint: { bg: '#D7ECDF', text: '#3D5A4F' },
-      red: { bg: '#FFE5E5', text: '#A13453' },
-      gray: { bg: '#E4E7E4', text: '#3B4859' },
-      lavender: { bg: '#EAD7EC', text: '#582C5D' },
-      peach: { bg: '#FFD890', text: '#754513' },
-      green: { bg: '#D3E5C5', text: '#3A6E3A' },
-    },
+    custom: customColors,
   },
   typography: {
     htmlFontSize: 10,
@@ -114,7 +127,8 @@ const theme = createTheme({
           textTransform: 'none',
           borderRight: '1px solid rgba(0, 0, 0, 0.12)', // Vertical separator between items
           borderBottom: 'none',
-          padding: '0 12px 0 12px',
+          padding: '0 2.4rem',
+          minHeight: '4rem',
           '&:last-child': {
             borderRight: 'none',
             paddingRight: '0',
@@ -130,52 +144,22 @@ const theme = createTheme({
         root: {
           borderRadius: '8px',
           textTransform: 'none',
+          fontSize: '1.6rem',
+          padding: '0.8rem 2.4rem',
         },
       },
-      variants: [
-        {
-          props: { color: 'customBlue' },
-          style: {
-            backgroundColor: '#D0EEFF',
-            color: '#3A5F5B',
-            '&:hover': {
-              backgroundColor: '#B8D7EE',
-            },
-          },
-        },
-        {
-          props: { color: 'customYellow' },
-          style: {
-            backgroundColor: '#FFEDAE',
-            color: '#6C5208',
-            '&:hover': {
-              backgroundColor: '#FFE08C',
-            },
-          },
-        },
-        {
-          props: { color: 'customGreen' },
-          style: {
-            backgroundColor: '#D3E5C5',
-            color: '#3A6E3A',
-            '&:hover': {
-              backgroundColor: '#C4D7B3',
-            },
-          },
-        },
-      ],
     },
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: green[500],
+          backgroundColor: primary.main,
           color: '#fff',
           height: '34px',
           '&:hover': {
-            backgroundColor: green[600],
+            backgroundColor: primary.dark,
           },
           '&.MuiChip-deletable:hover': {
-            backgroundColor: green[600],
+            backgroundColor: primary.dark,
           },
         },
         label: {
@@ -229,10 +213,10 @@ const theme = createTheme({
         root: {
           backgroundColor: '#fff',
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: green[600],
+            borderColor: primary.main,
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: green[400],
+            borderColor: primary.light,
           },
         },
       },
@@ -241,8 +225,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: grey[700],
+          fontWeight: 500,
           '&.Mui-focused': {
-            color: green[600],
+            color: '#023047',
           },
         },
       },
@@ -250,19 +235,19 @@ const theme = createTheme({
     MuiSlider: {
       styleOverrides: {
         thumb: {
-          color: green[600],
+          color: primary.main,
           height: '24px',
           width: '24px',
           '&:hover': {
-            color: green[700],
+            color: primary.dark,
           },
         },
         track: {
-          color: green[300],
+          color: primary.light,
           height: '12px',
         },
         rail: {
-          color: grey[600],
+          color: grey[300],
           height: '12px',
         },
       },
@@ -298,15 +283,16 @@ const theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: green[400],
+          color: primary.light,
           '&.Mui-checked': {
-            color: green[600],
+            color: primary.main,
           },
           '&:hover': {
-            color: green[700],
+            color: primary.dark,
+            backgroundColor: 'transparent',
           },
           '&.Mui-checked:hover': {
-            backgroundColor: green[50],
+            backgroundColor: 'transparent',
           },
         },
       },
@@ -319,25 +305,24 @@ const theme = createTheme({
         switchBase: {
           '&.Mui-checked': {
             transform: 'translateX(28px)',
-            color: green[600],
+            color: primary.main,
           },
           '&.Mui-checked + .MuiSwitch-track': {
-            backgroundColor: green[300],
+            backgroundColor: primary.light,
             opacity: 1,
           },
         },
         thumb: {
-          color: green[600],
+          color: primary.main,
           '&:hover': {
-            color: green[700],
+            color: primary.dark,
           },
         },
         track: {
           backgroundColor: grey[600],
           height: '12px',
-
           '&.Mui-checked': {
-            backgroundColor: green[400],
+            backgroundColor: primary.light,
             opacity: 1,
           },
         },
@@ -357,17 +342,102 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
-          borderColor: green[300],
+          borderColor: primary.light,
           '&.Mui-selected': {
-            backgroundColor: green[500],
+            backgroundColor: primary.main,
             color: '#fff',
             '&:hover': {
-              backgroundColor: green[600],
+              backgroundColor: primary.dark,
             },
           },
           '&:hover': {
-            backgroundColor: green[50],
+            backgroundColor: primary.lighter,
           },
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: '4px 0',
+          display: 'flex',
+          alignItems: 'center',
+          '&.with-bullet::before': {
+            content: '""',
+            display: 'block',
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            marginRight: '12px',
+          },
+          '&.bullet-blue::before': {
+            backgroundColor: customColors.blue.main,
+          },
+          '&.bullet-yellow::before': {
+            backgroundColor: customColors.yellow.main,
+          },
+          '&.bullet-beige::before': {
+            backgroundColor: customColors.beige.main,
+          },
+          '&.bullet-mint::before': {
+            backgroundColor: customColors.mint.main,
+          },
+          '&.bullet-red::before': {
+            backgroundColor: customColors.red.main,
+          },
+          '&.bullet-gray::before': {
+            backgroundColor: customColors.gray.main,
+          },
+          '&.bullet-lavender::before': {
+            backgroundColor: customColors.lavender.main,
+          },
+          '&.bullet-peach::before': {
+            backgroundColor: customColors.peach.main,
+          },
+          '&.bullet-green::before': {
+            backgroundColor: customColors.green.main,
+          },
+        },
+      },
+    },
+    MuiTextarea: {
+      styleOverrides: {
+        root: {
+          padding: '1.2rem',
+          fontSize: '1.6rem',
+          fontFamily: `var(--noto-sans), sans-serif`,
+          borderRadius: '0.8rem',
+          border: `1px solid ${grey[300]}`,
+          resize: 'vertical',
+          minHeight: '12rem',
+          width: '100%',
+          backgroundColor: '#fff',
+          '&:hover': {
+            borderColor: primary.light,
+          },
+          '&:focus': {
+            outline: 'none',
+            borderColor: primary.main,
+            boxShadow: `0 0 0 2px ${primary.lighter}`,
+          },
+          '&::placeholder': {
+            color: grey[500],
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          marginLeft: 0,
+          marginRight: 0,
+          '&:hover .MuiCheckbox-root': {
+            color: primary.dark,
+            transition: 'color 0.3s ease',
+          },
+        },
+        label: {
+          fontSize: '1.6rem',
         },
       },
     },

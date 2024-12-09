@@ -34,7 +34,7 @@ type ExpeditionFormProps = {
   onClose?: VoidFunction;
   expedition?: Expedition;
   isEdit?: boolean;
-  setIsEdit: any;
+  setIsEdit?: any;
 };
 
 export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
@@ -224,14 +224,13 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
             type='button'
             onClick={() => null}
             variant='outlined'
-            color='primary'
+            color='secondary'
           >
             Cancel
           </Button>
           <Button
             type='submit'
             variant='contained'
-            color='success'
             disabled={
               !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
             }

@@ -25,7 +25,7 @@ export default function RootLayout({
         <Providers>
           <Stack height='100%'>
             <Header />
-            <>{children}</>
+            <Stack height='100%'>{children}</Stack>
           </Stack>
         </Providers>
       </body>

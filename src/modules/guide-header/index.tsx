@@ -3,6 +3,7 @@ import React, { FC, useMemo } from 'react';
 import { LanguageCode, Languages } from '../languages';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
+import { EmptyAvatar } from '@/components/core/EmptyAvatar';
 
 export enum GuideHeaderSize {
   DEFAULT = 'default',
@@ -28,7 +29,7 @@ const SIZE_STYLES: Record<
 > = {
   [GuideHeaderSize.LG]: {
     avatarSize: 160,
-    spacing: '1.6rem',
+    spacing: '2.4rem',
     typographyVariant: 'h4',
   },
   [GuideHeaderSize.DEFAULT]: {
@@ -53,21 +54,27 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
 
   return (
     <Stack direction='row' spacing={spacing}>
-      <Avatar
-        sx={{
-          width: avatarSize,
-          height: avatarSize,
-        }}
-        src={avatarSrc}
-      />
-      <Stack>
+      {avatarSrc ? (
+        <Avatar
+          sx={{
+            width: avatarSize,
+            height: avatarSize,
+          }}
+          src={avatarSrc}
+        />
+      ) : (
+        <EmptyAvatar size={avatarSize} />
+      )}
+      <Stack sx={{ minWidth: 0 }}>
         <Typography letterSpacing='0.05em' color={grey[400]}>
           WanderWorld Guide
         </Typography>
         <Typography variant={typographyVariant} component='h2' mb={spacing}>
           {fullName}
         </Typography>
-        <Languages langCodes={languages} />
+        <Stack sx={{ minWidth: 0 }}>
+          <Languages langCodes={languages} />
+        </Stack>
         {size === GuideHeaderSize.LG && (
           <Contact email={email} phoneNumber={phoneNumber} />
         )}

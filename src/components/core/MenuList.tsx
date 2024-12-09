@@ -59,7 +59,7 @@ export const MenuList: FC<MenuListProps> = ({ items }) => {
         {items.map(({ label, icon, onClick }, index) => (
           <>
             <MenuItem onClick={onClick} disableRipple key={label}>
-              <ListItemIcon color={lightGreen[500]}>{icon}</ListItemIcon>
+              <ListItemIcon color='primary'>{icon}</ListItemIcon>
               {label}
             </MenuItem>
             {index < items.length - 1 && <Divider />}

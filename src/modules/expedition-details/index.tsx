@@ -1,7 +1,14 @@
 import { FC } from 'react';
 import { Languages, LanguageCode } from '../languages';
 import { format } from 'date-fns';
-import { Typography, Stack, List, ListItem, useTheme } from '@mui/material';
+import {
+  Typography,
+  Stack,
+  List,
+  ListItem,
+  useTheme,
+  Box,
+} from '@mui/material';
 import { activities as activitiesList } from '@/lib/data/activities';
 import { getNames } from '@/utils/get-names';
 import { getRandomColor } from '@/utils/get-random-color';
@@ -22,31 +29,38 @@ export const ExpeditionDetails: FC<ExpeditionDetailsProps> = ({
 
   return (
     <Stack gap={3}>
-      <Stack flexDirection='row' alignItems='center'>
-        <Typography fontWeight='bold' sx={{ width: '140px' }}>
-          Languages
-        </Typography>
+      <Stack flexDirection='row'>
+        <Box flex='0 20rem'>
+          <Typography fontWeight={600} fontSize='1.8rem'>
+            Languages
+          </Typography>
+        </Box>
         <Languages langCodes={languages} />
       </Stack>
-
-      <Stack flexDirection='row' alignItems='center'>
-        <Typography fontWeight='bold' sx={{ width: '140px' }}>
-          First meeting
-        </Typography>
-        <Typography>
-          {format(meetingDate, 'EEEE, d MMMM yyyy HH:mm')}
+      <Stack flexDirection='row'>
+        <Box flex='0 20rem'>
+          <Typography fontWeight={600} fontSize='1.8rem'>
+            First meeting
+          </Typography>
+        </Box>
+        <Typography fontSize='1.8rem'>
+          {format(meetingDate, 'EEEE, d MMMM yyyy HH:mm')} in WanderWorld Cafe
         </Typography>
       </Stack>
       {activityNames.length > 0 && (
-        <Stack gap={1}>
-          <Typography fontWeight='bold'>Activities</Typography>
+        <Stack flexDirection='row'>
+          <Box flex='0 20rem'>
+            <Typography fontWeight={600} fontSize='1.8rem'>
+              Activities
+            </Typography>
+          </Box>
           <List sx={{ padding: 0 }}>
             {activityNames.map((name, index) => (
               <ListItem
                 key={index}
                 sx={{
-                  padding: '4px 0',
                   display: 'flex',
+                  gap: '0.6rem',
                   alignItems: 'center',
                   '&::before': {
                     content: '""',
@@ -54,12 +68,12 @@ export const ExpeditionDetails: FC<ExpeditionDetailsProps> = ({
                     width: '8px',
                     height: '8px',
                     borderRadius: '50%',
-                    marginRight: '12px',
+                    marginRight: '16px',
                     backgroundColor: getRandomColor(theme, index, 0.2),
                   },
                 }}
               >
-                <Typography>{name}</Typography>
+                <Typography fontSize='1.8rem'>{name}</Typography>
               </ListItem>
             ))}
           </List>

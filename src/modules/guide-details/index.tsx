@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GuideExpeditions } from '../guide-expeditions';
 import { MenuList } from '@/components/core/MenuList';
+import { grey } from '@mui/material/colors';
 
 export const GuideDetail = ({
   guide,
@@ -78,7 +79,13 @@ export const GuideDetail = ({
   ];
 
   return (
-    <Stack p={4} borderRadius='1.2rem' bgcolor='white' height='100%'>
+    <Stack
+      p={4}
+      borderRadius='1.2rem'
+      bgcolor='white'
+      height='100%'
+      border={`1px solid ${grey[300]}`}
+    >
       <Stack mb={4} position='relative'>
         <GuideHeader
           fullName={fullName}
@@ -98,7 +105,7 @@ export const GuideDetail = ({
       <Typography>{description}</Typography>
       <Divider sx={{ m: '3.2rem' }} />
       <Typography variant='h5' component='h3' mb='1.6rem'>
-        Upcomming Expeditions
+        Expeditions
       </Typography>
       {hasExpeditions ? (
         <GuideExpeditions expeditions={expeditions} />

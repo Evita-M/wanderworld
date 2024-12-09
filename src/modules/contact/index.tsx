@@ -1,28 +1,37 @@
 import React, { FC } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { lighten, Stack, Typography, useTheme } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import { green } from '@mui/material/colors';
 
-const ICON_COLOR = '#0C7C59';
-const ICON_BG_COLOR = green[50];
+const ICON_SIZE = '2rem';
 
 interface ContactProps {
   email?: string;
   phoneNumber?: string;
+  variant?: 'row' | 'column';
 }
 
-export const Contact: FC<ContactProps> = ({ email, phoneNumber }) => {
+export const Contact: FC<ContactProps> = ({
+  email,
+  phoneNumber,
+  variant = 'row',
+}) => {
+  const theme = useTheme();
   const contactItems = [
     {
-      icon: <MailOutlineIcon sx={{ color: ICON_COLOR }} aria-label='Email' />,
+      icon: (
+        <MailOutlineIcon
+          sx={{ color: theme.palette.primary.main, fontSize: ICON_SIZE }}
+          aria-label='Email'
+        />
+      ),
       text: email,
       link: `mailto:${email}`,
     },
     {
       icon: (
         <PhoneAndroidIcon
-          sx={{ color: ICON_COLOR }}
+          sx={{ color: theme.palette.primary.main, fontSize: ICON_SIZE }}
           aria-label='Phone Number'
         />
       ),
@@ -32,7 +41,7 @@ export const Contact: FC<ContactProps> = ({ email, phoneNumber }) => {
   ];
 
   return (
-    <Stack direction='row' gap={2} rowGap={0} flexWrap='wrap'>
+    <Stack direction={variant} gap={2} rowGap={0} flexWrap='wrap'>
       {contactItems
         .filter((item) => item.text)
         .map((item, index) => (
@@ -43,7 +52,7 @@ export const Contact: FC<ContactProps> = ({ email, phoneNumber }) => {
               height='3.4rem'
               width='3.4rem'
               borderRadius='50%'
-              bgcolor={ICON_BG_COLOR}
+              bgcolor={lighten(theme.palette.primary.main, 0.85)}
             >
               {item.icon}
             </Stack>

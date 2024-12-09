@@ -15,10 +15,6 @@ const navLinks: LinkType[] = [
     href: routes.expeditions,
   },
   {
-    label: 'Destinations',
-    href: routes.destinations,
-  },
-  {
     label: 'Guides',
     href: routes.guides,
   },

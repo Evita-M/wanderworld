@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, SxProps, Theme } from '@mui/material';
 import Link from 'next/link';
 import React, { FC } from 'react';
 
@@ -7,6 +7,8 @@ interface PageHeaderProps {
   subtitle?: string;
   buttonLabel?: string;
   href?: string;
+  onClick?: () => void;
+  sx?: SxProps<Theme>;
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -14,18 +16,33 @@ export const PageHeader: FC<PageHeaderProps> = ({
   subtitle,
   buttonLabel,
   href,
+  onClick,
+  sx,
 }) => {
   return (
-    <div>
+    <Stack sx={sx}>
       <Stack direction='row' alignItems='center' justifyContent='space-between'>
         <Typography variant='h1'>{title}</Typography>
-        {href && buttonLabel && (
+        {buttonLabel && (
           <Box>
-            <Link href={href} passHref>
-              <Button size='large' variant='contained'>
+            {onClick ? (
+              <Button
+                size='large'
+                variant='contained'
+                color='secondary'
+                onClick={onClick}
+              >
                 {buttonLabel}
               </Button>
-            </Link>
+            ) : (
+              href && (
+                <Link href={href} passHref>
+                  <Button size='large' variant='contained' color='secondary'>
+                    {buttonLabel}
+                  </Button>
+                </Link>
+              )
+            )}
           </Box>
         )}
       </Stack>
@@ -34,6 +51,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
           {subtitle}
         </Typography>
       )}
-    </div>
+    </Stack>
   );
 };

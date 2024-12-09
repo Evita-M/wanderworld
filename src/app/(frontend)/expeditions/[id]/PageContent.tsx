@@ -12,6 +12,8 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useModal } from 'hooks/useModal';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'hooks/useSnackbar';
+import { useGetGuideQuery } from '@/redux/api/guideApi';
+import { PageHeader } from '@/modules/page-header';
 
 const PageContent = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -23,6 +25,8 @@ const PageContent = () => {
   const router = useRouter();
   const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] =
     useDeleteExpeditionMutation();
+  const { data: guide } = useGetGuideQuery(expedition?.guideId as string);
+
   const onDelete = async (id: string) => {
     try {
       if (id) {
@@ -94,7 +98,6 @@ const PageContent = () => {
             >
               Delete
             </Button>
-
             <Button
               onClick={() => setIsEdit(true)}
               variant='contained'
@@ -112,7 +115,7 @@ const PageContent = () => {
             setIsEdit={setIsEdit}
           />
         ) : (
-          <ExpeditionDetail expedition={expedition} />
+          <ExpeditionDetail expedition={expedition} guide={guide} />
         )}
       </Box>
     );

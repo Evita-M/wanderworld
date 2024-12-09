@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { Button, CircularProgress, Stack } from '@mui/material';
 import { FC } from 'react';
-import { guideSchema, GuideSchema } from '@/type/guideSchema';
+import { guideSchema, GuideSchema, initialValues } from '@/type/guideSchema';
 import { Guide } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateGuideMutation } from '@/redux/api/guideApi';
@@ -27,27 +27,29 @@ export const GuideForm: FC<GuideFormProps> = ({
 }) => {
   const [createGuide, { isLoading: isCreateGuideLoading }] =
     useCreateGuideMutation();
-
   const { showSnackBar } = useSnackbar();
   const isSubmitLoading = isCreateGuideLoading;
 
-  const { handleSubmit, register, formState, watch, setValue, control } =
-    useForm<GuideSchema>({
-      defaultValues: guide
-        ? {
-            firstName: guide.firstName,
-            lastName: guide.lastName,
-            phoneNumber: guide.phoneNumber,
-            description: guide.description || '',
-            avatar: guide.avatar,
-            email: guide.email,
-            languages: guide.languages,
-          }
-        : undefined,
-      resolver: zodResolver(guideSchema),
-    });
-
-  const { isValid, errors } = formState;
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isValid },
+    control,
+  } = useForm<GuideSchema>({
+    defaultValues: guide
+      ? {
+          firstName: guide.firstName,
+          lastName: guide.lastName,
+          phoneNumber: guide.phoneNumber,
+          description: guide.description || '',
+          avatar: guide.avatar,
+          email: guide.email,
+          languages: guide.languages,
+        }
+      : initialValues,
+    resolver: zodResolver(guideSchema),
+    mode: 'onChange',
+  });
 
   async function onSubmit(data: GuideSchema) {
     const guideData: Partial<Guide> = {
@@ -93,12 +95,16 @@ export const GuideForm: FC<GuideFormProps> = ({
         />
         <RHFTextField<GuideSchema>
           label='Email'
+          error={!!errors.email}
           errorMessage={errors.email?.message}
+          helperText={errors.email?.message}
           {...register('email')}
         />
         <RHFTextField<GuideSchema>
           label='Phone Number'
+          error={!!errors.phoneNumber}
           errorMessage={errors.phoneNumber?.message}
+          helperText={errors.phoneNumber?.message}
           {...register('phoneNumber')}
         />
         <RHFTextField<GuideSchema>
@@ -122,24 +128,23 @@ export const GuideForm: FC<GuideFormProps> = ({
         <Button
           type='button'
           variant='outlined'
-          color='warning'
+          color='secondary'
           fullWidth
           onClick={onClose}
-          disabled={isDisabled}
+          disabled={isDisabled || isSubmitLoading}
         >
           Cancel
         </Button>
         <Button
           type='submit'
           variant='contained'
-          color='warning'
           startIcon={
             isSubmitLoading ? (
               <CircularProgress color='inherit' size='16px' />
             ) : null
           }
           fullWidth
-          disabled={!errors || !isValid || isSubmitLoading || isDisabled}
+          disabled={!isValid || isSubmitLoading || isDisabled}
         >
           {guide ? ' Edit Guide' : 'Add Guide'}
         </Button>

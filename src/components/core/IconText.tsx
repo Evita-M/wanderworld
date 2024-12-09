@@ -8,7 +8,7 @@ interface IconWithTextProps {
 
 export const IconText: React.FC<IconWithTextProps> = ({ icon, text }) => {
   return (
-    <Box display='flex' alignItems='center' gap={1}>
+    <Box display='flex' alignItems='center' gap='1.2rem'>
       {icon}
       <Typography>{text}</Typography>
     </Box>

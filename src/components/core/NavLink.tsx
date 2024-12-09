@@ -3,7 +3,6 @@ import { Typography } from '@mui/material';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { usePathname } from 'next/navigation';
-import { grey, deepOrange, brown, lightGreen } from '@mui/material/colors';
 
 export type Link = {
   label: string;
@@ -16,14 +15,13 @@ type NavLinkProps = {
 
 export const NavLink: FC<NavLinkProps> = ({ link }) => {
   const pathname = usePathname();
-
   const isActive = pathname === link.href;
 
   return (
     <Link href={link.href}>
       <Typography
         component='span'
-        color={isActive ? lightGreen[900] : grey[800]}
+        color={isActive ? 'primary' : 'default'}
         fontWeight={600}
         fontSize='1.8rem'
       >

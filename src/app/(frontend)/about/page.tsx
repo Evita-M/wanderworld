@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import PageContent from './PageContent';
+import { PageContainer } from '@/components/core/PageContainer';
+import { routes } from '@/routes/index';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
 };
 
 const About = () => {
-  return <PageContent />;
+  <PageContainer>
+    <PageContent />
+  </PageContainer>;
 };
 
 export default About;

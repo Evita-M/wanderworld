@@ -62,7 +62,7 @@ const theme = createTheme({
       contrastText: '#000000',
     },
     error: {
-      main: '#9a031e', // Stronger red for better contrast
+      main: '#C70039', // Stronger red for better contrast
       contrastText: '#FFFFFF', // Darker red text
     },
     custom: customColors,
@@ -144,8 +144,26 @@ const theme = createTheme({
         root: {
           borderRadius: '8px',
           textTransform: 'none',
-          fontSize: '1.6rem',
+          fontWeight: 500,
+          lineHeight: 1.5,
+        },
+        sizeSmall: {
+          padding: '0.6rem 1.6rem',
+          fontSize: '1.4rem',
+          height: '3.2rem',
+          minWidth: '8rem',
+        },
+        sizeMedium: {
           padding: '0.8rem 2.4rem',
+          fontSize: '1.6rem',
+          height: '4rem',
+          minWidth: '10rem',
+        },
+        sizeLarge: {
+          padding: '1.2rem 3.2rem',
+          fontSize: '1.8rem',
+          height: '4.8rem',
+          minWidth: '12rem',
         },
       },
     },

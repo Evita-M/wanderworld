@@ -8,7 +8,7 @@ export const expeditionSchema = z.object({
   name: z.string().min(1, { message: 'Expedition name is required' }),
   description: z
     .string()
-    .min(50, { message: 'Desctiption should be min 50 characters' }),
+    .min(10, { message: 'Desctiption should be min 10 characters' }),
   countries: z
     .array(z.string())
     .min(1, { message: 'At least one state is required' })

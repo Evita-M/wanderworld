@@ -1,4 +1,10 @@
-import { Container, Slider, Stack, Typography } from '@mui/material';
+import {
+  Container,
+  FormHelperText,
+  Slider,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 
 type RHFSliderProps<T extends FieldValues> = {
@@ -6,6 +12,7 @@ type RHFSliderProps<T extends FieldValues> = {
   label: string;
   control: any;
   limit: number[];
+  errorMessage?: string;
 };
 
 export function RHFSlider<T extends FieldValues>({
@@ -13,6 +20,7 @@ export function RHFSlider<T extends FieldValues>({
   label,
   control,
   limit,
+  errorMessage,
 }: RHFSliderProps<T>) {
   return (
     <Controller
@@ -31,6 +39,7 @@ export function RHFSlider<T extends FieldValues>({
               valueLabelDisplay='auto'
             />
           </Container>
+          {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
         </Stack>
       )}
     />

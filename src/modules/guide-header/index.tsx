@@ -1,9 +1,9 @@
-import { Avatar, Stack, Typography, TypographyProps } from '@mui/material';
+import { Stack, Typography, TypographyProps } from '@mui/material';
 import React, { FC, useMemo } from 'react';
 import { LanguageCode, Languages } from '../languages';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
-import { EmptyAvatar } from '@/components/core/EmptyAvatar';
+import { Avatar } from '@/components/Avatar';
 
 export enum GuideHeaderSize {
   DEFAULT = 'default',
@@ -54,17 +54,7 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
 
   return (
     <Stack direction='row' spacing={spacing}>
-      {avatarSrc ? (
-        <Avatar
-          sx={{
-            width: avatarSize,
-            height: avatarSize,
-          }}
-          src={avatarSrc}
-        />
-      ) : (
-        <EmptyAvatar size={avatarSize} />
-      )}
+      <Avatar size={avatarSize} src={avatarSrc} />
       <Stack sx={{ minWidth: 0 }}>
         <Typography letterSpacing='0.05em' color={grey[400]}>
           WanderWorld Guide

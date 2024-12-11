@@ -1,22 +1,24 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'next/navigation';
 import {
   useDeleteExpeditionMutation,
   useGetExpeditionQuery,
 } from '@/redux/api/expeditionApi';
+
 import { Loader } from '@/components/core/Loader';
 import { ExpeditionDetail } from '@/modules/expedition-detail';
-import { ExpeditionsForm } from '@/modules/forms/ExpeditionForm';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useModal } from 'hooks/useModal';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuideQuery } from '@/redux/api/guideApi';
 import { PageHeader } from '@/modules/page-header';
+import { routes } from '@/routes/index';
+import { ExpeditionActions } from '@/modules/expedition-edit';
+import { ConfirmationModal } from '@/components/core/ConfirmationModal';
 
 const PageContent = () => {
-  const [isEdit, setIsEdit] = useState<boolean>(false);
   const { id } = useParams();
   const { openModal, closeModal } = useModal();
   const { data: expedition, isLoading: isExpeditionLoading } =
@@ -42,86 +44,49 @@ const PageContent = () => {
 
   const handleOnDelete = () => {
     openModal({
-      content: (
-        <>
-          <Typography mb='2.4rem'>
-            Are you sure you want to delete expedition {expedition?.name}?
-          </Typography>
-          <Stack direction='row' gap='1.2rem'>
-            <Button
-              variant='outlined'
-              color='warning'
-              onClick={closeModal}
-              fullWidth
-            >
-              Cancel
-            </Button>
-            <Button
-              variant='contained'
-              onClick={() => onDelete(expedition?.id as string)}
-              disabled={isDeleteExpeditionLoading}
-              color='warning'
-              fullWidth
-            >
-              Delete
-            </Button>
-          </Stack>
-        </>
-      ),
       title: 'Delete expedition',
+      content: (
+        <ConfirmationModal
+          text={`Are you sure you want to delete expedition ${expedition?.name}?`}
+          submitBtnLabel='Delete'
+          onCancel={closeModal}
+          onSubmit={() => onDelete(expedition?.id as string)}
+          isDisabled={isDeleteExpeditionLoading}
+        />
+      ),
     });
   };
 
-  const renderExpeditionDetails = () => {
-    if (!expedition) {
-      return null; // Return null or some fallback UI if expedition is undefined
-    }
-
-    return (
-      <Box p='1.6rem'>
-        <Stack
-          mb='2rem'
-          direction='row'
-          alignItems='center'
-          justifyContent='space-between'
-        >
-          <Box>
-            <Typography variant='h1'>{expedition.name}</Typography>
-          </Box>
-          <Stack gap='1.2rem' direction='row'>
-            <Button
-              onClick={handleOnDelete}
-              variant='contained'
-              size='large'
-              color='warning'
-              disabled={isDeleteExpeditionLoading}
-            >
-              Delete
-            </Button>
-            <Button
-              onClick={() => setIsEdit(true)}
-              variant='contained'
-              size='large'
-              disabled={isDeleteExpeditionLoading}
-            >
-              Edit
-            </Button>
-          </Stack>
-        </Stack>
-        {isEdit ? (
-          <ExpeditionsForm
-            expedition={expedition}
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-          />
-        ) : (
-          <ExpeditionDetail expedition={expedition} guide={guide} />
-        )}
-      </Box>
-    );
+  const handleEdit = () => {
+    router.push(`${routes.expeditions}/${id}/edit`);
   };
 
-  return <>{isExpeditionLoading ? <Loader /> : renderExpeditionDetails()}</>;
+  if (!expedition && !isExpeditionLoading) {
+    return <Typography>Expedition not found</Typography>;
+  }
+
+  return (
+    <>
+      {isExpeditionLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Stack
+            mb='2rem'
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Box>
+              <PageHeader title={expedition!.name} />
+            </Box>
+            <ExpeditionActions onEdit={handleEdit} onDelete={handleOnDelete} />
+          </Stack>
+          <ExpeditionDetail expedition={expedition!} guide={guide} />
+        </>
+      )}
+    </>
+  );
 };
 
 export default PageContent;

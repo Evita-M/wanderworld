@@ -9,6 +9,7 @@ type RHFAutocompleteProps<T extends FieldValues> = {
   options: Option[];
   label: string;
   control: any;
+  errorMessage?: string;
 };
 
 export function RHFAutocomplete<T extends FieldValues>({
@@ -16,6 +17,7 @@ export function RHFAutocomplete<T extends FieldValues>({
   options,
   label,
   control,
+  errorMessage,
 }: RHFAutocompleteProps<T>) {
   return (
     <Controller
@@ -45,7 +47,7 @@ export function RHFAutocomplete<T extends FieldValues>({
               fullWidth
               inputRef={ref}
               error={!!error}
-              helperText={error?.message}
+              helperText={errorMessage}
               label={label}
             />
           )}

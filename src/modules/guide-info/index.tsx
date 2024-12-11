@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
-import { Avatar, Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { Guide } from '@prisma/client';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
-
-import { EmptyAvatar } from '@/components/core/EmptyAvatar';
+import { Avatar } from '@/components/Avatar';
 
 interface GuideInfoProps {
   guide?: Guide;
@@ -26,24 +25,9 @@ const GuideLabel: FC = () => {
   );
 };
 
-const GuideAvatar: React.FC<{ guide: Guide }> = ({
-  guide,
-}: {
-  guide: Guide;
-}) => (
-  <Avatar
-    src={guide.avatar}
-    alt={`${guide.firstName} ${guide.lastName}`}
-    sx={{
-      width: 140,
-      height: 140,
-    }}
-  />
-);
-
 const GuideDetails: FC<{ guide: Guide }> = ({ guide }: { guide: Guide }) => (
   <Stack alignItems='center' textAlign='center'>
-    <GuideAvatar guide={guide} />
+    <Avatar src={guide.avatar} alt={`${guide.firstName} ${guide.lastName}`} />
     <Typography variant='h6' pt='1.2rem'>
       {guide.firstName} {guide.lastName}
     </Typography>
@@ -57,7 +41,7 @@ const GuideDetails: FC<{ guide: Guide }> = ({ guide }: { guide: Guide }) => (
 
 const EmptyGuide: FC = () => (
   <>
-    <EmptyAvatar size={140} />
+    <Avatar />
     <Typography variant='h6' pt='1.2rem'>
       No Guide
     </Typography>

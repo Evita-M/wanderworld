@@ -26,18 +26,13 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {buttonLabel && (
           <Box>
             {onClick ? (
-              <Button
-                size='large'
-                variant='contained'
-                color='secondary'
-                onClick={onClick}
-              >
+              <Button variant='contained' color='secondary' onClick={onClick}>
                 {buttonLabel}
               </Button>
             ) : (
               href && (
                 <Link href={href} passHref>
-                  <Button size='large' variant='contained' color='secondary'>
+                  <Button variant='contained' color='secondary'>
                     {buttonLabel}
                   </Button>
                 </Link>

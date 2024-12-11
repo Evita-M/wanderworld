@@ -24,7 +24,7 @@ export const ExpeditionDetail: FC<ExpeditionDetailProps> = ({
   const countryNames = getNames(expedition.countries, countries);
 
   return (
-    <PageContainer>
+    <>
       <Stack flexDirection='row' mb='3.2rem' gap='4.4rem'>
         <DateRange
           startDate={expedition.startDate}
@@ -50,6 +50,6 @@ export const ExpeditionDetail: FC<ExpeditionDetailProps> = ({
       <Stack maxWidth='120rem' p='1rem'>
         <ExpeditionInfo expedition={expedition} />
       </Stack>
-    </PageContainer>
+    </>
   );
 };

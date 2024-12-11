@@ -5,12 +5,10 @@ import { Stack } from '@mui/material';
 import {
   useDeleteGuideMutation,
   useGetGuidesQuery,
-  useUpdateGuideMutation,
 } from '@/redux/api/guideApi';
-import { GuideForm } from '@/modules/forms/GuideForm';
-import { useModal } from 'hooks/useModal';
+
 import { GuideItem } from '@/modules/guide-item';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GuideDetail } from '@/modules/guide-details';
 import { Guide } from '@prisma/client';
 import { PageHeader } from '@/modules/page-header';
@@ -19,12 +17,7 @@ import { EmptyState } from '@/components/core/EmptyState';
 import { routes } from '@/routes/index';
 
 const Guides: FC = () => {
-  const { openModal, closeModal } = useModal();
-  const {
-    data: guides,
-    isLoading: isGetGuidesLoading,
-    refetch: refetchGuides,
-  } = useGetGuidesQuery();
+  const { data: guides, isLoading: isGetGuidesLoading } = useGetGuidesQuery();
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -32,16 +25,6 @@ const Guides: FC = () => {
   const guideId = searchParams.get('guideId');
   const [deleteGuide, { isLoading: isDeleteGuideLoading }] =
     useDeleteGuideMutation();
-  const [
-    updateGuide,
-    { isLoading: isUpdateGuideLoading, isSuccess: isUpdateGuideSuccess },
-  ] = useUpdateGuideMutation();
-
-  useEffect(() => {
-    if (isUpdateGuideSuccess) {
-      refetchGuides();
-    }
-  }, [refetchGuides, isUpdateGuideSuccess]);
 
   useEffect(() => {
     if (guides?.length && !guideId) {
@@ -56,20 +39,6 @@ const Guides: FC = () => {
     router.push(`?${params.toString()}`);
   };
 
-  const handleEditGuide = (guide: Guide) => {
-    openModal({
-      content: (
-        <GuideForm
-          guide={guide}
-          onClose={closeModal}
-          onEdit={updateGuide}
-          isDisabled={isUpdateGuideLoading}
-        />
-      ),
-      title: 'Edit a guide',
-    });
-  };
-
   const handleDeleteGuide = async (id: string) => {
     await deleteGuide(id);
     params.delete('guideId');
@@ -78,16 +47,16 @@ const Guides: FC = () => {
 
   const selectedGuide = guides?.find((guide) => guide.id === guideId) || null;
 
-  const handleAddNewGuide = () => router.push(routes.newGuide);
-
   return (
     <Stack height='100%' gap='3rem'>
       <PageHeader
         title='Guides'
         buttonLabel='Add new guide'
-        onClick={handleAddNewGuide}
+        href={routes.newGuide}
       />
       <Stack
+        alignItems='center'
+        justifyContent='center'
         sx={{
           height: 'calc(100vh - 24rem)',
           overflow: 'hidden',
@@ -112,7 +81,6 @@ const Guides: FC = () => {
                 <GuideDetail
                   guide={selectedGuide}
                   onDelete={handleDeleteGuide}
-                  onEdit={handleEditGuide}
                   isDisabled={isDeleteGuideLoading}
                 />
               )}

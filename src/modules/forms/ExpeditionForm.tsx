@@ -27,23 +27,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Expedition, Guide } from '@prisma/client';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import { routes } from '@/routes/index';
-import { useRouter } from 'next/navigation';
 
-type ExpeditionFormProps = {
-  onClose?: VoidFunction;
+interface ExpeditionsFormProps {
   expedition?: Expedition;
   isEdit?: boolean;
-  setIsEdit?: any;
-};
+  onCancel?: VoidFunction;
+  onSuccess?: VoidFunction;
+}
 
-export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
+export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
   expedition,
-  onClose,
-  isEdit = false,
-  setIsEdit,
+  isEdit,
+  onCancel,
+  onSuccess,
 }) => {
-  const router = useRouter();
   const [
     createExpedition,
     {
@@ -81,35 +78,25 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
     : defaultValues;
 
   const {
-    watch,
     control,
-    unregister,
     reset,
-    setValue,
     handleSubmit,
     register,
-    formState: { isValid },
+    formState: { errors, isValid },
   } = useForm<ExpeditionSchema>({
     defaultValues: isEdit && expedition ? expDefaultValues : defaultValues,
     resolver: zodResolver(expeditionSchema),
+    mode: 'onChange',
   });
 
-  const { showSnackBar } = useSnackbar();
-
+  // Add useEffect to update form when expedition changes
   useEffect(() => {
-    if (isCreateExpeditionSuccess) {
-      reset();
+    if (expedition && isEdit) {
+      reset(expDefaultValues);
     }
-    if (isUpdateExeditionSuccess) {
-      setIsEdit(false);
-    }
-  }, [
-    reset,
-    isCreateExpeditionSuccess,
-    isUpdateExeditionSuccess,
-    setIsEdit,
-    expedition,
-  ]);
+  }, [expedition, isEdit]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const { showSnackBar } = useSnackbar();
 
   // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
@@ -146,7 +133,7 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
         await createExpedition(expeditionData);
         showSnackBar('New expedition created successfully!', 'success');
       }
-      onClose?.();
+      onSuccess?.();
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error occurred';
@@ -166,28 +153,33 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
         <Stack sx={{ gap: 4 }} mb='24px'>
           <RHFTextField<ExpeditionSchema>
             label='Expedtition name'
+            errorMessage={errors.name?.message}
             {...register('name')}
           />
           <RHFTextField<ExpeditionSchema>
             label='Description'
+            errorMessage={errors.description?.message}
             {...register('description')}
           />
           <RHFAutocomplete<ExpeditionSchema>
             label='Countries'
             options={countries}
             control={control}
+            errorMessage={errors.countries?.message}
             {...register('countries')}
           />
           <RHFAutocomplete<ExpeditionSchema>
             label='Languages'
             options={languages}
             control={control}
+            errorMessage={errors.languages?.message}
             {...register('languages')}
           />
           <RHFCheckbox<ExpeditionSchema>
             label='Activities'
             options={activities}
             control={control}
+            errorMessage={errors.activities?.message}
             {...register('activities')}
           />
           <RHFDateTimePicker<ExpeditionSchema>
@@ -204,12 +196,14 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
             label='Group size'
             limit={[0, 40]}
             control={control}
+            errorMessage={errors.groupSize?.message}
             {...register('groupSize')}
           />
           <RHFSelect<ExpeditionSchema>
             label='Guide'
             options={guidesOptions || []}
             control={control}
+            errorMessage={errors.guide?.message}
             {...register('guide')}
           />
         </Stack>
@@ -220,14 +214,16 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
             justifyContent: 'space-between',
           }}
         >
-          <Button
-            type='button'
-            onClick={() => null}
-            variant='outlined'
-            color='secondary'
-          >
-            Cancel
-          </Button>
+          {onCancel && (
+            <Button
+              type='button'
+              onClick={onCancel}
+              variant='outlined'
+              color='secondary'
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             type='submit'
             variant='contained'
@@ -235,7 +231,7 @@ export const ExpeditionsForm: FC<ExpeditionFormProps> = ({
               !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
             }
           >
-            {expedition ? 'Edit expedition' : 'Add expedition'}
+            {isEdit ? 'Save changes' : 'Create expedition'}
           </Button>
         </Stack>
       </Container>

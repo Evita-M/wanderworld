@@ -28,11 +28,12 @@ const initData: ModalContextProps = {
 };
 
 const modalWrapperStyles = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  maxWidth: '48rem',
+  width: '100%',
   bgcolor: 'background.paper',
   borderRadius: '2.4rem',
   boxShadow: 24,
@@ -43,19 +44,19 @@ const ModalContext = createContext<ModalContextProps>(initData);
 
 const ModalProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [modalContent, setModalContent] = useState<ReactElement | null>(null);
-  const [modalTitle, setModalTitle] = useState<string | undefined>(undefined);
+  const [content, setContent] = useState<ReactElement | null>(null);
+  const [title, setTitle] = useState<string | undefined>(undefined);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    setModalContent(null);
-    setModalTitle(undefined);
+    setContent(null);
+    setTitle(undefined);
   }, []);
 
   const openModal = useCallback(
     ({ content, title }: { content: ReactElement; title?: string }) => {
-      setModalContent(content);
-      setModalTitle(title);
+      setContent(content);
+      setTitle(title);
       setIsOpen(true);
     },
     []
@@ -66,12 +67,12 @@ const ModalProvider: FC<PropsWithChildren> = ({ children }) => {
       {children}
       <Modal open={isOpen} onClose={closeModal}>
         <Box sx={modalWrapperStyles}>
-          {modalTitle && (
-            <Typography component='h2' variant='h4' mb='2.4rem'>
-              {modalTitle}
+          {title && (
+            <Typography component='h2' variant='h5' mb='1.6rem'>
+              {title}
             </Typography>
           )}
-          {modalContent}
+          {content}
         </Box>
       </Modal>
     </ModalContext.Provider>

@@ -1,5 +1,5 @@
 import { useModal } from 'hooks/useModal';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { Guide } from '@prisma/client';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { GuideExpeditions } from '../guide-expeditions';
 import { MenuList } from '@/components/core/MenuList';
 import { grey } from '@mui/material/colors';
+import { ConfirmationModal } from '@/components/core/ConfirmationModal';
 
 export const GuideDetail = ({
   guide,
@@ -33,39 +34,20 @@ export const GuideDetail = ({
   } = guide;
   const fullName = `${firstName} ${lastName}`;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { openModal, closeModal } = useModal();
   const hasExpeditions = expeditions?.length > 0;
 
   const handleOnDelete = () => {
     openModal({
-      content: (
-        <>
-          <Typography mb='2.4rem'>
-            Are you sure you want to delete {fullName}?
-          </Typography>
-          <Stack direction='row' gap='1.2rem'>
-            <Button
-              variant='outlined'
-              color='warning'
-              onClick={closeModal}
-              fullWidth
-            >
-              Cancel
-            </Button>
-            <Button
-              variant='contained'
-              onClick={() => onDelete(id)}
-              disabled={isDisabled}
-              color='warning'
-              fullWidth
-            >
-              Delete
-            </Button>
-          </Stack>
-        </>
-      ),
       title: 'Delete guide',
+      content: (
+        <ConfirmationModal
+          text={`Are you sure you want to delete ${fullName}?`}
+          onSubmit={() => onDelete(id)}
+          isDisabled={isDisabled}
+        />
+      ),
     });
   };
 

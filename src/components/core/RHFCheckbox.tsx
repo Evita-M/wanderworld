@@ -17,6 +17,7 @@ type RHFCheckboxProps<T extends FieldValues> = {
   control: any;
   options?: Option[];
   label?: string;
+  errorMessage?: string;
 };
 
 export function RHFCheckbox<T extends FieldValues>({
@@ -24,6 +25,7 @@ export function RHFCheckbox<T extends FieldValues>({
   control,
   options,
   label,
+  errorMessage,
 }: RHFCheckboxProps<T>) {
   console.log(options);
   return (
@@ -67,7 +69,7 @@ export function RHFCheckbox<T extends FieldValues>({
                 ))}
               </Grid>
             </FormGroup>
-            <FormHelperText>{error?.message}</FormHelperText>
+            {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
           </FormControl>
         )}
       />

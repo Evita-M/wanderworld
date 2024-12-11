@@ -3,4 +3,5 @@ export const routes = {
   newGuide: 'new',
   expeditions: '/expeditions',
   newExpedition: 'new',
+  editExpedition: 'edit',
 } as const;

@@ -23,8 +23,8 @@ const PageContent = () => {
   }
 
   return (
-    <Stack height='100%' gap='3rem'>
-      <PageHeader title='Edit Expedition' />
+    <Stack height='100%'>
+      <PageHeader title='Edit Expedition' sx={{ mb: '4rem' }} />
       {isExpeditionLoading ? (
         <Box
           display='flex'

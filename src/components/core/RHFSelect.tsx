@@ -1,4 +1,10 @@
-import { FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 
 import { Option } from '@/type/option';
@@ -8,7 +14,6 @@ type RHFSelectProps<T extends FieldValues> = {
   options: Option[];
   label: string;
   control: any;
-  defaultValue?: string;
   errorMessage?: string;
 };
 
@@ -17,7 +22,6 @@ export function RHFSelect<T extends FieldValues>({
   options,
   label,
   control,
-  defaultValue = '',
   errorMessage,
 }: RHFSelectProps<T>) {
   return (
@@ -25,14 +29,16 @@ export function RHFSelect<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field }) => (
-        <>
+        <FormControl fullWidth>
           <InputLabel id={`${name}-label`}>{label}</InputLabel>
           <Select
             labelId={`${name}-label`}
-            defaultValue={defaultValue}
-            {...field}
+            label={label}
             id={name}
+            {...field}
+            value={field.value ?? ''}
           >
+            <MenuItem value=''>No guide</MenuItem>
             {options.map((option) => (
               <MenuItem value={option.id} key={option.id}>
                 {option.label}
@@ -40,7 +46,7 @@ export function RHFSelect<T extends FieldValues>({
             ))}
           </Select>
           {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-        </>
+        </FormControl>
       )}
     />
   );

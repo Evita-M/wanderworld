@@ -19,6 +19,7 @@ const RHFTextField = <T extends FieldValues>(
       inputRef={inputRef || ref}
       error={!!errorMessage}
       helperText={errorMessage}
+      fullWidth
       {...props}
     />
   );

@@ -41,6 +41,9 @@ export function RHFAutocomplete<T extends FieldValues>({
           isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
           disableCloseOnSelect
           multiple
+          ListboxProps={{
+            style: { maxHeight: '20rem', overflow: 'auto' },
+          }}
           renderInput={(params) => (
             <TextField
               {...params}

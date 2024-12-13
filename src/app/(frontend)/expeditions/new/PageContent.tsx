@@ -14,7 +14,7 @@ const PageContent = () => {
   return (
     <PageContainer>
       <PageHeader title='New expedition' sx={{ mb: '4rem' }} />
-      <Box maxWidth='sm' m='0 auto' width='100%'>
+      <Box maxWidth='lg' m='0 auto' width='100%'>
         <ExpeditionsForm
           onSuccess={redirectToExpeditions}
           onCancel={redirectToExpeditions}

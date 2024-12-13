@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Button, Container, Stack } from '@mui/material';
+import { Button, Container, Grid, Stack } from '@mui/material';
 import { FC, useEffect, useMemo } from 'react';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { RHFCheckbox } from '@/components/core/RHFCheckbox';
@@ -82,6 +82,7 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
     reset,
     handleSubmit,
     register,
+    watch,
     formState: { errors, isValid },
   } = useForm<ExpeditionSchema>({
     defaultValues: isEdit && expedition ? expDefaultValues : defaultValues,
@@ -142,63 +143,16 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
   }
 
   return (
-    <Stack
-      maxWidth='lg'
-      m='0 auto'
-      direction='row'
-      component='form'
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Container>
-        <Stack sx={{ gap: 4 }} mb='24px'>
+    <Stack component='form' onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
           <RHFTextField<ExpeditionSchema>
             label='Expedtition name'
             errorMessage={errors.name?.message}
             {...register('name')}
           />
-          <RHFTextField<ExpeditionSchema>
-            label='Description'
-            errorMessage={errors.description?.message}
-            {...register('description')}
-          />
-          <RHFAutocomplete<ExpeditionSchema>
-            label='Countries'
-            options={countries}
-            control={control}
-            errorMessage={errors.countries?.message}
-            {...register('countries')}
-          />
-          <RHFAutocomplete<ExpeditionSchema>
-            label='Languages'
-            options={languages}
-            control={control}
-            errorMessage={errors.languages?.message}
-            {...register('languages')}
-          />
-          <RHFCheckbox<ExpeditionSchema>
-            label='Activities'
-            options={activities}
-            control={control}
-            errorMessage={errors.activities?.message}
-            {...register('activities')}
-          />
-          <RHFDateTimePicker<ExpeditionSchema>
-            label='First expedition meeting'
-            control={control}
-            {...register('meetingDate')}
-          />
-          <RHFDateRangePicker<ExpeditionSchema>
-            label='Expedition duration'
-            control={control}
-            {...register('tourDuration')}
-          />
-          <RHFSlider<ExpeditionSchema>
-            label='Group size'
-            limit={[0, 40]}
-            control={control}
-            errorMessage={errors.groupSize?.message}
-            {...register('groupSize')}
-          />
+        </Grid>
+        <Grid item xs={6}>
           <RHFSelect<ExpeditionSchema>
             label='Guide'
             options={guidesOptions || []}
@@ -206,35 +160,84 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
             errorMessage={errors.guide?.message}
             {...register('guide')}
           />
-        </Stack>
-        <Stack
-          marginTop='32px'
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          {onCancel && (
-            <Button
-              type='button'
-              onClick={onCancel}
-              variant='outlined'
-              color='secondary'
-            >
-              Cancel
-            </Button>
-          )}
+        </Grid>
+        <Grid item xs={6}>
+          <RHFDateTimePicker<ExpeditionSchema>
+            label='First expedition meeting'
+            control={control}
+            {...register('meetingDate')}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <RHFAutocomplete<ExpeditionSchema>
+            label='Languages'
+            options={languages}
+            control={control}
+            errorMessage={errors.languages?.message}
+            {...register('languages')}
+          />
+        </Grid>
+      </Grid>
+      <RHFAutocomplete<ExpeditionSchema>
+        label='Countries'
+        options={countries}
+        control={control}
+        errorMessage={errors.countries?.message}
+        {...register('countries')}
+      />
+      <RHFTextField<ExpeditionSchema>
+        label='Description'
+        errorMessage={errors.description?.message}
+        {...register('description')}
+      />
+      <RHFCheckbox<ExpeditionSchema>
+        label='Activities'
+        options={activities}
+        control={control}
+        errorMessage={errors.activities?.message}
+        {...register('activities')}
+      />
+
+      <RHFDateRangePicker<ExpeditionSchema>
+        label='Expedition duration'
+        control={control}
+        {...register('tourDuration')}
+      />
+      <RHFSlider<ExpeditionSchema>
+        label='Group size'
+        limit={[0, 40]}
+        control={control}
+        errorMessage={errors.groupSize?.message}
+        {...register('groupSize')}
+      />
+
+      <Stack
+        marginTop='32px'
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        {onCancel && (
           <Button
-            type='submit'
-            variant='contained'
-            disabled={
-              !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
-            }
+            type='button'
+            onClick={onCancel}
+            variant='outlined'
+            color='secondary'
           >
-            {isEdit ? 'Save changes' : 'Create expedition'}
+            Cancel
           </Button>
-        </Stack>
-      </Container>
+        )}
+        <Button
+          type='submit'
+          variant='contained'
+          disabled={
+            !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
+          }
+        >
+          {isEdit ? 'Save changes' : 'Create expedition'}
+        </Button>
+      </Stack>
     </Stack>
   );
 };

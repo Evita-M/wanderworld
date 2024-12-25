@@ -33,8 +33,6 @@ export const MenuList: FC<MenuListProps> = ({ items }) => {
         aria-controls={open ? 'menu' : undefined}
         aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
-        variant='contained'
-        disableElevation
         onClick={handleClick}
       >
         <MoreVertIcon sx={{ color: grey[900] }} />

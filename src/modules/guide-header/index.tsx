@@ -1,5 +1,5 @@
-import { Stack, Typography, TypographyProps } from '@mui/material';
-import React, { FC, useMemo } from 'react';
+import { Box, Stack, Typography, TypographyProps } from '@mui/material';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { LanguageCode, Languages } from '../languages';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
@@ -17,6 +17,7 @@ interface GuideHeaderProps {
   phoneNumber?: string;
   avatarSrc?: string;
   size?: GuideHeaderSize;
+  actions?: ReactNode;
 }
 
 const SIZE_STYLES: Record<
@@ -45,6 +46,7 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
   languages,
   avatarSrc,
   phoneNumber,
+  actions,
   size = GuideHeaderSize.DEFAULT,
 }) => {
   const { avatarSize, spacing, typographyVariant } = useMemo(
@@ -53,22 +55,33 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
   );
 
   return (
-    <Stack direction='row' spacing={spacing}>
-      <Avatar size={avatarSize} src={avatarSrc} />
-      <Stack sx={{ minWidth: 0 }}>
-        <Typography letterSpacing='0.05em' color={grey[400]}>
-          WanderWorld Guide
-        </Typography>
-        <Typography variant={typographyVariant} component='h2' mb={spacing}>
-          {fullName}
-        </Typography>
-        <Stack sx={{ minWidth: 0 }}>
-          <Languages langCodes={languages} />
-        </Stack>
-        {size === GuideHeaderSize.LG && (
-          <Contact email={email} phoneNumber={phoneNumber} />
-        )}
+    <>
+      <Stack direction='row' spacing={spacing}>
+        <Avatar size={avatarSize} src={avatarSrc} />
+        <Box width='100%'>
+          <Stack direction='row' justifyContent='space-between' width='100%'>
+            <Box>
+              <Typography letterSpacing='0.05em' color={grey[400]}>
+                WanderWorld Guide
+              </Typography>
+              <Typography
+                variant={typographyVariant}
+                component='h2'
+                mb={spacing}
+              >
+                {fullName}
+              </Typography>
+            </Box>
+            {actions}
+          </Stack>
+          <Stack sx={{ minWidth: 0 }}>
+            <Languages langCodes={languages} />
+          </Stack>
+          {size === GuideHeaderSize.LG && (
+            <Contact email={email} phoneNumber={phoneNumber} />
+          )}
+        </Box>
       </Stack>
-    </Stack>
+    </>
   );
 };

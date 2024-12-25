@@ -10,7 +10,6 @@ import { IconText } from '@/components/core/IconText';
 import { BasicMasonry } from '../masonry';
 import { ExpeditionInfo } from '../expedition-info';
 import { GuideInfo } from '../guide-info';
-import { PageContainer } from '@/components/core/PageContainer';
 
 interface ExpeditionDetailProps {
   expedition: Expedition;

@@ -74,6 +74,12 @@ const theme = createTheme({
       color: grey[900],
       letterSpacing: '0.025em',
     },
+    caption: {
+      fontSize: '1.2rem',
+      fontWeight: 500,
+      color: grey[700],
+      textTransform: 'uppercase',
+    },
     h1: {
       fontFamily: `var(--museo-moderno), cursive`,
       fontSize: '7.6rem',
@@ -244,8 +250,9 @@ const theme = createTheme({
         root: {
           color: grey[700],
           fontWeight: 500,
+          textTransform: 'uppercase',
           '&.Mui-focused': {
-            color: '#023047',
+            color: grey[700],
           },
         },
       },
@@ -414,32 +421,6 @@ const theme = createTheme({
           },
           '&.bullet-green::before': {
             backgroundColor: customColors.green.main,
-          },
-        },
-      },
-    },
-    MuiTextarea: {
-      styleOverrides: {
-        root: {
-          padding: '1.2rem',
-          fontSize: '1.6rem',
-          fontFamily: `var(--noto-sans), sans-serif`,
-          borderRadius: '0.8rem',
-          border: `1px solid ${grey[300]}`,
-          resize: 'vertical',
-          minHeight: '12rem',
-          width: '100%',
-          backgroundColor: '#fff',
-          '&:hover': {
-            borderColor: primary.light,
-          },
-          '&:focus': {
-            outline: 'none',
-            borderColor: primary.main,
-            boxShadow: `0 0 0 2px ${primary.lighter}`,
-          },
-          '&::placeholder': {
-            color: grey[500],
           },
         },
       },

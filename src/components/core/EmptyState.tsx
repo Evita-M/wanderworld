@@ -11,7 +11,7 @@ interface EmptyStateProps {
 export const EmptyState: FC<EmptyStateProps> = ({
   title,
   description,
-  image = '/luggage.jpg',
+  image = '/luggage.png',
 }) => {
   return (
     <Stack
@@ -21,8 +21,8 @@ export const EmptyState: FC<EmptyStateProps> = ({
       height='100%'
       textAlign='center'
     >
-      <Image src={image} alt={title} width={340} height={340} />
-      <Typography variant='h5' component='h2'>
+      <Image src={image} alt={title} width={380} height={330} />
+      <Typography variant='h5' component='h2' mt='2.4rem'>
         {title}
       </Typography>
       {description && (

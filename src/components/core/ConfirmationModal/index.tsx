@@ -27,8 +27,15 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   };
 
   return (
-    <>
-      <Typography mb='4.2rem'>{text}</Typography>
+    <Stack
+      display='flex'
+      flexDirection='column'
+      justifyContent='space-between'
+      height='100%'
+      flex='1'
+      spacing='3.2rem'
+    >
+      <Typography>{text}</Typography>
       <Stack direction='row' gap='1.2rem'>
         <Button
           variant='outlined'
@@ -47,6 +54,6 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           {submitBtnLabel}
         </Button>
       </Stack>
-    </>
+    </Stack>
   );
 };

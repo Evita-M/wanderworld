@@ -15,8 +15,8 @@ import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuideQuery } from '@/redux/api/guideApi';
 import { PageHeader } from '@/modules/page-header';
 import { routes } from '@/routes/index';
-import { ExpeditionActions } from '@/modules/expedition-edit';
 import { ConfirmationModal } from '@/components/core/ConfirmationModal';
+import { Actions } from '@/modules/actions';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -27,8 +27,13 @@ const PageContent = () => {
   const router = useRouter();
   const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] =
     useDeleteExpeditionMutation();
-  const { data: guide } = useGetGuideQuery(expedition?.guideId as string);
-
+  const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(
+    expedition?.guideId as string,
+    {
+      skip: !expedition?.guideId,
+    }
+  );
+  const isLoading = isExpeditionLoading || isGetGuideLoading;
   const onDelete = async (id: string) => {
     try {
       if (id) {
@@ -87,7 +92,7 @@ const PageContent = () => {
             <Box>
               <PageHeader title={expedition!.name} />
             </Box>
-            <ExpeditionActions onEdit={handleEdit} onDelete={handleOnDelete} />
+            <Actions onEdit={handleEdit} onDelete={handleOnDelete} />
           </Stack>
           <ExpeditionDetail expedition={expedition!} guide={guide} />
         </>

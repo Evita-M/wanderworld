@@ -27,8 +27,8 @@ export function RHFSlider<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <Stack>
-          <Typography fontSize='22px' mb='24px'>
+        <Stack position='relative' height='100%' justifyContent='flex-end'>
+          <Typography variant='caption' position='absolute' top='-1rem'>
             {label}
           </Typography>
           <Container>

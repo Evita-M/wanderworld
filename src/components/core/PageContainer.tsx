@@ -3,14 +3,18 @@ import { ReactNode } from 'react';
 
 interface PageContainerProps {
   children: ReactNode;
+  maxWidth?: string;
 }
 
-export const PageContainer = ({ children }: PageContainerProps) => {
+export const PageContainer = ({
+  children,
+  maxWidth = 'xl',
+}: PageContainerProps) => {
   return (
     <Stack
       component='main'
       sx={{
-        maxWidth: '192rem',
+        maxWidth,
         mx: 'auto',
         p: '1.6rem',
         width: '100%',

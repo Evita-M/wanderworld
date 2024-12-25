@@ -1,8 +1,8 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Button, CircularProgress, Stack } from '@mui/material';
-import { FC } from 'react';
+import { Button, CircularProgress, Grid, Stack } from '@mui/material';
+import { FC, useEffect } from 'react';
 import { guideSchema, GuideSchema, initialValues } from '@/type/guideSchema';
 import { Guide } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,10 +17,17 @@ import { languages } from '@/lib/data/languages';
 
 type GuideFormProps = {
   guide?: Guide;
-  onRedirect?: VoidFunction;
+  isEdit?: boolean;
+  onSuccess?: VoidFunction;
+  onCancel?: VoidFunction;
 };
 
-export const GuideForm: FC<GuideFormProps> = ({ guide, onRedirect }) => {
+export const GuideForm: FC<GuideFormProps> = ({
+  guide,
+  isEdit = false,
+  onCancel,
+  onSuccess,
+}) => {
   const [createGuide, { isLoading: isCreateGuideLoading }] =
     useCreateGuideMutation();
   const [
@@ -29,25 +36,25 @@ export const GuideForm: FC<GuideFormProps> = ({ guide, onRedirect }) => {
   ] = useUpdateGuideMutation();
 
   const { showSnackBar } = useSnackbar();
-  const isSubmitLoading = isCreateGuideLoading || isUpdateGuideLoading;
+
+  const guideDefaultValues = {
+    firstName: guide?.firstName ?? '',
+    lastName: guide?.lastName ?? '',
+    phoneNumber: guide?.phoneNumber ?? '',
+    description: guide?.description ?? '',
+    avatar: guide?.avatar ?? '',
+    email: guide?.email ?? '',
+    languages: guide?.languages ?? [],
+  };
 
   const {
     handleSubmit,
     register,
     formState: { errors, isValid },
     control,
+    reset,
   } = useForm<GuideSchema>({
-    defaultValues: guide
-      ? {
-          firstName: guide.firstName,
-          lastName: guide.lastName,
-          phoneNumber: guide.phoneNumber,
-          description: guide.description || '',
-          avatar: guide.avatar,
-          email: guide.email,
-          languages: guide.languages,
-        }
-      : initialValues,
+    defaultValues: isEdit && guide ? guideDefaultValues : initialValues,
     resolver: zodResolver(guideSchema),
     mode: 'onChange',
   });
@@ -64,14 +71,15 @@ export const GuideForm: FC<GuideFormProps> = ({ guide, onRedirect }) => {
     };
 
     try {
-      if (guide) {
+      if (guide && isEdit) {
         await updateGuide({ id: guide.id, data: guideData });
         showSnackBar('Your changes were saved!', 'success');
+        onSuccess?.();
       } else {
         await createGuide(guideData);
         showSnackBar('New guide was added!', 'success');
       }
-      onRedirect?.();
+      onSuccess?.();
     } catch (error) {
       // Check if the error has a message and display it in the toast notification
       const errorMessage =
@@ -81,72 +89,91 @@ export const GuideForm: FC<GuideFormProps> = ({ guide, onRedirect }) => {
     }
   }
 
+  // Add useEffect to update form when expedition changes
+  useEffect(() => {
+    if (guide && isEdit) {
+      reset(guideDefaultValues);
+    }
+  }, [guide, isEdit, reset, guideDefaultValues]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap='4rem'>
-        <RHFTextField<GuideSchema>
-          label='First Name'
-          errorMessage={errors.firstName?.message}
-          {...register('firstName')}
-        />
-        <RHFTextField<GuideSchema>
-          label='Last Name'
-          errorMessage={errors.lastName?.message}
-          {...register('lastName')}
-        />
-        <RHFTextField<GuideSchema>
-          label='Email'
-          error={!!errors.email}
-          errorMessage={errors.email?.message}
-          {...register('email')}
-        />
-        <RHFTextField<GuideSchema>
-          label='Phone Number'
-          error={!!errors.phoneNumber}
-          errorMessage={errors.phoneNumber?.message}
-          {...register('phoneNumber')}
-        />
-        <RHFTextField<GuideSchema>
-          label='Bio'
-          errorMessage={errors.description?.message}
-          {...register('description')}
-        />
-        <RHFAutocomplete<GuideSchema>
-          label='Languages'
-          options={languages}
-          control={control}
-          {...register('languages')}
-        />
-      </Stack>
-      <Stack
-        mt='5.2rem'
-        justifyContent='space-between'
-        direction='row'
-        gap='1.2rem'
-      >
-        <Button
-          type='button'
-          variant='outlined'
-          color='secondary'
-          fullWidth
-          disabled={!isValid || isSubmitLoading}
-        >
-          Cancel
-        </Button>
-        <Button
-          type='submit'
-          variant='contained'
-          startIcon={
-            isSubmitLoading ? (
-              <CircularProgress color='inherit' size='16px' />
-            ) : null
-          }
-          fullWidth
-          disabled={!isValid || isSubmitLoading}
-        >
-          {guide ? ' Edit Guide' : 'Add Guide'}
-        </Button>
-      </Stack>
+      <Grid container spacing={3} rowSpacing={5}>
+        <Grid item xs={6}>
+          <RHFTextField<GuideSchema>
+            label='First Name'
+            errorMessage={errors.firstName?.message}
+            {...register('firstName')}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <RHFTextField<GuideSchema>
+            label='Last Name'
+            errorMessage={errors.lastName?.message}
+            {...register('lastName')}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <RHFTextField<GuideSchema>
+            label='Email'
+            error={!!errors.email}
+            errorMessage={errors.email?.message}
+            {...register('email')}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <RHFTextField<GuideSchema>
+            label='Phone Number'
+            error={!!errors.phoneNumber}
+            errorMessage={errors.phoneNumber?.message}
+            {...register('phoneNumber')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <RHFAutocomplete<GuideSchema>
+            label='Languages'
+            options={languages}
+            control={control}
+            {...register('languages')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <RHFTextField<GuideSchema>
+            label='About'
+            errorMessage={errors.description?.message}
+            {...register('description')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Stack
+            maxWidth='50rem'
+            m='0 auto'
+            spacing={3}
+            direction='row'
+            justifyContent='center'
+          >
+            <Button
+              type='button'
+              onClick={onCancel}
+              variant='outlined'
+              color='secondary'
+              fullWidth
+            >
+              Cancel
+            </Button>
+            <Button
+              fullWidth
+              type='submit'
+              variant='contained'
+              disabled={
+                !isValid || isCreateGuideLoading || isUpdateGuideLoading
+              }
+            >
+              {isEdit ? 'Save changes' : 'Create guide'}
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
     </form>
   );
 };

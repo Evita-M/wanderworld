@@ -27,43 +27,58 @@ export function RHFCheckbox<T extends FieldValues>({
   label,
   errorMessage,
 }: RHFCheckboxProps<T>) {
-  console.log(options);
+  const chunkSize = Math.ceil((options?.length || 0) / 3);
+  const columns = Array.from({ length: 3 }, (_, i) =>
+    (options || []).slice(i * chunkSize, i * chunkSize + chunkSize)
+  );
+
   return (
     <Stack>
       {label && (
-        <Typography fontSize='22px' mb='24px'>
+        <Typography variant='caption' mb='2.4rem'>
           {label}
         </Typography>
       )}
       <Controller
         name={name}
         control={control}
-        render={({ field: { value, onChange }, fieldState: { error } }) => (
+        render={({
+          field: { value = [] as string[], onChange },
+          fieldState: { error },
+        }) => (
           <FormControl error={!!error}>
             <FormGroup>
-              <Grid container spacing={2} columns={16} padding='0 24px'>
-                {options?.map((option) => (
-                  <Grid xs={8} key={option.id}>
+              <Grid
+                container
+                spacing={1}
+                alignItems='flex-start'
+                justifyContent='flex-start'
+              >
+                {(options || []).map((option) => (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={option.id}
+                    className='flex flex-col'
+                  >
                     <FormControlLabel
+                      key={option.id}
                       control={
                         <Checkbox
                           checked={value?.includes(option.id)}
                           onChange={() => {
                             if (value?.includes(option.id)) {
                               onChange(
-                                (value as string[]).filter(
-                                  (item) => item !== option.id
-                                )
+                                value.filter((item) => item !== option.id)
                               );
                             } else {
                               onChange([...value, option.id]);
                             }
                           }}
-                          key={option.id}
                         />
                       }
                       label={option.label}
-                      key={option.id}
                     />
                   </Grid>
                 ))}

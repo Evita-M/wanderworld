@@ -16,7 +16,13 @@ export const expeditionSchema = z.object({
   languages: z
     .array(z.string())
     .min(1, { message: 'Please select at least one language' }),
-  guide: z.string().uuid().optional(),
+  guide: z
+    .string()
+    .uuid()
+    .nullable()
+    .or(z.literal(''))
+    .transform((val) => (val === '' ? null : val)),
+
   activities: z
     .array(z.string())
     .min(1, { message: 'Please select at least one activity' }),

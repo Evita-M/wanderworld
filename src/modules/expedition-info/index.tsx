@@ -8,6 +8,7 @@ import { LanguageCode } from '../languages';
 import { getRandomColor } from '@/utils/get-random-color';
 import { includedItems } from '@/lib/data/included';
 import { Tabs } from '@/components/core/Tabs';
+import { RichTextRenderer } from '@/components/core/RichTextRenderer';
 
 interface ExpeditionInfoProps {
   expedition: Expedition;
@@ -26,11 +27,9 @@ export const ExpeditionInfo: React.FC<ExpeditionInfoProps> = ({
     },
     {
       label: 'Description',
-      content: (
-        <Typography fontSize='1.8rem' lineHeight={1.6}>
-          {expedition.description}
-        </Typography>
-      ),
+      content: expedition.description ? (
+        <RichTextRenderer content={expedition.description} />
+      ) : null,
     },
     {
       label: "What's included",

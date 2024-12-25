@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
 import { Logo } from '@/components/core/Logo';
 import { routes } from '@/routes/index';
@@ -32,10 +33,13 @@ export const Header = () => {
       <Link href={routes.home} aria-label='Go home'>
         <Logo />
       </Link>
-      <Stack direction='row' gap={4}>
+      <Stack direction='row' alignItems='center' gap={4}>
         {navLinks.map((link) => (
           <NavLink link={link} key={link.href} />
         ))}
+        <Button variant='contained' onClick={() => null}>
+          Log in
+        </Button>
       </Stack>
     </Stack>
   );

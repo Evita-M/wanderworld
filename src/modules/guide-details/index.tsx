@@ -1,26 +1,22 @@
 import { useModal } from 'hooks/useModal';
 import React, { useState } from 'react';
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import { Guide } from '@prisma/client';
+import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Guide as GuideType } from '@prisma/client';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+
 import { GuideExpeditions } from '../guide-expeditions';
-import { MenuList } from '@/components/core/MenuList';
 import { grey } from '@mui/material/colors';
 import { ConfirmationModal } from '@/components/core/ConfirmationModal';
 
-export const GuideDetail = ({
-  guide,
-  onDelete,
-  onEdit,
-  isDisabled,
-}: {
-  guide: Guide;
-  onDelete: any;
-  onEdit: any;
-  isDisabled?: boolean;
-}) => {
+import { useDeleteGuideMutation } from '@/redux/api/guideApi';
+import { useSnackbar } from 'hooks/useSnackbar';
+
+import { routes } from '@/routes/index';
+import { Actions } from '../actions';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { LanguageCode } from '../languages';
+
+export const GuideDetail = ({ guide }: { guide: GuideType }) => {
   const {
     id,
     firstName,
@@ -30,35 +26,44 @@ export const GuideDetail = ({
     languages,
     avatar,
     description,
+    // @ts-ignore
     expeditions,
   } = guide;
   const fullName = `${firstName} ${lastName}`;
-
+  const [deleteGuide, { isLoading: isDeleteGuideLoading }] =
+    useDeleteGuideMutation();
+  const { showSnackBar } = useSnackbar();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const { openModal, closeModal } = useModal();
   const hasExpeditions = expeditions?.length > 0;
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+
+  const onDelete = async (id: string) => {
+    await deleteGuide(id);
+    params.delete('guideId');
+    closeModal();
+  };
 
   const handleOnDelete = () => {
     openModal({
       title: 'Delete guide',
       content: (
         <ConfirmationModal
-          text={`Are you sure you want to delete ${fullName}?`}
-          onSubmit={() => onDelete(id)}
-          isDisabled={isDisabled}
+          text={`Are you sure you want to delete guide ${fullName}?`}
+          submitBtnLabel='Delete'
+          onCancel={closeModal}
+          onSubmit={() => onDelete(id as string)}
+          isDisabled={isDeleteGuideLoading}
         />
       ),
     });
   };
 
-  const guideMenuItems = [
-    { label: 'Edit', icon: <EditIcon />, onClick: () => onEdit(guide) },
-    {
-      label: 'Delete',
-      icon: <DeleteIcon sx={{ color: '#C1292E' }} />,
-      onClick: () => handleOnDelete(),
-    },
-  ];
+  const handleEdit = () => {
+    router.push(`${routes.guides}/${id}/edit`);
+  };
 
   return (
     <Stack
@@ -68,18 +73,22 @@ export const GuideDetail = ({
       height='100%'
       border={`1px solid ${grey[300]}`}
     >
-      <Stack mb={4} position='relative'>
+      <Stack mb={4}>
         <GuideHeader
           fullName={fullName}
-          languages={languages}
+          languages={languages as LanguageCode[]}
           phoneNumber={phoneNumber}
           email={email}
           avatarSrc={avatar}
           size={GuideHeaderSize.LG}
+          actions={
+            <Actions
+              onEdit={handleEdit}
+              onDelete={handleOnDelete}
+              variant='icon'
+            />
+          }
         />
-        <Box position='absolute' right={0} top='0'>
-          <MenuList items={guideMenuItems} />
-        </Box>
       </Stack>
       <Typography variant='h5' component='h3' mb='1.6rem'>
         Profile

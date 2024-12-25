@@ -31,7 +31,7 @@ export const ExpeditionDetails: FC<ExpeditionDetailsProps> = ({
     <Stack gap={3}>
       <Stack flexDirection='row'>
         <Box flex='0 20rem'>
-          <Typography fontWeight={600} fontSize='1.8rem'>
+          <Typography variant='caption' fontSize='1.4rem'>
             Languages
           </Typography>
         </Box>
@@ -39,7 +39,7 @@ export const ExpeditionDetails: FC<ExpeditionDetailsProps> = ({
       </Stack>
       <Stack flexDirection='row'>
         <Box flex='0 20rem'>
-          <Typography fontWeight={600} fontSize='1.8rem'>
+          <Typography variant='caption' fontSize='1.4rem'>
             First meeting
           </Typography>
         </Box>
@@ -50,7 +50,7 @@ export const ExpeditionDetails: FC<ExpeditionDetailsProps> = ({
       {activityNames.length > 0 && (
         <Stack flexDirection='row'>
           <Box flex='0 20rem'>
-            <Typography fontWeight={600} fontSize='1.8rem'>
+            <Typography variant='caption' fontSize='1.4rem'>
               Activities
             </Typography>
           </Box>

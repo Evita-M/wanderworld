@@ -2,7 +2,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
-import { Stack, Typography } from '@mui/material';
 
 type RHFDateRangePickerProps<T extends FieldValues> = {
   name: Path<T>;
@@ -20,19 +19,15 @@ export function RHFDateRangePicker<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field: { value, ...restField } }) => (
-        <Stack>
-          {label && (
-            <Typography fontSize='22px' mb='24px'>
-              {label}
-            </Typography>
-          )}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateRangePicker
-              {...restField}
-              value={Array.isArray(value) ? value : [null, null]}
-            />
-          </LocalizationProvider>
-        </Stack>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateRangePicker
+            label={label}
+            format='dd/MM/yyyy'
+            sx={{ gap: '1.2rem' }}
+            value={Array.isArray(value) ? value : [new Date(), new Date()]}
+            {...restField}
+          />
+        </LocalizationProvider>
       )}
     />
   );

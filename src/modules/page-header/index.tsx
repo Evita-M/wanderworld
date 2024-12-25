@@ -1,10 +1,12 @@
 import { Box, Button, Stack, Typography, SxProps, Theme } from '@mui/material';
 import Link from 'next/link';
-import React, { FC } from 'react';
+
+import React, { FC, ReactNode } from 'react';
 
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
+  prefix?: ReactNode;
   buttonLabel?: string;
   href?: string;
   onClick?: () => void;
@@ -14,6 +16,7 @@ interface PageHeaderProps {
 export const PageHeader: FC<PageHeaderProps> = ({
   title,
   subtitle,
+  prefix,
   buttonLabel,
   href,
   onClick,
@@ -22,7 +25,10 @@ export const PageHeader: FC<PageHeaderProps> = ({
   return (
     <Stack sx={sx}>
       <Stack direction='row' alignItems='center' justifyContent='space-between'>
-        <Typography variant='h1'>{title}</Typography>
+        <Stack direction='row' alignItems='center' gap={3}>
+          {prefix}
+          <Typography variant='h1'>{title}</Typography>
+        </Stack>
         {buttonLabel && (
           <Box>
             {onClick ? (

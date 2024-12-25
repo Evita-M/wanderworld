@@ -1,18 +1,16 @@
-import { Metadata } from 'next';
 import { PageContainer } from '@/components/core/PageContainer';
 import PageContent from './PageContent';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'Edit Guide',
   description: 'Wander the World',
 };
 
-const AboutPage = () => {
+export default function EditGuidePage() {
   return (
-    <PageContainer>
+    <PageContainer maxWidth='md'>
       <PageContent />
     </PageContainer>
   );
-};
-
-export default AboutPage;
+}

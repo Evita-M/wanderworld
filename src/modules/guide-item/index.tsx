@@ -6,6 +6,7 @@ import { GuideHeader } from '../guide-header';
 import { TruncatedText } from '@/components/core/TruncatedText';
 import theme from '@/styles/theme';
 import { grey } from '@mui/material/colors';
+import { LanguageCode } from '../languages';
 
 interface GuideItemProps {
   guide: Guide;
@@ -38,7 +39,7 @@ export const GuideItem: FC<GuideItemProps> = ({
     >
       <GuideHeader
         fullName={fullName}
-        languages={languages}
+        languages={languages as LanguageCode[]}
         avatarSrc={avatar}
       />
       <TruncatedText sx={{ mt: '1.2rem', px: '1.2rem' }}>

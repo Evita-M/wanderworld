@@ -23,8 +23,6 @@ const Guides: FC = () => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const guideId = searchParams.get('guideId');
-  const [deleteGuide, { isLoading: isDeleteGuideLoading }] =
-    useDeleteGuideMutation();
 
   useEffect(() => {
     if (guides?.length && !guideId) {
@@ -36,12 +34,6 @@ const Guides: FC = () => {
 
   const handleGuideClick = (guide: Guide) => {
     params.set('guideId', guide.id);
-    router.push(`?${params.toString()}`);
-  };
-
-  const handleDeleteGuide = async (id: string) => {
-    await deleteGuide(id);
-    params.delete('guideId');
     router.push(`?${params.toString()}`);
   };
 
@@ -66,7 +58,12 @@ const Guides: FC = () => {
           <Loader />
         ) : guides?.length ? (
           <Stack direction='row' flex={1} spacing={3} overflow='hidden'>
-            <Stack spacing={3} width='40%' sx={{ overflowY: 'auto' }}>
+            <Stack
+              spacing={3}
+              width='40%'
+              pb='0.6rem'
+              sx={{ overflowY: 'auto' }}
+            >
               {guides.map((guide) => (
                 <GuideItem
                   key={guide.id}
@@ -77,13 +74,7 @@ const Guides: FC = () => {
               ))}
             </Stack>
             <Stack flex={1} overflow='auto'>
-              {selectedGuide && (
-                <GuideDetail
-                  guide={selectedGuide}
-                  onDelete={handleDeleteGuide}
-                  isDisabled={isDeleteGuideLoading}
-                />
-              )}
+              {selectedGuide && <GuideDetail guide={selectedGuide} />}
             </Stack>
           </Stack>
         ) : (

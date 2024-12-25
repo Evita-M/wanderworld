@@ -36,7 +36,7 @@ export function RHFSelect<T extends FieldValues>({
             label={label}
             id={name}
             {...field}
-            value={field.value ?? ''}
+            onChange={(e) => field.onChange(e.target.value)}
           >
             <MenuItem value=''>No guide</MenuItem>
             {options.map((option) => (

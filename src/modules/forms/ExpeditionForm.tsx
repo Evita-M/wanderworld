@@ -1,7 +1,7 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { Button, Container, Grid, Stack } from '@mui/material';
+import { useForm, Controller } from 'react-hook-form';
+import { Button, Grid, Stack } from '@mui/material';
 import { FC, useEffect, useMemo } from 'react';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { RHFCheckbox } from '@/components/core/RHFCheckbox';
@@ -27,6 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Expedition, Guide } from '@prisma/client';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
+import { RichTextEditor } from '@/components/core/RichTextEditor';
 
 interface ExpeditionsFormProps {
   expedition?: Expedition;
@@ -37,7 +38,7 @@ interface ExpeditionsFormProps {
 
 export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
   expedition,
-  isEdit,
+  isEdit = false,
   onCancel,
   onSuccess,
 }) => {
@@ -73,7 +74,7 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
           new Date(expedition.endDate),
         ],
         groupSize: [expedition.minGroupSize, expedition.maxGroupSize],
-        guide: expedition.guideId ?? '',
+        guide: expedition.guideId ?? undefined,
       }
     : defaultValues;
 
@@ -89,6 +90,11 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
     resolver: zodResolver(expeditionSchema),
     mode: 'onChange',
   });
+
+  const formValues = watch();
+  useEffect(() => {
+    console.log('Form Values Changed:', formValues);
+  }, [formValues]);
 
   // Add useEffect to update form when expedition changes
   useEffect(() => {
@@ -144,10 +150,10 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
 
   return (
     <Stack component='form' onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
           <RHFTextField<ExpeditionSchema>
-            label='Expedtition name'
+            label='Name'
             errorMessage={errors.name?.message}
             {...register('name')}
           />
@@ -161,14 +167,23 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
             {...register('guide')}
           />
         </Grid>
-        <Grid item xs={6}>
-          <RHFDateTimePicker<ExpeditionSchema>
-            label='First expedition meeting'
+        <Grid item xs={12}>
+          <RHFAutocomplete<ExpeditionSchema>
+            label='Countries'
+            options={countries}
             control={control}
-            {...register('meetingDate')}
+            errorMessage={errors.countries?.message}
+            {...register('countries')}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
+          <RHFDateRangePicker<ExpeditionSchema>
+            label='Expedition duration'
+            control={control}
+            {...register('tourDuration')}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <RHFAutocomplete<ExpeditionSchema>
             label='Languages'
             options={languages}
@@ -177,67 +192,77 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
             {...register('languages')}
           />
         </Grid>
-      </Grid>
-      <RHFAutocomplete<ExpeditionSchema>
-        label='Countries'
-        options={countries}
-        control={control}
-        errorMessage={errors.countries?.message}
-        {...register('countries')}
-      />
-      <RHFTextField<ExpeditionSchema>
-        label='Description'
-        errorMessage={errors.description?.message}
-        {...register('description')}
-      />
-      <RHFCheckbox<ExpeditionSchema>
-        label='Activities'
-        options={activities}
-        control={control}
-        errorMessage={errors.activities?.message}
-        {...register('activities')}
-      />
-
-      <RHFDateRangePicker<ExpeditionSchema>
-        label='Expedition duration'
-        control={control}
-        {...register('tourDuration')}
-      />
-      <RHFSlider<ExpeditionSchema>
-        label='Group size'
-        limit={[0, 40]}
-        control={control}
-        errorMessage={errors.groupSize?.message}
-        {...register('groupSize')}
-      />
-
-      <Stack
-        marginTop='32px'
-        sx={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
-        {onCancel && (
-          <Button
-            type='button'
-            onClick={onCancel}
-            variant='outlined'
-            color='secondary'
+        <Grid item xs={6}>
+          <RHFSlider<ExpeditionSchema>
+            label='Group size'
+            limit={[0, 40]}
+            control={control}
+            errorMessage={errors.groupSize?.message}
+            {...register('groupSize')}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <RHFDateTimePicker<ExpeditionSchema>
+            label='First meeting'
+            control={control}
+            {...register('meetingDate')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <RHFCheckbox<ExpeditionSchema>
+            label='Activities'
+            options={activities}
+            control={control}
+            errorMessage={errors.activities?.message}
+            {...register('activities')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name='description'
+            control={control}
+            render={({ field }) => (
+              <RichTextEditor
+                label='Description'
+                value={field.value}
+                onChange={field.onChange}
+                initialContent={expedition?.description || ''}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Stack
+            maxWidth='50rem'
+            m='0 auto'
+            spacing={3}
+            direction='row'
+            justifyContent='center'
           >
-            Cancel
-          </Button>
-        )}
-        <Button
-          type='submit'
-          variant='contained'
-          disabled={
-            !isValid || isCreateExpeditionLoading || isUpdateExeditionLoading
-          }
-        >
-          {isEdit ? 'Save changes' : 'Create expedition'}
-        </Button>
-      </Stack>
+            <Button
+              type='button'
+              onClick={onCancel}
+              variant='outlined'
+              color='secondary'
+              fullWidth
+            >
+              Cancel
+            </Button>
+            <Button
+              fullWidth
+              type='submit'
+              variant='contained'
+              disabled={
+                !isValid ||
+                isCreateExpeditionLoading ||
+                isUpdateExeditionLoading
+              }
+            >
+              {isEdit ? 'Save changes' : 'Create expedition'}
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
     </Stack>
   );
 };

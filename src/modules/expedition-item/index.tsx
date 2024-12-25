@@ -34,9 +34,7 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
           '&:hover': { transform: 'scale(1.05)' },
         }}
       >
-        <Typography variant='h4' className='text-lg font-bold'>
-          {name}
-        </Typography>
+        <Typography variant='h4'>{name}</Typography>
         <Typography
           variant='h6'
           fontWeight={500}

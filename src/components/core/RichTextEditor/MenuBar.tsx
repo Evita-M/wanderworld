@@ -9,8 +9,14 @@ import RedoIcon from '@mui/icons-material/Redo';
 import CodeIcon from '@mui/icons-material/Code';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import { IconButton, Stack } from '@mui/material';
+import { FC, ReactNode } from 'react';
 
-export const MenuBar = ({ editor }: { editor: Editor | null }) => {
+interface MenuBarProps {
+  editor: Editor | null;
+  children?: ReactNode;
+}
+
+export const MenuBar: FC<MenuBarProps> = ({ editor, children }) => {
   if (!editor) return null;
 
   const buttons = [
@@ -80,6 +86,7 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
           {icon}
         </IconButton>
       ))}
+      {children}
     </Stack>
   );
 };

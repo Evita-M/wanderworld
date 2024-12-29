@@ -41,3 +41,13 @@ export type GuideCommon = {
 };
 
 export type CreateGuide = GuideCommon & (Create | Edit);
+
+export interface GenerateExpeditionRequestBody {
+  name: string;
+  countries: string[];
+  languages: string[];
+  activities: string[];
+  groupSize: [number, number];
+  tourDuration: [Date, Date];
+  meetingDate: Date;
+}

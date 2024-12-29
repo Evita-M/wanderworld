@@ -11,7 +11,7 @@ const Item = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: '2rem',
+  borderRadius: theme.borderRadius.large,
   overflow: 'hidden', // Prevents image overflow and ensures it stays within the container's bounds.
 }));
 

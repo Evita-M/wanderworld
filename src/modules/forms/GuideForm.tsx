@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Button, CircularProgress, Grid, Stack } from '@mui/material';
+import { Button, Grid, Stack } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { guideSchema, GuideSchema, initialValues } from '@/type/guideSchema';
 import { Guide } from '@prisma/client';
@@ -81,20 +81,15 @@ export const GuideForm: FC<GuideFormProps> = ({
       }
       onSuccess?.();
     } catch (error) {
-      // Check if the error has a message and display it in the toast notification
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error occurred';
-
       showSnackBar('Something went wrong', 'warning');
     }
   }
 
-  // Add useEffect to update form when expedition changes
   useEffect(() => {
     if (guide && isEdit) {
       reset(guideDefaultValues);
     }
-  }, [guide, isEdit, reset, guideDefaultValues]);
+  }, [guide, isEdit]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

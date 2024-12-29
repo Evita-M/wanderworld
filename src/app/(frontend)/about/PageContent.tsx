@@ -72,11 +72,11 @@ const PageContent = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box borderRadius={2} overflow='hidden'>
+              <Box borderRadius={theme.borderRadius.large} overflow='hidden'>
                 <ResponsiveImage
                   img={images.mission}
                   aspectRatio={images.mission.height / images.mission.width}
-                  borderRadius={8}
+                  borderRadius={theme.borderRadius.large}
                 />
               </Box>
             </Grid>
@@ -94,7 +94,7 @@ const PageContent = () => {
                     border={`1px solid ${customColors[index].main}`}
                     boxShadow={`0 4px ${customColors[index].main}`}
                     height='100%'
-                    borderRadius='2rem'
+                    borderRadius={theme.borderRadius.large}
                   >
                     <Stack direction='row' spacing={2} alignItems='center'>
                       <Stack>
@@ -129,13 +129,13 @@ const PageContent = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Box borderRadius={2} overflow='hidden'>
+                <Box borderRadius={theme.borderRadius.large} overflow='hidden'>
                   <ResponsiveImage
                     img={images.community}
                     aspectRatio={
                       images.community.height / images.community.width
                     }
-                    borderRadius={8}
+                    borderRadius={theme.borderRadius.large}
                   />
                 </Box>
               </Grid>

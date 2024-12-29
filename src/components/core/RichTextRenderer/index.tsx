@@ -5,6 +5,7 @@ import parse, {
   Element,
   DOMNode,
 } from 'html-react-parser';
+import { Typography } from '@mui/material';
 
 interface RichTextRendererProps {
   content: string;
@@ -21,27 +22,27 @@ export const RichTextRenderer: React.FC<RichTextRendererProps> = ({
         switch (domNode.name) {
           case 'p':
             return (
-              <p className='mb-4 last:mb-0'>
+              <Typography mt='0.6rem'>
                 {domToReact(domNode.children as DOMNode[], options)}
-              </p>
+              </Typography>
             );
           case 'h1':
             return (
-              <h1 className='mb-4 text-2xl font-bold'>
+              <Typography variant='h2' component='h1'>
                 {domToReact(domNode.children as DOMNode[], options)}
-              </h1>
+              </Typography>
             );
           case 'h2':
             return (
-              <h2 className='mb-3 text-xl font-bold'>
+              <Typography variant='h3' component='h2'>
                 {domToReact(domNode.children as DOMNode[], options)}
-              </h2>
+              </Typography>
             );
           case 'h3':
             return (
-              <h3 className='mb-2 text-lg font-bold'>
+              <Typography variant='h4' component='h2'>
                 {domToReact(domNode.children as DOMNode[], options)}
-              </h3>
+              </Typography>
             );
           case 'ul':
             return (
@@ -81,7 +82,7 @@ export const RichTextRenderer: React.FC<RichTextRendererProps> = ({
             );
           case 'blockquote':
             return (
-              <blockquote className='my-4 border-l-4 border-gray-300 pl-4 italic'>
+              <blockquote className='border-primary-light my-4 border-l-4 pl-4 italic'>
                 {domToReact(domNode.children as DOMNode[], options)}
               </blockquote>
             );

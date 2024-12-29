@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm, Controller } from 'react-hook-form';
-import { Button, Grid, Stack } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { FC, useEffect, useMemo } from 'react';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { RHFCheckbox } from '@/components/core/RHFCheckbox';
@@ -28,6 +28,7 @@ import { Expedition, Guide } from '@prisma/client';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
 import { RichTextEditor } from '@/components/core/RichTextEditor';
+import { useGenerateDescriptionMutation } from '@/redux/api/groqApi';
 
 interface ExpeditionsFormProps {
   expedition?: Expedition;
@@ -49,7 +50,6 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
       isSuccess: isCreateExpeditionSuccess,
     },
   ] = useCreateExpeditionMutation();
-
   const [
     updateExedition,
     {
@@ -85,6 +85,7 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
     register,
     watch,
     formState: { errors, isValid },
+    setValue,
   } = useForm<ExpeditionSchema>({
     defaultValues: isEdit && expedition ? expDefaultValues : defaultValues,
     resolver: zodResolver(expeditionSchema),
@@ -112,6 +113,32 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
       label: `${guide.firstName} ${guide.lastName}`,
     }));
   }, [guides]);
+
+  const [generateDescription, { isLoading: isGeneratingDescriptionLoading }] =
+    useGenerateDescriptionMutation();
+
+  const handleOnGenerateDescription = async () => {
+    try {
+      const formData = {
+        name: watch('name'),
+        countries: watch('countries'),
+        languages: watch('languages'),
+        activities: watch('activities'),
+        groupSize: watch('groupSize') as [number, number],
+        tourDuration: watch('tourDuration') as [Date, Date],
+        meetingDate: watch('meetingDate'),
+      };
+
+      const { data } = await generateDescription(formData);
+      if (data?.description) {
+        setValue('description', data.description, {
+          shouldValidate: true,
+        });
+      }
+    } catch (error) {
+      showSnackBar('Failed to generate description', 'error');
+    }
+  };
 
   // Submit handler
   async function onSubmit(data: ExpeditionSchema) {
@@ -218,18 +245,27 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <Controller
-            name='description'
-            control={control}
-            render={({ field }) => (
-              <RichTextEditor
-                label='Description'
-                value={field.value}
-                onChange={field.onChange}
-                initialContent={expedition?.description || ''}
-              />
-            )}
-          />
+          <Stack direction='row' alignItems='center' spacing={2}>
+            <Controller
+              name='description'
+              control={control}
+              render={({ field }) => (
+                <Stack width='100%'>
+                  <Typography variant='caption' mb={2}>
+                    Description
+                  </Typography>
+                  <RichTextEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    initialContent={expedition?.description || ''}
+                    onGenerateDescription={handleOnGenerateDescription}
+                    isGenerating={isGeneratingDescriptionLoading}
+                    isGenerationEnabled={isValid}
+                  />
+                </Stack>
+              )}
+            />
+          </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack

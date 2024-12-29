@@ -1,6 +1,6 @@
 import { useModal } from 'hooks/useModal';
 import React, { useState } from 'react';
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { Guide as GuideType } from '@prisma/client';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
 
@@ -34,7 +34,7 @@ export const GuideDetail = ({ guide }: { guide: GuideType }) => {
     useDeleteGuideMutation();
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const theme = useTheme();
   const { openModal, closeModal } = useModal();
   const hasExpeditions = expeditions?.length > 0;
   const searchParams = useSearchParams();
@@ -68,7 +68,7 @@ export const GuideDetail = ({ guide }: { guide: GuideType }) => {
   return (
     <Stack
       p={4}
-      borderRadius='1.2rem'
+      borderRadius={theme.borderRadius.medium}
       bgcolor='white'
       height='100%'
       border={`1px solid ${grey[300]}`}

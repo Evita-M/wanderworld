@@ -25,7 +25,7 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
           >
             <Stack
               py='1.2rem'
-              borderRadius='0.8rem'
+              borderRadius={theme.borderRadius.small}
               direction='row'
               alignItems='center'
               justifyContent='space-between'

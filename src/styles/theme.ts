@@ -11,6 +11,12 @@ const primary = {
   dark: '#1a7b94',
 };
 
+const borderRadius = {
+  small: '0.8rem',
+  medium: '1.2rem',
+  large: '1.6rem',
+};
+
 declare module '@mui/material/styles' {
   interface Palette {
     custom: Record<string, { main: string; text: string }>;
@@ -19,6 +25,20 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     custom?: Record<string, { main: string; text: string }>;
     tertiary?: PaletteOptions['primary'];
+  }
+  interface Theme {
+    borderRadius: {
+      small: string;
+      medium: string;
+      large: string;
+    };
+  }
+  interface ThemeOptions {
+    borderRadius?: {
+      small: string;
+      medium: string;
+      large: string;
+    };
   }
 }
 
@@ -145,10 +165,17 @@ const theme = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#023047',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '8px',
+          borderRadius: borderRadius.small,
           textTransform: 'none',
           fontWeight: 500,
           lineHeight: 1.5,
@@ -217,7 +244,7 @@ const theme = createTheme({
     MuiPopover: {
       styleOverrides: {
         paper: {
-          borderRadius: '1.2rem',
+          borderRadius: borderRadius.medium,
           boxShadow: 'none',
           border: `1px solid ${grey[300]}`,
         },
@@ -441,6 +468,7 @@ const theme = createTheme({
       },
     },
   },
+  borderRadius,
 });
 
 export default theme;

@@ -2,7 +2,7 @@ import { countries as countrieList } from '@/lib/data/countries';
 import { Stack, Typography, useTheme } from '@mui/material';
 import { Expedition } from '@prisma/client';
 import { format } from 'date-fns';
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import { routes } from '@/routes/index';
 import { getNames } from '@/utils/get-names';
@@ -22,16 +22,16 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
       <Stack
         justifyContent='center'
         alignItems='center'
-        height='30rem'
-        width='40rem'
-        borderRadius='2rem'
+        height={{ xs: '20rem', sm: '25rem', md: '30rem' }}
+        width='100%'
+        borderRadius={theme.borderRadius.medium}
         p={2}
         gap={1}
         border={`1px solid ${grey[300]}`}
         textAlign='center'
         sx={{
           transition: 'transform 0.3s',
-          '&:hover': { transform: 'scale(1.05)' },
+          '&:hover': { transform: 'scale(1.02)', borderColor: 'primary.light' },
         }}
       >
         <Typography variant='h4'>{name}</Typography>

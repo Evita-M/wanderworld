@@ -8,7 +8,9 @@ export const expeditionSchema = z.object({
   name: z.string().min(1, { message: 'Please enter an expedition name' }),
   description: z
     .string()
-    .min(10, { message: 'Description must be at least 10 characters long' }),
+    .min(10, { message: 'Description must be at least 10 characters long' })
+    .optional()
+    .or(z.literal('')),
   countries: z
     .array(z.string())
     .min(1, { message: 'Please select at least one country' })
@@ -22,7 +24,6 @@ export const expeditionSchema = z.object({
     .nullable()
     .or(z.literal(''))
     .transform((val) => (val === '' ? null : val)),
-
   activities: z
     .array(z.string())
     .min(1, { message: 'Please select at least one activity' }),

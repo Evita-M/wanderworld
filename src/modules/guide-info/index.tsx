@@ -4,6 +4,7 @@ import { Guide } from '@prisma/client';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
 import { Avatar } from '@/components/Avatar';
+import theme from '@/styles/theme';
 
 interface GuideInfoProps {
   guide?: Guide;
@@ -15,7 +16,7 @@ const GuideLabel: FC = () => {
     <Box
       bgcolor={theme.palette.secondary.main}
       p='1rem 1.4rem'
-      borderRadius='0 0 0 1rem'
+      borderRadius={`0 0 0 ${theme.borderRadius.large}`}
       position='absolute'
       top='0'
       right='0'
@@ -53,7 +54,7 @@ const EmptyGuide: FC = () => (
 
 export const GuideInfo: FC<GuideInfoProps> = ({ guide }: GuideInfoProps) => (
   <Box
-    borderRadius='2rem'
+    borderRadius={theme.borderRadius.large}
     overflow='hidden'
     position='relative'
     height='39.5rem'

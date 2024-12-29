@@ -1,16 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import guideApi from './api/guideApi';
 import expeditionApi from './api/expeditionApi';
+import groqApi from './api/groqApi';
 
 const store = configureStore({
   reducer: {
     [guideApi.reducerPath]: guideApi.reducer,
     [expeditionApi.reducerPath]: expeditionApi.reducer,
+    [groqApi.reducerPath]: groqApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       guideApi.middleware,
-      expeditionApi.middleware
+      expeditionApi.middleware,
+      groqApi.middleware
     ),
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

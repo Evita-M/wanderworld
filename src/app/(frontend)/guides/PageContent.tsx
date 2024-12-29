@@ -2,10 +2,7 @@
 
 import { FC, useEffect } from 'react';
 import { Stack } from '@mui/material';
-import {
-  useDeleteGuideMutation,
-  useGetGuidesQuery,
-} from '@/redux/api/guideApi';
+import { useGetGuidesQuery } from '@/redux/api/guideApi';
 
 import { GuideItem } from '@/modules/guide-item';
 import { useRouter, useSearchParams } from 'next/navigation';

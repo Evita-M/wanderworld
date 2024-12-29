@@ -1,10 +1,10 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import { Guide } from '@prisma/client';
 import React, { FC } from 'react';
 import { GuideHeader } from '../guide-header';
 
 import { TruncatedText } from '@/components/core/TruncatedText';
-import theme from '@/styles/theme';
+
 import { grey } from '@mui/material/colors';
 import { LanguageCode } from '../languages';
 
@@ -21,6 +21,7 @@ export const GuideItem: FC<GuideItemProps> = ({
 }) => {
   const { id, firstName, lastName, languages, avatar, description } = guide;
   const fullName = `${firstName} ${lastName}`;
+  const theme = useTheme();
 
   return (
     <Stack
@@ -28,7 +29,7 @@ export const GuideItem: FC<GuideItemProps> = ({
       height='26rem'
       gap='1rem'
       p='2.4rem'
-      borderRadius='1.2rem'
+      borderRadius={theme.borderRadius.large}
       border={`1px solid ${isSelected ? theme.palette.info.main : grey[300]}`}
       position='relative'
       onClick={() => onClick(id)}

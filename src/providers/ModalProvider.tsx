@@ -1,3 +1,4 @@
+import theme from '@/styles/theme';
 import { Box, Modal, Typography } from '@mui/material';
 import React, {
   createContext,
@@ -33,10 +34,10 @@ const modalWrapperStyles = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   maxWidth: '52rem',
-  minHeight: '25rem',
+  minHeight: '24rem',
   width: '100%',
   bgcolor: 'background.paper',
-  borderRadius: '2.4rem',
+  borderRadius: theme.borderRadius.large,
   boxShadow: 24,
   p: '3.2rem 2.4rem',
   display: 'flex',

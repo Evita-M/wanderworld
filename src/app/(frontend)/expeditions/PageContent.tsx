@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 import React, { FC } from 'react';
 import { useGetExpeditionsQuery } from '@/redux/api/expeditionApi';
 import { ExpeditionItem } from '@/modules/expedition-item';
@@ -30,11 +30,13 @@ const PageContent: FC = () => {
           <Loader />
         </Box>
       ) : expeditions?.length ? (
-        <Stack direction='row' gap='3rem' flexWrap='wrap'>
+        <Grid container spacing={3}>
           {expeditions?.map((expedition) => (
-            <ExpeditionItem key={expedition.id} expedition={expedition} />
+            <Grid item xs={12} sm={6} md={4}>
+              <ExpeditionItem key={expedition.id} expedition={expedition} />
+            </Grid>
           ))}
-        </Stack>
+        </Grid>
       ) : (
         <Stack height='100%'>
           <EmptyState title='No Expeditions Found' />

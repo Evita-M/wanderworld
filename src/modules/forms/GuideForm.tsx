@@ -14,26 +14,26 @@ import RHFTextField from '@/components/core/RHFTextField';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { languages } from '@/lib/data/languages';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 type GuideFormProps = {
   guide?: Guide;
   isEdit?: boolean;
-  onSuccess?: VoidFunction;
+  onSuccess?: (guideId: string) => void;
   onCancel?: VoidFunction;
 };
 
 export const GuideForm: FC<GuideFormProps> = ({
   guide,
-  isEdit = false,
+  isEdit,
   onCancel,
   onSuccess,
 }) => {
   const [createGuide, { isLoading: isCreateGuideLoading }] =
     useCreateGuideMutation();
-  const [
-    updateGuide,
-    { isLoading: isUpdateGuideLoading, isSuccess: isUpdateGuideSuccess },
-  ] = useUpdateGuideMutation();
+  const [updateGuide, { isLoading: isUpdateGuideLoading }] =
+    useUpdateGuideMutation();
 
   const { showSnackBar } = useSnackbar();
 
@@ -72,16 +72,22 @@ export const GuideForm: FC<GuideFormProps> = ({
 
     try {
       if (guide && isEdit) {
-        await updateGuide({ id: guide.id, data: guideData });
+        const result = await updateGuide({
+          id: guide.id,
+          data: guideData,
+        }).unwrap();
         showSnackBar('Your changes were saved!', 'success');
-        onSuccess?.();
+        onSuccess?.(result.id);
       } else {
-        await createGuide(guideData);
+        const result = await createGuide(guideData).unwrap();
         showSnackBar('New guide was added!', 'success');
+        onSuccess?.(result.id);
       }
-      onSuccess?.();
     } catch (error) {
-      showSnackBar('Something went wrong', 'warning');
+      const err = error as FetchBaseQueryError;
+      const message =
+        (err.data as { message: string })?.message || 'Something went wrong';
+      showSnackBar(message, 'error');
     }
   }
 

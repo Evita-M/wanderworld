@@ -1,10 +1,8 @@
-import { Stack, Typography, useTheme } from '@mui/material';
+import { Stack, useTheme } from '@mui/material';
 import { Guide } from '@prisma/client';
 import React, { FC } from 'react';
 import { GuideHeader } from '../guide-header';
-
 import { TruncatedText } from '@/components/core/TruncatedText';
-
 import { grey } from '@mui/material/colors';
 import { LanguageCode } from '../languages';
 

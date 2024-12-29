@@ -1,3 +1,4 @@
+'use client';
 import { Image, ResponsiveImage } from '@/components/core/ResponsiveImage';
 import { Typewriter } from '@/components/core/Typewriter';
 import { Box, Stack, Typography, useTheme } from '@mui/material';

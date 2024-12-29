@@ -1,10 +1,23 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-
 import Masonry from '@mui/lab/Masonry';
 
 const heights = [395, 220, 160, 220, 160];
+
+export const BasicMasonry = () => {
+  return (
+    <Box sx={{ minHeight: 395 }}>
+      <Masonry columns={3} spacing={2}>
+        {heights.map((height, index) => (
+          <Item key={index} sx={{ height }}>
+            <ResponsiveImage alt='' src='https://picsum.photos/1280/720' />
+          </Item>
+        ))}
+      </Masonry>
+    </Box>
+  );
+};
 
 const Item = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.info.main,
@@ -20,17 +33,3 @@ const ResponsiveImage = styled('img')({
   height: '100%', // Ensures the image takes the full height of the container.
   objectFit: 'cover', // Ensures the image covers the area without distortion (cropping may occur).
 });
-
-export const BasicMasonry = () => {
-  return (
-    <Box sx={{ minHeight: 395 }}>
-      <Masonry columns={3} spacing={2}>
-        {heights.map((height, index) => (
-          <Item key={index} sx={{ height }}>
-            <ResponsiveImage alt='' src='https://picsum.photos/1280/720' />
-          </Item>
-        ))}
-      </Masonry>
-    </Box>
-  );
-};

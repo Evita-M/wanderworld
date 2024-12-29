@@ -3,7 +3,6 @@
 import { FC, useEffect } from 'react';
 import { Stack } from '@mui/material';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
-
 import { GuideItem } from '@/modules/guide-item';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { GuideDetail } from '@/modules/guide-details';
@@ -16,22 +15,24 @@ import { routes } from '@/routes/index';
 const Guides: FC = () => {
   const { data: guides, isLoading: isGetGuidesLoading } = useGetGuidesQuery();
   const router = useRouter();
-
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams.toString());
   const guideId = searchParams.get('guideId');
 
   useEffect(() => {
     if (guides?.length && !guideId) {
       const firstGuide = guides[0];
-      params.set('guideId', firstGuide.id);
-      router.push(`?${params.toString()}`, { scroll: false });
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set('guideId', firstGuide.id);
+      router.push(`${routes.guides}?${newParams.toString()}`, {
+        scroll: false,
+      });
     }
-  }, [guides, guideId, router, params]);
+  }, [guides, guideId, router, searchParams]);
 
   const handleGuideClick = (guide: Guide) => {
-    params.set('guideId', guide.id);
-    router.push(`?${params.toString()}`);
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('guideId', guide.id);
+    router.push(`${routes.guides}?${newParams.toString()}`);
   };
 
   const selectedGuide = guides?.find((guide) => guide.id === guideId) || null;
@@ -71,7 +72,9 @@ const Guides: FC = () => {
               ))}
             </Stack>
             <Stack flex={1} overflow='auto'>
-              {selectedGuide && <GuideDetail guide={selectedGuide} />}
+              {selectedGuide && (
+                <GuideDetail guide={selectedGuide} guides={guides || []} />
+              )}
             </Stack>
           </Stack>
         ) : (

@@ -1,30 +1,17 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { green, grey } from '@mui/material/colors';
-
-export const bgColor = '#fff';
-
-// Primary color palette
-const primary = {
-  main: '#219ebc',
-  light: '#8ecae6',
-  lighter: '#e6f4f8',
-  dark: '#1a7b94',
-};
-
-const borderRadius = {
-  small: '0.8rem',
-  medium: '1.2rem',
-  large: '1.6rem',
-};
+import { typography } from './typography';
+import { palette, customColors, bgColor } from './colors';
+import { borderRadius } from './border-radius';
 
 declare module '@mui/material/styles' {
   interface Palette {
-    custom: Record<string, { main: string; text: string }>;
     tertiary: Palette['primary'];
+    custom: Record<string, { main: string; text: string }>;
   }
   interface PaletteOptions {
-    custom?: Record<string, { main: string; text: string }>;
     tertiary?: PaletteOptions['primary'];
+    custom?: Record<string, { main: string; text: string }>;
   }
   interface Theme {
     borderRadius: {
@@ -42,49 +29,17 @@ declare module '@mui/material/styles' {
   }
 }
 
-const customColors = {
-  blue: { main: '#d1f0ff', text: '#3A5F5B' },
-  yellow: { main: '#FFEDAE', text: '#6C5208' },
-  beige: { main: '#E3E2D8', text: '#555451' },
-  mint: { main: '#D7ECDF', text: '#3D5A4F' },
-  red: { main: '#FFE5E5', text: '#A13453' },
-  gray: { main: '#E4E7E4', text: '#3B4859' },
-  lavender: { main: '#EAD7EC', text: '#582C5D' },
-  peach: { main: '#FFD890', text: '#754513' },
-  green: { main: '#D3E5C5', text: '#3A6E3A' },
-};
-
 const theme = createTheme({
   palette: {
     background: {
       default: bgColor,
     },
-    primary: {
-      main: primary.main,
-      light: primary.light,
-      dark: primary.dark,
-      contrastText: '#FFFFFF',
-    },
-    secondary: {
-      main: '#fb8500', // Orange
-      contrastText: '#FFFFFF',
-    },
-    tertiary: {
-      main: '#023047', // Dark Blue
-      contrastText: '#FFFFFF',
-    },
-    warning: {
-      main: '#ffb703', // Yellow
-      contrastText: '#000000',
-    },
-    info: {
-      main: '#d4ebf2', // Light Blue
-      contrastText: '#000000',
-    },
-    error: {
-      main: '#C70039', // Stronger red for better contrast
-      contrastText: '#FFFFFF', // Darker red text
-    },
+    primary: palette.primary,
+    secondary: palette.secondary,
+    tertiary: palette.tertiary,
+    error: palette.error,
+    warning: palette.warning,
+    info: palette.info,
     custom: customColors,
   },
   typography: {
@@ -94,35 +49,74 @@ const theme = createTheme({
       color: grey[900],
       letterSpacing: '0.025em',
     },
+
+    h1: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h1,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    h2: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h2,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    h3: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h3,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    h4: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h4,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    h5: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h5,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    h6: {
+      fontFamily: `var(--museo-moderno), cursive`,
+      fontSize: typography.h6,
+      lineHeight: typography.lineHeightHeading,
+      fontWeight: 500,
+    },
+    // Body text
+    body1: {
+      fontSize: typography.bodyMain,
+      lineHeight: typography.lineHeightBody,
+      fontWeight: 400,
+    },
+    body2: {
+      fontSize: typography.bodySmall,
+      lineHeight: typography.lineHeightBody,
+      fontWeight: 400,
+    },
+    // Supporting text
     caption: {
-      fontSize: '1.2rem',
+      fontSize: typography.caption,
+      lineHeight: typography.lineHeightSmall,
       fontWeight: 500,
       color: grey[700],
       textTransform: 'uppercase',
     },
-    h1: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '7.6rem',
+    overline: {
+      fontSize: typography.tiny,
+      lineHeight: typography.lineHeightSmall,
+      fontWeight: 500,
+      textTransform: 'uppercase',
+      letterSpacing: '0.1em',
     },
-    h2: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '6rem',
-    },
-    h3: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '4.8rem',
-    },
-    h4: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '3.6rem',
-    },
-    h5: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '2.8rem',
-    },
-    h6: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: '2.2rem',
+    // Button text
+    button: {
+      fontSize: typography.bodySmall,
+      fontWeight: 500,
+      textTransform: 'none',
     },
   },
   components: {
@@ -179,6 +173,26 @@ const theme = createTheme({
           textTransform: 'none',
           fontWeight: 500,
           lineHeight: 1.5,
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          },
+        },
+        containedPrimary: {
+          '&:hover': {
+            backgroundColor: 'rgba(33, 158, 188, 0.95)',
+          },
+        },
+        containedSecondary: {
+          '&:hover': {
+            backgroundColor: 'rgba(251, 133, 0, 0.95)',
+          },
+        },
+        containedError: {
+          '&:hover': {
+            backgroundColor: 'rgba(199, 0, 57, 0.95)',
+          },
         },
         sizeSmall: {
           padding: '0.6rem 1.6rem',
@@ -203,14 +217,14 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: primary.main,
+          backgroundColor: palette.primary.main,
           color: '#fff',
           height: '34px',
           '&:hover': {
-            backgroundColor: primary.dark,
+            backgroundColor: palette.primary.dark,
           },
           '&.MuiChip-deletable:hover': {
-            backgroundColor: primary.dark,
+            backgroundColor: palette.primary.dark,
           },
         },
         label: {
@@ -264,10 +278,10 @@ const theme = createTheme({
         root: {
           backgroundColor: '#fff',
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: primary.main,
+            borderColor: palette.primary.main,
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: primary.light,
+            borderColor: palette.primary.light,
           },
         },
       },
@@ -287,15 +301,15 @@ const theme = createTheme({
     MuiSlider: {
       styleOverrides: {
         thumb: {
-          color: primary.main,
+          color: palette.primary.main,
           height: '24px',
           width: '24px',
           '&:hover': {
-            color: primary.dark,
+            color: palette.primary.dark,
           },
         },
         track: {
-          color: primary.light,
+          color: palette.primary.light,
           height: '12px',
         },
         rail: {
@@ -335,12 +349,12 @@ const theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: primary.light,
+          color: palette.primary.light,
           '&.Mui-checked': {
-            color: primary.main,
+            color: palette.primary.main,
           },
           '&:hover': {
-            color: primary.dark,
+            color: palette.primary.dark,
             backgroundColor: 'transparent',
           },
           '&.Mui-checked:hover': {
@@ -357,24 +371,24 @@ const theme = createTheme({
         switchBase: {
           '&.Mui-checked': {
             transform: 'translateX(28px)',
-            color: primary.main,
+            color: palette.primary.main,
           },
           '&.Mui-checked + .MuiSwitch-track': {
-            backgroundColor: primary.light,
+            backgroundColor: palette.primary.light,
             opacity: 1,
           },
         },
         thumb: {
-          color: primary.main,
+          color: palette.primary.main,
           '&:hover': {
-            color: primary.dark,
+            color: palette.primary.dark,
           },
         },
         track: {
           backgroundColor: grey[600],
           height: '12px',
           '&.Mui-checked': {
-            backgroundColor: primary.light,
+            backgroundColor: palette.primary.light,
             opacity: 1,
           },
         },
@@ -394,16 +408,16 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
-          borderColor: primary.light,
+          borderColor: palette.primary.light,
           '&.Mui-selected': {
-            backgroundColor: primary.main,
+            backgroundColor: palette.primary.main,
             color: '#fff',
             '&:hover': {
-              backgroundColor: primary.dark,
+              backgroundColor: palette.primary.dark,
             },
           },
           '&:hover': {
-            backgroundColor: primary.lighter,
+            backgroundColor: palette.primary.lighter,
           },
         },
       },
@@ -458,7 +472,7 @@ const theme = createTheme({
           marginLeft: 0,
           marginRight: 0,
           '&:hover .MuiCheckbox-root': {
-            color: primary.dark,
+            color: palette.primary.dark,
             transition: 'color 0.3s ease',
           },
         },

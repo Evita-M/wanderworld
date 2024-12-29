@@ -1,22 +1,25 @@
 import { useModal } from 'hooks/useModal';
-import React, { useState } from 'react';
-import { Box, Divider, Stack, Typography, useTheme } from '@mui/material';
+import React from 'react';
+import { Divider, Stack, Typography, useTheme } from '@mui/material';
 import { Guide as GuideType } from '@prisma/client';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
-
 import { GuideExpeditions } from '../guide-expeditions';
 import { grey } from '@mui/material/colors';
 import { ConfirmationModal } from '@/components/core/ConfirmationModal';
-
 import { useDeleteGuideMutation } from '@/redux/api/guideApi';
 import { useSnackbar } from 'hooks/useSnackbar';
-
 import { routes } from '@/routes/index';
 import { Actions } from '../actions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LanguageCode } from '../languages';
 
-export const GuideDetail = ({ guide }: { guide: GuideType }) => {
+export const GuideDetail = ({
+  guide,
+  guides,
+}: {
+  guide: GuideType;
+  guides: GuideType[];
+}) => {
   const {
     id,
     firstName,
@@ -42,7 +45,19 @@ export const GuideDetail = ({ guide }: { guide: GuideType }) => {
 
   const onDelete = async (id: string) => {
     await deleteGuide(id);
+
+    // Find the first remaining guide after deletion
+    const remainingGuides = guides.filter((g) => g.id !== id);
+    const firstGuideId =
+      remainingGuides.length > 0 ? remainingGuides[0].id : null;
+
     params.delete('guideId');
+    if (firstGuideId) {
+      params.set('guideId', firstGuideId);
+    }
+
+    router.push(`${routes.guides}?${params.toString()}`);
+    showSnackBar('Guide was deleted', 'success');
     closeModal();
   };
 

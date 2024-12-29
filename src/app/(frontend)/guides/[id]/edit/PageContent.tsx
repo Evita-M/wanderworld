@@ -16,8 +16,8 @@ const PageContent = () => {
     id as string
   );
 
-  const redirectToGuides = () => {
-    router.push(`${routes.guides}?${id}`);
+  const redirectToGuides = (guideId: string) => {
+    router.replace(`${routes.guides}?id=${guideId}`);
   };
 
   if (!guide && !isGuideLoading) {
@@ -28,7 +28,12 @@ const PageContent = () => {
     <Stack height='100%'>
       <PageHeader
         title='Edit Guide'
-        prefix={<BackButton color='secondary' onClick={redirectToGuides} />}
+        prefix={
+          <BackButton
+            color='secondary'
+            onClick={() => redirectToGuides(id as string)}
+          />
+        }
         sx={{ mb: '4rem' }}
       />
       {isGuideLoading ? (
@@ -44,7 +49,7 @@ const PageContent = () => {
         <GuideForm
           guide={guide}
           isEdit={true}
-          onCancel={redirectToGuides}
+          onCancel={() => redirectToGuides(id as string)}
           onSuccess={redirectToGuides}
         />
       )}

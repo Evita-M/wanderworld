@@ -11,7 +11,16 @@ type HeroProps = {
 export const Hero: FC<HeroProps> = ({ images }) => {
   const theme = useTheme();
   return (
-    <Stack direction='row' width='100%' gap={2} maxWidth='70%'>
+    <Stack
+      alignItems='center'
+      justifyContent='center'
+      direction='row'
+      width='100%'
+      gap={2}
+      maxWidth='70%'
+      m='0 auto'
+      height='100%'
+    >
       <Box flex='0 0 8rem' pt='9rem'>
         <Typography
           variant='h1'

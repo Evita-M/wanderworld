@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { Stack } from '@mui/material';
 import { Providers } from '@/providers/index';
 import { Header } from '@/modules/Header';
-
+import { ReactNode } from 'react';
+import './globals.css';
 import { museoModerno, notoSans } from '@/styles/fonts';
 
 export const metadata: Metadata = {
@@ -16,16 +16,21 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang='en' className={`${notoSans.variable} ${museoModerno.variable}`}>
-      <head></head>
-      <body>
+    <html
+      lang='en'
+      className='scroll-smooth antialiased'
+      suppressHydrationWarning
+    >
+      <body className={`${notoSans.variable} ${museoModerno.variable} `}>
         <Providers>
           <Stack height='100%'>
             <Header />
-            <Stack height='100%'>{children}</Stack>
+            <Stack component='main' height='100%'>
+              {children}
+            </Stack>
           </Stack>
         </Providers>
       </body>

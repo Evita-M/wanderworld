@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
 import PageContent from './PageContent';
 import { PageContainer } from '@/components/core/PageContainer';
 import { formatPageTitle } from '@/config/metadata';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: formatPageTitle('Guides'),

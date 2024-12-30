@@ -32,8 +32,8 @@ const PageContent: FC = () => {
       ) : expeditions?.length ? (
         <Grid container spacing={3}>
           {expeditions?.map((expedition) => (
-            <Grid item xs={12} sm={6} md={4}>
-              <ExpeditionItem key={expedition.id} expedition={expedition} />
+            <Grid item xs={12} sm={6} md={4} key={expedition.id}>
+              <ExpeditionItem expedition={expedition} />
             </Grid>
           ))}
         </Grid>

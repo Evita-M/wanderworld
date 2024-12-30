@@ -1,7 +1,7 @@
+import { PageContainer } from '@/components/core/PageContainer';
 import { Image } from '@/components/core/ResponsiveImage';
 import { Hero } from '@/modules/hero';
 import { Stack } from '@mui/material';
-import { FC } from 'react';
 
 const heroImages: Image[] = [
   {
@@ -18,15 +18,10 @@ const heroImages: Image[] = [
   },
 ];
 
-const Home: FC = () => (
-  <Stack
-    direction='row'
-    justifyContent='center'
-    alignItems='center'
-    height='100%'
-  >
-    <Hero images={heroImages} />
-  </Stack>
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <PageContainer maxWidth='100%'>
+      <Hero images={heroImages} />
+    </PageContainer>
+  );
+}

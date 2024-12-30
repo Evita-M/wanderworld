@@ -12,7 +12,7 @@ import { Loader } from '@/components/core/Loader';
 import { EmptyState } from '@/components/core/EmptyState';
 import { routes } from '@/routes/index';
 
-const Guides: FC = () => {
+const PageContent = () => {
   const { data: guides, isLoading: isGetGuidesLoading } = useGetGuidesQuery();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -90,4 +90,4 @@ const Guides: FC = () => {
   );
 };
 
-export default Guides;
+export default PageContent;

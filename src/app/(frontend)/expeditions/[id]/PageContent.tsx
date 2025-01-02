@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import {
   useDeleteExpeditionMutation,
@@ -17,22 +17,27 @@ import { PageHeader } from '@/modules/page-header';
 import { routes } from '@/routes/index';
 import { ConfirmationModal } from '@/components/core/ConfirmationModal';
 import { Actions } from '@/modules/actions';
+import { GuideInfo } from '@/modules/guide-info';
 
 const PageContent = () => {
   const { id } = useParams();
   const { openModal, closeModal } = useModal();
-  const { data: expedition, isLoading: isExpeditionLoading } =
-    useGetExpeditionQuery(id as string);
+  const {
+    data: expedition,
+    isLoading: isExpeditionLoading,
+    isError: isExpeditionError,
+  } = useGetExpeditionQuery(id as string);
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
   const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] =
     useDeleteExpeditionMutation();
-  const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(
-    expedition?.guideId as string,
-    {
-      skip: !expedition?.guideId,
-    }
-  );
+  const {
+    data: guide,
+    isLoading: isGetGuideLoading,
+    isError: isGuideError,
+  } = useGetGuideQuery(expedition?.guideId as string, {
+    skip: !expedition?.guideId,
+  });
   const isLoading = isExpeditionLoading || isGetGuideLoading;
   const onDelete = async (id: string) => {
     try {
@@ -66,9 +71,21 @@ const PageContent = () => {
     router.push(`${routes.expeditions}/${id}/edit`);
   };
 
-  if (!expedition && !isExpeditionLoading) {
-    return <Typography>Expedition not found</Typography>;
+  if (!id) {
+    return <Typography>Invalid expedition ID</Typography>;
   }
+
+  useEffect(() => {
+    if (isExpeditionError) {
+      throw new Error('Expedition failed to load');
+    }
+  }, [isExpeditionError]);
+
+  useEffect(() => {
+    if (isGuideError) {
+      throw new Error('Guide failed to load');
+    }
+  }, [isGuideError]);
 
   return (
     <>
@@ -89,12 +106,10 @@ const PageContent = () => {
             alignItems='center'
             justifyContent='space-between'
           >
-            <Box>
-              <PageHeader title={expedition!.name} />
-            </Box>
+            <Box>{expedition && <PageHeader title={expedition.name} />}</Box>
             <Actions onEdit={handleEdit} onDelete={handleOnDelete} />
           </Stack>
-          <ExpeditionDetail expedition={expedition!} guide={guide} />
+          {expedition && <ExpeditionDetail expedition={expedition} />}
         </>
       )}
     </>

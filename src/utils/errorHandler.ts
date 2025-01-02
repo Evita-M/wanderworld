@@ -1,6 +1,8 @@
 import { Prisma } from '@prisma/client';
 import { StatusCodes } from 'http-status-codes';
 import { NextResponse } from 'next/server';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 export interface BaseResponse {
   success: boolean;
@@ -107,7 +109,24 @@ export const getServerErrorResponse = (error: unknown) => {
     code: 'SERVER_ERROR',
   };
   return NextResponse.json<ErrorResponse>(
-    { success: false, message: 'Something went wrong', error: errorResponse },
+    {
+      success: false,
+      message: 'Something went wrong',
+      error: errorResponse,
+    },
     { status: handledError.statusCode }
   );
+};
+
+export const getRTKQueryErrorMessage = (
+  error: FetchBaseQueryError | SerializedError | undefined
+) => {
+  if (!error) return 'An error occurred';
+
+  if ('data' in error) {
+    return ((error as FetchBaseQueryError).data as { message: string })
+      ?.message;
+  }
+
+  return (error as SerializedError).message;
 };

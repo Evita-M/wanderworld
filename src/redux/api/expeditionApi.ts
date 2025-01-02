@@ -1,4 +1,5 @@
 import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
+import { ErrorResponse } from '@/utils/errorHandler';
 import { Expedition } from '@prisma/client';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 

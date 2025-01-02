@@ -5,28 +5,30 @@ import { FC, ReactNode } from 'react';
 
 interface ErrorPageProps {
   title: string;
-  message: string;
+  message?: string;
   submessage?: string;
   button?: { label: string; href?: string; onClick?: VoidFunction };
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const ErrorPage: FC<ErrorPageProps> = ({
   title,
   message,
-  submessage = 'Check the page address or go home',
+  submessage,
   button,
   children,
 }) => {
   return (
     <Stack component='section' textAlign='center' height='100%'>
-      <Stack bgcolor='primary.main' width='100%' textAlign='left' py='1.8rem'>
-        <PageContainer>
-          <Typography color='white' fontSize='1.8rem' fontWeight={600}>
-            {message}
-          </Typography>
-        </PageContainer>
-      </Stack>
+      {message && (
+        <Stack bgcolor='primary.main' width='100%' textAlign='left' py='1.8rem'>
+          <PageContainer>
+            <Typography color='white' fontSize='1.8rem' fontWeight={600}>
+              {message}
+            </Typography>
+          </PageContainer>
+        </Stack>
+      )}
       <PageContainer>
         <Stack
           spacing={2}

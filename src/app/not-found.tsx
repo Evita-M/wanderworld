@@ -5,8 +5,9 @@ import { routes } from '../routes';
 export default async function NotFound() {
   return (
     <ErrorPage
-      title='404 Not Found'
-      message="Looks, like you're heading to a wrong destination"
+      message='404 Not Found'
+      title="Looks, like you're heading to a wrong destination"
+      submessage='Check the page address or go home'
       button={{ label: 'Go back home', href: routes.home }}
     >
       <Image

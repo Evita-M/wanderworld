@@ -1,4 +1,3 @@
-import { BackButton } from '@/components/core/BackButton';
 import { PageHeader } from '@/modules/page-header';
 import { routes } from '@/routes/index';
 

@@ -8,7 +8,7 @@ import {
 } from '@/utils/errorHandler';
 import { Guide, Prisma } from '@prisma/client';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 type GetGuideParams = {
   guideId: string;

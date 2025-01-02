@@ -60,5 +60,4 @@ async function createGuide(request: NextRequest) {
     return getServerErrorResponse(error);
   }
 }
-
 export { getGuides as GET, createGuide as POST };

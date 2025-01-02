@@ -17,7 +17,7 @@ const PageContent = () => {
   );
 
   const redirectToGuides = (guideId: string) => {
-    router.replace(`${routes.guides}?id=${guideId}`);
+    router.replace(`${routes.guides}/${guideId}`);
   };
 
   if (!guide && !isGuideLoading) {
@@ -50,7 +50,7 @@ const PageContent = () => {
           guide={guide}
           isEdit={true}
           onCancel={() => redirectToGuides(id as string)}
-          onSuccess={redirectToGuides}
+          onSuccess={() => redirectToGuides(id as string)}
         />
       )}
     </Stack>

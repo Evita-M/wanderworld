@@ -1,3 +1,5 @@
+'use client';
+
 import { useModal } from 'hooks/useModal';
 import React from 'react';
 import { Divider, Stack, Typography, useTheme } from '@mui/material';
@@ -18,7 +20,7 @@ export const GuideDetail = ({
   guides,
 }: {
   guide: GuideType;
-  guides: GuideType[];
+  guides?: GuideType[];
 }) => {
   const {
     id,
@@ -47,9 +49,11 @@ export const GuideDetail = ({
     await deleteGuide(id);
 
     // Find the first remaining guide after deletion
-    const remainingGuides = guides.filter((g) => g.id !== id);
+    const remainingGuides = guides?.filter((g) => g.id !== id);
     const firstGuideId =
-      remainingGuides.length > 0 ? remainingGuides[0].id : null;
+      remainingGuides && remainingGuides.length > 0
+        ? remainingGuides[0].id
+        : null;
 
     params.delete('guideId');
     if (firstGuideId) {
@@ -86,6 +90,7 @@ export const GuideDetail = ({
       borderRadius={theme.borderRadius.medium}
       bgcolor='white'
       height='100%'
+      overflow='auto'
       border={`1px solid ${grey[300]}`}
     >
       <Stack mb={4}>

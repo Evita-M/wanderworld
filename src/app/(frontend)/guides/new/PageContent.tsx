@@ -20,7 +20,7 @@ const PageContent = () => {
       router.push(routes.guides);
       return;
     }
-    router.replace(`${routes.guides}?id=${guideId}`);
+    router.replace(`${routes.guides}/${guideId}`);
   };
 
   return (

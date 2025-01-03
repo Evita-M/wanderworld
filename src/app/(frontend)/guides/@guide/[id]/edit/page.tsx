@@ -1,4 +1,3 @@
-import { PageContainer } from '@/components/core/PageContainer';
 import PageContent from './PageContent';
 import { Metadata } from 'next';
 import { formatPageTitle } from '@/config/metadata';

@@ -41,7 +41,7 @@ export default function List() {
     >
       <EmptyState
         title='No Guides Found'
-        description='Don’t worry, every great journey starts with creating a leader.'
+        description='Don’t worry, every great journey starts with creating a leader'
         img={{
           src: '/hiking.png',
           alt: 'A woman hiking in the mountains',
@@ -54,7 +54,7 @@ export default function List() {
         color='primary'
         LinkComponent={Link}
         href={routes.newGuide}
-        sx={{ mt: '2.4rem' }}
+        sx={{ mt: '3.2rem' }}
       >
         Create a new guide
       </Button>

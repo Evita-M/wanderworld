@@ -45,9 +45,8 @@ export const ErrorPage: FC<ErrorPageProps> = ({
           {button && (
             <Button
               variant='contained'
-              size='large'
               color='secondary'
-              sx={{ mt: '2.4rem' }}
+              sx={{ mt: '1.6rem' }}
               {...(button.href
                 ? {
                     href: button.href,

@@ -21,38 +21,35 @@ export default function GuidesLayout({
 
   return (
     <PageContainer>
-      <Stack height='100%' rowGap='4rem'>
-        {children}
+      {/* <Stack height='100%'> */}
+      {children}
+      <Stack
+        alignItems='center'
+        justifyContent='center'
+        sx={{
+          height: 'calc(100% - 2rem)',
+          overflow: 'hidden',
+        }}
+        position='relative'
+      >
         <Stack
-          alignItems='center'
-          justifyContent='center'
-          sx={{
-            height: 'calc(100vh - 24rem)',
-            overflow: 'hidden',
-          }}
+          direction='row'
+          flex={1}
+          spacing={3}
+          overflow='hidden'
+          width='100%'
+          height='100%'
+          mt='4rem'
         >
-          <Stack
-            direction='row'
-            flex={1}
-            spacing={3}
-            overflow='hidden'
-            width='100%'
-            height='100%'
-          >
-            <Stack
-              spacing={3}
-              width='40%'
-              pb='0.6rem'
-              sx={{ overflowY: 'auto' }}
-            >
-              {list}
-            </Stack>
-            <Stack width='60%' justifyContent='center' flex={1} overflow='auto'>
-              {guide}
-            </Stack>
+          <Stack spacing={3} width='40%' pb='0.6rem' sx={{ overflowY: 'auto' }}>
+            {list}
+          </Stack>
+          <Stack width='60%' justifyContent='center' flex={1} overflow='auto'>
+            {guide}
           </Stack>
         </Stack>
       </Stack>
+      {/* </Stack> */}
     </PageContainer>
   );
 }

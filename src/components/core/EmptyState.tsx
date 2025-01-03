@@ -5,24 +5,31 @@ import { FC } from 'react';
 interface EmptyStateProps {
   title: string;
   description?: string;
-  image?: string;
+  img?: { alt: string; src: string; width: number; height: number };
 }
 
 export const EmptyState: FC<EmptyStateProps> = ({
   title,
   description,
-  image = '/luggage.png',
+  img = { src: '/luggage.png', alt: 'Luggage', width: 380, height: 330 },
 }) => {
   return (
     <Stack
       alignItems='center'
       justifyContent='center'
-      spacing={1}
-      height='100%'
+      spacing={2}
+      height='auto'
       textAlign='center'
     >
-      <Image src={image} alt={title} width={380} height={330} />
-      <Typography variant='h5' component='h2' mt='2.4rem'>
+      {img && (
+        <Image
+          src={img.src}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+        />
+      )}
+      <Typography fontSize='1.8rem' component='h2'>
         {title}
       </Typography>
       {description && (

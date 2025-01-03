@@ -10,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function EditGuidePage() {
-  return (
-    <PageContainer maxWidth='md'>
-      <PageContent />
-    </PageContainer>
-  );
+  return <PageContent />;
 }

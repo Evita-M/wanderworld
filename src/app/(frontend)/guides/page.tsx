@@ -1,8 +1,8 @@
-import { BackButton } from '@/components/core/BackButton';
+'use client';
 import { PageHeader } from '@/modules/page-header';
 import { routes } from '@/routes/index';
 
-export default function DefaultGuidesPage() {
+export default function GuidesPage() {
   return (
     <PageHeader
       title='Guides'

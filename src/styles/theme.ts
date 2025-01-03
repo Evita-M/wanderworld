@@ -1,3 +1,4 @@
+'use client';
 import { createTheme } from '@mui/material/styles';
 import { green, grey } from '@mui/material/colors';
 import { typography } from './typography';
@@ -125,6 +126,13 @@ const theme = createTheme({
         root: {
           borderRadius: '6px',
           padding: '4px',
+        },
+      },
+    },
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {
+          background: palette.primary.lighter,
         },
       },
     },

@@ -2,12 +2,12 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Loader } from '@/components/core/Loader';
-import { PageHeader } from '@/modules/page-header';
 import { Box, Stack, Typography } from '@mui/material';
 import { routes } from '@/routes/index';
-import { BackButton } from '@/components/core/BackButton';
 import { useGetGuideQuery } from '@/redux/api/guideApi';
 import { GuideForm } from '@/modules/forms/GuideForm';
+import { borderRadius } from '@/styles/border-radius';
+import { grey } from '@mui/material/colors';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -20,22 +20,16 @@ const PageContent = () => {
     router.replace(`${routes.guides}/${guideId}`);
   };
 
-  if (!guide && !isGuideLoading) {
-    return <Typography>Guide not found</Typography>;
-  }
-
   return (
-    <Stack height='100%'>
-      <PageHeader
-        title='Edit Guide'
-        prefix={
-          <BackButton
-            color='secondary'
-            onClick={() => redirectToGuides(id as string)}
-          />
-        }
-        sx={{ mb: '4rem' }}
-      />
+    <Stack
+      height='100%'
+      p='3.2rem'
+      borderRadius={borderRadius.large}
+      border={`1px solid ${grey[300]}`}
+    >
+      <Typography variant='h3' component='h2' mb='4rem'>
+        Edit Guide
+      </Typography>
       {isGuideLoading ? (
         <Box
           display='flex'

@@ -14,6 +14,7 @@ import { routes } from '@/routes/index';
 import { Actions } from '../actions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LanguageCode } from '../languages';
+import { borderRadius } from '@/styles/border-radius';
 
 export const GuideDetail = ({
   guide,
@@ -87,11 +88,10 @@ export const GuideDetail = ({
   return (
     <Stack
       p={4}
-      borderRadius={theme.borderRadius.medium}
-      bgcolor='white'
       height='100%'
       overflow='auto'
       border={`1px solid ${grey[300]}`}
+      borderRadius={borderRadius.large}
     >
       <Stack mb={4}>
         <GuideHeader

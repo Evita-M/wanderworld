@@ -1,7 +1,7 @@
 'use client';
 import { PageContainer } from '@/components/core/PageContainer';
 import { Stack } from '@mui/material';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function GuidesLayout({
@@ -36,6 +36,7 @@ export default function GuidesLayout({
             flex={1}
             spacing={3}
             overflow='hidden'
+            width='100%'
             height='100%'
           >
             <Stack
@@ -46,7 +47,7 @@ export default function GuidesLayout({
             >
               {list}
             </Stack>
-            <Stack width='60%' flex={1} overflow='auto'>
+            <Stack width='60%' justifyContent='center' flex={1} overflow='auto'>
               {guide}
             </Stack>
           </Stack>

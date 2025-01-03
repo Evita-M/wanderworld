@@ -25,5 +25,9 @@ export default function GuidePage() {
     }
   }, [isGetGuideError, router]);
 
-  return guide && <GuideDetail guide={guide} />;
+  return isGetGuideLoading ? (
+    <Loader />
+  ) : (
+    guide && <GuideDetail guide={guide} />
+  );
 }

@@ -109,7 +109,9 @@ const PageContent = () => {
             <Box>{expedition && <PageHeader title={expedition.name} />}</Box>
             <Actions onEdit={handleEdit} onDelete={handleOnDelete} />
           </Stack>
-          {expedition && <ExpeditionDetail expedition={expedition} />}
+          {expedition && (
+            <ExpeditionDetail expedition={expedition} guide={guide} />
+          )}
         </>
       )}
     </>

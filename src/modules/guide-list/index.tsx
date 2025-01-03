@@ -1,7 +1,7 @@
 'use client';
 
 import { GuideItem } from '@/modules/guide-item';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { Guide } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -16,14 +16,6 @@ export function GuideList({ guides }: { guides: Guide[] }) {
     setSelectedGuideId(guide.id);
     router.push(`/guides/${guide.id}`);
   };
-
-  if (!guides?.length) {
-    return (
-      <Stack alignItems='center' justifyContent='center' height='100%'>
-        <Typography>No guides found</Typography>
-      </Stack>
-    );
-  }
 
   return (
     <Stack spacing={2}>

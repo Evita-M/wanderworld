@@ -7,7 +7,7 @@ import {
 } from '@/utils/errorHandler';
 import { Prisma, Status } from '@prisma/client';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 export type CreateExpeditionRequestBody = Omit<
   Prisma.ExpeditionCreateInput,

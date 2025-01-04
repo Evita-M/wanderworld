@@ -8,7 +8,7 @@ import {
 } from '@/utils/errorHandler';
 import { Expedition, Prisma } from '@prisma/client';
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 type GetExpeditionParams = {
   expeditionId: string;

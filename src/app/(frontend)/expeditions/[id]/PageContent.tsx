@@ -71,10 +71,6 @@ const PageContent = () => {
     router.push(`${routes.expeditions}/${id}/edit`);
   };
 
-  if (!id) {
-    return <Typography>Invalid expedition ID</Typography>;
-  }
-
   useEffect(() => {
     if (isExpeditionError) {
       throw new Error('Expedition failed to load');

@@ -1,7 +1,8 @@
 'use client';
 
 import { ErrorBoundary } from '@/modules/error-boundary';
-import Image from 'next/image';
+import { borderRadius } from '@/styles/border-radius';
+import { grey } from '@mui/material/colors';
 
 interface ErrorProps {
   error: Error & {
@@ -15,12 +16,14 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   return (
     <ErrorBoundary
-      title='Looks like we hit some turbulence on this journey'
-      message='Oops! Something went wrong'
+      title='Oops! Something went wrong with this guide'
       submessage={error.message}
       buttonLabel='Retry'
       onClick={reset}
-      image={<Image src='/earth.png' alt='Earth' width={340} height={340} />}
+      sx={{
+        borderRadius: borderRadius.large,
+        border: `1px solid ${grey[300]}`,
+      }}
     />
   );
 }

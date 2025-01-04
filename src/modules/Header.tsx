@@ -27,6 +27,7 @@ export const Header = () => {
       component='nav'
       direction='row'
       justifyContent='space-between'
+      alignItems='center'
       px={2}
       py={3}
     >

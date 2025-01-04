@@ -60,7 +60,7 @@ const PageContent = () => {
         <Stack spacing={8}>
           <Grid container spacing={4} alignItems='center'>
             <Grid item xs={12} md={6}>
-              <Typography variant='h5' gutterBottom>
+              <Typography variant='h4' gutterBottom>
                 Our Mission
               </Typography>
               <Typography variant='body1' paragraph>
@@ -83,7 +83,7 @@ const PageContent = () => {
           </Grid>
 
           <Box>
-            <Typography variant='h5' gutterBottom mb={4}>
+            <Typography variant='h4' gutterBottom mb={4}>
               What Sets Us Apart
             </Typography>
             <Grid container spacing={3}>
@@ -98,10 +98,10 @@ const PageContent = () => {
                   >
                     <Stack direction='row' spacing={2} alignItems='center'>
                       <Stack>
-                        <Typography variant='h6' gutterBottom>
+                        <Typography variant='h5' gutterBottom>
                           {feature.title}
                         </Typography>
-                        <Typography variant='body2' color='text.secondary'>
+                        <Typography color='text.secondary'>
                           {feature.description}
                         </Typography>
                       </Stack>
@@ -113,7 +113,7 @@ const PageContent = () => {
           </Box>
 
           <Box>
-            <Typography variant='h5' gutterBottom>
+            <Typography variant='h4' gutterBottom>
               Join Our Community
             </Typography>
             <Grid container spacing={4}>

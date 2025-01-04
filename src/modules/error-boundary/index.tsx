@@ -1,25 +1,31 @@
 import { PageContainer } from '@/components/core/PageContainer';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, SxProps, Theme, Typography } from '@mui/material';
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
 
-interface ErrorPageProps {
+interface ErrorBoundaryProps {
   title: string;
   message?: string;
   submessage?: string;
-  button?: { label: string; href?: string; onClick?: VoidFunction };
-  children?: ReactNode;
+  buttonLabel?: string;
+  href?: string;
+  onClick?: VoidFunction;
+  image?: ReactNode;
+  sx?: SxProps<Theme>;
 }
 
-export const ErrorPage: FC<ErrorPageProps> = ({
+export const ErrorBoundary: FC<ErrorBoundaryProps> = ({
   title,
   message,
   submessage,
-  button,
-  children,
+  buttonLabel,
+  href,
+  onClick,
+  image,
+  sx,
 }) => {
   return (
-    <Stack component='section' textAlign='center' height='100%'>
+    <Stack component='section' textAlign='center' height='100%' sx={sx}>
       {message && (
         <Stack bgcolor='primary.main' width='100%' textAlign='left' py='1.8rem'>
           <PageContainer>
@@ -37,26 +43,26 @@ export const ErrorPage: FC<ErrorPageProps> = ({
           height='100%'
           textAlign='center'
         >
-          {children}
+          {image}
           <Typography component='h1' fontSize='1.8rem' fontWeight={500}>
             {title}
           </Typography>
           <Typography color='text.secondary'>{submessage}</Typography>
-          {button && (
+          {buttonLabel && (
             <Button
               variant='contained'
               color='secondary'
               sx={{ mt: '1.6rem' }}
-              {...(button.href
+              {...(href
                 ? {
-                    href: button.href,
+                    href,
                     LinkComponent: Link,
                   }
                 : {
-                    onClick: button.onClick,
+                    onClick,
                   })}
             >
-              {button.label}
+              {buttonLabel}
             </Button>
           )}
         </Stack>

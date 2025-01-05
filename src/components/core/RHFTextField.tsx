@@ -20,6 +20,7 @@ const RHFTextField = <T extends FieldValues>(
       error={!!errorMessage}
       helperText={errorMessage}
       fullWidth
+      InputLabelProps={{ shrink: true }}
       {...props}
     />
   );

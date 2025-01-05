@@ -4,6 +4,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
 } from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -28,26 +29,33 @@ export function RHFSelect<T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
-        <FormControl fullWidth>
-          <InputLabel id={`${name}-label`}>{label}</InputLabel>
-          <Select
-            labelId={`${name}-label`}
-            label={label}
-            id={name}
-            {...field}
-            onChange={(e) => field.onChange(e.target.value)}
-          >
-            <MenuItem value=''>No guide</MenuItem>
-            {options.map((option) => (
-              <MenuItem value={option.id} key={option.id}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-          {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-        </FormControl>
-      )}
+      render={({ field: { value, ...fieldProps } }) => {
+        return (
+          <FormControl fullWidth>
+            <InputLabel id={`${name}-label`} shrink>
+              {label}
+            </InputLabel>
+            <Select
+              labelId={`${name}-label`}
+              id={name}
+              displayEmpty
+              label={label}
+              value={value || ''}
+              {...fieldProps}
+            >
+              <MenuItem value=''>None</MenuItem>
+              {options.map((option) => (
+                <MenuItem value={option.id} key={option.id}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {errorMessage && (
+              <FormHelperText error>{errorMessage}</FormHelperText>
+            )}
+          </FormControl>
+        );
+      }}
     />
   );
 }

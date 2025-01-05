@@ -52,6 +52,7 @@ export function RHFAutocomplete<T extends FieldValues>({
               error={!!error}
               helperText={errorMessage}
               label={label}
+              InputLabelProps={{ shrink: true }}
             />
           )}
           renderOption={(props, option, { selected }) => (

@@ -93,9 +93,7 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
   });
 
   const formValues = watch();
-  useEffect(() => {
-    console.log('Form Values Changed:', formValues);
-  }, [formValues]);
+  useEffect(() => {}, [formValues]);
 
   // Add useEffect to update form when expedition changes
   useEffect(() => {
@@ -127,6 +125,7 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
         groupSize: watch('groupSize') as [number, number],
         tourDuration: watch('tourDuration') as [Date, Date],
         meetingDate: watch('meetingDate'),
+        guide: watch('guide'),
       };
 
       const { data } = await generateDescription(formData);
@@ -153,9 +152,15 @@ export const ExpeditionsForm: FC<ExpeditionsFormProps> = ({
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guide: data.guide ? { connect: { id: data.guide } } : undefined,
+      guide: isEdit
+        ? data.guide
+          ? { connect: { id: data.guide } }
+          : { disconnect: true }
+        : data.guide
+          ? { connect: { id: data.guide } }
+          : undefined,
     };
-
+    console.log(expeditionData);
     try {
       if (isEdit && expedition) {
         await updateExedition({

@@ -12,7 +12,6 @@ export const PageContainer = ({
 }: PageContainerProps) => {
   return (
     <Stack
-      component='main'
       sx={{
         maxWidth,
         mx: 'auto',

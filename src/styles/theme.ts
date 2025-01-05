@@ -303,6 +303,9 @@ const theme = createTheme({
           '&.Mui-focused': {
             color: grey[700],
           },
+          '&.Mui-error': {
+            textTransform: 'none',
+          },
         },
       },
     },
@@ -486,6 +489,13 @@ const theme = createTheme({
         },
         label: {
           fontSize: '1.6rem',
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
         },
       },
     },

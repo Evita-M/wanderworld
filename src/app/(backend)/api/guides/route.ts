@@ -6,7 +6,7 @@ import {
   getNotFoundResponse,
   getServerErrorResponse,
 } from '@/utils/errorHandler';
-import { Guide, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,21 +17,15 @@ type CreateGuideRequestBody = Omit<
   email: string;
 };
 
-type GuideResponse = Guide;
-
 async function getGuides(_request: NextRequest) {
   try {
-    const guides = await db.guide.findMany({
-      include: {
-        expeditions: true,
-      },
-    });
+    const guides = await db.guide.findMany();
 
     if (!guides) {
       return getNotFoundResponse('Guides');
     }
 
-    return NextResponse.json<GuideResponse[]>(guides);
+    return NextResponse.json(guides);
   } catch (error) {
     return getServerErrorResponse(error);
   }

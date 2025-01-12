@@ -16,9 +16,7 @@ export type CreateExpeditionRequestBody = Omit<
 
 async function getExpeditions(_request: NextRequest) {
   try {
-    const expeditions = await db.expedition.findMany({
-      include: { participants: true, guide: true },
-    });
+    const expeditions = await db.expedition.findMany();
 
     if (!expeditions) {
       return getNotFoundResponse('Expeditions');

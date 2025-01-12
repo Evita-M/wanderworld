@@ -41,11 +41,11 @@ export const Contact: FC<ContactProps> = ({
   ];
 
   return (
-    <Stack direction={variant} gap={2} rowGap={0} flexWrap='wrap'>
+    <Stack direction={variant} gap={variant === 'row' ? 3 : 0} flexWrap='wrap'>
       {contactItems
         .filter((item) => item.text)
         .map((item, index) => (
-          <Stack direction='row' alignItems='center' gap={1} mt={2} key={index}>
+          <Stack direction='row' gap={1} alignItems='center' mt={2} key={index}>
             <Stack
               justifyContent='center'
               alignItems='center'

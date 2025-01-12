@@ -1,7 +1,7 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { Button, Grid, Stack } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { guideSchema, GuideSchema, initialValues } from '@/type/guideSchema';
 import { Guide } from '@prisma/client';
@@ -15,7 +15,8 @@ import { useSnackbar } from 'hooks/useSnackbar';
 import { RHFAutocomplete } from '@/components/core/RHFAutocomplete';
 import { languages } from '@/lib/data/languages';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
+import { RichTextEditor } from '@/components/core/RichTextEditor';
+import { useGenerateDescriptionMutation } from '@/redux/api/groqApi';
 
 type GuideFormProps = {
   guide?: Guide;
@@ -53,6 +54,7 @@ export const GuideForm: FC<GuideFormProps> = ({
     formState: { errors, isValid },
     control,
     reset,
+    watch,
   } = useForm<GuideSchema>({
     defaultValues: isEdit && guide ? guideDefaultValues : initialValues,
     resolver: zodResolver(guideSchema),
@@ -139,11 +141,24 @@ export const GuideForm: FC<GuideFormProps> = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFTextField<GuideSchema>
-            label='About'
-            errorMessage={errors.description?.message}
-            {...register('description')}
-          />
+          <Stack direction='row' alignItems='center' spacing={2}>
+            <Controller
+              name='description'
+              control={control}
+              render={({ field }) => (
+                <Stack width='100%'>
+                  <Typography variant='caption' mb={2}>
+                    About
+                  </Typography>
+                  <RichTextEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    initialContent={guide?.description || ''}
+                  />
+                </Stack>
+              )}
+            />
+          </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack

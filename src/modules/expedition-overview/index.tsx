@@ -5,10 +5,10 @@ import GroupIcon from '@mui/icons-material/Group';
 import SupportIcon from '@mui/icons-material/Support';
 import FlightIcon from '@mui/icons-material/Flight';
 import { getTravelStyle } from '@/utils/get-travel-style';
-import { getGroupType } from '@/utils/get-group-type';
 import { SERVICE_LEVEL } from '@/lib/data/service-level';
 import { PHYSICAL_RATING } from '@/lib/data/physical-rating';
-import { OverviewItem, ICON_SIZE } from './overview-item';
+import { OverviewItem } from './overview-item';
+import { getGroupType } from '@/utils/get-group-type';
 
 interface OverviewData {
   icon: ReactElement;

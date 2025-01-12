@@ -5,6 +5,7 @@ import { GuideHeader } from '../guide-header';
 import { TruncatedText } from '@/components/core/TruncatedText';
 import { grey } from '@mui/material/colors';
 import { LanguageCode } from '../languages';
+import { RichTextRenderer } from '@/components/core/RichTextRenderer';
 
 interface GuideItemProps {
   guide: Guide;
@@ -42,7 +43,7 @@ export const GuideItem: FC<GuideItemProps> = ({
         avatarSrc={avatar}
       />
       <TruncatedText sx={{ mt: '1.2rem', px: '1.2rem' }}>
-        {description}
+        <RichTextRenderer content={description || ''} />
       </TruncatedText>
     </Stack>
   );

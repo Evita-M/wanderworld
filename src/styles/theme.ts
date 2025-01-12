@@ -275,8 +275,7 @@ const theme = createTheme({
     MuiDivider: {
       styleOverrides: {
         root: {
-          margin: '0.5rem 0',
-          backgroundColor: grey[300],
+          backgroundColor: palette.primary.light,
           opacity: 0.5,
         },
       },
@@ -430,6 +429,19 @@ const theme = createTheme({
           '&:hover': {
             backgroundColor: palette.primary.lighter,
           },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          borderColor: palette.primary.light,
+          '&.Mui-focused': {
+            borderColor: palette.primary.main,
+          },
+        },
+        icon: {
+          color: palette.primary.main,
         },
       },
     },

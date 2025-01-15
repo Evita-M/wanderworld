@@ -1,15 +1,16 @@
 import { Box, Stack } from '@mui/material';
-import { Expedition, Guide } from '@prisma/client';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { countries } from '@/lib/data/countries';
-import { DateRange } from '@/components/core/DateRange';
+import { DateRange } from '@/ui/components/date-range';
 import { getNames } from '@/utils/get-names';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PeopleIcon from '@mui/icons-material/People';
-import { IconText } from '@/components/core/IconText';
+import { IconText } from '@/ui/core/typography';
 import { BasicMasonry } from '../masonry';
 import { ExpeditionInfo } from '../expedition-info';
 import { GuideInfo } from '../guide-info';
+import { Expedition } from '@/types/expedition';
+import { Guide } from '@/types/guide';
 
 interface ExpeditionDetailProps {
   expedition: Expedition;

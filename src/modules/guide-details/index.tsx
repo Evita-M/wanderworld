@@ -1,20 +1,11 @@
 'use client';
 
 import { useModal } from 'hooks/useModal';
-import React, { useMemo, useState } from 'react';
-import {
-  Box,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import { Guide as GuideType } from '@prisma/client';
+import { useMemo, useState } from 'react';
+import { Box, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
 import { GuideExpeditions } from '../guide-expeditions';
 import { grey } from '@mui/material/colors';
-import { ConfirmationModal } from '@/components/core/ConfirmationModal';
 import { useDeleteGuideMutation } from '@/redux/api/guideApi';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { routes } from '@/routes/index';
@@ -22,15 +13,18 @@ import { Actions } from '../actions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LanguageCode } from '../languages';
 import { borderRadius } from '@/styles/border-radius';
-import { RichTextRenderer } from '@/components/core/RichTextRenderer';
 import { sortByDate } from '@/utils/sort-by-date';
+import { Guide, GuideWithExpeditions } from '@/types/guide';
+
+import { ModalConfirmation } from '../modal-confirmation';
+import { RichTextRenderer } from '@/ui/components/rich-text';
 
 export const GuideDetail = ({
   guide,
   guides,
 }: {
-  guide: GuideType;
-  guides?: GuideType[];
+  guide: GuideWithExpeditions;
+  guides?: Guide[];
 }) => {
   const {
     id,
@@ -41,7 +35,6 @@ export const GuideDetail = ({
     languages,
     avatar,
     description,
-    // @ts-ignore
     expeditions,
   } = guide;
   const fullName = `${firstName} ${lastName}`;
@@ -49,7 +42,7 @@ export const GuideDetail = ({
     useDeleteGuideMutation();
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
-
+  console.log(expeditions);
   const { openModal, closeModal } = useModal();
   const hasExpeditions = expeditions?.length > 0;
   const searchParams = useSearchParams();
@@ -85,7 +78,7 @@ export const GuideDetail = ({
     openModal({
       title: 'Delete guide',
       content: (
-        <ConfirmationModal
+        <ModalConfirmation
           text={`Are you sure you want to delete guide ${fullName}?`}
           submitBtnLabel='Delete'
           onCancel={closeModal}

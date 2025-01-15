@@ -1,7 +1,7 @@
-import { PageContainer } from '@/components/core/PageContainer';
-import PageContent from './PageContent';
+import PageContent from './page-content';
 import { Metadata } from 'next';
 import { formatPageTitle } from '@/config/metadata';
+import { PageContainer } from '@/ui/core/layout';
 
 export const metadata: Metadata = {
   title: formatPageTitle('Edit Expedition'),

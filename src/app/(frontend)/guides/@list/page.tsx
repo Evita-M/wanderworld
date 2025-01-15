@@ -2,12 +2,12 @@
 
 import { GuideList } from '@/modules/guide-list';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/components/core/Loader';
+import { Loader } from '@/ui/core/loader';
 import { useEffect } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import { routes } from '@/routes/index';
-import { EmptyState } from '@/components/core/EmptyState';
+import { EmptyState } from '@/ui/components/empty-state';
 
 export default function List() {
   const {

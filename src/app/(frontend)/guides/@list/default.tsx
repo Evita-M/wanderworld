@@ -2,7 +2,7 @@
 
 import { GuideList } from '@/modules/guide-list';
 import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/components/core/Loader';
+import { Loader } from '@/ui/core/loader';
 import { useEffect } from 'react';
 import { Stack } from '@mui/material';
 

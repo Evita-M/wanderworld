@@ -1,5 +1,5 @@
 'use client';
-import { PageHeader } from '@/modules/page-header';
+import { PageHeader } from '@/ui/core/typography';
 import { routes } from '@/routes/index';
 
 export default function GuidesPage() {

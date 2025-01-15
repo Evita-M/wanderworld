@@ -1,11 +1,10 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
-import { Guide } from '@prisma/client';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
-import { Avatar } from '@/components/Avatar';
+import { Avatar } from '@/ui/core/avatar';
 import theme from '@/styles/theme';
-
+import { Guide } from '@/types/guide';
 interface GuideInfoProps {
   guide?: Guide;
 }

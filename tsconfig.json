@@ -27,12 +27,14 @@
       "@/providers/*": ["providers/*"],
       "@/services/*": ["services/*"],
       "@/styles/*": ["styles/*"],
-      "@/type/*": ["types/*"],
+      "@/types/*": ["types/*"],
       "@/routes/*": ["routes/*"],
       "@/utils/*": ["utils/*"],
       "@/redux/*": ["redux/*"],
-      "@/config/*": ["config/*"]
-    }
+      "@/config/*": ["config/*"],
+      "@/ui/*": ["ui/*"]
+    },
+    "types": ["react"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

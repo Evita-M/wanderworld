@@ -1,9 +1,9 @@
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material';
-import { Expedition } from '@prisma/client';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import FlightIcon from '@mui/icons-material/Flight';
-import { DateRange } from '@/components/core/DateRange';
+import { DateRange } from '@/ui/components/date-range';
+import { Expedition } from '@/types/expedition';
 
 interface GuideExpeditionsProps {
   expeditions: Expedition[];
@@ -24,7 +24,7 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
             aria-label={`View details for ${name} expedition`}
           >
             <Stack
-              py='1.2rem'
+              py='1.8rem'
               borderRadius={theme.borderRadius.small}
               direction='row'
               alignItems='center'

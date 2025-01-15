@@ -1,4 +1,4 @@
-import PageContent from './PageContent';
+import PageContent from './page-content';
 import { Metadata } from 'next';
 import { formatPageTitle } from '@/config/metadata';
 

@@ -1,7 +1,6 @@
-import { PageContainer } from '@/components/core/PageContainer';
-import { Image } from '@/components/core/ResponsiveImage';
+import { PageContainer } from '@/ui/core/layout';
+import { Image } from '@/ui/core/layout';
 import { Hero } from '@/modules/hero';
-import { Stack } from '@mui/material';
 
 const heroImages: Image[] = [
   {

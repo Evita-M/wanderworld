@@ -1,11 +1,11 @@
 import { Stack, useTheme } from '@mui/material';
-import { Guide } from '@prisma/client';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { GuideHeader } from '../guide-header';
-import { TruncatedText } from '@/components/core/TruncatedText';
+import { TruncatedText } from '@/ui/core/typography';
 import { grey } from '@mui/material/colors';
 import { LanguageCode } from '../languages';
-import { RichTextRenderer } from '@/components/core/RichTextRenderer';
+import { Guide } from '@/types/guide';
+import { RichTextRenderer } from '@/ui/components/rich-text';
 
 interface GuideItemProps {
   guide: Guide;

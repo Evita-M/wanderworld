@@ -1,5 +1,5 @@
 'use client';
-import { PageContainer } from '@/components/core/PageContainer';
+import { PageContainer } from '@/ui/core/layout';
 import { Stack } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';

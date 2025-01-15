@@ -2,11 +2,15 @@
 
 import { GuideItem } from '@/modules/guide-item';
 import { Stack } from '@mui/material';
-import { Guide } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { FC, useState } from 'react';
+import { Guide } from '@/types/guide';
 
-export function GuideList({ guides }: { guides: Guide[] }) {
+interface GuideListProps {
+  guides: Guide[];
+}
+
+export const GuideList: FC<GuideListProps> = ({ guides }) => {
   const router = useRouter();
   const [selectedGuideId, setSelectedGuideId] = useState<string | undefined>(
     undefined
@@ -29,4 +33,4 @@ export function GuideList({ guides }: { guides: Guide[] }) {
       ))}
     </Stack>
   );
-}
+};

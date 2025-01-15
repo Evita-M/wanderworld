@@ -1,9 +1,9 @@
 import { Box, Stack, Typography, TypographyProps } from '@mui/material';
-import React, { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { LanguageCode, Languages } from '../languages';
 import { grey } from '@mui/material/colors';
 import { Contact } from '../contact';
-import { Avatar } from '@/components/Avatar';
+import { Avatar } from '@/ui/core/avatar';
 
 export enum GuideHeaderSize {
   DEFAULT = 'default',

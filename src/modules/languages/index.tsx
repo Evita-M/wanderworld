@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Chip, darken, Stack } from '@mui/material';
-import { getLanguageColor } from '@/utils/get-languages-color';
+
 import { languages } from '@/lib/data/languages';
+import { getLanguageColor } from '@/utils/get-language-color';
 
 export type LanguageCode =
   | 'en'
@@ -39,14 +40,12 @@ export const Languages: FC<LanguagesProps> = ({ langCodes }) => {
             label={language?.label}
             sx={{
               cursor: 'default',
-              backgroundColor: color?.main,
+              backgroundColor: color,
               '& .MuiChip-label': {
-                color: color?.text,
+                color: darken(color, 0.6),
               },
               '&:hover': {
-                backgroundColor: color?.main
-                  ? darken(color.main, 0.05)
-                  : undefined,
+                backgroundColor: color,
               },
             }}
           />

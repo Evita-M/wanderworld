@@ -2,7 +2,7 @@
 
 import { GuideDetail } from '@/modules/guide-details';
 import { useGetGuideQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/components/core/Loader';
+import { Loader } from '@/ui/core/loader';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

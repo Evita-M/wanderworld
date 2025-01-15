@@ -4,7 +4,7 @@ import {
   AlertPropsColorOverrides,
   Snackbar,
 } from '@mui/material';
-import React, { createContext, FC, ReactNode, useState } from 'react';
+import { createContext, FC, ReactNode, useState } from 'react';
 
 type SnackbarContextActions = {
   showSnackBar: (text: string, severity: AlertColor) => void;

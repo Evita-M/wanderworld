@@ -1,10 +1,10 @@
 'use client';
-import React from 'react';
+
 import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
-import { Logo } from '@/components/core/Logo';
+import { Logo } from '@/ui/core/logo';
 import { routes } from '@/routes/index';
-import { Link as LinkType, NavLink } from '@/components/core/NavLink';
+import { Link as LinkType, NavLink } from '@/ui/core/link';
 
 const navLinks: LinkType[] = [
   {

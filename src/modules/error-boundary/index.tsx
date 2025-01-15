@@ -1,4 +1,4 @@
-import { PageContainer } from '@/components/core/PageContainer';
+import { PageContainer } from '@/ui/core/layout';
 import { Button, Stack, SxProps, Theme, Typography } from '@mui/material';
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';

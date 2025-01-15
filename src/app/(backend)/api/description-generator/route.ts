@@ -31,7 +31,11 @@ async function generateExpeditionDescription(request: NextRequest) {
       return getNotFoundResponse('Form data input');
     }
 
-    const prompt = `Generate a detailed description for an expedition with the following details:
+    const prompt = `
+	You are a travel expert AI assistant and professional content editor. Your job is to generate a detailed description
+	 for an expedition with the following Description Data in this specific Description Content and always following the Description Rules.
+
+	# Description Data:
     - Name: ${requestBody.name}
     - Countries: ${getNames(requestBody.countries, countries)}
     - Languages: ${getNames(requestBody.languages, languages)}
@@ -40,10 +44,23 @@ async function generateExpeditionDescription(request: NextRequest) {
     - Duration: From ${new Date(requestBody.tourDuration[0]).toLocaleDateString()} to ${new Date(requestBody.tourDuration[1]).toLocaleDateString()}
     - Meeting date: ${new Date(requestBody.meetingDate).toLocaleString()}
 
-    Please create an engaging description that includes details from the above information. Format the response with HTML tags for rich text display (<p>, <strong>, <em>). Don't use heading tags. The description should not contain lists of countries, languages or activities. Instead it should be a single or multiple paragraph with all the information. All description should be in English with 1500-2500 characters.`;
+	# Description Content:
+	The expedition details encompass a comprehensive title, followed by a detailed description outlining the journey,
+	a structured itinerary mapping out the schedule, a clear list of what's included in the package, essential items
+	participants should bring along, practical information about what to expect during the expedition, and a helpful FAQ section addressing common queries.
+
+	# Description Rules:
+	- Each section should be in a separate paragraph.
+	- The description should have only one title at the beginning.
+	- The description should be in English.
+	- The description should be in 1000-1500 characters.
+	- The description should not contain lists of countries, languages or activities. Instead it should be a single or multiple paragraph with all the information.
+	- The description should be engaging and interesting.
+	- The description should be in HTML format with <p>, <strong>, <em> tags.`;
 
     const completion = await groq.chat.completions.create({
-      model: 'llama3-8b-8192',
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.8,
       messages: [{ role: 'user', content: prompt }],
     });
 

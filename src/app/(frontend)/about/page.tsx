@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { PageContainer } from '@/components/core/PageContainer';
-import PageContent from './PageContent';
 import { formatPageTitle } from '@/config/metadata';
+import PageContent from './page-content';
+import { PageContainer } from '@/ui/core/layout';
 
 export const metadata: Metadata = {
   title: formatPageTitle('About Us'),

@@ -1,8 +1,9 @@
 'use client';
-import { Image, ResponsiveImage } from '@/components/core/ResponsiveImage';
-import { Typewriter } from '@/components/core/Typewriter';
+
 import { Box, Stack, Typography, useTheme } from '@mui/material';
-import React, { FC } from 'react';
+import { FC } from 'react';
+import { Image, ResponsiveImage } from 'ui/core/layout';
+import { Typewriter } from 'ui/core/typography';
 
 type HeroProps = {
   images: Image[];

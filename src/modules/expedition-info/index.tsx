@@ -1,14 +1,14 @@
-import * as React from 'react';
+import { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import { List, ListItem, useTheme } from '@mui/material';
 import { ExpeditionOverview } from '../expedition-overview';
-import { Expedition } from '@prisma/client';
 import { ExpeditionDetails } from '../expedition-details';
 import { LanguageCode } from '../languages';
 import { getRandomColor } from '@/utils/get-random-color';
 import { includedItems } from '@/lib/data/included';
-import { Tabs } from '@/components/core/Tabs';
-import { RichTextRenderer } from '@/components/core/RichTextRenderer';
+import { Tabs } from '@/ui/core/tabs';
+import { Expedition } from '@/types/expedition';
+import { RichTextRenderer } from '@/ui/components/rich-text';
 
 interface ExpeditionInfoProps {
   expedition: Expedition;

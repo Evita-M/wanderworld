@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { Grid } from '@mui/material';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import GroupIcon from '@mui/icons-material/Group';

@@ -1,6 +1,6 @@
 import theme from '@/styles/theme';
 import { Box, Modal, Typography } from '@mui/material';
-import React, {
+import {
   createContext,
   useState,
   useCallback,

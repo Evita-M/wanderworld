@@ -3,9 +3,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ReactNode } from 'react';
 import {
   ExpeditionSchema,
-  expeditionSchema,
   defaultValues,
-} from '@/type/expeditionSchema';
+  expeditionSchema,
+} from '@/modules/forms/expedition/validation';
 
 export const ExpeditionsProvider = ({ children }: { children: ReactNode }) => {
   const methods = useForm<ExpeditionSchema>({

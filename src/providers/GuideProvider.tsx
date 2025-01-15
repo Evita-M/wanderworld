@@ -1,7 +1,11 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReactNode, Suspense } from 'react';
-import { GuideSchema, guideSchema, initialValues } from '@/type/guideSchema';
+import {
+  GuideSchema,
+  guideSchema,
+  initialValues,
+} from '@/modules/forms/guide/validation';
 
 export const GuideProvider = ({ children }: { children: ReactNode }) => {
   const methods = useForm<GuideSchema>({

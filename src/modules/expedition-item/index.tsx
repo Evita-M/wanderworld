@@ -1,12 +1,12 @@
 import { countries as countrieList } from '@/lib/data/countries';
 import { Stack, Typography, useTheme } from '@mui/material';
-import { Expedition } from '@prisma/client';
 import { format } from 'date-fns';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { routes } from '@/routes/index';
 import { getNames } from '@/utils/get-names';
 import { grey } from '@mui/material/colors';
+import { Expedition } from '@/types/expedition';
 
 interface ExpeditionItemProps {
   expedition: Expedition;

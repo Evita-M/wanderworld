@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { lighten, Stack, Typography, useTheme } from '@mui/material';
+import { Stack, useTheme } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import { ContactItem, ContactItemProps } from './ContactItem';
 
 const ICON_SIZE = '2rem';
 
-interface ContactProps {
+export interface ContactProps {
   email?: string;
   phoneNumber?: string;
   variant?: 'row' | 'column';
@@ -17,7 +18,8 @@ export const Contact: FC<ContactProps> = ({
   variant = 'row',
 }) => {
   const theme = useTheme();
-  const contactItems = [
+
+  const contactItems: ContactItemProps[] = [
     {
       icon: (
         <MailOutlineIcon
@@ -45,27 +47,7 @@ export const Contact: FC<ContactProps> = ({
       {contactItems
         .filter((item) => item.text)
         .map((item, index) => (
-          <Stack direction='row' gap={1} alignItems='center' mt={2} key={index}>
-            <Stack
-              justifyContent='center'
-              alignItems='center'
-              height='3.4rem'
-              width='3.4rem'
-              borderRadius='50%'
-              bgcolor={lighten(theme.palette.primary.main, 0.85)}
-            >
-              {item.icon}
-            </Stack>
-            <Typography
-              component='a'
-              href={item.link}
-              whiteSpace='nowrap'
-              color='inherit'
-              style={{ textDecoration: 'none' }}
-            >
-              {item.text}
-            </Typography>
-          </Stack>
+          <ContactItem key={index} {...item} />
         ))}
     </Stack>
   );

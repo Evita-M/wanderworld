@@ -7,9 +7,11 @@ interface ErrorBoundaryProps {
   title: string;
   message?: string;
   submessage?: string;
-  buttonLabel?: string;
-  href?: string;
-  onClick?: VoidFunction;
+  button?: {
+    label: string;
+    href: string;
+    onClick: VoidFunction;
+  };
   image?: ReactNode;
   sx?: SxProps<Theme>;
 }
@@ -18,10 +20,8 @@ export const ErrorBoundary: FC<ErrorBoundaryProps> = ({
   title,
   message,
   submessage,
-  buttonLabel,
-  href,
-  onClick,
   image,
+  button,
   sx,
 }) => {
   return (
@@ -48,21 +48,21 @@ export const ErrorBoundary: FC<ErrorBoundaryProps> = ({
             {title}
           </Typography>
           <Typography color='text.secondary'>{submessage}</Typography>
-          {buttonLabel && (
+          {button && (
             <Button
               variant='contained'
               color='secondary'
               sx={{ mt: '1.6rem' }}
-              {...(href
+              {...(button.href
                 ? {
-                    href,
+                    href: button.href,
                     LinkComponent: Link,
                   }
                 : {
-                    onClick,
+                    onClick: button.onClick,
                   })}
             >
-              {buttonLabel}
+              {button.label}
             </Button>
           )}
         </Stack>

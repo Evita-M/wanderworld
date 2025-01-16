@@ -12,12 +12,13 @@ import { useModal } from 'hooks/useModal';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useGetGuideQuery } from '@/redux/api/guideApi';
-
 import { routes } from '@/routes/index';
-
 import { Actions } from '@/modules/actions';
 import { ModalConfirmation } from '@/modules/modal-confirmation';
 import { PageHeader } from '@/ui/core/typography';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ActionConfig } from '@/modules/actions/types';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -71,6 +72,16 @@ const PageContent = () => {
     router.push(`${routes.expeditions}/${id}/edit`);
   };
 
+  const actions: ActionConfig[] = [
+    { label: 'Edit', icon: <EditIcon />, onClick: handleEdit },
+    {
+      label: 'Delete',
+      icon: <DeleteIcon />,
+      onClick: handleOnDelete,
+      color: 'error',
+    },
+  ];
+
   useEffect(() => {
     if (isExpeditionError) {
       throw new Error('Expedition failed to load');
@@ -103,7 +114,7 @@ const PageContent = () => {
             justifyContent='space-between'
           >
             <Box>{expedition && <PageHeader title={expedition.name} />}</Box>
-            <Actions onEdit={handleEdit} onDelete={handleOnDelete} />
+            <Actions actions={actions} />
           </Stack>
           {expedition && (
             <ExpeditionDetail expedition={expedition} guide={guide} />

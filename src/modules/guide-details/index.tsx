@@ -18,6 +18,8 @@ import { Guide, GuideWithExpeditions } from '@/types/guide';
 
 import { ModalConfirmation } from '../modal-confirmation';
 import { RichTextRenderer } from '@/ui/components/rich-text';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const GuideDetail = ({
   guide,
@@ -93,6 +95,20 @@ export const GuideDetail = ({
     router.push(`${routes.guides}/${id}/edit`);
   };
 
+  const actions = [
+    {
+      label: 'Edit',
+      icon: <EditIcon />,
+      onClick: handleEdit,
+    },
+    {
+      label: 'Delete',
+      icon: <DeleteIcon />,
+      onClick: handleOnDelete,
+      color: 'error' as const,
+    },
+  ];
+
   return (
     <Stack
       p={4}
@@ -110,13 +126,7 @@ export const GuideDetail = ({
           email={email}
           avatarSrc={avatar}
           size={GuideHeaderSize.LG}
-          actions={
-            <Actions
-              onEdit={handleEdit}
-              onDelete={handleOnDelete}
-              variant='icon'
-            />
-          }
+          actions={<Actions actions={actions} variant='icon' />}
         />
       </Stack>
       <Box>

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import { List, ListItem, useTheme } from '@mui/material';
 import { ExpeditionOverview } from '../expedition-overview';

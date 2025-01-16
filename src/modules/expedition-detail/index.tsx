@@ -14,7 +14,7 @@ import { Guide } from '@/types/guide';
 
 interface ExpeditionDetailProps {
   expedition: Expedition;
-  guide?: Guide;
+  guide: Guide;
 }
 
 export const ExpeditionDetail: FC<ExpeditionDetailProps> = ({

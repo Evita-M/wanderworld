@@ -1,24 +1,16 @@
 'use client';
 
-import { PageHeader } from '@/ui/core/typography';
+import { PageHeader } from '@/shared/ui/core/typography';
+import { BackButton } from '@/shared/ui/core/button';
+import { CreateGuide } from '@/features/guide/create/ui/create-guide';
 import { useRouter } from 'next/navigation';
-import { routes } from '@/routes/index';
-import { BackButton } from '@/ui/core/button';
-import { GuideForm } from '@/modules/forms/guide';
 
-const PageContent = () => {
+
+export default function PageContent() {
   const router = useRouter();
 
-  const handleCancel = () => {
-    router.push(routes.guides);
-  };
-
-  const handleSuccess = (guideId: string) => {
-    if (!guideId) {
-      router.replace(routes.guides);
-      return;
-    }
-    router.replace(`${routes.guides}/${guideId}`);
+  const handleOnCancel = () => {
+    router.back();
   };
 
   return (
@@ -26,11 +18,10 @@ const PageContent = () => {
       <PageHeader
         title='New guide'
         sx={{ mb: '4rem' }}
-        prefix={<BackButton onClick={handleCancel} />}
+        prefix={<BackButton onClick={handleOnCancel} />}
       />
-      <GuideForm onSuccess={handleSuccess} onCancel={handleCancel} />
+      <CreateGuide  />
     </>
   );
 };
 
-export default PageContent;

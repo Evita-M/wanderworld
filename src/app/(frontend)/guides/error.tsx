@@ -1,5 +1,6 @@
 'use client';
-import { ErrorBoundary } from '@/modules/error-boundary';
+
+import { ErrorBoundary } from "@/shared/ui/modules/error-boundary";
 
 interface ErrorProps {
   error: Error & {
@@ -15,8 +16,10 @@ export default function Error({ error, reset }: ErrorProps) {
     <ErrorBoundary
       title='Oops! Something went wrong'
       submessage={error.message}
-      buttonLabel='Retry'
-      onClick={reset}
+      button={{
+        label: 'Retry',
+        onClick: reset,
+      }}
       sx={{
         position: 'absolute',
         inset: 0,

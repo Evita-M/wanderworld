@@ -1,10 +1,10 @@
 'use client';
 
-import { BackButton } from '@/ui/core/button';
-import { PageContainer } from '@/ui/core/layout';
-import { ExpeditionsForm } from '@/modules/forms/expedition';
-import { PageHeader } from '@/ui/core/typography';
+import { CreateExpedition } from '@/features/expedition/create/ui/create-guide';
 import { routes } from '@/routes/index';
+import { BackButton } from '@/shared/ui/core/button';
+import { PageContainer } from '@/shared/ui/core/layout';
+import { PageHeader } from '@/shared/ui/core/typography';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
@@ -21,7 +21,7 @@ const PageContent = () => {
         }
       />
       <Box maxWidth='lg' m='0 auto' width='100%'>
-        <ExpeditionsForm
+        <CreateExpedition
           onSuccess={redirectToExpeditions}
           onCancel={redirectToExpeditions}
         />

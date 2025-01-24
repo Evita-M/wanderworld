@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorBoundary } from '@/modules/error-boundary';
+import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
 import Image from 'next/image';
 
 interface ErrorProps {
@@ -16,10 +16,12 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <ErrorBoundary
       title='Looks like we hit some turbulence on this journey'
-      message='Oops! Something went wrong'
+      message='Whoops! Something went wrong'
       submessage={error.message}
-      buttonLabel='Retry'
-      onClick={reset}
+      button={{
+        label: 'Retry',
+        onClick: reset,
+      }}
       image={<Image src='/earth.png' alt='Earth' width={340} height={340} />}
     />
   );

@@ -133,6 +133,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           background: palette.primary.lighter,
+          animation: 'none',
         },
       },
     },

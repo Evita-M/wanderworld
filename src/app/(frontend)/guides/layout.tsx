@@ -1,8 +1,9 @@
 'use client';
-import { PageContainer } from '@/ui/core/layout';
+
 import { Stack } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
+import { PageContainer } from '@/shared/ui/core/layout';
 
 export default function GuidesLayout({
   children,

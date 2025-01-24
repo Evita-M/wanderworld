@@ -1,6 +1,7 @@
 'use client';
-import { EmptyState } from '@/ui/components/empty-state';
-import { useGetGuidesQuery } from '@/redux/api/guideApi';
+
+import { useGetGuidesQuery } from '@/entities/guide/api';
+import { EmptyState } from '@/shared/ui/components/empty-state';
 import { borderRadius } from '@/styles/border-radius';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';

@@ -1,10 +1,10 @@
 'use client';
 
-import { GuideList } from '@/modules/guide-list';
-import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/ui/core/loader';
 import { useEffect } from 'react';
 import { Stack } from '@mui/material';
+import { useGetGuidesQuery } from '@/entities/guide/api';
+import { Loader } from '@/shared/ui/core/loader';
+import { GuideList } from '@/entities/guide/ui/guide-list';
 
 export default function List() {
   const {

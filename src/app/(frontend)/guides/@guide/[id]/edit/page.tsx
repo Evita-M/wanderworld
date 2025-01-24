@@ -1,6 +1,7 @@
+import { formatPageTitle } from '@/shared/config/metadata';
 import PageContent from './page-content';
 import { Metadata } from 'next';
-import { formatPageTitle } from '@/config/metadata';
+
 
 export const metadata: Metadata = {
   title: formatPageTitle('Edit Guide'),

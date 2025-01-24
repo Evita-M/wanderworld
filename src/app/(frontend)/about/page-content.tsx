@@ -1,8 +1,8 @@
 'use client';
 
 import { features } from '@/lib/data/features';
-import { ResponsiveImage } from '@/ui/core/layout';
-import { PageHeader } from '@/ui/core/typography';
+import { ResponsiveImage } from '@/shared/ui/core/layout';
+import { PageHeader } from '@/shared/ui/core/typography';
 import { Stack, Typography, Box, Grid, useTheme } from '@mui/material';
 import { darken } from '@mui/material/styles';
 

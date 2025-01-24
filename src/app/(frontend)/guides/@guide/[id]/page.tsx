@@ -1,8 +1,8 @@
 'use client';
 
-import { GuideDetail } from '@/modules/guide-details';
-import { useGetGuideQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/ui/core/loader';
+import { useGetGuideQuery } from '@/entities/guide/api';
+import { GuideDetail } from '@/entities/guide/ui/guide-details';
+import { Loader } from '@/shared/ui/core/loader';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

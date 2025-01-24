@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { routes } from '../routes';
-import { ErrorBoundary } from '@/modules/error-boundary';
+import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
+
 
 export default async function NotFound() {
   return (
@@ -8,8 +9,10 @@ export default async function NotFound() {
       message='404 Not Found'
       title="Looks, like you're heading to a wrong destination"
       submessage='Check the page address or go home'
-      buttonLabel='Go back home'
-      href={routes.home}
+      button={{
+        label: 'Go back home',
+        href: routes.home,
+      }}
       image={
         <Image
           src='/plane.png'

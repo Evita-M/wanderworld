@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorBoundary } from '@/modules/error-boundary';
+import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
 import { borderRadius } from '@/styles/border-radius';
 import { grey } from '@mui/material/colors';
 
@@ -18,8 +18,10 @@ export default function Error({ error, reset }: ErrorProps) {
     <ErrorBoundary
       title='Whoops! Editting failed. Try again.'
       submessage={error.message}
-      buttonLabel='Retry'
-      onClick={reset}
+      button={{
+        label: 'Retry',
+        onClick: reset,
+      }}
       sx={{
         borderRadius: borderRadius.large,
         border: `1px solid ${grey[300]}`,

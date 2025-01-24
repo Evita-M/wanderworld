@@ -1,13 +1,15 @@
 'use client';
 
-import { GuideList } from '@/modules/guide-list';
-import { useGetGuidesQuery } from '@/redux/api/guideApi';
-import { Loader } from '@/ui/core/loader';
+
 import { useEffect } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
 import { routes } from '@/routes/index';
-import { EmptyState } from '@/ui/components/empty-state';
+import { Loader } from '@/shared/ui/core/loader';
+import { GuideList } from '@/entities/guide/ui/guide-list';
+import { useGetGuidesQuery } from '@/entities/guide/api';
+import { EmptyState } from '@/shared/ui/components/empty-state';
+
 
 export default function List() {
   const {

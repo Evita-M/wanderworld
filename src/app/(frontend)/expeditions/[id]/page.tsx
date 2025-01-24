@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import PageContent from './page-content';
-import { PageContainer } from '@/ui/core/layout';
-import { formatPageTitle } from '@/config/metadata';
+import { formatPageTitle } from '@/shared/config/metadata';
+import { PageContainer } from '@/shared/ui/core/layout';
 
 export const metadata: Metadata = {
   title: formatPageTitle('Expedition Detail'),
@@ -9,12 +9,10 @@ export const metadata: Metadata = {
     'Explore the details of this amazing expedition, including activities, locations, and more.',
 };
 
-const ExpeditionDetailPage = () => {
+export default function ExpeditionPage() {
   return (
     <PageContainer>
       <PageContent />
     </PageContainer>
   );
-};
-
-export default ExpeditionDetailPage;
+}

@@ -28,11 +28,15 @@
       "@/services/*": ["services/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"],
-      "@/routes/*": ["routes/*"],
       "@/utils/*": ["utils/*"],
       "@/redux/*": ["redux/*"],
       "@/config/*": ["config/*"],
-      "@/ui/*": ["ui/*"]
+      "@/ui/*": ["ui/*"],
+      "@/views/*": ["views/*"],
+      "@/shared/*": ["shared/*"],
+      "@/features/*": ["features/*"],
+      "@/entities/*": ["entities/*"],
+      "@/routes/*": ["routes/*"]
     },
     "types": ["react"]
   },

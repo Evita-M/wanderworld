@@ -3,11 +3,12 @@
 import { Box, Grid, Stack } from '@mui/material';
 import { FC } from 'react';
 import { useGetExpeditionsQuery } from '@/redux/api/expeditionApi';
-import { ExpeditionItem } from '@/modules/expedition-item';
 import { routes } from '@/routes/index';
-import { Loader } from '@/ui/core/loader';
-import { EmptyState } from '@/ui/components/empty-state';
-import { PageHeader } from '@/ui/core/typography';
+import { Loader } from '@/shared/ui/core/loader';
+import { PageHeader } from '@/shared/ui/core/typography';
+import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item';
+import { EmptyState } from '@/shared/ui/components/empty-state';
+
 
 const PageContent: FC = () => {
   const { data: expeditions, isLoading: isExpeditionsLoading } =

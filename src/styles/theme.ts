@@ -158,11 +158,11 @@ const theme = createTheme({
           borderBottom: 'none',
           padding: '0 2.4rem',
           minHeight: '4rem',
-          '&:last-child': {
+          '&:last-of-type': {
             borderRight: 'none',
             paddingRight: '0',
           },
-          '&:first-child': {
+          '&:first-of-type': {
             paddingLeft: '0',
           },
         },

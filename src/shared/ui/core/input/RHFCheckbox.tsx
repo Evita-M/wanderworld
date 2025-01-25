@@ -1,4 +1,4 @@
-import { Option } from '@/type/option';
+
 import {
   Checkbox,
   FormControl,
@@ -9,8 +9,9 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-
 import { Controller, FieldValues, Path } from 'react-hook-form';
+import { forwardRef, Ref } from 'react';
+import { Option } from '@/shared/types';
 
 type RHFCheckboxProps<T extends FieldValues> = {
   name: Path<T>;
@@ -20,13 +21,10 @@ type RHFCheckboxProps<T extends FieldValues> = {
   errorMessage?: string;
 };
 
-export function RHFCheckbox<T extends FieldValues>({
-  name,
-  control,
-  options,
-  label,
-  errorMessage,
-}: RHFCheckboxProps<T>) {
+export const RHFCheckbox = forwardRef(<T extends FieldValues>(
+  { name, control, options, label, errorMessage }: RHFCheckboxProps<T>,
+  _ref: Ref<any>
+) => {
   const chunkSize = Math.ceil((options?.length || 0) / 3);
   const columns = Array.from({ length: 3 }, (_, i) =>
     (options || []).slice(i * chunkSize, i * chunkSize + chunkSize)
@@ -90,4 +88,4 @@ export function RHFCheckbox<T extends FieldValues>({
       />
     </Stack>
   );
-}
+});

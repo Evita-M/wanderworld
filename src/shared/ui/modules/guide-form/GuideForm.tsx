@@ -2,8 +2,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import RHFTextField from '../../core/input/RHFTextField';
-import { RHFAutocomplete } from '../../core/input';
+import { RHFTextField, RHFAutocomplete } from '../../core/input';
 import { RichTextEditor } from '../../components/rich-text';
 import { languages } from '@/lib/data/languages';
 import { Guide } from '@/entities/guide/model';
@@ -60,41 +59,44 @@ export const GuideForm: FC<GuideFormProps> = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
-          <RHFTextField<GuideSchema>
+          <RHFTextField
             label='First Name'
             errorMessage={errors.firstName?.message}
-            {...register('firstName')}
+            control={control}
+            name='firstName'
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFTextField<GuideSchema>
+          <RHFTextField
             label='Last Name'
+            name='lastName'
             errorMessage={errors.lastName?.message}
-            {...register('lastName')}
+            control={control}
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFTextField<GuideSchema>
+          <RHFTextField
+            name='email'
             label='Email'
-            error={!!errors.email}
+            control={control}
             errorMessage={errors.email?.message}
-            {...register('email')}
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFTextField<GuideSchema>
+          <RHFTextField
+            name='phoneNumber'
             label='Phone Number'
-            error={!!errors.phoneNumber}
+            control={control}
             errorMessage={errors.phoneNumber?.message}
-            {...register('phoneNumber')}
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFAutocomplete<GuideSchema>
+          <RHFAutocomplete
             label='Languages'
             options={languages}
             control={control}
-            {...register('languages')}
+            name='languages'
+            errorMessage={errors.languages?.message}
           />
         </Grid>
         <Grid item xs={12}>

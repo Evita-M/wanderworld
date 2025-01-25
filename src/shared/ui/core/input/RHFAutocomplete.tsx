@@ -1,27 +1,25 @@
-import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
+import { Autocomplete, Box, Checkbox, Stack, TextField, Typography } from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { forwardRef, Ref } from 'react';
 import { Option } from '@/shared/types';
-
 
 type RHFAutocompleteProps<T extends FieldValues> = {
   name: Path<T>;
-  options: Option[];
   label: string;
   control: any;
+  options: Option[];
   errorMessage?: string;
+  multiple?: boolean;
 };
 
-export function RHFAutocomplete<T extends FieldValues>({
-  name,
-  options,
-  label,
-  control,
-  errorMessage,
-}: RHFAutocompleteProps<T>) {
+export const RHFAutocomplete = forwardRef(<T extends FieldValues>(
+  { name, label, control, options, errorMessage, multiple = true }: RHFAutocompleteProps<T>,
+  _ref: Ref<any>
+) => {
   return (
-    <Controller
+   <Controller
       name={name}
       control={control}
       render={({
@@ -70,4 +68,4 @@ export function RHFAutocomplete<T extends FieldValues>({
       )}
     />
   );
-}
+});

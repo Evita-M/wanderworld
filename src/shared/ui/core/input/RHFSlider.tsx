@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
+import { forwardRef, Ref } from 'react';
 
 type RHFSliderProps<T extends FieldValues> = {
   name: Path<T>;
@@ -15,13 +16,10 @@ type RHFSliderProps<T extends FieldValues> = {
   errorMessage?: string;
 };
 
-export function RHFSlider<T extends FieldValues>({
-  name,
-  label,
-  control,
-  limit,
-  errorMessage,
-}: RHFSliderProps<T>) {
+export const RHFSlider = forwardRef(<T extends FieldValues>(
+  { name, label, control, limit, errorMessage }: RHFSliderProps<T>,
+  _ref: Ref<any>
+) => {
   return (
     <Controller
       control={control}
@@ -44,4 +42,4 @@ export function RHFSlider<T extends FieldValues>({
       )}
     />
   );
-}
+});

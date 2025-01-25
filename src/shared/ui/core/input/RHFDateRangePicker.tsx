@@ -1,19 +1,20 @@
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-import { Controller, FieldValues, Path } from 'react-hook-form';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { Controller, FieldValues, Path } from 'react-hook-form';
+import { forwardRef, Ref } from 'react';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 
 type RHFDateRangePickerProps<T extends FieldValues> = {
   name: Path<T>;
-  label?: string;
+  label: string;
   control: any;
+  errorMessage?: string;
 };
 
-export function RHFDateRangePicker<T extends FieldValues>({
-  name,
-  label,
-  control,
-}: RHFDateRangePickerProps<T>) {
+export const RHFDateRangePicker = forwardRef(<T extends FieldValues>(
+  { name, label, control, errorMessage }: RHFDateRangePickerProps<T>,
+  _ref: Ref<any>
+) => {
   return (
     <Controller
       control={control}
@@ -31,4 +32,6 @@ export function RHFDateRangePicker<T extends FieldValues>({
       )}
     />
   );
-}
+});
+
+RHFDateRangePicker.displayName = 'RHFDateRangePicker';

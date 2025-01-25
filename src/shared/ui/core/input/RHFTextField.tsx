@@ -1,33 +1,35 @@
-import { TextField, TextFieldProps } from '@mui/material';
-import React, { forwardRef, Ref } from 'react';
-import { FieldValues, Path } from 'react-hook-form';
+import { Stack, TextField, Typography } from '@mui/material';
+import { Controller, FieldValues, Path } from 'react-hook-form';
+import { forwardRef, Ref } from 'react';
 
-interface RHFTextFieldProps<T extends FieldValues>
-  extends Omit<TextFieldProps, 'name'> {
+type RHFTextFieldProps<T extends FieldValues> = {
   name: Path<T>;
+  label: string;
+  control: any;
   errorMessage?: string;
-  inputRef?: Ref<HTMLInputElement>;
-}
-
-const RHFTextField = <T extends FieldValues>(
-  { name, errorMessage, inputRef, ...props }: RHFTextFieldProps<T>,
-  ref: Ref<HTMLInputElement>
-) => {
-  return (
-    <TextField
-      name={name}
-      inputRef={inputRef || ref}
-      error={!!errorMessage}
-      helperText={errorMessage}
-      fullWidth
-      InputLabelProps={{ shrink: true }}
-      {...props}
-    />
-  );
 };
 
-RHFTextField.displayName = 'RHFTextField';
+export const RHFTextField = forwardRef(<T extends FieldValues>(
+  { name, label, errorMessage, control, ...rest }: RHFTextFieldProps<T>,
+  _ref: Ref<any>
+) => {
+  return (
+    <Stack>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+        <TextField
+          label={label}
+          error={!!errorMessage}
+          helperText={errorMessage}
+          InputLabelProps={{ shrink: true }}
+          {...field}
+        />
+      )}
+    />
+    </Stack>
+  );
+});
 
-export default forwardRef(RHFTextField) as <T extends FieldValues>(
-  props: RHFTextFieldProps<T> & { ref?: Ref<HTMLInputElement> }
-) => JSX.Element;
+RHFTextField.displayName = 'RHFTextField';

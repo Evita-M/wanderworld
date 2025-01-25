@@ -1,6 +1,5 @@
 import { Button, Grid, Stack, Typography } from "@mui/material";
-import RHFTextField from "../../core/input/RHFTextField";
-import { RHFAutocomplete, RHFCheckbox, RHFDateRangePicker, RHFDateTimePicker, RHFSelect, RHFSlider } from "../../core/input";
+import { RHFAutocomplete, RHFCheckbox, RHFDateRangePicker, RHFDateTimePicker, RHFSelect, RHFSlider, RHFTextField } from "../../core/input";
 import { Expedition } from "@/entities/expedition/model";
 import { defaultValues, expeditionSchema, ExpeditionSchema } from "./validation";
 import { languages } from "@/lib/data/languages";
@@ -106,69 +105,72 @@ const handleOnGenerateDescription = async () => {
     <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
-          <RHFTextField<ExpeditionSchema>
+          <RHFTextField
+            name="name"
+            control={control}
             label='Name'
             errorMessage={errors.name?.message}
-            {...register('name')}
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFSelect<ExpeditionSchema>
+          <RHFSelect
+            name="guide"
             label='Guide'
             options={guidesOptions || []}
             control={control}
             errorMessage={errors.guide?.message}
-            {...register('guide')}
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFAutocomplete<ExpeditionSchema>
+          <RHFAutocomplete
+            name="countries"
             label='Countries'
             options={countries}
             control={control}
             errorMessage={errors.countries?.message}
-            {...register('countries')}
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFDateRangePicker<ExpeditionSchema>
+          <RHFDateRangePicker
+            name="tourDuration"
             label='Expedition duration'
             control={control}
-            {...register('tourDuration')}
+            errorMessage={errors.tourDuration?.message}
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFAutocomplete<ExpeditionSchema>
+          <RHFAutocomplete
+            name="languages"
             label='Languages'
             options={languages}
             control={control}
             errorMessage={errors.languages?.message}
-            {...register('languages')}
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFSlider<ExpeditionSchema>
+          <RHFSlider
+            name="groupSize"
             label='Group size'
-            limit={[0, 40]}
+            limit={[1, 40]}
             control={control}
             errorMessage={errors.groupSize?.message}
-            {...register('groupSize')}
           />
         </Grid>
         <Grid item xs={6}>
-          <RHFDateTimePicker<ExpeditionSchema>
+          <RHFDateTimePicker
+            name="meetingDate"
             label='First meeting'
             control={control}
-            {...register('meetingDate')}
+            errorMessage={errors.meetingDate?.message}
           />
         </Grid>
         <Grid item xs={12}>
-          <RHFCheckbox<ExpeditionSchema>
+          <RHFCheckbox
+            name="activities"
             label='Activities'
             options={activities}
             control={control}
             errorMessage={errors.activities?.message}
-            {...register('activities')}
           />
         </Grid>
         <Grid item xs={12}>

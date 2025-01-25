@@ -1,30 +1,25 @@
 import {
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
 } from '@mui/material';
 import { Controller, FieldValues, Path } from 'react-hook-form';
-
-import { Option } from '@/type/option';
+import { forwardRef, Ref } from 'react';
+import { Option } from '@/shared/types';
 
 type RHFSelectProps<T extends FieldValues> = {
   name: Path<T>;
-  options: Option[];
   label: string;
   control: any;
+  options: Option[];
   errorMessage?: string;
 };
 
-export function RHFSelect<T extends FieldValues>({
-  name,
-  options,
-  label,
-  control,
-  errorMessage,
-}: RHFSelectProps<T>) {
+export const RHFSelect = forwardRef(<T extends FieldValues>(
+  { name, label, control, options, errorMessage }: RHFSelectProps<T>,
+  _ref: Ref<any>
+) => {
   return (
     <Controller
       name={name}
@@ -50,12 +45,11 @@ export function RHFSelect<T extends FieldValues>({
                 </MenuItem>
               ))}
             </Select>
-            {errorMessage && (
-              <FormHelperText error>{errorMessage}</FormHelperText>
-            )}
           </FormControl>
         );
       }}
     />
   );
-}
+});
+
+RHFSelect.displayName = 'RHFSelect';

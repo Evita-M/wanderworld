@@ -1,13 +1,13 @@
 "use client"
-import { EditGuide } from "@/features/guide/edit/ui/edit-guide";
-import { Typography } from "@mui/material";
 
+import { EditGuide } from "@/features/guide/edit";
+import { Stack, Typography } from "@mui/material";
 
 export default function PageContent() {
   return (
-    <>
-        <Typography variant="h1">Edit Guide</Typography>
+    <Stack height='100%'>
+        <Typography variant="h3" mb='4rem'>Edit Guide</Typography>
         <EditGuide />
-    </>
+    </Stack>
   );
 }

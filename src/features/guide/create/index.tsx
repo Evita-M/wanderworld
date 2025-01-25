@@ -1,15 +1,14 @@
 'use client';
 
-
 import { FC } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useCreateGuideMutation } from '@/entities/guide/api';
 import { useSnackbar } from '@/shared/hooks/useSnackbar';
 import { Guide } from '@/entities/guide/model';
-import {  GuideSchema } from '@/features/guide/edit/model/validation';
 import { useRouter } from 'next/navigation';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
 import { routes } from '@/routes/index';
+import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
 
 
 export const CreateGuide: FC = () => {
@@ -53,7 +52,7 @@ export const CreateGuide: FC = () => {
     <GuideForm
       onSubmit={handleOnSubmit}
       onCancel={handleOnCancel}
-      isLoading={isCreateGuideLoading}
+      isSubmitting={isCreateGuideLoading}
       buttonLabels={{
         submit: 'Create',
         cancel: 'Cancel',

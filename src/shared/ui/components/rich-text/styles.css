@@ -102,10 +102,14 @@
 
   /* Add spacing between elements */
   * + * {
-    margin-top: 0.75em;
+    margin-top: 0.75rem;
   }
 }
 
 [contenteditable] {
   outline: none !important;
+}
+
+.rich-text-paragraph {
+  margin: 1rem;
 }

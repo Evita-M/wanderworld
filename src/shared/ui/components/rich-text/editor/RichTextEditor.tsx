@@ -2,7 +2,6 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import React, { FC, useEffect, useRef, useState, useMemo } from 'react';
 import Underline from '@tiptap/extension-underline';
-import Bold from '@tiptap/extension-bold';
 
 import '../styles.css';
 import { Stack, Typography } from '@mui/material';
@@ -19,6 +18,7 @@ interface RichTextEditorProps {
   initialContent?: string;
   isGenerating?: boolean;
   isGenerationEnabled?: boolean;
+  readOnly?: boolean;
 }
 
 export const RichTextEditor: FC<RichTextEditorProps> = ({
@@ -29,6 +29,7 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
   onGenerateDescription,
   isGenerating = false,
   isGenerationEnabled = true,
+  readOnly = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -42,13 +43,18 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
         heading: {
           levels: [1, 2, 3, 4, 5],
         },
-      }),
-      Underline,
-      Bold.configure({
-        HTMLAttributes: {
-          class: 'font-bold',
+        paragraph: {
+          HTMLAttributes: {
+            class: 'rich-text-paragraph',
+          },
+        },
+        bold: {
+          HTMLAttributes: {
+            class: 'font-bold',
+          },
         },
       }),
+      Underline,
     ],
     []
   );
@@ -56,6 +62,11 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
   const editor = useEditor({
     extensions,
     content: value || initialContent,
+    editorProps: {
+      attributes: {
+        class: 'prose-editor',
+      },
+    },
     onUpdate: ({ editor }) => {
       if (isUpdatingRef.current) {
         return;
@@ -70,13 +81,8 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
     },
     onFocus: () => setIsFocused(true),
     onBlur: () => setIsFocused(false),
-    editorProps: {
-      attributes: {
-        class:
-          'max-w-none min-h-[150px] cursor-text rounded-md p-5 prose-editor',
-        style: `outline: none; font-family: ${theme.typography.fontFamily}; font-size: ${theme.typography.body1.fontSize}; line-height: ${theme.typography.body1.lineHeight};`,
-      },
-    },
+    editable: !readOnly,
+    immediatelyRender: false,
   });
 
   useEffect(() => {

@@ -1,22 +1,24 @@
 "use client"
-import { EditExpedition } from "@/features/expedition/edit/ui/edit-expedition";
-import { useParams } from "next/navigation";
-import { useGetExpeditionQuery } from "@/entities/expedition/api";
-import { Typography } from "@mui/material";
-import { Loader } from "@/shared/ui/core/loader";
+import { EditExpedition } from "@/features/expedition/edit";
+import { BackButton } from "@/shared/ui/core/button";
+import { PageHeader } from "@/shared/ui/core/typography";
+import { useParams, useRouter } from "next/navigation";
+import { routes } from "@/routes/index";
 
 export default function PageContent() {
-  const { id } = useParams();
-  const { data: expedition, isLoading } = useGetExpeditionQuery(id as string);
+  const router = useRouter();
+  const params = useParams();
 
-  if (!expedition && !isLoading) throw new Error('Expedition not found');
+  const redirectToExpedition = () => router.push(`${routes.expeditions}/${params.id}`);
 
   return (
-    <>{isLoading ? <Loader/> :
-	  <>
-		<Typography variant="h1">Edit Expedition</Typography>
-		<EditExpedition expedition={expedition} isEdit/>
-	 </>}
+    <>
+      <PageHeader
+        title="Edit Expedition"
+        prefix={<BackButton onClick={redirectToExpedition} color='secondary' />}
+        sx={{ mb:'4rem' }}
+      />
+      <EditExpedition/>
     </>
   );
 }

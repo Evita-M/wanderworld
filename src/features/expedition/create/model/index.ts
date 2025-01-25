@@ -1,9 +1,7 @@
-import { Create, Edit } from "@/shared/types";
 import { ExpeditionCommon } from "entities/expedition/model";
 
-
-export type CreateExpedition = ExpeditionCommon & Create;
-export type EditExpedition = ExpeditionCommon & Edit;
+export type CreateExpedition = ExpeditionCommon;
+export type EditExpedition = ExpeditionCommon;
 
 export interface GenerateExpeditionRequestBody {
   name: string;

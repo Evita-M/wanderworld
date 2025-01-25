@@ -1,5 +1,6 @@
 import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
-import { Expedition } from '@/types/expedition';
+import { Expedition } from '@/entities/expedition/model';
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
@@ -32,11 +33,12 @@ const expeditionApi = createApi({
           : [{ type: 'Expedition', id: 'LIST' }],
     }),
     createExpedition: build.mutation<Expedition, CreateExpeditionRequestBody>({
-      query: (newGuide) => ({
+      query: (body) => ({
         url: '/',
         method: 'POST',
-        body: newGuide,
+        body,
       }),
+      transformResponse: (response: { data: Expedition }) => response.data,
       invalidatesTags: [{ type: 'Expedition', id: 'LIST' }],
     }),
     updateExpedition: build.mutation<

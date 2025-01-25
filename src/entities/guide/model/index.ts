@@ -6,6 +6,7 @@ export type GuideWithExpeditions = Prisma.GuideGetPayload<{
 }>;
 
 export type GuideCommon = {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

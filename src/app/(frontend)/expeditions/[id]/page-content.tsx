@@ -5,7 +5,7 @@ import {
   useGetExpeditionQuery,
 } from '@/redux/api/expeditionApi';
 import { useParams, useRouter } from 'next/navigation';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { routes } from '@/routes/index';
@@ -14,9 +14,16 @@ import { useSnackbar } from '@/shared/hooks/useSnackbar';
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { Loader } from '@/shared/ui/core/loader';
 import { Actions } from '@/shared/ui/modules/actions';
-import { PageHeader } from '@/shared/ui/core/typography';
-import { ExpeditionView } from '@/entities/expedition/ui/expedition-view';
+import { IconText, PageHeader } from '@/shared/ui/core/typography';
 import { ModalConfirmation } from '@/shared/ui/modules/modal';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PeopleIcon from '@mui/icons-material/People';
+import { getNames } from '@/utils/get-names';
+import { DateRange } from '@/shared/ui/components/date-range';
+import { countries } from '@/lib/data/countries';
+import { ExpeditionInfo } from '@/entities/expedition/ui/expedition-info';
+import { MasonryGrid } from '@/shared/ui/modules/masonry-grid';
+import { GuideInfo } from '@/entities/guide/ui/guide-info';
 
 
 const PageContent = () => {
@@ -93,6 +100,8 @@ const PageContent = () => {
     },
   ];
 
+  const countryNames = getNames(expedition?.countries ?? [], countries);
+
   return (
     expedition && (
       <>
@@ -105,7 +114,33 @@ const PageContent = () => {
           <PageHeader title={expedition.name} />
           <Actions actions={actions} />
         </Stack>
-        <ExpeditionView expedition={expedition} guide={guide} />
+        <Stack spacing='2.4rem'>
+        <Stack flexDirection='row' spacing='4.4rem'>
+          <DateRange
+            startDate={expedition.startDate}
+            endDate={expedition.endDate}
+          />
+          <IconText
+            icon={<LocationOnIcon color='primary' />}
+            text={countryNames}
+          />
+          <IconText
+            icon={<PeopleIcon color='primary' />}
+            text={`${expedition.minGroupSize} - ${expedition.maxGroupSize} participants`}
+          />
+        </Stack>
+        <Stack flexDirection='row' spacing='2rem'>
+          <Box flex='0 1 160rem'>
+            <MasonryGrid />
+          </Box>
+          <Box flex='0 0 40rem' pb='1rem'>
+            <GuideInfo guide={guide} />
+          </Box>
+        </Stack>
+        <Stack maxWidth='120rem' p='1rem'>
+          <ExpeditionInfo expedition={expedition} />
+        </Stack>
+      </Stack>
       </>
     )
   );

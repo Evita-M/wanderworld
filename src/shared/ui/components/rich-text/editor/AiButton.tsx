@@ -27,23 +27,25 @@ export const AiButton: FC<AiButtonProps> = ({
 }) => {
   return (
     <Tooltip title={tooltipText} placement='top'>
-      <Button
-        onClick={onClick}
-        disabled={isLoading || disabled}
-        size='small'
-        color='secondary'
-        startIcon={
-          isLoading ? (
-            <CircularProgress size='1rem' color='primary' />
-          ) : (
-            <AutoAwesomeIcon />
-          )
-        }
-        variant='contained'
-        sx={sx}
-      >
-        {label}
-      </Button>
+      <span>
+        <Button
+          onClick={onClick}
+          disabled={isLoading || disabled}
+          size='small'
+          color='secondary'
+          startIcon={
+            isLoading ? (
+              <CircularProgress size='1rem' color='primary' />
+            ) : (
+              <AutoAwesomeIcon />
+            )
+          }
+          variant='contained'
+          sx={sx}
+        >
+          {label}
+        </Button>
+      </span>
     </Tooltip>
   );
 };

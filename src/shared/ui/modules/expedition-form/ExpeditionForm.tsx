@@ -1,56 +1,40 @@
-'use client';
+import { Button, Grid, Stack, Typography } from "@mui/material";
+import RHFTextField from "../../core/input/RHFTextField";
+import { RHFAutocomplete, RHFCheckbox, RHFDateRangePicker, RHFDateTimePicker, RHFSelect, RHFSlider } from "../../core/input";
+import { Expedition } from "@/entities/expedition/model";
+import { defaultValues, expeditionSchema, ExpeditionSchema } from "./validation";
+import { languages } from "@/lib/data/languages";
+import { countries } from "@/lib/data/countries";
+import { FC, useEffect, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { RichTextEditor } from "../../components/rich-text";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { activities } from "@/lib/data/activities";
+import { GuideCommon } from "@/entities/guide/model";
+import { useGenerateDescriptionMutation } from "@/redux/api/groqApi";
+import { useSnackbar } from "@/shared/hooks/useSnackbar";
 
-import { useForm, Controller } from 'react-hook-form';
-import { Button, Grid, Stack, Typography } from '@mui/material';
-import { FC, useEffect, useMemo } from 'react';
-import {
-  useCreateExpeditionMutation,
-  useUpdateExpeditionMutation,
-} from '@/redux/api/expeditionApi';
-import { countries } from '@/lib/data/countries';
-import { languages } from '@/lib/data/languages';
-import { activities } from '@/lib/data/activities';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useGenerateDescriptionMutation } from '@/redux/api/groqApi';
-import { defaultValues, expeditionSchema, ExpeditionSchema } from '../../model/validation';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
-import { Guide } from '@/entities/guide/model';
-import { useGetGuidesQuery } from '@/entities/guide/api';
-import { Expedition } from '@/entities/expedition/model';
-import RHFTextField from '@/shared/ui/core/input/RHFTextField';
-import { RHFAutocomplete, RHFCheckbox, RHFDateRangePicker, RHFDateTimePicker, RHFSelect, RHFSlider } from '@/shared/ui/core/input';
-import { RichTextEditor } from '@/shared/ui/components/rich-text';
-
-
-interface ExpeditionsFormProps {
+interface ExpeditionFormProps {
+  onSubmit: (data: ExpeditionSchema) => Promise<void>;
+  isSubmitting?: boolean;
+  onCancel: () => void;
   expedition?: Expedition;
-  isEdit?: boolean;
-  onCancel?: VoidFunction;
-  onSuccess?: VoidFunction;
+  guides: any;
+  buttonLabels: {
+    cancel: string;
+    submit: string;
+  };
 }
 
-export const EditExpedition: FC<ExpeditionsFormProps> = ({
-  expedition,
-  isEdit = false,
-  onCancel,
-  onSuccess,
-}) => {
-  const [
-    createExpedition,
-    {
-      isLoading: isCreateExpeditionLoading,
-      isSuccess: isCreateExpeditionSuccess,
-    },
-  ] = useCreateExpeditionMutation();
-  const [
-    updateExedition,
-    {
-      isLoading: isUpdateExeditionLoading,
-      isSuccess: isUpdateExeditionSuccess,
-    },
-  ] = useUpdateExpeditionMutation();
+export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,guides, onCancel, expedition, buttonLabels}) => {
+  const { showSnackBar } = useSnackbar();
 
-  const { data: guides } = useGetGuidesQuery();
+  useEffect(() => {
+    if (expedition) {
+      reset(expDefaultValues);
+    }
+  }, [expedition]);
+
 
   const expDefaultValues = expedition
     ? {
@@ -79,26 +63,13 @@ export const EditExpedition: FC<ExpeditionsFormProps> = ({
     formState: { errors, isValid },
     setValue,
   } = useForm<ExpeditionSchema>({
-    defaultValues: isEdit && expedition ? expDefaultValues : defaultValues,
+    defaultValues: expDefaultValues,
     resolver: zodResolver(expeditionSchema),
     mode: 'onChange',
   });
-
-  const formValues = watch();
-  useEffect(() => {}, [formValues]);
-
-  // Add useEffect to update form when expedition changes
-  useEffect(() => {
-    if (expedition && isEdit) {
-      reset(expDefaultValues);
-    }
-  }, [expedition, isEdit]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const { showSnackBar } = useSnackbar();
-
   // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
-    return guides?.map((guide: Guide) => ({
+    return guides?.map((guide: GuideCommon) => ({
       id: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
     }));
@@ -107,7 +78,7 @@ export const EditExpedition: FC<ExpeditionsFormProps> = ({
   const [generateDescription, { isLoading: isGeneratingDescriptionLoading }] =
     useGenerateDescriptionMutation();
 
-  const handleOnGenerateDescription = async () => {
+const handleOnGenerateDescription = async () => {
     try {
       const formData = {
         name: watch('name'),
@@ -131,49 +102,8 @@ export const EditExpedition: FC<ExpeditionsFormProps> = ({
     }
   };
 
-  // Submit handler
-  async function onSubmit(data: ExpeditionSchema) {
-    const expeditionData = {
-      name: data.name,
-      description: data.description,
-      activities: data.activities,
-      countries: data.countries,
-      languages: data.languages || [],
-      meetingDate: new Date(data.meetingDate),
-      minGroupSize: data.groupSize[0],
-      maxGroupSize: data.groupSize[1],
-      startDate: new Date(data.tourDuration[0]) ?? undefined,
-      endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guide: isEdit
-        ? data.guide
-          ? { connect: { id: data.guide } }
-          : { disconnect: true }
-        : data.guide
-          ? { connect: { id: data.guide } }
-          : undefined,
-    };
-    console.log(expeditionData);
-    try {
-      if (isEdit && expedition) {
-        await updateExedition({
-          id: expedition.id,
-          data: expeditionData,
-        });
-        showSnackBar('Expedition updated successfully!', 'success');
-      } else {
-        await createExpedition(expeditionData);
-        showSnackBar('New expedition created successfully!', 'success');
-      }
-      onSuccess?.();
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error occurred';
-      showSnackBar(errorMessage, 'warning');
-    }
-  }
-
   return (
-    <Stack component='form' onSubmit={handleSubmit(onSubmit)}>
+    <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
           <RHFTextField<ExpeditionSchema>
@@ -279,19 +209,17 @@ export const EditExpedition: FC<ExpeditionsFormProps> = ({
               color='secondary'
               fullWidth
             >
-              Cancel
+              {buttonLabels.cancel}
             </Button>
             <Button
               fullWidth
               type='submit'
               variant='contained'
               disabled={
-                !isValid ||
-                isCreateExpeditionLoading ||
-                isUpdateExeditionLoading
+                !isValid || isSubmitting
               }
             >
-              {isEdit ? 'Save changes' : 'Create expedition'}
+              {buttonLabels.submit}
             </Button>
           </Stack>
         </Grid>
@@ -299,3 +227,4 @@ export const EditExpedition: FC<ExpeditionsFormProps> = ({
     </Stack>
   );
 };
+

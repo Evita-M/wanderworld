@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateExpedition } from '@/features/expedition/create/ui/create-guide';
+import { CreateExpedition } from '@/features/expedition/create';
 import { routes } from '@/routes/index';
 import { BackButton } from '@/shared/ui/core/button';
 import { PageContainer } from '@/shared/ui/core/layout';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 const PageContent = () => {
   const router = useRouter();
   const redirectToExpeditions = () => router.push(routes.expeditions);
+
   return (
     <PageContainer maxWidth='140rem'>
       <PageHeader
@@ -21,10 +22,7 @@ const PageContent = () => {
         }
       />
       <Box maxWidth='lg' m='0 auto' width='100%'>
-        <CreateExpedition
-          onSuccess={redirectToExpeditions}
-          onCancel={redirectToExpeditions}
-        />
+        <CreateExpedition />
       </Box>
     </PageContainer>
   );

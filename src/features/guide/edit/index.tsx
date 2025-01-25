@@ -5,10 +5,10 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useGetGuideQuery, useUpdateGuideMutation } from '@/entities/guide/api';
 import { useSnackbar } from '@/shared/hooks/useSnackbar';
 import { Guide } from '@/entities/guide/model';
-import { GuideSchema } from '@/features/guide/edit/model/validation';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
 import { useParams, useRouter } from 'next/navigation';
 import { Loader } from '@/shared/ui/core/loader';
+import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
 
 export const EditGuide: FC = () => {
   const { id } = useParams();
@@ -58,7 +58,7 @@ export const EditGuide: FC = () => {
         <GuideForm
           onSubmit={handleOnSubmit}
           onCancel={handleOnCancel}
-          isLoading={isUpdateGuideLoading}
+          isSubmitting={isUpdateGuideLoading}
           guide={guide}
           buttonLabels={{ cancel: 'Cancel', submit: 'Save changes' }}
         />

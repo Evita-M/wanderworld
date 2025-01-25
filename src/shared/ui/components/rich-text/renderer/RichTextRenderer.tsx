@@ -30,7 +30,15 @@ export const RichTextRenderer: FC<RichTextRendererProps> = ({
         return;
       }
 
-      const { name, children } = domNode;
+      const { name, children, parent } = domNode;
+
+      if (name === 'div' && parent instanceof Element && parent.name === 'p') {
+        return (
+          <span>
+            {domToReact(children as DOMNode[], options)}
+          </span>
+        );
+      }
 
       switch (name) {
         case 'p':

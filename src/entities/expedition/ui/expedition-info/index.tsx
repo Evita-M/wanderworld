@@ -29,7 +29,7 @@ export const ExpeditionInfo: React.FC<ExpeditionInfoProps> = ({
       label: 'Description',
       content: expedition.description ? (
         <RichTextRenderer content={expedition.description} />
-      ) : null,
+      ) : <Typography>No description</Typography>,
     },
     {
       label: "What's included",

@@ -7,8 +7,8 @@ import FlightIcon from '@mui/icons-material/Flight';
 import { getTravelStyle } from '@/utils/get-travel-style';
 import { SERVICE_LEVEL } from '@/lib/data/service-level';
 import { PHYSICAL_RATING } from '@/lib/data/physical-rating';
-import { OverviewItem } from './overview-item';
 import { getGroupType } from '@/utils/get-group-type';
+import { OverviewItem } from './OverviewItem';
 
 interface OverviewData {
   icon: ReactElement;

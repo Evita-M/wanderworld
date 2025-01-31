@@ -46,7 +46,6 @@ export const GuideForm: FC<GuideFormProps> = ({
 
   const {
     handleSubmit,
-    register,
     formState: { errors, isValid },
     control,
   } = useForm<GuideSchema>({

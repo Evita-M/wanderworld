@@ -1,34 +1,47 @@
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Masonry from '@mui/lab/Masonry';
+import { Children, FC, ReactNode } from 'react';
 
-const heights = [395, 220, 160, 220, 160];
+interface MasonryGridProps {
+  columns?: number;
+  spacing?: number;
+  minHeight?: number;
+  children: ReactNode;
+}
 
-export const MasonryGrid = () => {
+export const MasonryGrid: FC<MasonryGridProps> = ({
+  columns = 3,
+  spacing = 2,
+  minHeight = 400,
+  children
+}) => {
   return (
-    <Box sx={{ minHeight: 400 }}>
-      <Masonry columns={3} spacing={2}>
-        {heights.map((height, index) => (
-          <Item key={index} sx={{ height }}>
-            <ResponsiveImage alt='' src='https://picsum.photos/1280/720' />
-          </Item>
-        ))}
-      </Masonry>
-    </Box>
+    <div style={{ minHeight }} className="w-full">
+      <div
+        style={{
+          columnCount: columns,
+          columnGap: `${spacing * 4}px`,
+        }}
+      >
+        {Children.toArray(children)}
+      </div>
+    </div>
   );
 };
 
-const Item = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.info.main,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: theme.borderRadius.large,
-  overflow: 'hidden', // Prevents image overflow and ensures it stays within the container's bounds.
-}));
+export const MasonryItem: FC<{ children: ReactNode; height: number }> = ({ children, height }) => (
+  <div
+    className="mb-4 break-inside-avoid"
+    style={{ height }}
+  >
+    <div className="w-full h-full overflow-hidden rounded-lg bg-blue-100">
+      {children}
+    </div>
+  </div>
+);
 
-const ResponsiveImage = styled('img')({
-  width: '100%',
-  height: '100%', // Ensures the image takes the full height of the container.
-  objectFit: 'cover', // Ensures the image covers the area without distortion (cropping may occur).
-});
+export const MasonryImage: FC<{ src: string; alt: string }> = ({ src, alt }) => (
+  <img
+    src={src}
+    alt={alt}
+    className="w-full h-full object-cover"
+  />
+);

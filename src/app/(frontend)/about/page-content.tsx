@@ -1,10 +1,25 @@
 'use client';
 
+import { aboutContent } from '@/lib/data/about';
 import { features } from '@/lib/data/features';
 import { ResponsiveImage } from '@/shared/ui/core/layout';
 import { PageHeader } from '@/shared/ui/core/typography';
 import { Stack, Typography, Box, Grid, useTheme } from '@mui/material';
 import { darken } from '@mui/material/styles';
+import MapIcon from '@mui/icons-material/Map';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupsIcon from '@mui/icons-material/Groups';
+import NatureIcon from '@mui/icons-material/Nature';
+import { createElement } from 'react';
+
+type IconName = keyof typeof iconComponents;
+
+const iconComponents = {
+  MapIcon: MapIcon,
+  PersonIcon: PersonIcon,
+  GroupsIcon: GroupsIcon,
+  NatureIcon: NatureIcon,
+};
 
 const images = {
   mission: {
@@ -32,22 +47,13 @@ const PageContent = () => {
         <Grid container spacing={4} alignItems='center'>
           <Grid item xs={12} md={6}>
             <Typography variant='h4' mb='3.2rem'>
-              Our Mission
+              {aboutContent.mission.title}
             </Typography>
             <Typography variant='body1' paragraph>
-              At WanderWorld, we believe that the most meaningful adventures are
-              those that challenge us, inspire us, and connect us with the world
-              in ways we never imagined. For us, adventure is not just about
-              reaching a destination—it’s about the journey, the people we meet
-              along the way, and the transformative experiences that stay with
-              us long after we return home.
+              {aboutContent.mission.paragraphs[0]}
             </Typography>
             <Typography variant='body1' paragraph>
-              Our mission is to empower adventurers of all backgrounds to step
-              outside their comfort zones and discover the extraordinary. We’re
-              passionate about creating opportunities for exploration that not
-              only immerse travelers in the beauty of nature but also foster a
-              deeper connection with the environment and local communities.
+              {aboutContent.mission.paragraphs[1]}
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -62,8 +68,8 @@ const PageContent = () => {
         </Grid>
 
         <Box>
-          <Typography variant='h4' mb='3.2rem' mb={4}>
-            What Sets Us Apart
+          <Typography variant='h4' mb='3.2rem'>
+            {aboutContent.whatSetsUsApart.title}
           </Typography>
           <Grid container spacing={3}>
             {features.map((feature, index) => (
@@ -82,7 +88,7 @@ const PageContent = () => {
                     },
                   }}
                 >
-                  <Stack direction='row' spacing={2} alignItems='center'>
+                  <Stack direction='row' spacing={4} alignItems='center'>
                     <Stack>
                       <Typography variant='h5' mb='1.8rem'>
                         {feature.title}
@@ -91,37 +97,35 @@ const PageContent = () => {
                         {feature.description}
                       </Typography>
                     </Stack>
+                    <Box
+                      sx={{
+                        color: customColors[index].main,
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {createElement(iconComponents[feature.icon as IconName], { sx: { fontSize: '8rem' } })}
+                    </Box>
                   </Stack>
                 </Box>
               </Grid>
             ))}
           </Grid>
         </Box>
-
         <Box>
           <Typography variant='h4' mb='3.2rem'>
-            Join Our Community
+            {aboutContent.community.title}
           </Typography>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <Typography variant='body1' paragraph>
-                Whether you're an experienced adventurer or taking your first
-                steps into expedition travel, our community welcomes you. Join
-                us in exploring the world's most remarkable destinations, from
-                remote mountain peaks to hidden coastal gems.
+                {aboutContent.community.paragraphs[0]}
               </Typography>
               <Typography variant='body1' paragraph>
-                Join us as we venture into the extraordinary. From scaling
-                majestic mountain peaks that touch the sky to discovering hidden
-                coastal gems untouched by the modern world, we bring together
-                like-minded explorers who share a passion for the great
-                outdoors. Whether it’s trekking through lush rainforests,
-                navigating winding river valleys, or experiencing the vibrant
-                cultures of remote villages, our expeditions offer something for
-                everyone.
+                {aboutContent.community.paragraphs[1]}
               </Typography>
               <Typography variant='body1' sx={{ fontStyle: 'italic' }}>
-                Let's embark on your next adventure together.
+                {aboutContent.community.closing}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>

@@ -22,7 +22,7 @@ import { getNames } from '@/utils/get-names';
 import { DateRange } from '@/shared/ui/components/date-range';
 import { countries } from '@/lib/data/countries';
 import { ExpeditionInfo } from '@/entities/expedition/ui/expedition-info';
-import { MasonryGrid } from '@/shared/ui/modules/masonry-grid';
+import { MasonryGrid, MasonryImage, MasonryItem } from '@/shared/ui/modules/masonry-grid';
 import { GuideInfo } from '@/entities/guide/ui/guide-info';
 
 
@@ -131,7 +131,19 @@ const PageContent = () => {
         </Stack>
         <Stack flexDirection='row' spacing='2rem'>
           <Box flex='0 1 160rem'>
-            <MasonryGrid />
+            <MasonryGrid columns={3} spacing={2}>
+              {[
+                { height: 395 },
+                { height: 220 },
+                { height: 160 },
+                { height: 220 },
+                { height: 160 }
+              ].map((item, index) => (
+                <MasonryItem key={index} height={item.height}>
+                  <div className="w-full h-full bg-gray-100" />
+                </MasonryItem>
+              ))}
+            </MasonryGrid>
           </Box>
           <Box flex='0 0 40rem' pb='1rem'>
             <GuideInfo guide={guide} />

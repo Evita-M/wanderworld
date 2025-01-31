@@ -1,6 +1,5 @@
 'use client';
 
-
 import { useEffect } from 'react';
 import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
@@ -9,7 +8,6 @@ import { Loader } from '@/shared/ui/core/loader';
 import { GuideList } from '@/entities/guide/ui/guide-list';
 import { useGetGuidesQuery } from '@/entities/guide/api';
 import { EmptyState } from '@/shared/ui/components/empty-state';
-
 
 export default function List() {
   const {

@@ -57,7 +57,6 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
     control,
     reset,
     handleSubmit,
-    register,
     watch,
     formState: { errors, isValid },
     setValue,
@@ -77,7 +76,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
   const [generateDescription, { isLoading: isGeneratingDescriptionLoading }] =
     useGenerateDescriptionMutation();
 
-const handleOnGenerateDescription = async () => {
+  const handleOnGenerateDescription = async () => {
     try {
       const formData = {
         name: watch('name'),

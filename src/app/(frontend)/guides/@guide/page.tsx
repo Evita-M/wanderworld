@@ -5,9 +5,14 @@ import { EmptyState } from '@/shared/ui/components/empty-state';
 import { borderRadius } from '@/styles/border-radius';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { Loader } from '@/shared/ui/core/loader';
 
 export default function GuidePage() {
-  const { data: guides } = useGetGuidesQuery();
+  const { data: guides, isLoading } = useGetGuidesQuery();
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>

@@ -1,7 +1,6 @@
 import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Expedition } from '../model';
-import { ApiResponse } from '@/shared/types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',
@@ -13,15 +12,14 @@ const baseQueryWithRetry = retry(baseQuery, {
 
 const expeditionApi = createApi({
   baseQuery: baseQueryWithRetry,
-  reducerPath: 'expeditionApi',
   tagTypes: ['Expedition'],
+  reducerPath: 'expeditionApi',
   endpoints: (build) => ({
     getExpedition: build.query<Expedition, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
       }),
-      transformResponse: (response: ApiResponse<Expedition>) => response.data,
       providesTags: (_result, _error, id) => [{ type: 'Expedition' as const, id }],
     }),
     getExpeditions: build.query<Expedition[], void>({
@@ -29,7 +27,6 @@ const expeditionApi = createApi({
         url: '/',
         method: 'GET',
       }),
-      transformResponse: (response: ApiResponse<Expedition[]>) => response.data,
       providesTags: (result) =>
         result
           ? [
@@ -38,16 +35,16 @@ const expeditionApi = createApi({
             ]
           : [{ type: 'Expedition' as const, id: 'LIST' }],
     }),
-    createExpedition: build.mutation<ApiResponse<Expedition>, CreateExpeditionRequestBody>({
-      query: (newGuide) => ({
+    createExpedition: build.mutation<Expedition, CreateExpeditionRequestBody>({
+      query: (newExpedition) => ({
         url: '/',
         method: 'POST',
-        body: newGuide,
+        body: newExpedition,
       }),
       invalidatesTags: [{ type: 'Expedition', id: 'LIST' }],
     }),
     updateExpedition: build.mutation<
-      ApiResponse<Expedition>,
+      Expedition,
       {
         id: string;
         data: Expedition;

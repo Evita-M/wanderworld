@@ -28,6 +28,6 @@ export default function GuidePage() {
   return isGetGuideLoading ? (
     <Loader />
   ) : (
-    guide && <GuideDetail guide={guide} />
+    guide && <><h2 className="sr-only">Guide Detail</h2><GuideDetail guide={guide} /></>
   );
 }

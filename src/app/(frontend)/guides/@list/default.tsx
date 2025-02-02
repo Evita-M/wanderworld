@@ -24,6 +24,6 @@ export default function List() {
       <Loader />
     </Stack>
   ) : (
-    guides && <GuideList guides={guides} />
+    guides && <><h2 className="sr-only">Guides List</h2><GuideList guides={guides} /></>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Box, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
 import { GuideExpeditions } from '../guide-expeditions';
 import { grey } from '@mui/material/colors';

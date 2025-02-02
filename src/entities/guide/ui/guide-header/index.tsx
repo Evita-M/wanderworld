@@ -67,7 +67,7 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
               </Typography>
               <Typography
                 variant={typographyVariant}
-                component='h2'
+                component='h3'
                 mb={spacing}
               >
                 {fullName}

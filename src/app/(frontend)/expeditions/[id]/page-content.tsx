@@ -146,9 +146,11 @@ const PageContent = () => {
             </MasonryGrid>
           </Box>
           <Box flex='0 0 40rem' pb='1rem'>
+            <h2 className='sr-only'>Guide Detail</h2>
             <GuideInfo guide={guide} />
           </Box>
         </Stack>
+
         <Stack maxWidth='120rem' p='1rem'>
           <ExpeditionInfo expedition={expedition} />
         </Stack>

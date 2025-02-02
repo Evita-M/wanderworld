@@ -46,7 +46,7 @@ const PageContent = () => {
       <Stack spacing={8}>
         <Grid container spacing={4} alignItems='center'>
           <Grid item xs={12} md={6}>
-            <Typography variant='h4' mb='3.2rem'>
+            <Typography variant='h4' component='h2' mb='3.2rem'>
               {aboutContent.mission.title}
             </Typography>
             <Typography paragraph>
@@ -68,7 +68,7 @@ const PageContent = () => {
         </Grid>
 
         <Box>
-          <Typography variant='h4' mb='3.2rem'>
+          <Typography variant='h4' component='h2'mb='3.2rem'>
             {aboutContent.whatSetsUsApart.title}
           </Typography>
           <Grid container spacing={3}>
@@ -90,7 +90,7 @@ const PageContent = () => {
                 >
                   <Stack direction='row' spacing={4} alignItems='center'>
                     <Stack>
-                      <Typography variant='h5' mb='1.8rem'>
+                      <Typography variant='h5' component='h3' mb='1.8rem'>
                         {feature.title}
                       </Typography>
                       <Typography color='text.secondary'>
@@ -113,7 +113,7 @@ const PageContent = () => {
           </Grid>
         </Box>
         <Box>
-          <Typography variant='h4' mb='3.2rem'>
+          <Typography variant='h4' component='h2' mb='3.2rem'>
             {aboutContent.community.title}
           </Typography>
           <Grid container spacing={4}>

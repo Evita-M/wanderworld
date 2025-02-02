@@ -46,6 +46,7 @@ const PageContent: FC = () => {
               onSortChange={setSortOrder}
             />
           </Box>
+          <h2 className='sr-only'>Expeditions List</h2>
           <Grid container spacing={3}>
           {sortedExpeditions?.map((expedition) => (
             <Grid item xs={12} sm={6} md={4} key={expedition.id}>

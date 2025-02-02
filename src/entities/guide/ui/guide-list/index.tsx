@@ -22,6 +22,7 @@ export const GuideList: FC<GuideListProps> = ({ guides }) => {
     router.push(`/guides/${guide.id}`);
   };
 
+
   return (
     <Stack spacing={2}>
       {guides.map((guide) => (

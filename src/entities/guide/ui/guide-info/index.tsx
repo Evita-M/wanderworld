@@ -43,7 +43,7 @@ const GuideDetails: FC<{ guide: Guide }> = ({ guide }: { guide: Guide }) => (
 const EmptyGuide: FC = () => (
   <>
     <Avatar />
-    <Typography variant='h6' pt='1.2rem'>
+    <Typography variant='h6' component='p' pt='1.2rem'>
       No Guide
     </Typography>
     <Typography color='text.secondary' pt='1.2rem'>

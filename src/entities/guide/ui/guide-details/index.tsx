@@ -61,7 +61,7 @@ export const GuideDetail = ({
         />
       </Stack>
       <Box>
-        <Typography variant='h5' component='h3' mb='1.6rem'>
+        <Typography variant='h5' component='h4' mb='1.6rem'>
           Profile
         </Typography>
         <RichTextRenderer content={description || ''} />
@@ -73,7 +73,7 @@ export const GuideDetail = ({
           alignItems='center'
           mb='1.6rem'
         >
-          <Typography variant='h5' component='h3'>
+          <Typography variant='h5' component='h4'>
             Expeditions
           </Typography>
           {hasExpeditions && (

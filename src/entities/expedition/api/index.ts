@@ -1,13 +1,18 @@
 import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Expedition } from '../model';
+import { ApiResponse } from '@/shared/types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',
 });
 
+const baseQueryWithRetry = retry(baseQuery, {
+  maxRetries: 3
+});
+
 const expeditionApi = createApi({
-  baseQuery,
+  baseQuery: baseQueryWithRetry,
   reducerPath: 'expeditionApi',
   tagTypes: ['Expedition'],
   endpoints: (build) => ({
@@ -16,22 +21,24 @@ const expeditionApi = createApi({
         url: `/${id}`,
         method: 'GET',
       }),
-      providesTags: (_result, _error, id) => [{ type: 'Expedition', id }],
+      transformResponse: (response: ApiResponse<Expedition>) => response.data,
+      providesTags: (_result, _error, id) => [{ type: 'Expedition' as const, id }],
     }),
     getExpeditions: build.query<Expedition[], void>({
       query: () => ({
         url: '/',
         method: 'GET',
       }),
+      transformResponse: (response: ApiResponse<Expedition[]>) => response.data,
       providesTags: (result) =>
         result
           ? [
               ...result.map(({ id }) => ({ type: 'Expedition' as const, id })),
-              { type: 'Expedition' as const, id: 'LIST' },
+              { type: 'Expedition' as const, id: 'LIST' }
             ]
-          : [{ type: 'Expedition', id: 'LIST' }],
+          : [{ type: 'Expedition' as const, id: 'LIST' }],
     }),
-    createExpedition: build.mutation<Expedition, CreateExpeditionRequestBody>({
+    createExpedition: build.mutation<ApiResponse<Expedition>, CreateExpeditionRequestBody>({
       query: (newGuide) => ({
         url: '/',
         method: 'POST',
@@ -40,10 +47,10 @@ const expeditionApi = createApi({
       invalidatesTags: [{ type: 'Expedition', id: 'LIST' }],
     }),
     updateExpedition: build.mutation<
-      Expedition,
+      ApiResponse<Expedition>,
       {
         id: string;
-        data: Partial<Omit<Expedition, 'id' | 'createdAt' | 'updatedAt'>>;
+        data: Expedition;
       }
     >({
       query: ({ id, data }) => ({
@@ -75,8 +82,3 @@ export const {
 } = expeditionApi;
 
 export default expeditionApi;
-
-export const getExpeditionById = async (id: string) => {
-  // Implementation here
-  return fetch(`/api/expeditions/${id}`).then(res => res.json());
-};

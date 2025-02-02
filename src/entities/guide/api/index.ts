@@ -1,17 +1,22 @@
-
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Guide } from '../model';
+import { ApiResponse } from '@/shared/types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/guides',
 });
 
+const baseQueryWithRetry = retry(baseQuery, {
+  maxRetries: 3
+});
+
+
 const guideApi = createApi({
-  baseQuery,
+  baseQuery: baseQueryWithRetry,
   tagTypes: ['Guide'],
   reducerPath: 'guideApi',
   endpoints: (build) => ({
-    getGuide: build.query<Guide, string>({
+    getGuide: build.query<ApiResponse<Guide>, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -26,12 +31,12 @@ const guideApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: 'Guide' as const, id })),
-              { type: 'Guide' as const, id: 'LIST' },
+              ...result.map((guide) => ({ type: 'Guide' as const, id: guide.id })),
+              { type: 'Guide' as const, id: 'LIST' }
             ]
-          : [{ type: 'Guide', id: 'LIST' }],
+          : [{ type: 'Guide' as const, id: 'LIST' }],
     }),
-    createGuide: build.mutation<Guide, Partial<Guide>>({
+    createGuide: build.mutation<ApiResponse<Guide>, Partial<Guide>>({
       query: (newGuide) => ({
         url: '/',
         method: 'POST',
@@ -40,7 +45,7 @@ const guideApi = createApi({
       invalidatesTags: [{ type: 'Guide', id: 'LIST' }],
     }),
     updateGuide: build.mutation<
-      Guide,
+      ApiResponse<Guide>,
       {
         id: string;
         data: Partial<Omit<Guide, 'id' | 'createdAt' | 'updatedAt'>>;

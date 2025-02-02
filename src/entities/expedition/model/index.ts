@@ -30,5 +30,5 @@ export type ExpeditionWithGuideAndParticipants = Prisma.ExpeditionGetPayload<{
   };
 }>;
 
-export type ExpeditionResponse = Edit & ExpeditionCommon;
+export type ExpeditionResponse = ExpeditionCommon;
 

@@ -7,7 +7,8 @@ import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 export default function GuidePage() {
-  const { data: guides, isLoading: isGetGuidesLoading } = useGetGuidesQuery();
+  const { data: guides } = useGetGuidesQuery();
+
   return (
     <>
       {guides?.length ? (
@@ -22,7 +23,7 @@ export default function GuidePage() {
             title='Select a guide to view details'
             img={{
               src: '/hiking.png',
-              alt: 'A woman hiking in the mountains',
+              alt: 'A woman hiking in the rocky mountains',
               width: 350,
               height: 350,
             }}

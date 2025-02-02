@@ -1,14 +1,7 @@
 'use client';
 
-import { routes } from '@/routes/index';
-import { PageHeader } from '@/shared/ui/core/typography';
+import { GuidesPageHeader } from "@/entities/guide/ui/guide-page-header";
 
 export default function GuidesPage() {
-  return (
-    <PageHeader
-      title='Guides'
-      buttonLabel='Add new guide'
-      href={routes.newGuide}
-    />
-  );
+  return <GuidesPageHeader/>;
 }

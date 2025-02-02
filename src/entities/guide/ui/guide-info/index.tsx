@@ -16,20 +16,20 @@ const GuideLabel: FC = () => {
   return (
     <Box
       bgcolor={theme.palette.secondary.main}
-      p='1rem 1.4rem'
+      p='0.6rem 1.6rem'
       borderRadius={`0 0 0 ${theme.borderRadius.large}`}
       position='absolute'
       top='0'
       right='0'
     >
-      <Typography color='white'>Guide</Typography>
+      <Typography color='white' variant='caption'>Your Guide</Typography>
     </Box>
   );
 };
 const GuideDetails: FC<{ guide: Guide }> = ({ guide }: { guide: Guide }) => (
-  <Stack alignItems='center' textAlign='center'>
+  <Stack alignItems='center' textAlign='center' gap="2.4rem">
     <Avatar src={guide.avatar} alt={`${guide.firstName} ${guide.lastName}`} />
-    <Typography variant='h6' pt='1.2rem'>
+    <Typography variant='h6'>
       {guide.firstName} {guide.lastName}
     </Typography>
     <Contact
@@ -57,8 +57,6 @@ export const GuideInfo: FC<GuideInfoProps> = ({ guide }: GuideInfoProps) => (
     borderRadius={theme.borderRadius.large}
     overflow='hidden'
     position='relative'
-    height='39.5rem'
-    width='39.5rem'
     p='4.4rem 1.6rem'
     border={`1px solid ${grey[300]}`}
   >

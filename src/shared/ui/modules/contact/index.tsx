@@ -43,7 +43,7 @@ export const Contact: FC<ContactProps> = ({
   ];
 
   return (
-    <Stack direction={variant} gap={variant === 'row' ? 3 : 0} flexWrap='wrap'>
+    <Stack direction={variant} gap={variant === 'row' ? "2.4rem" : "1.4rem"} flexWrap='wrap'>
       {contactItems
         .filter((item) => item.text)
         .map((item, index) => (

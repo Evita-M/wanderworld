@@ -5,24 +5,16 @@ import { Box, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { GuideHeader, GuideHeaderSize } from '../guide-header';
 import { GuideExpeditions } from '../guide-expeditions';
 import { grey } from '@mui/material/colors';
-import { routes } from '@/routes/index';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { borderRadius } from '@/styles/border-radius';
 import { sortByDate } from '@/utils/sort-by-date';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { Guide, GuideWithExpeditions } from '../../model';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
-import { useModal } from '@/shared/hooks/useModal';
-import { useDeleteGuideMutation } from '../../api';
 import { LanguageCode } from '@/shared/ui/modules/languages';
 import { RichTextRenderer } from '@/shared/ui/components/rich-text';
-import { ModalConfirmation } from '@/shared/ui/modules/modal';
 import { GuideActions } from '../guide-actions';
+import { SortOrder } from '@/features/expedition/sort';
 
 export const GuideDetail = ({
   guide,
-  guides,
 }: {
   guide: GuideWithExpeditions;
   guides?: Guide[];
@@ -39,22 +31,13 @@ export const GuideDetail = ({
     expeditions,
   } = guide;
   const fullName = `${firstName} ${lastName}`;
-  const [deleteGuide, { isLoading: isDeleteGuideLoading }] =
-    useDeleteGuideMutation();
-  const { showSnackBar } = useSnackbar();
-  const router = useRouter();
-  const { openModal, closeModal } = useModal();
   const hasExpeditions = expeditions?.length > 0;
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams.toString());
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   const sortedExpeditions = useMemo(() => {
     if (!hasExpeditions) return [];
     return sortByDate([...expeditions], 'startDate', sortOrder);
   }, [expeditions, sortOrder, hasExpeditions]);
-
-
 
 
   return (
@@ -83,7 +66,6 @@ export const GuideDetail = ({
         </Typography>
         <RichTextRenderer content={description || ''} />
       </Box>
-
       <Box>
         <Stack
           direction='row'
@@ -95,14 +77,10 @@ export const GuideDetail = ({
             Expeditions
           </Typography>
           {hasExpeditions && (
-          <Select
-            value={sortOrder}
-            size='small'
-            onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-          >
-            <MenuItem value='desc'>Latest First</MenuItem>
-            <MenuItem value='asc'>Oldest First</MenuItem>
-          </Select>
+         <SortOrder
+           sortOrder={sortOrder}
+           onSortChange={setSortOrder}
+         />
           )}
         </Stack>
         {hasExpeditions ? (

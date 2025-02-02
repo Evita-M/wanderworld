@@ -43,7 +43,7 @@ export const RichTextRenderer: FC<RichTextRendererProps> = ({
       switch (name) {
         case 'p':
           return (
-            <Typography component='p' mt='0.6rem'>
+            <Typography component='p'>
               {domToReact(children as DOMNode[], options)}
             </Typography>
           );

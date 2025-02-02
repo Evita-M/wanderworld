@@ -49,10 +49,10 @@ const PageContent = () => {
             <Typography variant='h4' mb='3.2rem'>
               {aboutContent.mission.title}
             </Typography>
-            <Typography variant='body1' paragraph>
+            <Typography paragraph>
               {aboutContent.mission.paragraphs[0]}
             </Typography>
-            <Typography variant='body1' paragraph>
+            <Typography paragraph>
               {aboutContent.mission.paragraphs[1]}
             </Typography>
           </Grid>
@@ -75,7 +75,7 @@ const PageContent = () => {
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} key={feature.title}>
                 <Box
-                  p='2rem'
+                  p='3.6rem'
                   sx={{
                     border: `2px solid ${customColors[index].main}`,
                     boxShadow: `0 4px ${customColors[index].main}`,
@@ -118,13 +118,13 @@ const PageContent = () => {
           </Typography>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Typography variant='body1' paragraph>
+              <Typography paragraph>
                 {aboutContent.community.paragraphs[0]}
               </Typography>
-              <Typography variant='body1' paragraph>
+              <Typography paragraph>
                 {aboutContent.community.paragraphs[1]}
               </Typography>
-              <Typography variant='body1' sx={{ fontStyle: 'italic' }}>
+              <Typography color='text.secondary' fontStyle="italic">
                 {aboutContent.community.closing}
               </Typography>
             </Grid>

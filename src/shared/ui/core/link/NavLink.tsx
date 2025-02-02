@@ -22,8 +22,7 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
       <Typography
         component='span'
         color={isActive ? 'primary' : 'default'}
-        fontWeight={600}
-        fontSize='1.8rem'
+        fontWeight={500}
       >
         {link.label}
       </Typography>

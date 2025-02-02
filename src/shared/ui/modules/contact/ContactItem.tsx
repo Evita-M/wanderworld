@@ -11,14 +11,14 @@ export const ContactItem: FC<ContactItemProps> = ({ icon, text, link }) => {
   const theme = useTheme();
 
   return (
-    <Stack direction='row' gap={1} alignItems='center' mt={2}>
+    <Stack direction='row' gap="1.2rem" alignItems='center'>
       <Stack
         justifyContent='center'
         alignItems='center'
         height='3.4rem'
         width='3.4rem'
-        borderRadius='50%'
-        bgcolor={lighten(theme.palette.primary.main, 0.85)}
+        borderRadius='0.6rem'
+        bgcolor={lighten(theme.palette.primary.main, 0.9)}
       >
         {icon}
       </Stack>

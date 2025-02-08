@@ -28,7 +28,7 @@ export default function GuidesLayout({
         alignItems='center'
         justifyContent='center'
         sx={{
-          height: 'calc(100% - 2rem)',
+          height: 'calc(100% - 5rem)',
           overflow: 'hidden',
         }}
         position='relative'

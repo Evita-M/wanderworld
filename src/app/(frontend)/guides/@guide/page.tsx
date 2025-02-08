@@ -5,18 +5,13 @@ import { EmptyState } from '@/shared/ui/components/empty-state';
 import { borderRadius } from '@/styles/border-radius';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { Loader } from '@/shared/ui/core/loader';
 
 export default function GuidePage() {
-  const { data: guides, isLoading } = useGetGuidesQuery();
-
-  if (isLoading) {
-    return <Loader />;
-  }
+  const { data: guides } = useGetGuidesQuery();
 
   return (
     <>
-      {guides?.length ? (
+      {guides && guides.length ? (
         <Stack
           justifyContent='center'
           alignItems='center'

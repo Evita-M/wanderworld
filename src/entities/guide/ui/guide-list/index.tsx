@@ -24,7 +24,13 @@ export const GuideList: FC<GuideListProps> = ({ guides }) => {
 
 
   return (
-    <Stack spacing={2}>
+    <Stack
+      spacing={2}
+      sx={{
+        height: '100%',
+        overflowY: 'auto',
+      }}
+    >
       {guides.map((guide) => (
         <GuideItem
           key={guide.id}

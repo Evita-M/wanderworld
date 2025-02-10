@@ -22,8 +22,9 @@ import { getNames } from '@/utils/get-names';
 import { DateRange } from '@/shared/ui/components/date-range';
 import { countries } from '@/lib/data/countries';
 import { ExpeditionInfo } from '@/entities/expedition/ui/expedition-info';
-import { MasonryGrid, MasonryImage, MasonryItem } from '@/shared/ui/modules/masonry-grid';
+import { MasonryGrid, MasonryItem } from '@/shared/ui/modules/masonry-grid';
 import { GuideInfo } from '@/entities/guide/ui/guide-info';
+import { BackButton } from '@/shared/ui/core/button';
 
 
 const PageContent = () => {
@@ -59,6 +60,8 @@ const PageContent = () => {
   if (isExpeditionError || isGuideError) {
     throw new Error('Failed to load expedition details');
   }
+
+  const redirectToExpeditions = () => router.push(routes.expeditions);
 
   const handleDelete = async () => {
     try {
@@ -111,7 +114,7 @@ const PageContent = () => {
           justifyContent='space-between'
           mb='2.4rem'
         >
-          <PageHeader title={expedition.name} />
+          <PageHeader title={expedition.name} prefix={<BackButton onClick={redirectToExpeditions} />} />
           <Actions actions={actions} />
         </Stack>
         <Stack spacing='2.4rem'>

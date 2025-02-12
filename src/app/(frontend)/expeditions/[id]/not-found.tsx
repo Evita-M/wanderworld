@@ -1,17 +1,16 @@
 import Image from 'next/image';
-import { routes } from '../routes';
 import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
-
+import { routes } from '@/routes/index';
 
 export default async function NotFound() {
   return (
     <ErrorBoundary
-      message='Page Not Found'
+      message='Expedition Not Found'
       title="Looks, like you're heading to a wrong destination"
-      submessage='Check the page address or go home'
+      submessage='Check the page address or go to see other expeditions'
       button={{
-        label: 'Go back home',
-        href: routes.home,
+        label: 'Explore other expeditions',
+        href: routes.expeditions,
       }}
       image={
         <Image

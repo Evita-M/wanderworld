@@ -3,31 +3,39 @@
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { GuideDetail } from '@/entities/guide/ui/guide-details';
 import { Loader } from '@/shared/ui/core/loader';
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { handleRTKQueryError } from '@/utils/errorHandler';
+import { notFound, useParams, useRouter } from 'next/navigation';
 
 export default function GuidePage() {
   const params = useParams();
-  const router = useRouter();
+
   const id = params?.id as string;
 
   const {
     data: guide,
     isLoading: isGetGuideLoading,
+    error: guideError,
     isError: isGetGuideError,
   } = useGetGuideQuery(id, {
     skip: !id,
   });
 
-  useEffect(() => {
-    if (isGetGuideError) {
-      throw new Error('Guide failed to load');
-    }
-  }, [isGetGuideError, router]);
+  if (isGetGuideError) {
+    handleRTKQueryError(guideError);
+  }
+
+  if (!guide && !isGetGuideLoading) {
+    notFound();
+  }
 
   return isGetGuideLoading ? (
     <Loader />
   ) : (
-    guide && <><h2 className="sr-only">Guide Detail</h2><GuideDetail guide={guide} /></>
+    guide && (
+      <>
+        <h2 className='sr-only'>Guide Detail</h2>
+        <GuideDetail guide={guide} />
+      </>
+    )
   );
 }

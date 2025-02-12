@@ -5,21 +5,17 @@ import { borderRadius } from '@/styles/border-radius';
 import { grey } from '@mui/material/colors';
 
 interface ErrorProps {
-  error: Error & {
-    digest?: string;
-    status?: number;
-    code?: string;
-  };
+  error: Error;
   reset: () => void;
 }
 
 export default function Error({ error, reset }: ErrorProps) {
   return (
     <ErrorBoundary
-      title='Oops! Something went wrong with this guide'
-      submessage={error.message}
+      title={error.message}
+      submessage='Try to reload the page'
       button={{
-        label: 'Retry',
+        label: 'Reload page',
         onClick: reset,
       }}
       sx={{

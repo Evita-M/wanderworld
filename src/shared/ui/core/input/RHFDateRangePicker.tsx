@@ -11,27 +11,29 @@ type RHFDateRangePickerProps<T extends FieldValues> = {
   errorMessage?: string;
 };
 
-export const RHFDateRangePicker = forwardRef(<T extends FieldValues>(
-  { name, label, control, errorMessage }: RHFDateRangePickerProps<T>,
-  _ref: Ref<any>
-) => {
-  return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field: { value, ...restField } }) => (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateRangePicker
-            label={label}
-            format='dd/MM/yyyy'
-            sx={{ gap: '1.2rem' }}
-            value={Array.isArray(value) ? value : [new Date(), new Date()]}
-            {...restField}
-          />
-        </LocalizationProvider>
-      )}
-    />
-  );
-});
+export const RHFDateRangePicker = forwardRef(
+  <T extends FieldValues>(
+    { name, label, control, errorMessage }: RHFDateRangePickerProps<T>,
+    _ref: Ref<any>
+  ) => {
+    return (
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { value, ...restField } }) => (
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateRangePicker
+              label={label}
+              format='dd/MM/yyyy'
+              sx={{ gap: '1.2rem' }}
+              value={Array.isArray(value) ? value : [new Date(), new Date()]}
+              {...restField}
+            />
+          </LocalizationProvider>
+        )}
+      />
+    );
+  }
+);
 
 RHFDateRangePicker.displayName = 'RHFDateRangePicker';

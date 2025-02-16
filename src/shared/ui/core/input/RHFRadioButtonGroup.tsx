@@ -1,4 +1,4 @@
-import { Option } from '@/type/option';
+import { Option } from '@/shared/types';
 import {
   FormControl,
   FormControlLabel,
@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+import { Controller, FieldValues, Path } from 'react-hook-form';
 
 type RHFRadioButtonGroupProps<T extends FieldValues> = {
   name: Path<T>;

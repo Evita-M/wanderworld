@@ -11,12 +11,13 @@ type RHFDateTimePickerProps<T extends FieldValues> = {
   errorMessage?: string;
 };
 
-export const RHFDateTimePicker = forwardRef(<T extends FieldValues>(
-  { name, label, control, errorMessage }: RHFDateTimePickerProps<T>,
-  _ref: Ref<any>
-) => {
-  return (
-       <Controller
+export const RHFDateTimePicker = forwardRef(
+  <T extends FieldValues>(
+    { name, label, control, errorMessage }: RHFDateTimePickerProps<T>,
+    _ref: Ref<any>
+  ) => {
+    return (
+      <Controller
         control={control}
         name={name}
         render={({ field }) => (
@@ -27,13 +28,13 @@ export const RHFDateTimePicker = forwardRef(<T extends FieldValues>(
                 views={['day', 'month', 'year', 'hours', 'minutes']}
                 format='dd/MM/yyyy HH:mm'
                 {...field}
-            />
+              />
             </Stack>
           </LocalizationProvider>
         )}
       />
     );
-  });
-
+  }
+);
 
 RHFDateTimePicker.displayName = 'RHFDateTimePicker';

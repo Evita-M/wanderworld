@@ -1,10 +1,10 @@
 import { FormControlLabel, Switch } from '@mui/material';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 type RHFSwitchProps<T extends FieldValues> = {
   name: Path<T>;
   label: string;
-  control: any;
+  control: Control<T>;
 };
 
 export function RHFSwitch<T extends FieldValues>({

@@ -5,41 +5,43 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Controller, FieldValues, Path } from 'react-hook-form';
-import { forwardRef, Ref } from 'react';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
-type RHFSliderProps<T extends FieldValues> = {
+interface RHFSliderProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
-  control: any;
-  limit: number[];
+  control: Control<T>;
+  limit: [number, number];
   errorMessage?: string;
-};
+}
 
-export const RHFSlider = forwardRef(<T extends FieldValues>(
-  { name, label, control, limit, errorMessage }: RHFSliderProps<T>,
-  _ref: Ref<any>
-) => {
+export const RHFSlider = <T extends FieldValues>({
+  name,
+  control,
+  ...props
+}: RHFSliderProps<T>) => {
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <Stack position='relative' height='100%' justifyContent='flex-end'>
-          <Typography variant='caption' position='absolute' top='-1rem'>
-            {label}
-          </Typography>
-          <Container>
+    <Stack position='relative' height='100%' justifyContent='flex-end'>
+      <Typography variant='caption' position='absolute' top='-1rem'>
+        {props.label}
+      </Typography>
+      <Container>
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
             <Slider
-              min={limit[0]}
-              max={limit[1]}
+              min={props.limit[0]}
+              max={props.limit[1]}
               {...field}
               valueLabelDisplay='auto'
             />
-          </Container>
-          {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-        </Stack>
+          )}
+        />
+      </Container>
+      {props.errorMessage && (
+        <FormHelperText>{props.errorMessage}</FormHelperText>
       )}
-    />
+    </Stack>
   );
-});
+};

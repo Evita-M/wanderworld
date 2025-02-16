@@ -1,17 +1,29 @@
-import { Button, Grid, Stack, Typography } from "@mui/material";
-import { RHFAutocomplete, RHFCheckbox, RHFDateRangePicker, RHFDateTimePicker, RHFSelect, RHFSlider, RHFTextField } from "../../core/input";
-import { Expedition } from "@/entities/expedition/model";
-import { defaultValues, expeditionSchema, ExpeditionSchema } from "./validation";
-import { languages } from "@/lib/data/languages";
-import { countries } from "@/lib/data/countries";
-import { FC, useEffect, useMemo } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { RichTextEditor } from "../../components/rich-text";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { activities } from "@/lib/data/activities";
-import { GuideCommon } from "@/entities/guide/model";
-import { useGenerateDescriptionMutation } from "@/redux/api/groqApi";
-import { useSnackbar } from "@/shared/hooks/useSnackbar";
+import { Button, Grid, Stack, Typography } from '@mui/material';
+import {
+  RHFAutocomplete,
+  RHFCheckbox,
+  RHFDateRangePicker,
+  RHFDateTimePicker,
+  RHFSelect,
+  RHFSlider,
+  RHFTextField,
+} from '../../core/input';
+import { Expedition } from '@/entities/expedition/model';
+import {
+  defaultValues,
+  expeditionSchema,
+  ExpeditionSchema,
+} from './validation';
+import { languages } from '@/lib/data/languages';
+import { countries } from '@/lib/data/countries';
+import { FC, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { RichTextEditor } from '../../components/rich-text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { activities } from '@/lib/data/activities';
+import { GuideCommon } from '@/entities/guide/model';
+import { useGenerateDescriptionMutation } from '@/redux/api/groqApi';
+import { useSnackbar } from '@/shared/hooks/useSnackbar';
 
 interface ExpeditionFormProps {
   onSubmit: (data: ExpeditionSchema) => Promise<void>;
@@ -25,7 +37,14 @@ interface ExpeditionFormProps {
   };
 }
 
-export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,guides, onCancel, expedition, buttonLabels}) => {
+export const ExpeditionForm: FC<ExpeditionFormProps> = ({
+  onSubmit,
+  isSubmitting,
+  guides,
+  onCancel,
+  expedition,
+  buttonLabels,
+}) => {
   const { showSnackBar } = useSnackbar();
 
   useEffect(() => {
@@ -33,7 +52,6 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
       reset(expDefaultValues);
     }
   }, [expedition]);
-
 
   const expDefaultValues = expedition
     ? {
@@ -101,11 +119,11 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
   };
 
   return (
-    <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Stack component='form' onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
           <RHFTextField
-            name="name"
+            name='name'
             control={control}
             label='Name'
             errorMessage={errors.name?.message}
@@ -113,7 +131,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={6}>
           <RHFSelect
-            name="guide"
+            name='guide'
             label='Guide'
             options={guidesOptions || []}
             control={control}
@@ -122,7 +140,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={12}>
           <RHFAutocomplete
-            name="countries"
+            name='countries'
             label='Countries'
             options={countries}
             control={control}
@@ -131,7 +149,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={12}>
           <RHFDateRangePicker
-            name="tourDuration"
+            name='tourDuration'
             label='Expedition duration'
             control={control}
             errorMessage={errors.tourDuration?.message}
@@ -139,7 +157,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={12}>
           <RHFAutocomplete
-            name="languages"
+            name='languages'
             label='Languages'
             options={languages}
             control={control}
@@ -148,7 +166,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={6}>
           <RHFSlider
-            name="groupSize"
+            name='groupSize'
             label='Group size'
             limit={[1, 40]}
             control={control}
@@ -157,7 +175,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={6}>
           <RHFDateTimePicker
-            name="meetingDate"
+            name='meetingDate'
             label='First meeting'
             control={control}
             errorMessage={errors.meetingDate?.message}
@@ -165,7 +183,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
         </Grid>
         <Grid item xs={12}>
           <RHFCheckbox
-            name="activities"
+            name='activities'
             label='Activities'
             options={activities}
             control={control}
@@ -216,9 +234,7 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
               fullWidth
               type='submit'
               variant='contained'
-              disabled={
-                !isValid || isSubmitting
-              }
+              disabled={!isValid || isSubmitting}
             >
               {buttonLabels.submit}
             </Button>
@@ -228,4 +244,3 @@ export const ExpeditionForm:FC<ExpeditionFormProps> = ({onSubmit, isSubmitting,g
     </Stack>
   );
 };
-

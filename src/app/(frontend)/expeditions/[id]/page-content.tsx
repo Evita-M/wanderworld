@@ -67,7 +67,7 @@ const PageContent = () => {
     handleRTKQueryError(guideError);
   }
 
-  if (!expedition) {
+  if (!expedition && !isExpeditionLoading) {
     notFound();
   }
 

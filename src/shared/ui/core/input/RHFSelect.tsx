@@ -1,6 +1,6 @@
+import { Option } from '@/lib/types';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Controller, FieldValues, Path, Control } from 'react-hook-form';
-import { Option } from '@/shared/types';
 
 interface RHFSelectProps<T extends FieldValues> {
   name: Path<T>;

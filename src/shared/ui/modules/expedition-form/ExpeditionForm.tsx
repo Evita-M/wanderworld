@@ -88,7 +88,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
   const guidesOptions = useMemo(() => {
     console.log('Guides:', guides);
     return guides?.map((guide: GuideCommon) => ({
-      value: guide.id,
+      id: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
     }));
   }, [guides]);

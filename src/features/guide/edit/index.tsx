@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useUpdateGuideMutation } from '@/entities/guide/api';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { Guide, GuideCommon } from '@/entities/guide/model';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
 import { useRouter } from 'next/navigation';

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import expeditionApi from './api/expeditionApi';
-import groqApi from './api/groqApi';
 import guideApi from '@/entities/guide/api';
+import expeditionApi from '@/entities/expedition/api';
+import groqApi from '@/lib/api/groqApi';
 
 const store = configureStore({
   reducer: {

@@ -1,21 +1,21 @@
-
-import { useModal } from "@/shared/hooks/useModal";
-import { useSnackbar } from "@/shared/hooks/useSnackbar";
-import { ModalConfirmation } from "@/shared/ui/modules/modal";
+import { useModal } from '@/lib/hooks/useModal';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
+import { ModalConfirmation } from '@/shared/ui/modules/modal';
 import { useRouter } from 'next/navigation';
-import { routes } from '@/routes/index';
-import { useDeleteExpeditionMutation } from "@/redux/api/expeditionApi";
+import { routes } from '@/lib/config/routes';
+import { useDeleteExpeditionMutation } from '@/entities/expedition/api';
 
 interface DeleteExpeditionProps {
   id: string;
   name: string;
 }
 
-export const DeleteExpedition= ({ id, name }: DeleteExpeditionProps) => {
+export const DeleteExpedition = ({ id, name }: DeleteExpeditionProps) => {
   const { openModal, closeModal } = useModal();
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
-  const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] = useDeleteExpeditionMutation();
+  const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] =
+    useDeleteExpeditionMutation();
 
   const onDelete = async (id: string) => {
     await deleteExpedition(id);

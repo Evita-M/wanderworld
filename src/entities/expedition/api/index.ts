@@ -7,10 +7,10 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithRetry = retry(baseQuery, {
-  maxRetries: 3
+  maxRetries: 3,
 });
 
-const expeditionApi = createApi({
+export const expeditionApi = createApi({
   baseQuery: baseQueryWithRetry,
   tagTypes: ['Expedition'],
   reducerPath: 'expeditionApi',
@@ -20,7 +20,9 @@ const expeditionApi = createApi({
         url: `/${id}`,
         method: 'GET',
       }),
-      providesTags: (_result, _error, id) => [{ type: 'Expedition' as const, id }],
+      providesTags: (_result, _error, id) => [
+        { type: 'Expedition' as const, id },
+      ],
     }),
     getExpeditions: build.query<Expedition[], void>({
       query: () => ({
@@ -31,7 +33,7 @@ const expeditionApi = createApi({
         result
           ? [
               ...result.map(({ id }) => ({ type: 'Expedition' as const, id })),
-              { type: 'Expedition' as const, id: 'LIST' }
+              { type: 'Expedition' as const, id: 'LIST' },
             ]
           : [{ type: 'Expedition' as const, id: 'LIST' }],
     }),

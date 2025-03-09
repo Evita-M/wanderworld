@@ -1,5 +1,4 @@
 'use client';
-
 import { useGetGuidesQuery } from '@/entities/guide/api';
 import { EmptyState } from '@/shared/ui/components/empty-state';
 import { borderRadius } from '@/styles/border-radius';

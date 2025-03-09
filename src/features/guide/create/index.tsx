@@ -1,22 +1,19 @@
 'use client';
-
 import { FC } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useCreateGuideMutation } from '@/entities/guide/api';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { Guide } from '@/entities/guide/model';
 import { useRouter } from 'next/navigation';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
-
 
 export const CreateGuide: FC = () => {
   const [createGuide, { isLoading: isCreateGuideLoading }] =
     useCreateGuideMutation();
   const router = useRouter();
   const { showSnackBar } = useSnackbar();
-
 
   const handleOnCancel = () => {
     router.back();
@@ -34,10 +31,9 @@ export const CreateGuide: FC = () => {
     };
 
     try {
-     await createGuide(guideData).unwrap();
+      await createGuide(guideData).unwrap();
       showSnackBar('New guide was created!', 'success');
       router.push(`${routes.guides}`);
-
     } catch (error) {
       const err = error as FetchBaseQueryError;
       const message =
@@ -45,8 +41,6 @@ export const CreateGuide: FC = () => {
       showSnackBar(message, 'error');
     }
   }
-
-
 
   return (
     <GuideForm

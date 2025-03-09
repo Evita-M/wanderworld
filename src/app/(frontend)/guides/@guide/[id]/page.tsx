@@ -1,10 +1,9 @@
 'use client';
-
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { GuideDetail } from '@/entities/guide/ui/guide-details';
 import { Loader } from '@/shared/ui/core/loader';
 import { handleRTKQueryError } from '@/utils/errorHandler';
-import { notFound, useParams, useRouter } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 
 const GuidePage = () => {
   const params = useParams();

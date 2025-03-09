@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
-import { useModal } from '@/shared/hooks/useModal';
-
+import { useModal } from '@/lib/hooks/useModal';
 
 interface ModalConfirmationProps {
   text: string;

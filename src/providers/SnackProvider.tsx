@@ -1,9 +1,4 @@
-import {
-  Alert,
-  AlertColor,
-  AlertPropsColorOverrides,
-  Snackbar,
-} from '@mui/material';
+import { Alert, AlertColor, Snackbar } from '@mui/material';
 import { createContext, FC, ReactNode, useState } from 'react';
 
 type SnackbarContextActions = {

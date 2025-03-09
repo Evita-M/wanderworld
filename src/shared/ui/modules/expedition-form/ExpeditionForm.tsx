@@ -22,8 +22,8 @@ import { RichTextEditor } from '../../components/rich-text';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { activities } from '@/lib/data/activities';
 import { GuideCommon } from '@/entities/guide/model';
-import { useGenerateDescriptionMutation } from '@/redux/api/groqApi';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
+import { useGenerateDescriptionMutation } from '@/lib/api/groqApi';
 
 interface ExpeditionFormProps {
   onSubmit: (data: ExpeditionSchema) => Promise<void>;

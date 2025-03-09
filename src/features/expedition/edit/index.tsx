@@ -1,35 +1,32 @@
 'use client';
-
-import { FC, } from 'react';
-import {
-  useUpdateExpeditionMutation,
-} from '@/redux/api/expeditionApi';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
+import { FC } from 'react';
+import { useUpdateExpeditionMutation } from '@/entities/expedition/api';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { useGetGuidesQuery } from '@/entities/guide/api';
-import { ExpeditionForm, ExpeditionSchema } from '@/shared/ui/modules/expedition-form';
+import {
+  ExpeditionForm,
+  ExpeditionSchema,
+} from '@/shared/ui/modules/expedition-form';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 import { ExpeditionFormSkeleton } from '@/shared/ui/modules/skeleton';
 
 export const EditExpedition: FC = () => {
   const { id } = useParams();
   const router = useRouter();
-  const { data: expedition, isLoading: isGetExpeditionLoading } = useGetExpeditionQuery(id as string);
+  const { data: expedition, isLoading: isGetExpeditionLoading } =
+    useGetExpeditionQuery(id as string);
 
-  const [
-    updateExedition,
-    {
-      isLoading: isUpdateExeditionLoading,
-    }
-  ] = useUpdateExpeditionMutation();
+  const [updateExedition, { isLoading: isUpdateExeditionLoading }] =
+    useUpdateExpeditionMutation();
 
   const { data: guides } = useGetGuidesQuery();
   const { showSnackBar } = useSnackbar();
 
-const redirectToExpedition = () => {
-  router.push(`${routes.expeditions}/${id}`);
-}
+  const redirectToExpedition = () => {
+    router.push(`${routes.expeditions}/${id}`);
+  };
 
   // Submit handler
   async function handleOnSubmit(data: ExpeditionSchema) {
@@ -44,10 +41,9 @@ const redirectToExpedition = () => {
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guide:
-         data.guide
-          ? { connect: { id: data.guide } }
-          : { disconnect: true }
+      guide: data.guide
+        ? { connect: { id: data.guide } }
+        : { disconnect: true },
     };
 
     try {
@@ -68,7 +64,9 @@ const redirectToExpedition = () => {
 
   return (
     <>
-      {isGetExpeditionLoading ? <ExpeditionFormSkeleton /> :
+      {isGetExpeditionLoading ? (
+        <ExpeditionFormSkeleton />
+      ) : (
         <ExpeditionForm
           onSubmit={handleOnSubmit}
           isSubmitting={isUpdateExeditionLoading}
@@ -80,7 +78,7 @@ const redirectToExpedition = () => {
             submit: 'Edit expedition',
           }}
         />
-      }
+      )}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { Prisma, Expedition as PrismaExpedition } from '@prisma/client';
-// expedition
+
 export type ExpeditionCommon = {
   email: string;
   name: string;
@@ -21,8 +21,8 @@ export type ExpeditionCommon = {
   }[];
 };
 
-
 export type Expedition = PrismaExpedition;
+
 export type ExpeditionWithGuideAndParticipants = Prisma.ExpeditionGetPayload<{
   include: {
     guide: true;
@@ -31,4 +31,3 @@ export type ExpeditionWithGuideAndParticipants = Prisma.ExpeditionGetPayload<{
 }>;
 
 export type ExpeditionResponse = ExpeditionCommon;
-

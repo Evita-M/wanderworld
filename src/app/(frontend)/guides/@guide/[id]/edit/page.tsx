@@ -1,9 +1,8 @@
-import { formatPageTitle } from '@/shared/config/metadata';
 import PageContent from './page-content';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: formatPageTitle('Edit Guide'),
+  title: '%s | My Site',
   description:
     'Edit and update your travel guide with detailed information, activities, and recommendations.',
 };

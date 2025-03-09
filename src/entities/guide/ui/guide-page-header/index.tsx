@@ -1,4 +1,4 @@
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 import { PageHeader } from '@/shared/ui/core/typography';
 
 export function GuidesPageHeader() {

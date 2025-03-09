@@ -1,11 +1,9 @@
-import { formatPageTitle } from '@/shared/config/metadata';
 import PageContent from './page-content';
 import { Metadata } from 'next';
 import { PageContainer } from '@/shared/ui/core/layout';
 
-
 export const metadata: Metadata = {
-  title: formatPageTitle('Edit Expedition'),
+  title: '%s | My Site',
   description:
     'Edit and update your expedition with detailed information, activities, and recommendations.',
 };

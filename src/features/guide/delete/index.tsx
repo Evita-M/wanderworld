@@ -1,11 +1,10 @@
 'use client';
-
-import { useDeleteGuideMutation } from "@/entities/guide/api";
-import { useModal } from "@/shared/hooks/useModal";
-import { useSnackbar } from "@/shared/hooks/useSnackbar";
-import { ModalConfirmation } from "@/shared/ui/modules/modal";
+import { useDeleteGuideMutation } from '@/entities/guide/api';
+import { useModal } from '@/lib/hooks/useModal';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
+import { ModalConfirmation } from '@/shared/ui/modules/modal';
 import { useRouter } from 'next/navigation';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 
 interface DeleteGuideProps {
   id: string;
@@ -16,7 +15,8 @@ export const DeleteGuide = ({ id, fullName }: DeleteGuideProps) => {
   const { openModal, closeModal } = useModal();
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
-  const [deleteGuide, { isLoading: isDeleteGuideLoading }] = useDeleteGuideMutation();
+  const [deleteGuide, { isLoading: isDeleteGuideLoading }] =
+    useDeleteGuideMutation();
 
   const onDelete = async (id: string) => {
     await deleteGuide(id);

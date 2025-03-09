@@ -1,11 +1,9 @@
 'use client';
-
 import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 import { Logo } from '@/shared/ui/core/logo';
 import { Link as LinkType, NavLink } from '@/shared/ui/core/link';
-
 
 const navLinks: LinkType[] = [
   {

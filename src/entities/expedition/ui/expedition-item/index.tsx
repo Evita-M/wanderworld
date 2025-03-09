@@ -3,7 +3,7 @@ import { Stack, Typography, useTheme } from '@mui/material';
 import { format } from 'date-fns';
 import { FC } from 'react';
 import Link from 'next/link';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 import { getNames } from '@/utils/get-names';
 import { grey } from '@mui/material/colors';
 import { Expedition } from '../../model';
@@ -34,7 +34,9 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
           '&:hover': { transform: 'scale(1.02)', borderColor: 'primary.light' },
         }}
       >
-        <Typography variant='h4' component='h3'>{name}</Typography>
+        <Typography variant='h4' component='h3'>
+          {name}
+        </Typography>
         <Typography
           variant='h6'
           component='p'

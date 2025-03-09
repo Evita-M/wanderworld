@@ -1,7 +1,5 @@
 'use client';
-
 import { ReactNode } from 'react';
-import { ExpeditionsProvider } from './ExpeditionsProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/styles/theme';
@@ -24,9 +22,7 @@ export const Providers = ({ children }: ProvidersProps) => {
         <CssBaseline />
         <Provider store={store}>
           <SnackbarProvider>
-            <ModalProvider>
-              <ExpeditionsProvider>{children}</ExpeditionsProvider>
-            </ModalProvider>
+            <ModalProvider>{children}</ModalProvider>
           </SnackbarProvider>
         </Provider>
       </ThemeProvider>

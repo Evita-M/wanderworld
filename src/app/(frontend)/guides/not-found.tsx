@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
-import { routes } from '@/routes/index';
+import { routes } from '@/lib/config/routes';
 
 export default async function NotFound() {
   return (

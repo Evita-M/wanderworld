@@ -1,5 +1,4 @@
 'use client';
-
 import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
 import Image from 'next/image';
 

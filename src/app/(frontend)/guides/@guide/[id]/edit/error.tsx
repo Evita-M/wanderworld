@@ -1,5 +1,4 @@
 'use client';
-
 import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
 import { borderRadius } from '@/styles/border-radius';
 import { grey } from '@mui/material/colors';

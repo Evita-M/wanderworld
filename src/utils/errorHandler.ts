@@ -3,7 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 import { NextResponse } from 'next/server';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
-import { notFound } from 'next/navigation';
 
 export interface BaseResponse {
   success: boolean;

@@ -3,14 +3,13 @@
 import {
   useDeleteExpeditionMutation,
   useGetExpeditionQuery,
-} from '@/redux/api/expeditionApi';
+} from '@/entities/expedition/api';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import { Box, Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { routes } from '@/routes/index';
-import { useModal } from '@/shared/hooks/useModal';
-import { useSnackbar } from '@/shared/hooks/useSnackbar';
+import { routes } from '@/lib/config/routes';
+
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { Loader } from '@/shared/ui/core/loader';
 import { Actions } from '@/shared/ui/modules/actions';
@@ -26,6 +25,8 @@ import { MasonryGrid, MasonryItem } from '@/shared/ui/modules/masonry-grid';
 import { GuideInfo } from '@/entities/guide/ui/guide-info';
 import { BackButton } from '@/shared/ui/core/button';
 import { handleRTKQueryError } from '@/utils/errorHandler';
+import { useModal } from '@/lib/hooks/useModal';
+import { useSnackbar } from '@/lib/hooks/useSnackbar';
 
 const PageContent = () => {
   const { id } = useParams();

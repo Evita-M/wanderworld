@@ -1,4 +1,4 @@
-export const SITE_NAME = 'Wander the World';
+export const SITE_NAME = 'WanderWorld';
 export const DEFAULT_DESCRIPTION =
   'Discover and share amazing travel experiences around the world.';
 

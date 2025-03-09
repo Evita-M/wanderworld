@@ -1,7 +1,8 @@
 'use client';
+import PageContent from './page-content';
 
-import { GuidesListContent } from "@/entities/guide/ui/guide-list-content";
+const GuidesPage = () => {
+  return <PageContent />;
+};
 
-export default function GuidesListPage() {
-  return <GuidesListContent />;
-}
+export default GuidesPage;

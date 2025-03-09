@@ -1,12 +1,10 @@
 'use client';
-
 import { PageHeader } from '@/shared/ui/core/typography';
 import { BackButton } from '@/shared/ui/core/button';
 import { useRouter } from 'next/navigation';
 import { CreateGuide } from '@/features/guide/create';
 
-
-export default function PageContent() {
+const PageContent = () => {
   const router = useRouter();
 
   return (
@@ -16,8 +14,9 @@ export default function PageContent() {
         sx={{ mb: '4rem' }}
         prefix={<BackButton onClick={() => router.back()} />}
       />
-      <CreateGuide  />
+      <CreateGuide />
     </>
   );
 };
 
+export default PageContent;

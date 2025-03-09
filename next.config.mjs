@@ -6,7 +6,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
   images: {
-    domains: ['picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+    ],
   },
   transpilePackages: ['@mui/material', '@mui/system', '@mui/icons-material'],
   webpack: (config, { isServer }) => {

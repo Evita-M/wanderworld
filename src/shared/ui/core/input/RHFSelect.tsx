@@ -7,7 +7,6 @@ interface RHFSelectProps<T extends FieldValues> {
   label: string;
   control: Control<T>;
   options: Option[];
-  errorMessage?: string;
 }
 
 export const RHFSelect = <T extends FieldValues>({
@@ -15,7 +14,6 @@ export const RHFSelect = <T extends FieldValues>({
   label,
   control,
   options,
-  errorMessage,
 }: RHFSelectProps<T>) => {
   return (
     <Controller
@@ -36,7 +34,7 @@ export const RHFSelect = <T extends FieldValues>({
           >
             <MenuItem value=''>None</MenuItem>
             {options.map((option) => (
-              <MenuItem value={option.id} key={option.id}>
+              <MenuItem value={option.id} key={option.label}>
                 {option.label}
               </MenuItem>
             ))}

@@ -1,5 +1,4 @@
 'use client';
-
 import { Stack } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
@@ -22,7 +21,6 @@ export default function GuidesLayout({
 
   return (
     <PageContainer>
-      {/* <Stack height='100%'> */}
       {children}
       <Stack
         alignItems='center'
@@ -50,7 +48,6 @@ export default function GuidesLayout({
           </Stack>
         </Stack>
       </Stack>
-      {/* </Stack> */}
     </PageContainer>
   );
 }

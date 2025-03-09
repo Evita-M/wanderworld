@@ -5,7 +5,6 @@ import FlightIcon from '@mui/icons-material/Flight';
 import { DateRange } from '@/shared/ui/components/date-range';
 import { Expedition } from '@/entities/expedition/model';
 
-
 interface GuideExpeditionsProps {
   expeditions: Expedition[];
 }

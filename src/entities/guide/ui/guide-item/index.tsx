@@ -7,7 +7,6 @@ import { TruncatedText } from '@/shared/ui/core/typography';
 import { RichTextRenderer } from '@/shared/ui/components/rich-text';
 import { Guide } from '../../model';
 
-
 interface GuideItemProps {
   guide: Guide;
   onClick: any;

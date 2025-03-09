@@ -10,6 +10,8 @@ export type GuideCommon = {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
+  description: string;
+  avatar: string;
   languages: string[];
 };
-

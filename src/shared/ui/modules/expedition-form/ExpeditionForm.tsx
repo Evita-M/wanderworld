@@ -61,13 +61,13 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
         countries: expedition.countries,
         languages: expedition.languages,
         activities: expedition.activities,
-        meetingDateTime: new Date(expedition.meetingDate),
+        meetingDate: new Date(expedition.meetingDate),
         tourDuration: [
           new Date(expedition.startDate),
           new Date(expedition.endDate),
         ],
         groupSize: [expedition.minGroupSize, expedition.maxGroupSize],
-        guide: expedition.guideId ?? undefined,
+        guide: expedition.guideId,
       }
     : defaultValues;
 
@@ -83,10 +83,12 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
     resolver: zodResolver(expeditionSchema),
     mode: 'onChange',
   });
+
   // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
+    console.log('Guides:', guides);
     return guides?.map((guide: GuideCommon) => ({
-      id: guide.id,
+      value: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
     }));
   }, [guides]);
@@ -135,7 +137,6 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
             label='Guide'
             options={guidesOptions || []}
             control={control}
-            errorMessage={errors.guide?.message}
           />
         </Grid>
         <Grid item xs={12}>

@@ -2,23 +2,22 @@
 
 import { FC } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useGetGuideQuery, useUpdateGuideMutation } from '@/entities/guide/api';
+import { useUpdateGuideMutation } from '@/entities/guide/api';
 import { useSnackbar } from '@/shared/hooks/useSnackbar';
-import { Guide } from '@/entities/guide/model';
+import { Guide, GuideCommon } from '@/entities/guide/model';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
-import { useParams, useRouter } from 'next/navigation';
-import { Loader } from '@/shared/ui/core/loader';
-import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
+import { useRouter } from 'next/navigation';
 
-export const EditGuide: FC = () => {
-  const { id } = useParams();
-  const [updateGuide, { isLoading: isUpdateGuideLoading }] = useUpdateGuideMutation();
+import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
+interface EditGuideProps {
+  guide: GuideCommon;
+}
+
+export const EditGuide: FC<EditGuideProps> = ({ guide }) => {
+  const [updateGuide, { isLoading: isUpdateGuideLoading }] =
+    useUpdateGuideMutation();
   const { showSnackBar } = useSnackbar();
   const router = useRouter();
-  const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(id as string);
-
-
-  if (!guide && !isGetGuideLoading) throw new Error('Guide not found');
 
   const handleOnCancel = () => {
     router.back();
@@ -53,16 +52,12 @@ export const EditGuide: FC = () => {
   }
 
   return (
-    <>
-      {isGetGuideLoading ? <Loader /> :
-        <GuideForm
-          onSubmit={handleOnSubmit}
-          onCancel={handleOnCancel}
-          isSubmitting={isUpdateGuideLoading}
-          guide={guide}
-          buttonLabels={{ cancel: 'Cancel', submit: 'Save changes' }}
-        />
-      }
-    </>
+    <GuideForm
+      onSubmit={handleOnSubmit}
+      onCancel={handleOnCancel}
+      isSubmitting={isUpdateGuideLoading}
+      guide={guide}
+      buttonLabels={{ cancel: 'Cancel', submit: 'Save changes' }}
+    />
   );
 };

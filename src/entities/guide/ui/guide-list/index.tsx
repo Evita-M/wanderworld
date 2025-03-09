@@ -1,11 +1,10 @@
 'use client';
 
 import { Stack } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import { FC } from 'react';
 import { GuideItem } from '../guide-item';
 import { Guide } from '../../model';
-
 
 interface GuideListProps {
   guides: Guide[];
@@ -13,15 +12,12 @@ interface GuideListProps {
 
 export const GuideList: FC<GuideListProps> = ({ guides }) => {
   const router = useRouter();
-  const [selectedGuideId, setSelectedGuideId] = useState<string | undefined>(
-    undefined
-  );
+  const params = useParams();
+  const selectedGuideId = params?.id as string;
 
   const handleGuideClick = (guide: Guide) => {
-    setSelectedGuideId(guide.id);
     router.push(`/guides/${guide.id}`);
   };
-
 
   return (
     <Stack

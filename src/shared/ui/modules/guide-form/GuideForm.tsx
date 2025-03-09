@@ -5,14 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RHFTextField, RHFAutocomplete } from '../../core/input';
 import { RichTextEditor } from '../../components/rich-text';
 import { languages } from '@/lib/data/languages';
-import { Guide } from '@/entities/guide/model';
+import { GuideCommon } from '@/entities/guide/model';
 import { guideSchema, GuideSchema } from './validation';
 
 interface GuideFormProps {
   onSubmit: (data: GuideSchema) => Promise<void>;
   isSubmitting?: boolean;
   onCancel: () => void;
-  guide?: Guide;
+  guide?: GuideCommon;
   buttonLabels: {
     cancel: string;
     submit: string;
@@ -24,25 +24,27 @@ export const GuideForm: FC<GuideFormProps> = ({
   isSubmitting,
   onCancel,
   guide,
-  buttonLabels
+  buttonLabels,
 }) => {
-  const defaultValues = guide ? {
-    firstName: guide.firstName,
-    lastName: guide.lastName,
-    phoneNumber: guide.phoneNumber,
-    description: guide.description ?? '',
-    avatar: guide.avatar,
-    email: guide.email,
-    languages: guide.languages,
-  } : {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    description: '',
-    avatar: '',
-    email: '',
-    languages: [],
-  };
+  const defaultValues = guide
+    ? {
+        firstName: guide.firstName,
+        lastName: guide.lastName,
+        phoneNumber: guide.phoneNumber,
+        description: guide.description ?? '',
+        avatar: guide.avatar,
+        email: guide.email,
+        languages: guide.languages,
+      }
+    : {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        description: '',
+        avatar: '',
+        email: '',
+        languages: [],
+      };
 
   const {
     handleSubmit,

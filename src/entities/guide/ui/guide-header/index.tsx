@@ -5,7 +5,6 @@ import { Avatar } from '@/shared/ui/core/avatar';
 import { LanguageCode, Languages } from '@/shared/ui/modules/languages';
 import { Contact } from '@/shared/ui/modules/contact';
 
-
 export enum GuideHeaderSize {
   DEFAULT = 'default',
   LG = 'lg',
@@ -56,33 +55,27 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
   );
 
   return (
-    <>
-      <Stack direction='row' spacing={spacing}>
-        <Avatar size={avatarSize} src={avatarSrc} />
-        <Box width='100%'>
-          <Stack direction='row' justifyContent='space-between' width='100%'>
-            <Box>
-              <Typography letterSpacing='0.05em' color={grey[400]}>
-                WanderWorld Guide
-              </Typography>
-              <Typography
-                variant={typographyVariant}
-                component='h3'
-                mb={spacing}
-              >
-                {fullName}
-              </Typography>
-            </Box>
-            {actions}
-          </Stack>
-          <Stack sx={{ minWidth: 0 }} mb={spacing}>
-            <Languages langCodes={languages} />
-          </Stack>
-          {size === GuideHeaderSize.LG && (
-            <Contact email={email} phoneNumber={phoneNumber} />
-          )}
-        </Box>
-      </Stack>
-    </>
+    <Stack direction='row' spacing={spacing}>
+      <Avatar size={avatarSize} src={avatarSrc} />
+      <Box width='100%'>
+        <Stack direction='row' justifyContent='space-between' width='100%'>
+          <Box>
+            <Typography letterSpacing='0.05em' color={grey[400]}>
+              WanderWorld Guide
+            </Typography>
+            <Typography variant={typographyVariant} component='h3' mb={spacing}>
+              {fullName}
+            </Typography>
+          </Box>
+          {actions}
+        </Stack>
+        <Stack sx={{ minWidth: 0 }} mb={spacing}>
+          <Languages langCodes={languages} />
+        </Stack>
+        {size === GuideHeaderSize.LG && (
+          <Contact email={email} phoneNumber={phoneNumber} />
+        )}
+      </Box>
+    </Stack>
   );
 };

@@ -6,9 +6,8 @@ import { Loader } from '@/shared/ui/core/loader';
 import { handleRTKQueryError } from '@/utils/errorHandler';
 import { notFound, useParams, useRouter } from 'next/navigation';
 
-export default function GuidePage() {
+const GuidePage = () => {
   const params = useParams();
-
   const id = params?.id as string;
 
   const {
@@ -38,4 +37,6 @@ export default function GuidePage() {
       </>
     )
   );
-}
+};
+
+export default GuidePage;

@@ -22,20 +22,10 @@ export const Hero: FC<HeroProps> = ({ images }) => {
       m='0 auto'
       height='100%'
     >
-      <Box flex='0 0 8rem' pt='9rem'>
-        <Typography
-          variant='h1'
-          fontWeight={600}
-          color='primary'
-          sx={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
-        >
-          Wander
-        </Typography>
-      </Box>
       <Box flex='1'>
         <Stack direction='row' alignItems='flex-end' flexWrap='wrap'>
           <Typography variant='h1' fontWeight={600} color='primary' pr='3.2rem'>
-            The World
+            WanderWorld
           </Typography>
           <Typewriter>
             <Typography variant='h3' component='h2' pb='0.8rem'>

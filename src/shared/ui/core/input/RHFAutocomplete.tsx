@@ -2,7 +2,7 @@ import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { Option } from '@/shared/types';
+import { Option } from '@/lib/types';
 
 interface RHFAutocompleteProps<T extends FieldValues> {
   name: Path<T>;

@@ -1,6 +1,7 @@
 import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/route';
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Expedition } from '../model';
+import { Prisma } from '@prisma/client';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',
@@ -49,7 +50,9 @@ export const expeditionApi = createApi({
       Expedition,
       {
         id: string;
-        data: Expedition;
+        data: Partial<
+          Omit<Prisma.ExpeditionUpdateInput, 'id' | 'createdAt' | 'updatedAt'>
+        >;
       }
     >({
       query: ({ id, data }) => ({

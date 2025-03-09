@@ -1,4 +1,4 @@
-import { Option } from '@/shared/types';
+import { Option } from '@/lib/types';
 import {
   Stack,
   ToggleButton,

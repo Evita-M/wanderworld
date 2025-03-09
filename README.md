@@ -1,4 +1,4 @@
-# Expeditions App
+# WanderWorld App
 
 > A modern web application built with Next.js 14 for managing and exploring expeditions.
 
@@ -45,11 +45,13 @@
 ## 🎮 Core Functionalities
 
 ### 📝 Expedition Management
+
 - Create, read, update, delete expeditions
 - Rich text editor for detailed descriptions
 - Connect guides to expeditions
 
 ### 👥 Guide Management
+
 - Create, read, update, delete guides
 - Rich text editor for details about a guide
 - Link guides to specific expeditions

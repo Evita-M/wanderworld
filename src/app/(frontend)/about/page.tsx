@@ -3,7 +3,7 @@ import PageContent from './page-content';
 import { PageContainer } from '@/shared/ui/core/layout';
 
 export const metadata: Metadata = {
-  title: '%s | My Site',
+  title: 'About Us',
   description:
     'Learn about our mission and our commitment to authentic travel experiences.',
 };

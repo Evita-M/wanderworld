@@ -3,7 +3,7 @@ import PageContent from './page-content';
 import { PageContainer } from '@/shared/ui/core/layout';
 
 export const metadata: Metadata = {
-  title: '%s | My Site',
+  title: 'New Guide',
   description:
     'Create a new guide and share your travel experiences with the world.',
 };

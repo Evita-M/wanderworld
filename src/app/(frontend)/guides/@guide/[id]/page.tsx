@@ -1,41 +1,11 @@
-'use client';
-import { useGetGuideQuery } from '@/entities/guide/api';
-import { GuideDetail } from '@/entities/guide/ui/guide-details';
-import { Loader } from '@/shared/ui/core/loader';
-import { handleRTKQueryError } from '@/utils/errorHandler';
-import { notFound, useParams } from 'next/navigation';
+import { Metadata } from 'next';
+import GuidePageContent from './page-content';
 
-const GuidePage = () => {
-  const params = useParams();
-  const id = params?.id as string;
-
-  const {
-    data: guide,
-    isLoading: isGetGuideLoading,
-    error: guideError,
-    isError: isGetGuideError,
-  } = useGetGuideQuery(id, {
-    skip: !id,
-  });
-
-  if (isGetGuideError) {
-    handleRTKQueryError(guideError);
-  }
-
-  if (!guide && !isGetGuideLoading) {
-    notFound();
-  }
-
-  return isGetGuideLoading ? (
-    <Loader />
-  ) : (
-    guide && (
-      <>
-        <h2 className='sr-only'>Guide Detail</h2>
-        <GuideDetail guide={guide} />
-      </>
-    )
-  );
+export const metadata: Metadata = {
+  title: 'Guide Detail',
+  description: 'Find out more about the guide',
 };
 
-export default GuidePage;
+export default function GuidePage() {
+  return <GuidePageContent />;
+}

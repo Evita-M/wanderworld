@@ -3,7 +3,7 @@ import PageContent from './page-content';
 import { PageContainer } from '@/shared/ui/core/layout';
 
 export const metadata: Metadata = {
-  title: '%s | My Site',
+  title: 'Expeditions',
   description:
     'Discover a wide range of expeditions, from adventure-packed treks to cultural tours and more.',
 };

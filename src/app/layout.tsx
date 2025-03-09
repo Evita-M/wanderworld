@@ -9,7 +9,10 @@ import theme from '@/styles/theme';
 import { Header } from '@/shared/ui/modules/header';
 
 export const metadata: Metadata = {
-  title: 'WanderWorld',
+  title: {
+    template: '%s | WanderWorld',
+    default: 'WanderWorld',
+  },
   openGraph: {
     siteName: 'Wander The World',
   },

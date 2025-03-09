@@ -1,4 +1,3 @@
-import { patterns } from '@/utils/patterns';
 import { z } from 'zod';
 
 export const guideSchema = z.object({
@@ -15,7 +14,7 @@ export const guideSchema = z.object({
   email: z
     .string()
     .min(1, { message: 'Info email is required' })
-    .refine((email) => patterns.email.test(email), {
+    .regex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, {
       message: 'Please enter valid email',
     }),
   languages: z.array(z.string()),

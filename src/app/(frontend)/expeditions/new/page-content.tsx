@@ -1,5 +1,4 @@
 'use client';
-
 import { CreateExpedition } from '@/features/expedition/create';
 import { BackButton } from '@/shared/ui/core/button';
 import { PageContainer } from '@/shared/ui/core/layout';

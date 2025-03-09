@@ -7,8 +7,8 @@ export const guideSchema = z.object({
   phoneNumber: z
     .string()
     .min(1, { message: 'Phone number is required' })
-    .regex(/^\+?[1-9]\d{1,14}$/, {
-      message: 'Please enter a valid phone number (e.g., +1234567890)',
+    .regex(/^\+?[\d\s()-]{8,}$/, {
+      message: 'Please enter a valid phone number (e.g. +1 (234) 567-8901)',
     }),
   description: z.string().optional(),
   avatar: z.string().default(''),

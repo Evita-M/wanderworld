@@ -1,5 +1,7 @@
 import { Box, Button, Stack, Typography, SxProps, Theme } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import Link from 'next/link';
+import AddIcon from '@mui/icons-material/Add';
 
 import React, { FC, ReactNode } from 'react';
 
@@ -23,22 +25,35 @@ export const PageHeader: FC<PageHeaderProps> = ({
   sx,
 }) => {
   return (
-    <Stack sx={sx}>
+    <Stack sx={sx} gap={1}>
       <Stack direction='row' alignItems='center' justifyContent='space-between'>
         <Stack direction='row' alignItems='center' gap={3}>
           {prefix}
-          <Typography variant='h1'>{title}</Typography>
+          <Typography variant='h2' component='h1'>
+            {title}
+          </Typography>
         </Stack>
         {buttonLabel && (
           <Box>
             {onClick ? (
-              <Button variant='contained' color='secondary' onClick={onClick}>
+              <Button
+                variant='contained'
+                color='secondary'
+                data-testid='page-header-button'
+                onClick={onClick}
+              >
                 {buttonLabel}
               </Button>
             ) : (
               href && (
                 <Link href={href} passHref>
-                  <Button variant='contained' color='secondary'>
+                  <Button
+                    component='span'
+                    variant='contained'
+                    color='secondary'
+                    data-testid='page-header-button'
+                    startIcon={<AddIcon />}
+                  >
                     {buttonLabel}
                   </Button>
                 </Link>
@@ -48,7 +63,12 @@ export const PageHeader: FC<PageHeaderProps> = ({
         )}
       </Stack>
       {subtitle && (
-        <Typography fontSize='1.8rem' maxWidth='140rem' lineHeight={1.6}>
+        <Typography
+          fontSize='1.8rem'
+          maxWidth='140rem'
+          lineHeight={1.6}
+          color={grey[600]}
+        >
           {subtitle}
         </Typography>
       )}

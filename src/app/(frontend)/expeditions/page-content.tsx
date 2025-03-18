@@ -10,10 +10,16 @@ import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item';
 import { EmptyState } from '@/shared/ui/components/empty-state';
 import { SortOrder } from '@/features/expedition/sort';
 import { sortByDate } from '@/utils/sort-by-date';
+import { handleRTKQueryError } from '@/utils/errorHandler';
+import { notFound } from 'next/navigation';
 
 const PageContent: FC = () => {
-  const { data: expeditions, isLoading: isExpeditionsLoading } =
-    useGetExpeditionsQuery();
+  const {
+    data: expeditions,
+    isLoading: isGetExpeditionsLoading,
+    isError: isGetExpeditionsError,
+    error: expeditionsError,
+  } = useGetExpeditionsQuery();
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   const sortedExpeditions = useMemo(() => {
@@ -21,14 +27,23 @@ const PageContent: FC = () => {
     return sortByDate([...expeditions], 'startDate', sortOrder);
   }, [expeditions, sortOrder]);
 
+  if (isGetExpeditionsError) {
+    handleRTKQueryError(expeditionsError);
+  }
+
+  if (!expeditions && !isGetExpeditionsLoading) {
+    notFound();
+  }
+
   return (
     <Stack height='100%' gap='2rem'>
       <PageHeader
         title='Expeditions'
-        buttonLabel='Add new expedition'
+        subtitle='Browse and manage your expedition catalog'
+        buttonLabel='New expedition'
         href={routes.newExpedition}
       />
-      {isExpeditionsLoading ? (
+      {isGetExpeditionsLoading ? (
         <Box
           display='flex'
           justifyContent='center'
@@ -39,7 +54,6 @@ const PageContent: FC = () => {
         </Box>
       ) : expeditions?.length ? (
         <>
-          {' '}
           <Box alignSelf='flex-end'>
             <SortOrder sortOrder={sortOrder} onSortChange={setSortOrder} />
           </Box>

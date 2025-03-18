@@ -25,7 +25,7 @@ export const Avatar: FC<AvatarProps> = ({
       <MuiAvatar
         sx={{
           ...imgDimensions,
-          bgcolor: 'info.main',
+          bgcolor: '#d6e6eb',
           color: 'white',
           fontSize: `${size / 25}rem`,
         }}

@@ -1,5 +1,5 @@
-import { Image, PageContainer } from "@/shared/ui/core/layout";
-import { Hero } from "@/shared/ui/modules/hero";
+import { Image, PageContainer } from '@/shared/ui/core/layout';
+import { Hero } from '@/shared/ui/modules/hero';
 
 const heroImages: Image[] = [
   {

@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography';
 import { List, ListItem, useTheme } from '@mui/material';
-import { ExpeditionOverview } from '../expedition-overview';
 import { ExpeditionDetails } from '../expedition-details';
 import { getRandomColor } from '@/utils/get-random-color';
 import { includedItems } from '@/lib/data/included';
@@ -9,7 +8,6 @@ import { Expedition } from '../../model';
 import { LanguageCode } from '@/shared/ui/modules/languages';
 import { Tabs } from '@/shared/ui/core/tabs';
 
-
 interface ExpeditionInfoProps {
   expedition: Expedition;
 }
@@ -17,19 +15,17 @@ interface ExpeditionInfoProps {
 export const ExpeditionInfo: React.FC<ExpeditionInfoProps> = ({
   expedition,
 }) => {
-  const { minGroupSize, maxGroupSize, activities, languages } = expedition;
+  const { activities, languages } = expedition;
   const theme = useTheme();
 
   const tabs = [
     {
-      label: 'Overview',
-      content: <ExpeditionOverview groupSize={[minGroupSize, maxGroupSize]} />,
-    },
-    {
       label: 'Description',
       content: expedition.description ? (
         <RichTextRenderer content={expedition.description} />
-      ) : <Typography>No description</Typography>,
+      ) : (
+        <Typography>No description</Typography>
+      ),
     },
     {
       label: "What's included",

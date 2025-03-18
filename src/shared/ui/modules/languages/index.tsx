@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Chip, darken, Stack } from '@mui/material';
-
 import { languages } from '@/lib/data/languages';
 import { getLanguageColor } from '@/utils/get-language-color';
 

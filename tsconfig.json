@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,28 +18,11 @@
         "name": "next"
       }
     ],
-    "baseUrl": "src/",
     "paths": {
-      "@/app/*": ["app/*"],
-      "@/api/*": ["api/*"],
-      "@/components/*": ["components/*"],
-      "@/modules/*": ["modules/*"],
-      "@/lib/*": ["lib/*"],
-      "@/providers/*": ["providers/*"],
-      "@/services/*": ["services/*"],
-      "@/styles/*": ["styles/*"],
-      "@/types/*": ["types/*"],
-      "@/utils/*": ["utils/*"],
-      "@/redux/*": ["redux/*"],
-      "@/config/*": ["config/*"],
-      "@/ui/*": ["ui/*"],
-      "@/views/*": ["views/*"],
-      "@/shared/*": ["shared/*"],
-      "@/features/*": ["features/*"],
-      "@/entities/*": ["entities/*"],
-      "@/routes/*": ["routes/*"]
+      "@/*": ["src/*"]
     },
-    "types": ["react"]
+    "types": ["react"],
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

@@ -4,28 +4,31 @@ import {
   useGetExpeditionQuery,
 } from '@/entities/expedition/api';
 import { notFound, useParams, useRouter } from 'next/navigation';
-import { Box, Stack } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { routes } from '@/lib/config/routes';
-
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { Loader } from '@/shared/ui/core/loader';
 import { Actions } from '@/shared/ui/modules/actions';
-import { IconText, PageHeader } from '@/shared/ui/core/typography';
+import { PageHeader } from '@/shared/ui/core/typography';
 import { ModalConfirmation } from '@/shared/ui/modules/modal';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PeopleIcon from '@mui/icons-material/People';
 import { getNames } from '@/utils/get-names';
-import { DateRange } from '@/shared/ui/components/date-range';
 import { countries } from '@/lib/data/countries';
 import { ExpeditionInfo } from '@/entities/expedition/ui/expedition-info';
-import { MasonryGrid, MasonryItem } from '@/shared/ui/modules/masonry-grid';
 import { GuideInfo } from '@/entities/guide/ui/guide-info';
 import { BackButton } from '@/shared/ui/core/button';
 import { handleRTKQueryError } from '@/utils/errorHandler';
 import { useModal } from '@/lib/hooks/useModal';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import Image from 'next/image';
+import { Feature } from '@/shared/ui/components/feature';
+import { differenceInDays } from 'date-fns';
+import { ClockIcon } from '@mui/x-date-pickers';
+import { languages } from '@/lib/data/languages';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -114,6 +117,16 @@ const PageContent = () => {
   ];
 
   const countryNames = getNames(expedition?.countries ?? [], countries);
+  const expeditionlanguages = getNames(expedition?.languages ?? [], languages);
+  const duration =
+    expedition?.startDate && expedition?.endDate
+      ? Math.abs(
+          differenceInDays(
+            new Date(expedition.startDate),
+            new Date(expedition.endDate)
+          )
+        )
+      : 0;
 
   return (
     expedition && (
@@ -124,53 +137,65 @@ const PageContent = () => {
           justifyContent='space-between'
           mb='2.4rem'
         >
-          <PageHeader
-            title={expedition.name}
-            prefix={<BackButton onClick={redirectToExpeditions} />}
-          />
+          <div>
+            <PageHeader
+              title={expedition.name}
+              prefix={<BackButton onClick={redirectToExpeditions} />}
+            />
+            <Typography variant='h5' component='p' mt='2.4rem'>
+              {countryNames}
+            </Typography>
+          </div>
           <Actions actions={actions} />
         </Stack>
-        <Stack spacing='2.4rem'>
-          <Stack flexDirection='row' spacing='4.4rem'>
-            <DateRange
-              startDate={expedition.startDate}
-              endDate={expedition.endDate}
-            />
-            <IconText
-              icon={<LocationOnIcon color='primary' />}
-              text={countryNames}
-            />
-            <IconText
-              icon={<PeopleIcon color='primary' />}
-              text={`${expedition.minGroupSize} - ${expedition.maxGroupSize} participants`}
-            />
-          </Stack>
-          <Stack flexDirection='row' spacing='2rem'>
-            <Box flex='0 1 160rem'>
-              <MasonryGrid columns={3} spacing={2}>
-                {[
-                  { height: 395 },
-                  { height: 220 },
-                  { height: 160 },
-                  { height: 220 },
-                  { height: 160 },
-                ].map((item, index) => (
-                  <MasonryItem key={index} height={item.height}>
-                    <div className='h-full w-full bg-gray-100' />
-                  </MasonryItem>
-                ))}
-              </MasonryGrid>
-            </Box>
-            <Box flex='0 0 40rem' pb='1rem'>
-              <h2 className='sr-only'>Guide Detail</h2>
-              <GuideInfo guide={guide} />
-            </Box>
-          </Stack>
-
-          <Stack maxWidth='120rem' p='1rem'>
+        <div className='grid gap-8 lg:grid-cols-3'>
+          <div className='space-y-6 lg:col-span-2'>
+            <div className='relative aspect-video overflow-hidden rounded-[16px]'>
+              <Image
+                src='https://fakeimg.pl/600x400/d6e6eb/ffffff?text=WanderWorld&font=bebas'
+                alt='Placeholder image'
+                fill
+                className='object-cover'
+              />
+            </div>
+            <Grid className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+              <Grid item xs={12} md={6}>
+                <Feature
+                  title='Languages'
+                  text={expeditionlanguages}
+                  icon={<LanguageOutlinedIcon color='primary' />}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Feature
+                  title='Duration'
+                  text={`${duration} days`}
+                  icon={<ClockIcon color='primary' />}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Feature
+                  title='Group Size'
+                  text={`${expedition.minGroupSize} - ${expedition.maxGroupSize}`}
+                  icon={<PeopleIcon color='primary' />}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Feature
+                  title='Difficulty'
+                  text='Challenging'
+                  icon={<FitnessCenterIcon color='primary' />}
+                />
+              </Grid>
+            </Grid>
+          </div>
+          <div className='space-y-6'>
+            <GuideInfo guide={guide} />
+          </div>
+          <div className='space-y-6 pt-8 lg:col-span-2'>
             <ExpeditionInfo expedition={expedition} />
-          </Stack>
-        </Stack>
+          </div>
+        </div>
       </>
     )
   );

@@ -1,68 +1,53 @@
 'use client';
 import { FC } from 'react';
-import { Box, Stack, Typography, useTheme } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import theme from '@/styles/theme';
-import { Guide } from '../../model';
+import { Typography } from '@mui/material';
 import { Avatar } from '@/shared/ui/core/avatar';
-import { Contact } from '@/shared/ui/modules/contact';
+import { Guide } from '../../model';
 
-interface GuideInfoProps {
-  guide: Guide | null | undefined;
+interface GuideDetailsProps {
+  title: string;
+  subtitle: string;
+  avatar?: string;
 }
 
-const GuideLabel: FC = () => {
-  const theme = useTheme();
+interface GuideInfoProps {
+  guide?: Guide;
+}
+
+const GuideDetails: FC<GuideDetailsProps> = ({
+  title,
+  subtitle,
+  avatar = '',
+}) => (
+  <div className='flex items-center gap-8 text-center'>
+    <Avatar src={avatar} alt={title} size={80} />
+    <div className='flex flex-col gap-2 text-left'>
+      <Typography component='p' fontSize='1.8rem'>
+        {title}
+      </Typography>
+      <Typography color='text.secondary'>{subtitle}</Typography>
+    </div>
+  </div>
+);
+
+export const GuideInfo: FC<GuideInfoProps> = ({ guide }: GuideInfoProps) => {
+  const guideDetails = guide
+    ? {
+        title: `${guide?.firstName} ${guide?.lastName}`,
+        subtitle: guide?.email,
+        avatar: guide?.avatar,
+      }
+    : {
+        title: 'No Guide',
+        subtitle: 'Guide to be assigned soon',
+      };
+
   return (
-    <Box
-      bgcolor={theme.palette.secondary.main}
-      p='0.6rem 1.6rem'
-      borderRadius={`0 0 0 ${theme.borderRadius.large}`}
-      position='absolute'
-      top='0'
-      right='0'
-    >
-      <Typography color='white' variant='caption'>Your Guide</Typography>
-    </Box>
+    <div className='rounded-[16px] border border-gray-200 p-10'>
+      <Typography variant='h5' component='p' mb='2.4rem'>
+        Expedition Guides
+      </Typography>
+      <GuideDetails {...guideDetails} />
+    </div>
   );
 };
-const GuideDetails: FC<{ guide: Guide }> = ({ guide }: { guide: Guide }) => (
-  <Stack alignItems='center' textAlign='center' gap="2.4rem">
-    <Avatar src={guide.avatar} alt={`${guide.firstName} ${guide.lastName}`} />
-    <Typography variant='h6'>
-      {guide.firstName} {guide.lastName}
-    </Typography>
-    <Contact
-      email={guide.email}
-      phoneNumber={guide.phoneNumber}
-      variant='column'
-    />
-  </Stack>
-);
-
-const EmptyGuide: FC = () => (
-  <>
-    <Avatar />
-    <Typography variant='h6' component='p' pt='1.2rem'>
-      No Guide
-    </Typography>
-    <Typography color='text.secondary' pt='1.2rem'>
-      Guide to be assigned soon
-    </Typography>
-  </>
-);
-
-export const GuideInfo: FC<GuideInfoProps> = ({ guide }: GuideInfoProps) => (
-  <Box
-    borderRadius={theme.borderRadius.large}
-    overflow='hidden'
-    position='relative'
-    p='4.4rem 1.6rem'
-    border={`1px solid ${grey[300]}`}
-  >
-    <GuideLabel />
-    <Stack alignItems='center' textAlign='center' height='100%'>
-      {guide ? <GuideDetails guide={guide} /> : <EmptyGuide />}
-    </Stack>
-  </Box>
-);

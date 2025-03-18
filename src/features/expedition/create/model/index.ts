@@ -1,4 +1,4 @@
-import { ExpeditionCommon } from "entities/expedition/model";
+import { ExpeditionCommon } from '@/entities/expedition/model';
 
 export type CreateExpedition = ExpeditionCommon;
 export type EditExpedition = ExpeditionCommon;
@@ -12,4 +12,3 @@ export interface GenerateExpeditionRequestBody {
   tourDuration: [Date, Date];
   meetingDate: Date;
 }
-

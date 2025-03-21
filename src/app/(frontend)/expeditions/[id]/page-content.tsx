@@ -4,7 +4,7 @@ import {
   useGetExpeditionQuery,
 } from '@/entities/expedition/api';
 import { notFound, useParams, useRouter } from 'next/navigation';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { routes } from '@/lib/config/routes';
@@ -15,20 +15,17 @@ import { Actions } from '@/shared/ui/modules/actions';
 import { PageHeader } from '@/shared/ui/core/typography';
 import { ModalConfirmation } from '@/shared/ui/modules/modal';
 import PeopleIcon from '@mui/icons-material/People';
-import { getNames } from '@/utils/get-names';
-import { countries } from '@/lib/data/countries';
-import { ExpeditionInfo } from '@/entities/expedition/ui/expedition-info';
-import { GuideInfo } from '@/entities/guide/ui/guide-info';
-import { BackButton } from '@/shared/ui/core/button';
 import { handleRTKQueryError } from '@/utils/errorHandler';
 import { useModal } from '@/lib/hooks/useModal';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Image from 'next/image';
-import { Feature } from '@/shared/ui/components/feature';
 import { differenceInDays } from 'date-fns';
 import { ClockIcon } from '@mui/x-date-pickers';
-import { languages } from '@/lib/data/languages';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { GuideInfo } from '@/widgets/guide-info/ui/GuideInfo';
+import { FeatureList } from '@/widgets/feature-list/ui/FeatureList';
+import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/ExpeditionTabs';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -74,8 +71,6 @@ const PageContent = () => {
     notFound();
   }
 
-  const redirectToExpeditions = () => router.push(routes.expeditions);
-
   const handleDelete = async () => {
     try {
       await deleteExpedition(id as string).unwrap();
@@ -116,8 +111,6 @@ const PageContent = () => {
     },
   ];
 
-  const countryNames = getNames(expedition?.countries ?? [], countries);
-  const expeditionlanguages = getNames(expedition?.languages ?? [], languages);
   const duration =
     expedition?.startDate && expedition?.endDate
       ? Math.abs(
@@ -127,6 +120,31 @@ const PageContent = () => {
           )
         )
       : 0;
+
+  const features = [
+    {
+      icon: <LanguageOutlinedIcon color='primary' />,
+      title: 'Languages',
+      text:
+        expedition?.languages?.map((language) => language.name).join(', ') ||
+        'N/A',
+    },
+    {
+      icon: <ClockIcon color='primary' />,
+      title: 'Duration',
+      text: `${duration} days`,
+    },
+    {
+      icon: <PeopleIcon color='primary' />,
+      title: 'Group Size',
+      text: `${expedition?.minGroupSize} - ${expedition?.maxGroupSize}`,
+    },
+    {
+      icon: <FitnessCenterIcon color='primary' />,
+      title: 'Difficulty',
+      text: 'Challenging',
+    },
+  ];
 
   return (
     expedition && (
@@ -138,13 +156,15 @@ const PageContent = () => {
           mb='2.4rem'
         >
           <div>
-            <PageHeader
-              title={expedition.name}
-              prefix={<BackButton onClick={redirectToExpeditions} />}
-            />
-            <Typography variant='h5' component='p' mt='2.4rem'>
-              {countryNames}
-            </Typography>
+            <PageHeader title={expedition.name} />
+            <div className='mt-[2.4rem] flex items-center gap-2'>
+              <LocationOnOutlinedIcon color='primary' />
+              <Typography variant='h5' component='p'>
+                {expedition.countries
+                  ?.map((country) => country.name)
+                  .join(', ') || 'N/A'}
+              </Typography>
+            </div>
           </div>
           <Actions actions={actions} />
         </Stack>
@@ -158,42 +178,18 @@ const PageContent = () => {
                 className='object-cover'
               />
             </div>
-            <Grid className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-              <Grid item xs={12} md={6}>
-                <Feature
-                  title='Languages'
-                  text={expeditionlanguages}
-                  icon={<LanguageOutlinedIcon color='primary' />}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Feature
-                  title='Duration'
-                  text={`${duration} days`}
-                  icon={<ClockIcon color='primary' />}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Feature
-                  title='Group Size'
-                  text={`${expedition.minGroupSize} - ${expedition.maxGroupSize}`}
-                  icon={<PeopleIcon color='primary' />}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Feature
-                  title='Difficulty'
-                  text='Challenging'
-                  icon={<FitnessCenterIcon color='primary' />}
-                />
-              </Grid>
-            </Grid>
+            <FeatureList features={features} />
           </div>
           <div className='space-y-6'>
             <GuideInfo guide={guide} />
           </div>
           <div className='space-y-6 pt-8 lg:col-span-2'>
-            <ExpeditionInfo expedition={expedition} />
+            <ExpeditionTabs
+              description={expedition.description || ''}
+              languages={expedition.languages}
+              activities={expedition.activities || []}
+              meetingDate={expedition.meetingDate}
+            />
           </div>
         </div>
       </>

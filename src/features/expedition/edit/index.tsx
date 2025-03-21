@@ -34,8 +34,14 @@ export const EditExpedition: FC = () => {
       name: data.name,
       description: data.description,
       activities: data.activities,
-      countries: data.countries,
-      languages: data.languages || [],
+      countries: data.countries.map((country) => ({
+        code: country.id,
+        name: country.label,
+      })),
+      languages: data.languages.map((language) => ({
+        code: language.id,
+        name: language.label,
+      })),
       meetingDate: new Date(data.meetingDate),
       minGroupSize: data.groupSize[0],
       maxGroupSize: data.groupSize[1],

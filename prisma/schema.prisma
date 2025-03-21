@@ -17,31 +17,35 @@ model User {
   @@map("user")
 }
 
+
+model Language {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String       @unique
+  name        String
+  expeditions Expedition[] @relation("ExpeditionLanguages")
+  guides      Guide[]      @relation("GuideLanguages")
+}
+
+model Country {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String       @unique
+  name        String
+  expeditions Expedition[] @relation("ExpeditionCountries")
+}
+
 model Guide {
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   firstName    String
   lastName     String
   email        String         @unique
   phoneNumber  String
-  languages    String[]
+  languages    Language[]     @relation("GuideLanguages")
   description  String?
-  avatar       String         @default("https://w7.pngwing.com/pngs/728/256/png-transparent-avatar-general-human-office-person-smile-user-general-office-icon.png")
+  avatar       String
   expeditions  Expedition[]   @relation("ExpeditionGuide")
   createdAt    DateTime       @default(now())
   updatedAt    DateTime?      @updatedAt
   @@map("guide")
-}
-
-model Participant {
-  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  firstName    String
-  lastName     String
-  email        String         @unique
-  phoneNumber  String
-  expeditions  Expedition[]   @relation("ExpeditionParticipant")
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime?      @updatedAt
-  @@map("participant")
 }
 
 enum Status {
@@ -53,8 +57,8 @@ model Expedition {
  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
  name         String
  description  String?
- countries    String[]
- languages    String[]
+ countries    Country[]      @relation("ExpeditionCountries")
+ languages    Language[]     @relation("ExpeditionLanguages")
  activities   String[]
  meetingDate  DateTime
  startDate    DateTime
@@ -63,7 +67,6 @@ model Expedition {
  maxGroupSize    Int
  guide        Guide?         @relation("ExpeditionGuide", fields:[guideId], references: [id])
  guideId      String?        @db.Uuid
- participants Participant[]  @relation("ExpeditionParticipant")
  createdAt    DateTime       @default(now())
  updatedAt    DateTime?      @updatedAt
  status       Status         @default(PENDING)

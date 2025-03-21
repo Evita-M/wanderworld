@@ -36,6 +36,10 @@ async function getExpedition(
   try {
     const expedition = await db.expedition.findUnique({
       where: { id: expeditionId },
+      include: {
+        countries: true,
+        languages: true,
+      },
     });
 
     if (!expedition) {
@@ -48,7 +52,7 @@ async function getExpedition(
   }
 }
 
-async function updatedExpedition(
+async function updateExpedition(
   request: NextRequest,
   { params }: { params: UpdateExpeditionParams }
 ) {
@@ -57,16 +61,78 @@ async function updatedExpedition(
   try {
     const expedition = await db.expedition.findUnique({
       where: { id: expeditionId },
+      include: {
+        countries: true,
+        languages: true,
+      },
     });
 
     if (!expedition) {
       return getNotFoundResponse('Expedition');
     }
 
-    const requestBody: UpdateExpeditionRequestBody = await request.json();
+    const requestBody =
+      (await request.json()) as UpdateExpeditionRequestBody & {
+        countries: { code: string; name: string }[];
+        languages: { code: string; name: string }[];
+      };
+
+    const { countries, languages, ...rest } = requestBody;
+
+    // Fetch existing countries and languages from the database
+    const existingCountries = await db.country.findMany({
+      where: { code: { in: countries.map((c) => c.code) } },
+    });
+
+    const existingCountryCodes = existingCountries.map((c) => c.code);
+
+    const newCountries = countries.filter(
+      (c) => !existingCountryCodes.includes(c.code)
+    );
+
+    const existingLanguages = await db.language.findMany({
+      where: { code: { in: languages.map((l) => l.code) } },
+    });
+
+    const existingLanguageCodes = existingLanguages.map((l) => l.code);
+
+    const newLanguages = languages.filter(
+      (l) => !existingLanguageCodes.includes(l.code)
+    );
+
+    // Prepare the update data
+    const updateData = {
+      ...rest,
+      countries: {
+        create: newCountries.map((c) => ({
+          code: c.code,
+          name: c.name,
+        })),
+        connect: existingCountries.map((c) => ({
+          code: c.code,
+        })),
+        disconnect: expedition.countries
+          .filter((country) => !countries.some((c) => c.code === country.code))
+          .map((country) => ({ code: country.code })),
+      },
+      languages: {
+        create: newLanguages.map((l) => ({
+          code: l.code,
+          name: l.name,
+        })),
+        connect: existingLanguages.map((l) => ({
+          code: l.code,
+        })),
+        disconnect: expedition.languages
+          .filter(
+            (language) => !languages.some((l) => l.code === language.code)
+          )
+          .map((language) => ({ code: language.code })),
+      },
+    };
 
     await db.expedition.update({
-      data: requestBody,
+      data: updateData,
       where: { id: expeditionId },
     });
 
@@ -109,6 +175,6 @@ async function deleteExpedition(
 
 export {
   getExpedition as GET,
-  updatedExpedition as PATCH,
+  updateExpedition as PATCH,
   deleteExpedition as DELETE,
 };

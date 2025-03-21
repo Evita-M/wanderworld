@@ -2,8 +2,9 @@ import { Box, Stack, Typography, TypographyProps } from '@mui/material';
 import { FC, ReactNode, useMemo } from 'react';
 import { grey } from '@mui/material/colors';
 import { Avatar } from '@/shared/ui/core/avatar';
-import { LanguageCode, Languages } from '@/shared/ui/modules/languages';
 import { Contact } from '@/shared/ui/modules/contact';
+import { Language } from '@/shared/types/Language';
+import { LanguagesList } from '@/shared/ui/modules/languages/LanguagesList';
 
 export enum GuideHeaderSize {
   DEFAULT = 'default',
@@ -12,7 +13,7 @@ export enum GuideHeaderSize {
 
 interface GuideHeaderProps {
   fullName: string;
-  languages: LanguageCode[];
+  languages: Language[];
   email?: string;
   phoneNumber?: string;
   avatarSrc?: string;
@@ -70,7 +71,7 @@ export const GuideHeader: FC<GuideHeaderProps> = ({
           {actions}
         </Stack>
         <Stack sx={{ minWidth: 0 }} mb={spacing}>
-          <Languages langCodes={languages} />
+          <LanguagesList languages={languages} />
         </Stack>
         {size === GuideHeaderSize.LG && (
           <Contact email={email} phoneNumber={phoneNumber} />

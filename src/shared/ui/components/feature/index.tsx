@@ -9,7 +9,7 @@ interface FeatureProps {
 
 export const Feature = ({ title, text, icon }: FeatureProps) => {
   return (
-    <div className='flex flex-col gap-4 rounded-[16px] border border-gray-200 p-6'>
+    <div className='flex flex-col gap-4 rounded-[1.6rem] border border-gray-200 p-[1.8rem]'>
       <Typography color='text.secondary'>{title}</Typography>
       <div className='flex items-center gap-4'>
         {icon}

@@ -4,7 +4,6 @@ import { FC } from 'react';
 import Link from 'next/link';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import { routes } from '@/lib/config/routes';
-import { getNames } from '@/utils/get-names';
 import { Expedition } from '../../model';
 import Image from 'next/image';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
@@ -14,6 +13,7 @@ import { differenceInDays, formatDate } from 'date-fns';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import { darken } from '@mui/material/styles';
+import { getNames } from '@/utils/get-names';
 
 const difficultyLevels = ['Easy', 'Moderate', 'Challenging', 'Hard'];
 interface ExpeditionItemProps {
@@ -23,7 +23,6 @@ interface ExpeditionItemProps {
 export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
   const theme = useTheme();
   const { id, name, countries, startDate, maxGroupSize, endDate } = expedition;
-  const countriesNames = getNames(countries, countrieList);
   const duration = Math.abs(
     differenceInDays(new Date(startDate), new Date(endDate))
   );
@@ -76,7 +75,9 @@ export const ExpeditionItem: FC<ExpeditionItemProps> = ({ expedition }) => {
             </Typography>
             <div className='flex items-center gap-2'>
               <RoomOutlinedIcon color='primary' fontSize='small' />
-              <Typography>{countriesNames} </Typography>
+              <Typography>
+                {countries?.map((country) => country.name).join(', ')}{' '}
+              </Typography>
             </div>
           </Stack>
           <Grid container spacing='1.2rem' alignItems='center'>

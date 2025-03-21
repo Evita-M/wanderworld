@@ -3,7 +3,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import FlightIcon from '@mui/icons-material/Flight';
 import { DateRange } from '@/shared/ui/components/date-range';
-import { Expedition } from '@/entities/expedition/model';
+import { Expedition } from '@/shared/types/Expedition';
 
 interface GuideExpeditionsProps {
   expeditions: Expedition[];

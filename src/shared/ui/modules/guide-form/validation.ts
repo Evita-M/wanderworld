@@ -17,7 +17,9 @@ export const guideSchema = z.object({
     .regex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, {
       message: 'Please enter valid email',
     }),
-  languages: z.array(z.string()),
+  languages: z
+    .array(z.object({ id: z.string(), label: z.string() }))
+    .min(1, { message: 'Please select at least one language' }),
 });
 
 export type GuideSchema = z.infer<typeof guideSchema>;

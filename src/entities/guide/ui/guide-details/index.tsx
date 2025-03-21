@@ -7,18 +7,12 @@ import { GuideExpeditions } from '../guide-expeditions';
 import { grey } from '@mui/material/colors';
 import { borderRadius } from '@/styles/border-radius';
 import { sortByDate } from '@/utils/sort-by-date';
-import { Guide, GuideWithExpeditions } from '../../model';
-import { LanguageCode } from '@/shared/ui/modules/languages';
 import { RichTextRenderer } from '@/shared/ui/components/rich-text';
 import { GuideActions } from '../guide-actions';
 import { SortOrder } from '@/features/expedition/sort';
+import { Guide } from '@/shared/types/Guide';
 
-export const GuideDetail = ({
-  guide,
-}: {
-  guide: GuideWithExpeditions;
-  guides?: Guide[];
-}) => {
+export const GuideDetail = ({ guide }: { guide: Guide; guides?: Guide[] }) => {
   const {
     id,
     firstName,
@@ -39,7 +33,6 @@ export const GuideDetail = ({
     return sortByDate([...expeditions], 'startDate', sortOrder);
   }, [expeditions, sortOrder, hasExpeditions]);
 
-
   return (
     <Stack
       p={4}
@@ -52,7 +45,7 @@ export const GuideDetail = ({
       <Stack>
         <GuideHeader
           fullName={fullName}
-          languages={languages as LanguageCode[]}
+          languages={languages}
           phoneNumber={phoneNumber}
           email={email}
           avatarSrc={avatar}
@@ -77,10 +70,7 @@ export const GuideDetail = ({
             Expeditions
           </Typography>
           {hasExpeditions && (
-         <SortOrder
-           sortOrder={sortOrder}
-           onSortChange={setSortOrder}
-         />
+            <SortOrder sortOrder={sortOrder} onSortChange={setSortOrder} />
           )}
         </Stack>
         {hasExpeditions ? (

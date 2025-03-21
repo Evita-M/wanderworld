@@ -12,11 +12,11 @@ export const expeditionSchema = z.object({
     .optional()
     .or(z.literal('')),
   countries: z
-    .array(z.string())
+    .array(z.object({ id: z.string(), label: z.string() }))
     .min(1, { message: 'Please select at least one country' })
     .max(5, { message: 'You can select up to 5 countries' }),
   languages: z
-    .array(z.string())
+    .array(z.object({ id: z.string(), label: z.string() }))
     .min(1, { message: 'Please select at least one language' }),
   guide: z.string().nullable(),
   activities: z

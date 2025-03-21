@@ -5,14 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RHFTextField, RHFAutocomplete } from '../../core/input';
 import { RichTextEditor } from '../../components/rich-text';
 import { languages } from '@/lib/data/languages';
-import { GuideCommon } from '@/entities/guide/model';
 import { guideSchema, GuideSchema } from './validation';
+import { Guide } from '@/shared/types/Guide';
 
 interface GuideFormProps {
   onSubmit: (data: GuideSchema) => Promise<void>;
   isSubmitting?: boolean;
   onCancel: () => void;
-  guide?: GuideCommon;
+  guide?: Guide;
   buttonLabels: {
     cancel: string;
     submit: string;
@@ -34,7 +34,10 @@ export const GuideForm: FC<GuideFormProps> = ({
         description: guide.description ?? '',
         avatar: guide.avatar,
         email: guide.email,
-        languages: guide.languages,
+        languages: guide.languages?.map((language) => ({
+          id: language.code,
+          label: language.name,
+        })),
       }
     : {
         firstName: '',

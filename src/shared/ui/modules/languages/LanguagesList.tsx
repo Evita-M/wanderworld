@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Chip, darken, Stack } from '@mui/material';
-import { languages } from '@/lib/data/languages';
 import { getLanguageColor } from '@/utils/get-language-color';
+import { Language } from '@/shared/types/Language';
 
 export type LanguageCode =
   | 'en'
@@ -15,11 +15,11 @@ export type LanguageCode =
   | 'hi'
   | 'fr';
 
-interface LanguagesProps {
-  langCodes: LanguageCode[];
+interface LanguagesListProps {
+  languages: Language[];
 }
 
-export const Languages: FC<LanguagesProps> = ({ langCodes }) => {
+export const LanguagesList: FC<LanguagesListProps> = ({ languages }) => {
   const theme = useTheme();
 
   return (
@@ -30,13 +30,12 @@ export const Languages: FC<LanguagesProps> = ({ langCodes }) => {
         flexWrap: 'wrap',
       }}
     >
-      {langCodes.map((langCode) => {
-        const language = languages.find((lang) => lang.id === langCode);
-        const color = getLanguageColor(theme, langCode);
+      {languages.map((language) => {
+        const color = getLanguageColor(theme, language.code as LanguageCode);
         return (
           <Chip
-            key={langCode}
-            label={language?.label}
+            key={language.code}
+            label={language.name}
             sx={{
               cursor: 'default',
               backgroundColor: color,

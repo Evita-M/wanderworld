@@ -4,7 +4,7 @@ import React from 'react';
 export const Loader = () => {
   const theme = useTheme();
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex items-center justify-center' data-testid='loader'>
       <svg
         className='h-56 w-56 animate-spin-slow'
         xmlns='http://www.w3.org/2000/svg'

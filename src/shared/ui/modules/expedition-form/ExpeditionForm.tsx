@@ -8,7 +8,7 @@ import {
   RHFSlider,
   RHFTextField,
 } from '../../core/input';
-import { Expedition } from '@/entities/expedition/model';
+
 import {
   defaultValues,
   expeditionSchema,
@@ -24,6 +24,7 @@ import { activities } from '@/lib/data/activities';
 import { GuideCommon } from '@/entities/guide/model';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { useGenerateDescriptionMutation } from '@/lib/api/groqApi';
+import { Expedition } from '@/shared/types/Expedition';
 
 interface ExpeditionFormProps {
   onSubmit: (data: ExpeditionSchema) => Promise<void>;
@@ -47,19 +48,19 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
 }) => {
   const { showSnackBar } = useSnackbar();
 
-  useEffect(() => {
-    if (expedition) {
-      reset(expDefaultValues);
-    }
-  }, [expedition]);
-
   const expDefaultValues = expedition
     ? {
         ...defaultValues,
         name: expedition.name,
         description: expedition.description || '',
-        countries: expedition.countries,
-        languages: expedition.languages,
+        countries: expedition.countries?.map((country) => ({
+          id: country.code,
+          label: country.name,
+        })),
+        languages: expedition.languages?.map((language) => ({
+          id: language.code,
+          label: language.name,
+        })),
         activities: expedition.activities,
         meetingDate: new Date(expedition.meetingDate),
         tourDuration: [
@@ -86,7 +87,6 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
 
   // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
-    console.log('Guides:', guides);
     return guides?.map((guide: GuideCommon) => ({
       id: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
@@ -100,8 +100,8 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
     try {
       const formData = {
         name: watch('name'),
-        countries: watch('countries'),
-        languages: watch('languages'),
+        countries: watch('countries').map((country) => country.label),
+        languages: watch('languages').map((language) => language.label),
         activities: watch('activities'),
         groupSize: watch('groupSize') as [number, number],
         tourDuration: watch('tourDuration') as [Date, Date],

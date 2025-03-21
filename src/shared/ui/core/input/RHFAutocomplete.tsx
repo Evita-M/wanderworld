@@ -30,14 +30,14 @@ export const RHFAutocomplete = <T extends FieldValues>({
       }) => (
         <Autocomplete
           options={options || []}
-          getOptionLabel={(option: Option) =>
-            options.find((item) => item.id === option.id)?.label ?? ''
-          }
-          value={value
-            .map((id: string) => options?.find((item) => item.id === id))
-            .filter((option): option is Option => option !== undefined)}
+          getOptionLabel={(option: Option) => option.label}
+          value={value}
           onChange={(_, newValue) => {
-            onChange(newValue.map((item) => item.id));
+            const selectedLabels = newValue.map((item) => item.label);
+            const allMatchingOptions = options.filter((option) =>
+              selectedLabels.includes(option.label)
+            );
+            onChange(allMatchingOptions);
           }}
           isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
           disableCloseOnSelect

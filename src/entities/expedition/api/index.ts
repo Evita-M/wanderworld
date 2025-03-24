@@ -1,13 +1,10 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
+
 import {
-  expeditionSchema,
-  createExpeditionSchema,
-  updateExpeditionSchema,
-  type ExpeditionSchema,
-  type CreateExpeditionSchema,
-  type UpdateExpeditionSchema,
-} from './schema';
-import { ExpeditionTag } from './types';
+  ExpeditionTag,
+  CreateExpeditionDTO,
+  UpdateExpeditionDTO,
+} from './types';
 import { Expedition } from '@prisma/client';
 
 const baseQuery = fetchBaseQuery({
@@ -47,7 +44,7 @@ export const expeditionApi = createApi({
             ]
           : [{ type: 'Expedition', id: 'LIST' }],
     }),
-    createExpedition: build.mutation<Expedition, CreateExpeditionSchema>({
+    createExpedition: build.mutation<Expedition, CreateExpeditionDTO>({
       query: (newExpedition) => ({
         url: '/',
         method: 'POST',
@@ -61,7 +58,7 @@ export const expeditionApi = createApi({
       Expedition,
       {
         id: string;
-        data: UpdateExpeditionSchema;
+        data: UpdateExpeditionDTO;
       }
     >({
       query: ({ id, data }) => ({

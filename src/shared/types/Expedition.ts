@@ -4,16 +4,16 @@ import { Language } from './Language';
 export interface Expedition {
   id: string;
   name: string;
-  description: string | null;
+  activities: string[];
   countries: Country[];
+  languages: Language[];
   meetingDate: Date;
-  startDate: Date;
-  endDate: Date;
   minGroupSize: number;
   maxGroupSize: number;
-  guideId: string | null;
+  startDate: Date;
+  endDate: Date;
+  description?: string;
+  guideId?: string | null;
   createdAt: Date;
-  updatedAt: Date | null;
-  languages: Language[];
-  activities: string[];
+  updatedAt: Date;
 }

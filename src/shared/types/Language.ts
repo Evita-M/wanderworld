@@ -1,1 +1,1 @@
-export type Language = { code: string; name: string };
+export type Language = { id?: string; code: string; name: string };

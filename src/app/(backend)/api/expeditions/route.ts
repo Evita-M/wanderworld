@@ -20,6 +20,7 @@ async function getExpeditions(_request: NextRequest) {
       include: {
         countries: true,
         languages: true,
+        guide: true,
       },
     });
 

@@ -39,6 +39,7 @@ async function getExpedition(
       include: {
         countries: true,
         languages: true,
+        guide: true,
       },
     });
 

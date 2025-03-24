@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-
 import {
   ExpeditionTag,
   CreateExpeditionDTO,
   UpdateExpeditionDTO,
 } from './types';
-import { Expedition } from '@prisma/client';
+import { expeditionSchema, ExpeditionSchema } from './schema';
+import { Expedition as PrismaExpedition } from '@prisma/client';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',
@@ -20,7 +20,7 @@ export const expeditionApi = createApi({
   tagTypes: ['Expedition'],
   reducerPath: 'expeditionApi',
   endpoints: (build) => ({
-    getExpedition: build.query<Expedition, string>({
+    getExpedition: build.query<ExpeditionSchema, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -28,8 +28,11 @@ export const expeditionApi = createApi({
       providesTags: (_result, _error, id): ExpeditionTag[] => [
         { type: 'Expedition', id },
       ],
+      transformResponse: (response: PrismaExpedition) => {
+        return expeditionSchema.parse(response);
+      },
     }),
-    getExpeditions: build.query<Expedition[], void>({
+    getExpeditions: build.query<ExpeditionSchema[], void>({
       query: () => ({
         url: '/',
         method: 'GET',
@@ -43,8 +46,11 @@ export const expeditionApi = createApi({
               { type: 'Expedition', id: 'LIST' },
             ]
           : [{ type: 'Expedition', id: 'LIST' }],
+      transformResponse: (response: PrismaExpedition[]) => {
+        return response.map((expedition) => expeditionSchema.parse(expedition));
+      },
     }),
-    createExpedition: build.mutation<Expedition, CreateExpeditionDTO>({
+    createExpedition: build.mutation<ExpeditionSchema, CreateExpeditionDTO>({
       query: (newExpedition) => ({
         url: '/',
         method: 'POST',
@@ -53,9 +59,12 @@ export const expeditionApi = createApi({
       invalidatesTags: (): ExpeditionTag[] => [
         { type: 'Expedition', id: 'LIST' },
       ],
+      transformResponse: (response: PrismaExpedition) => {
+        return expeditionSchema.parse(response);
+      },
     }),
     updateExpedition: build.mutation<
-      Expedition,
+      ExpeditionSchema,
       {
         id: string;
         data: UpdateExpeditionDTO;
@@ -70,6 +79,9 @@ export const expeditionApi = createApi({
         { type: 'Expedition', id },
         { type: 'Expedition', id: 'LIST' },
       ],
+      transformResponse: (response: PrismaExpedition) => {
+        return expeditionSchema.parse(response);
+      },
     }),
     deleteExpedition: build.mutation<{ id: string }, string>({
       query: (id) => ({

@@ -32,7 +32,7 @@ export const EditExpedition: FC = () => {
   async function handleOnSubmit(data: ExpeditionSchema) {
     const expeditionData = {
       name: data.name,
-      description: data.description,
+      description: data.description || undefined,
       activities: data.activities,
       countries: data.countries.map((country) => ({
         code: country.id,
@@ -47,9 +47,7 @@ export const EditExpedition: FC = () => {
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guide: data.guide
-        ? { connect: { id: data.guide } }
-        : { disconnect: true },
+      guideId: data.guide ? data.guide.id : undefined,
     };
 
     try {
@@ -77,7 +75,21 @@ export const EditExpedition: FC = () => {
           onSubmit={handleOnSubmit}
           isSubmitting={isUpdateExeditionLoading}
           onCancel={redirectToExpedition}
-          expedition={expedition}
+          initialValues={
+            expedition
+              ? {
+                  ...expedition,
+                  description: expedition.description || undefined,
+                  meetingDate: new Date(expedition.meetingDate),
+                  startDate: new Date(expedition.startDate),
+                  endDate: new Date(expedition.endDate),
+                  createdAt: new Date(expedition.createdAt),
+                  updatedAt: expedition.updatedAt
+                    ? new Date(expedition.updatedAt)
+                    : null,
+                }
+              : undefined
+          }
           guides={guides}
           buttonLabels={{
             cancel: 'Cancel',

@@ -12,9 +12,7 @@ export interface CreateExpeditionDTO {
   endDate: Date;
 }
 
-export type UpdateExpeditionDTO = CreateExpeditionDTO & {
-  id: string;
-};
+export type UpdateExpeditionDTO = CreateExpeditionDTO;
 
 export type ExpeditionTag = {
   type: 'Expedition';

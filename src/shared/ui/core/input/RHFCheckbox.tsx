@@ -57,26 +57,26 @@ export const RHFCheckbox = <T extends FieldValues>({
                     item
                     xs={12}
                     sm={4}
-                    key={option.id}
+                    key={option.code}
                     className='flex flex-col'
                   >
                     <FormControlLabel
-                      key={option.id}
+                      key={option.code}
                       control={
                         <Checkbox
-                          checked={value?.includes(option.id)}
+                          checked={value?.includes(option.code)}
                           onChange={() => {
-                            if (value?.includes(option.id)) {
+                            if (value?.includes(option.code)) {
                               onChange(
-                                value.filter((item) => item !== option.id)
+                                value.filter((item) => item !== option.code)
                               );
                             } else {
-                              onChange([...value, option.id]);
+                              onChange([...value, option.code]);
                             }
                           }}
                         />
                       }
-                      label={option.label}
+                      label={option.name}
                     />
                   </Grid>
                 ))}

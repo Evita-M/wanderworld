@@ -5,19 +5,20 @@ import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { useGetGuidesQuery } from '@/entities/guide/api';
 import {
   ExpeditionForm,
-  ExpeditionSchema,
+  ExpeditionFormSchema,
 } from '@/shared/ui/modules/expedition-form';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
 import { ExpeditionFormSkeleton } from '@/shared/ui/modules/skeleton';
+import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/types';
 
 export const EditExpedition: FC = () => {
   const { id } = useParams();
   const router = useRouter();
   const { data: expedition, isLoading: isGetExpeditionLoading } =
     useGetExpeditionQuery(id as string);
-
+  console.log({ expedition });
   const [updateExedition, { isLoading: isUpdateExeditionLoading }] =
     useUpdateExpeditionMutation();
 
@@ -29,25 +30,19 @@ export const EditExpedition: FC = () => {
   };
 
   // Submit handler
-  async function handleOnSubmit(data: ExpeditionSchema) {
-    const expeditionData = {
+  async function handleOnSubmit(data: ExpeditionFormSchema) {
+    const expeditionData: UpdateExpeditionRequestBody = {
       name: data.name,
-      description: data.description || undefined,
+      description: data.description,
       activities: data.activities,
-      countries: data.countries.map((country) => ({
-        code: country.id,
-        name: country.label,
-      })),
-      languages: data.languages.map((language) => ({
-        code: language.id,
-        name: language.label,
-      })),
+      countries: data.countries,
+      languages: data.languages,
       meetingDate: new Date(data.meetingDate),
       minGroupSize: data.groupSize[0],
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guideId: data.guide ? data.guide.id : undefined,
+      guideId: data.guideId,
     };
 
     try {
@@ -66,6 +61,20 @@ export const EditExpedition: FC = () => {
     }
   }
 
+  const remapedExpedition: ExpeditionFormSchema | undefined = expedition
+    ? {
+        ...expedition,
+        description: expedition?.description ?? undefined,
+        groupSize: [expedition.minGroupSize, expedition.maxGroupSize],
+        meetingDate: new Date(expedition.meetingDate),
+        tourDuration: [
+          new Date(expedition.startDate),
+          new Date(expedition.endDate),
+        ],
+        guideId: expedition.guide?.id,
+      }
+    : undefined;
+
   return (
     <>
       {isGetExpeditionLoading ? (
@@ -75,21 +84,7 @@ export const EditExpedition: FC = () => {
           onSubmit={handleOnSubmit}
           isSubmitting={isUpdateExeditionLoading}
           onCancel={redirectToExpedition}
-          initialValues={
-            expedition
-              ? {
-                  ...expedition,
-                  description: expedition.description || undefined,
-                  meetingDate: new Date(expedition.meetingDate),
-                  startDate: new Date(expedition.startDate),
-                  endDate: new Date(expedition.endDate),
-                  createdAt: new Date(expedition.createdAt),
-                  updatedAt: expedition.updatedAt
-                    ? new Date(expedition.updatedAt)
-                    : null,
-                }
-              : undefined
-          }
+          expedition={remapedExpedition}
           guides={guides}
           buttonLabels={{
             cancel: 'Cancel',

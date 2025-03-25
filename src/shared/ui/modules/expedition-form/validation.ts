@@ -4,7 +4,7 @@ export const patterns = {
   email: /^[^@]+@[^@]+.[^@]+$/,
 };
 
-export const expeditionSchema = z.object({
+export const expeditionFormSchema = z.object({
   name: z.string().min(1, { message: 'Please enter an expedition name' }),
   description: z
     .string()
@@ -12,13 +12,13 @@ export const expeditionSchema = z.object({
     .optional()
     .or(z.literal('')),
   countries: z
-    .array(z.object({ id: z.string(), label: z.string() }))
+    .array(z.object({ code: z.string(), name: z.string() }))
     .min(1, { message: 'Please select at least one country' })
     .max(5, { message: 'You can select up to 5 countries' }),
   languages: z
-    .array(z.object({ id: z.string(), label: z.string() }))
+    .array(z.object({ code: z.string(), name: z.string() }))
     .min(1, { message: 'Please select at least one language' }),
-  guide: z.string().nullable(),
+  guideId: z.string().optional(),
   activities: z
     .array(z.string())
     .min(1, { message: 'Please select at least one activity' }),
@@ -39,16 +39,16 @@ export const expeditionSchema = z.object({
     .max(40, { message: 'Group size cannot exceed 40 participants' }),
 });
 
-export type ExpeditionSchema = z.infer<typeof expeditionSchema>;
+export type ExpeditionFormSchema = z.infer<typeof expeditionFormSchema>;
 
-export const defaultValues: ExpeditionSchema = {
+export const defaultValues: ExpeditionFormSchema = {
   name: '',
   description: '',
   countries: [],
-  guide: '',
+  guideId: '',
   languages: [],
   activities: [],
   meetingDate: new Date(),
   tourDuration: [new Date(), new Date()],
-  groupSize: [0, 0],
+  groupSize: [1, 1],
 };

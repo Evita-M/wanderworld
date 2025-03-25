@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
+import { ExpeditionTag } from './types';
 import {
-  ExpeditionTag,
-  CreateExpeditionDTO,
-  UpdateExpeditionDTO,
-} from './types';
-import { expeditionSchema, ExpeditionSchema } from './schema';
-import { Expedition as PrismaExpedition } from '@prisma/client';
+  CreateExpeditionRequestBody,
+  UpdateExpeditionRequestBody,
+  ExpeditionPayload,
+} from '@/app/(backend)/api/expeditions/types';
+import { BaseResponse } from '@/utils/errorHandler';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',
@@ -20,7 +20,7 @@ export const expeditionApi = createApi({
   tagTypes: ['Expedition'],
   reducerPath: 'expeditionApi',
   endpoints: (build) => ({
-    getExpedition: build.query<ExpeditionSchema, string>({
+    getExpedition: build.query<ExpeditionPayload, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -28,11 +28,8 @@ export const expeditionApi = createApi({
       providesTags: (_result, _error, id): ExpeditionTag[] => [
         { type: 'Expedition', id },
       ],
-      transformResponse: (response: PrismaExpedition) => {
-        return expeditionSchema.parse(response);
-      },
     }),
-    getExpeditions: build.query<ExpeditionSchema[], void>({
+    getExpeditions: build.query<ExpeditionPayload[], void>({
       query: () => ({
         url: '/',
         method: 'GET',
@@ -46,28 +43,24 @@ export const expeditionApi = createApi({
               { type: 'Expedition', id: 'LIST' },
             ]
           : [{ type: 'Expedition', id: 'LIST' }],
-      transformResponse: (response: PrismaExpedition[]) => {
-        return response.map((expedition) => expeditionSchema.parse(expedition));
-      },
     }),
-    createExpedition: build.mutation<ExpeditionSchema, CreateExpeditionDTO>({
-      query: (newExpedition) => ({
-        url: '/',
-        method: 'POST',
-        body: newExpedition,
-      }),
-      invalidatesTags: (): ExpeditionTag[] => [
-        { type: 'Expedition', id: 'LIST' },
-      ],
-      transformResponse: (response: PrismaExpedition) => {
-        return expeditionSchema.parse(response);
-      },
-    }),
+    createExpedition: build.mutation<BaseResponse, CreateExpeditionRequestBody>(
+      {
+        query: (newExpedition) => ({
+          url: '/',
+          method: 'POST',
+          body: newExpedition,
+        }),
+        invalidatesTags: (): ExpeditionTag[] => [
+          { type: 'Expedition', id: 'LIST' },
+        ],
+      }
+    ),
     updateExpedition: build.mutation<
-      ExpeditionSchema,
+      BaseResponse,
       {
         id: string;
-        data: UpdateExpeditionDTO;
+        data: UpdateExpeditionRequestBody;
       }
     >({
       query: ({ id, data }) => ({
@@ -79,11 +72,8 @@ export const expeditionApi = createApi({
         { type: 'Expedition', id },
         { type: 'Expedition', id: 'LIST' },
       ],
-      transformResponse: (response: PrismaExpedition) => {
-        return expeditionSchema.parse(response);
-      },
     }),
-    deleteExpedition: build.mutation<{ id: string }, string>({
+    deleteExpedition: build.mutation<BaseResponse, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',

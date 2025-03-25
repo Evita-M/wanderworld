@@ -133,6 +133,19 @@ export const getServerErrorResponse = (error: unknown) => {
   );
 };
 
+export const getBadRequestResponse = (error: unknown) => {
+  const handledError = handleError(error);
+  const errorResponse: BaseError = {
+    message: handledError.message,
+    code: handledError.code,
+  };
+
+  return NextResponse.json<ErrorResponse>(
+    { success: false, message: 'Bad Request', error: errorResponse },
+    { status: StatusCodes.BAD_REQUEST }
+  );
+};
+
 export type RTKQueryError = FetchBaseQueryError | SerializedError | undefined;
 
 export function isFetchBaseQueryError(

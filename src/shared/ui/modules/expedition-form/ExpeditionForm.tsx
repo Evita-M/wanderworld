@@ -11,12 +11,12 @@ import {
 
 import {
   defaultValues,
-  expeditionSchema,
-  ExpeditionSchema,
+  ExpeditionFormSchema,
+  expeditionFormSchema,
 } from './validation';
 import { languages } from '@/lib/data/languages';
 import { countries } from '@/lib/data/countries';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { RichTextEditor } from '../../components/rich-text';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,13 +24,14 @@ import { activities } from '@/lib/data/activities';
 import { GuideCommon } from '@/entities/guide/model';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { useGenerateDescriptionMutation } from '@/lib/api/groqApi';
-import { Expedition } from '@/shared/types/Expedition';
+import { Country } from '@/shared/types/Country';
+import { Language } from '@/shared/types/Language';
 
 interface ExpeditionFormProps {
-  onSubmit: (data: ExpeditionSchema) => Promise<void>;
+  onSubmit: (data: ExpeditionFormSchema) => Promise<void>;
   isSubmitting?: boolean;
   onCancel: () => void;
-  expedition?: Expedition;
+  expedition?: ExpeditionFormSchema;
   guides: any;
   buttonLabels: {
     cancel: string;
@@ -48,40 +49,18 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
 }) => {
   const { showSnackBar } = useSnackbar();
 
-  const expDefaultValues = expedition
-    ? {
-        ...defaultValues,
-        name: expedition.name,
-        description: expedition.description || '',
-        countries: expedition.countries?.map((country) => ({
-          id: country.code,
-          label: country.name,
-        })),
-        languages: expedition.languages?.map((language) => ({
-          id: language.code,
-          label: language.name,
-        })),
-        activities: expedition.activities,
-        meetingDate: new Date(expedition.meetingDate),
-        tourDuration: [
-          new Date(expedition.startDate),
-          new Date(expedition.endDate),
-        ],
-        groupSize: [expedition.minGroupSize, expedition.maxGroupSize],
-        guide: expedition.guideId,
-      }
-    : defaultValues;
+  const expDefaultValues = expedition ? expedition : defaultValues;
 
   const {
     control,
-    reset,
     handleSubmit,
     watch,
     formState: { errors, isValid },
     setValue,
-  } = useForm<ExpeditionSchema>({
+    getValues,
+  } = useForm<ExpeditionFormSchema>({
     defaultValues: expDefaultValues,
-    resolver: zodResolver(expeditionSchema),
+    resolver: zodResolver(expeditionFormSchema),
     mode: 'onChange',
   });
 
@@ -100,13 +79,13 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
     try {
       const formData = {
         name: watch('name'),
-        countries: watch('countries').map((country) => country.label),
-        languages: watch('languages').map((language) => language.label),
+        countries: watch('countries').map((country) => country.code),
+        languages: watch('languages').map((language) => language.code),
         activities: watch('activities'),
         groupSize: watch('groupSize') as [number, number],
         tourDuration: watch('tourDuration') as [Date, Date],
         meetingDate: watch('meetingDate'),
-        guide: watch('guide'),
+        guideId: watch('guideId'),
       };
 
       const { data } = await generateDescription(formData);
@@ -133,7 +112,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
         </Grid>
         <Grid item xs={6}>
           <RHFSelect
-            name='guide'
+            name='guideId'
             label='Guide'
             options={guidesOptions || []}
             control={control}
@@ -222,6 +201,10 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
             direction='row'
             justifyContent='center'
           >
+            <pre>
+              <code>{JSON.stringify(errors, null, 3)}</code>
+              <code>{JSON.stringify(getValues(), null, 3)}</code>
+            </pre>
             <Button
               type='button'
               onClick={onCancel}

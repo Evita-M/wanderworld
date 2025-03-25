@@ -13,7 +13,7 @@ export interface Expedition {
   startDate: Date;
   endDate: Date;
   description?: string;
-  guideId?: string | null;
+  guideId?: string;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 }

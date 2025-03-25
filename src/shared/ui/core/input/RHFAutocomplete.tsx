@@ -30,16 +30,18 @@ export const RHFAutocomplete = <T extends FieldValues>({
       }) => (
         <Autocomplete
           options={options || []}
-          getOptionLabel={(option: Option) => option.label}
+          getOptionLabel={(option: Option) => option.name}
           value={value}
           onChange={(_, newValue) => {
-            const selectedLabels = newValue.map((item) => item.label);
+            const selectedLabels = newValue.map((item) => item.name);
             const allMatchingOptions = options.filter((option) =>
-              selectedLabels.includes(option.label)
+              selectedLabels.includes(option.name)
             );
             onChange(allMatchingOptions);
           }}
-          isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
+          isOptionEqualToValue={(option, newValue) =>
+            option.code === newValue.code
+          }
           disableCloseOnSelect
           multiple
           ListboxProps={{
@@ -63,7 +65,7 @@ export const RHFAutocomplete = <T extends FieldValues>({
                 checkedIcon={<CheckBoxIcon />}
                 checked={selected}
               />
-              {option.label}
+              {option.name}
             </Box>
           )}
         />

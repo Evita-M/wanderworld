@@ -11,7 +11,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
 import { ExpeditionFormSkeleton } from '@/shared/ui/modules/skeleton';
-import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/types';
+import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/schema';
 
 export const EditExpedition: FC = () => {
   const { id } = useParams();
@@ -44,6 +44,7 @@ export const EditExpedition: FC = () => {
       endDate: new Date(data.tourDuration[1]) ?? undefined,
       guideId: data.guideId,
     };
+    console.log(expeditionData);
 
     try {
       if (expedition) {

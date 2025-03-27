@@ -7,7 +7,7 @@ import {
   getBadRequestResponse,
 } from '@/utils/errorHandler';
 import { Status } from '@prisma/client';
-import { apiExpeditionSchema, ExpeditionPayload } from './types';
+import { apiExpeditionSchema, ExpeditionPayload } from './schema';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,6 +60,11 @@ async function createExpedition(request: NextRequest) {
             where: { code: l.code },
             create: l,
           })),
+        },
+        guide: {
+          connect: {
+            id: guideId,
+          },
         },
         status,
       },

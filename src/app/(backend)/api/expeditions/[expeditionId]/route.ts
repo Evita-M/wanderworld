@@ -12,7 +12,7 @@ import {
   apiExpeditionSchema,
   ExpeditionPayload,
   RequestParams,
-} from '../types';
+} from '../schema';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,6 +48,16 @@ async function updateExpedition(
 ) {
   const { expeditionId } = params;
 
+  const validatedRequestBody = apiExpeditionSchema
+    .partial()
+    .safeParse(await request.json());
+
+  if (!validatedRequestBody.success) {
+    return getBadRequestResponse(validatedRequestBody.error);
+  }
+
+  const { countries, languages, guideId, ...rest } = validatedRequestBody.data;
+
   try {
     const expedition = await db.expedition.findUnique({
       where: { id: expeditionId },
@@ -60,17 +70,6 @@ async function updateExpedition(
     if (!expedition) {
       return getNotFoundResponse('Expedition');
     }
-
-    const validatedRequestBody = apiExpeditionSchema
-      .partial()
-      .safeParse(await request.json());
-
-    if (!validatedRequestBody.success) {
-      return getBadRequestResponse(validatedRequestBody.error);
-    }
-
-    const { countries, languages, guideId, ...rest } =
-      validatedRequestBody.data;
 
     const status = guideId ? Status.FINALIZED : Status.PENDING;
 
@@ -98,6 +97,11 @@ async function updateExpedition(
               (language) => !languages?.some((l) => l.code === language.code)
             )
             .map((language) => ({ code: language.code })),
+        },
+        guide: {
+          connect: {
+            id: guideId,
+          },
         },
         status,
       },

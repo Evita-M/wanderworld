@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const guideSchema = z.object({
+export const guideFormSchema = z.object({
   firstName: z.string().min(1, { message: 'First name is required' }),
   lastName: z.string().min(1, { message: 'Last name is required' }),
   phoneNumber: z
@@ -10,7 +10,7 @@ export const guideSchema = z.object({
       message: 'Please enter a valid phone number (e.g. +1 (234) 567-8901)',
     }),
   description: z.string().optional(),
-  avatar: z.string().default(''),
+  avatar: z.string().nullable().optional(),
   email: z
     .string()
     .min(1, { message: 'Info email is required' })
@@ -18,17 +18,17 @@ export const guideSchema = z.object({
       message: 'Please enter valid email',
     }),
   languages: z
-    .array(z.object({ id: z.string(), label: z.string() }))
+    .array(z.object({ code: z.string(), name: z.string() }))
     .min(1, { message: 'Please select at least one language' }),
 });
 
-export type GuideSchema = z.infer<typeof guideSchema>;
+export type GuideFormSchema = z.infer<typeof guideFormSchema>;
 
-export const initialValues: GuideSchema = {
+export const defaultValues: GuideFormSchema = {
   lastName: '',
   firstName: '',
   phoneNumber: '',
-  avatar: '',
+  avatar: null,
   description: '',
   email: '',
   languages: [],

@@ -5,18 +5,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RHFTextField, RHFAutocomplete } from '../../core/input';
 import { RichTextEditor } from '../../components/rich-text';
 import { languages } from '@/lib/data/languages';
-import { guideSchema, GuideSchema } from './validation';
-import { Guide } from '@/shared/types/Guide';
+import { defaultValues, guideFormSchema, GuideFormSchema } from './validation';
 
 interface GuideFormProps {
-  onSubmit: (data: GuideSchema) => Promise<void>;
+  onSubmit: (data: GuideFormSchema) => Promise<void>;
   isSubmitting?: boolean;
-  onCancel: () => void;
-  guide?: Guide;
+  onCancel: VoidFunction;
   buttonLabels: {
     cancel: string;
     submit: string;
   };
+  guide?: GuideFormSchema;
 }
 
 export const GuideForm: FC<GuideFormProps> = ({
@@ -26,36 +25,16 @@ export const GuideForm: FC<GuideFormProps> = ({
   guide,
   buttonLabels,
 }) => {
-  const defaultValues = guide
-    ? {
-        firstName: guide.firstName,
-        lastName: guide.lastName,
-        phoneNumber: guide.phoneNumber,
-        description: guide.description ?? '',
-        avatar: guide.avatar,
-        email: guide.email,
-        languages: guide.languages?.map((language) => ({
-          id: language.code,
-          label: language.name,
-        })),
-      }
-    : {
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        description: '',
-        avatar: '',
-        email: '',
-        languages: [],
-      };
+  const guideDefaultValues = guide ? guide : defaultValues;
 
   const {
     handleSubmit,
     formState: { errors, isValid },
     control,
-  } = useForm<GuideSchema>({
-    defaultValues,
-    resolver: zodResolver(guideSchema),
+    getValues,
+  } = useForm<GuideFormSchema>({
+    defaultValues: guideDefaultValues,
+    resolver: zodResolver(guideFormSchema),
     mode: 'onChange',
   });
 
@@ -124,6 +103,10 @@ export const GuideForm: FC<GuideFormProps> = ({
           </Stack>
         </Grid>
         <Grid item xs={12}>
+          <pre>
+            <code>{JSON.stringify(errors, null, 3)}</code>
+            <code>{JSON.stringify(getValues(), null, 3)}</code>
+          </pre>
           <Stack
             maxWidth='50rem'
             m='0 auto'

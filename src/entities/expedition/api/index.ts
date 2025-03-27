@@ -4,7 +4,7 @@ import {
   CreateExpeditionRequestBody,
   UpdateExpeditionRequestBody,
   ExpeditionPayload,
-} from '@/app/(backend)/api/expeditions/types';
+} from '@/app/(backend)/api/expeditions/schema';
 import { BaseResponse } from '@/utils/errorHandler';
 
 const baseQuery = fetchBaseQuery({

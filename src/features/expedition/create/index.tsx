@@ -7,8 +7,8 @@ import { useGetGuidesQuery } from '@/entities/guide/api';
 import { ExpeditionForm } from '@/shared/ui/modules/expedition-form';
 import { routes } from '@/lib/config/routes';
 import { useRouter } from 'next/navigation';
-import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/types';
 import { ExpeditionFormSchema } from '@/shared/ui/modules/expedition-form/validation';
+import { CreateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/schema';
 
 export const CreateExpedition: FC = () => {
   const router = useRouter();

@@ -41,7 +41,7 @@ model Guide {
   phoneNumber  String
   languages    Language[]     @relation("GuideLanguages")
   description  String?
-  avatar       String
+  avatar       String?
   expeditions  Expedition[]   @relation("ExpeditionGuide")
   createdAt    DateTime       @default(now())
   updatedAt    DateTime?      @updatedAt

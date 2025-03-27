@@ -2,51 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 import {
   BaseResponse,
+  ErrorResponse,
+  getBadRequestResponse,
   getDuplicateResponse,
   getNotFoundResponse,
   getServerErrorResponse,
 } from '@/utils/errorHandler';
-import { Guide, Prisma } from '@prisma/client';
+import { RequestParams, GuidePayload, apiGuideSchema } from '../schema';
 
 export const dynamic = 'force-dynamic';
 
-type GetGuideParams = {
-  guideId: string;
-};
-
-type DeleteGuideParams = {
-  guideId: string;
-};
-
-type GuideResponse = Guide;
-
-type UpdateGuideParams = {
-  guideId: string;
-};
-
-type UpdateGuideRequestBody = Partial<
-  Omit<Prisma.GuideUpdateInput, 'id' | 'createdAt' | 'updatedAt'>
-> & {
-  email: string;
-};
-
 async function getGuide(
   _request: NextRequest,
-  { params }: { params: GetGuideParams }
-) {
+  { params }: { params: RequestParams }
+): Promise<NextResponse<GuidePayload | ErrorResponse>> {
   const { guideId } = params;
 
   try {
     const guide = await db.guide.findUnique({
       where: { id: guideId },
-      include: { expeditions: true },
+      include: { expeditions: true, languages: true },
     });
 
     if (!guide) {
       return getNotFoundResponse('Guide');
     }
 
-    return NextResponse.json<GuideResponse>(guide);
+    return NextResponse.json<GuidePayload>(guide);
   } catch (error) {
     return getServerErrorResponse(error);
   }
@@ -54,32 +36,54 @@ async function getGuide(
 
 async function updateGuide(
   request: NextRequest,
-  { params }: { params: UpdateGuideParams }
+  { params }: { params: RequestParams }
 ) {
   const { guideId } = params;
+
+  const validatedRequestBody = apiGuideSchema
+    .partial()
+    .safeParse(await request.json());
+
+  if (!validatedRequestBody.success) {
+    return getBadRequestResponse(validatedRequestBody.error);
+  }
+
+  const { languages, email, ...rest } = validatedRequestBody.data;
 
   try {
     const guide = await db.guide.findUnique({
       where: { id: guideId },
+      include: { expeditions: true, languages: true },
     });
 
     if (!guide) {
       return getNotFoundResponse('Guide');
     }
 
-    const requestBody: UpdateGuideRequestBody = await request.json();
-
-    if (requestBody.email) {
+    if (email) {
       const emailExists = await db.guide.findUnique({
-        where: { email: requestBody.email },
+        where: { email },
       });
       if (emailExists && emailExists.id !== guideId) {
-        return getDuplicateResponse('Guide', 'email', requestBody.email);
+        return getDuplicateResponse('Guide', 'email', email);
       }
     }
 
     await db.guide.update({
-      data: requestBody,
+      data: {
+        ...rest,
+        languages: {
+          connectOrCreate: languages?.map((l) => ({
+            where: { code: l.code },
+            create: l,
+          })),
+          disconnect: guide.languages
+            .filter(
+              (language) => !languages?.some((l) => l.code === language.code)
+            )
+            .map((language) => ({ code: language.code })),
+        },
+      },
       where: { id: guideId },
     });
 
@@ -94,7 +98,7 @@ async function updateGuide(
 
 async function deleteGuide(
   _request: NextRequest,
-  { params }: { params: DeleteGuideParams }
+  { params }: { params: RequestParams }
 ) {
   const { guideId } = params;
 

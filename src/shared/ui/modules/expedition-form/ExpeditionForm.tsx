@@ -24,19 +24,17 @@ import { activities } from '@/lib/data/activities';
 import { GuideCommon } from '@/entities/guide/model';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
 import { useGenerateDescriptionMutation } from '@/lib/api/groqApi';
-import { Country } from '@/shared/types/Country';
-import { Language } from '@/shared/types/Language';
 
 interface ExpeditionFormProps {
   onSubmit: (data: ExpeditionFormSchema) => Promise<void>;
   isSubmitting?: boolean;
-  onCancel: () => void;
-  expedition?: ExpeditionFormSchema;
+  onCancel: VoidFunction;
   guides: any;
   buttonLabels: {
     cancel: string;
     submit: string;
   };
+  expedition?: ExpeditionFormSchema;
 }
 
 export const ExpeditionForm: FC<ExpeditionFormProps> = ({
@@ -98,6 +96,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
       showSnackBar('Failed to generate description', 'error');
     }
   };
+  console.log(watch('guideId'));
 
   return (
     <Stack component='form' onSubmit={handleSubmit(onSubmit)}>

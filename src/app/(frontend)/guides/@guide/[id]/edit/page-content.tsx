@@ -33,7 +33,7 @@ const PageContent = () => {
       <Typography variant='h3' mb='4rem'>
         Edit Guide
       </Typography>
-      <EditGuide guide={guide as GuideCommon} />
+      <EditGuide guide={guide} />
     </Stack>
   );
 };

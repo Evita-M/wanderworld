@@ -2,18 +2,19 @@
 
 import { FC } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useUpdateGuideMutation } from '@/entities/guide/api';
+import { useGetGuideQuery, useUpdateGuideMutation } from '@/entities/guide/api';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
-import { Guide, GuideCommon } from '@/entities/guide/model';
 import { GuideForm } from '@/shared/ui/modules/guide-form';
-import { useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
+import { GuideFormSchema } from '@/shared/ui/modules/guide-form/validation';
+import { UpdateGuideRequestBody } from '@/app/(backend)/api/guides/schema';
+import { Loader } from '@/shared/ui/core/loader';
 
-import { GuideSchema } from '@/shared/ui/modules/guide-form/validation';
-interface EditGuideProps {
-  guide: GuideCommon;
-}
-
-export const EditGuide: FC<EditGuideProps> = ({ guide }) => {
+export const EditGuide: FC = () => {
+  const { id } = useParams();
+  const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(
+    id as string
+  );
   const [updateGuide, { isLoading: isUpdateGuideLoading }] =
     useUpdateGuideMutation();
   const { showSnackBar } = useSnackbar();
@@ -23,13 +24,13 @@ export const EditGuide: FC<EditGuideProps> = ({ guide }) => {
     router.back();
   };
 
-  async function handleOnSubmit(data: GuideSchema) {
-    const guideData: Partial<Guide> = {
+  async function handleOnSubmit(data: GuideFormSchema) {
+    const guideData: UpdateGuideRequestBody = {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       phoneNumber: data.phoneNumber,
-      description: data.description || null,
+      description: data.description,
       avatar: data.avatar,
       languages: data.languages,
     };
@@ -51,12 +52,31 @@ export const EditGuide: FC<EditGuideProps> = ({ guide }) => {
     }
   }
 
-  return (
+  if (!guide && !isGetGuideLoading) {
+    notFound();
+  }
+
+  const remapedGuide = guide
+    ? {
+        id: guide.id,
+        firstName: guide.firstName,
+        lastName: guide.lastName,
+        email: guide.email,
+        phoneNumber: guide.phoneNumber,
+        description: guide.description || undefined,
+        avatar: guide.avatar,
+        languages: guide.languages.map((l) => ({ code: l.code, name: l.name })),
+      }
+    : undefined;
+
+  return isGetGuideLoading ? (
+    <Loader />
+  ) : (
     <GuideForm
       onSubmit={handleOnSubmit}
       onCancel={handleOnCancel}
       isSubmitting={isUpdateGuideLoading}
-      guide={guide}
+      guide={remapedGuide}
       buttonLabels={{ cancel: 'Cancel', submit: 'Save changes' }}
     />
   );

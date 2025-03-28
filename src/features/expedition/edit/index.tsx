@@ -1,4 +1,5 @@
 'use client';
+
 import { FC } from 'react';
 import { useUpdateExpeditionMutation } from '@/entities/expedition/api';
 import { useSnackbar } from '@/lib/hooks/useSnackbar';
@@ -10,15 +11,14 @@ import {
 import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
-import { ExpeditionFormSkeleton } from '@/shared/ui/modules/skeleton';
 import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/schema';
+import { Loader } from '@/shared/ui/core/loader';
 
 export const EditExpedition: FC = () => {
   const { id } = useParams();
   const router = useRouter();
   const { data: expedition, isLoading: isGetExpeditionLoading } =
     useGetExpeditionQuery(id as string);
-  console.log({ expedition });
   const [updateExedition, { isLoading: isUpdateExeditionLoading }] =
     useUpdateExpeditionMutation();
 
@@ -44,7 +44,6 @@ export const EditExpedition: FC = () => {
       endDate: new Date(data.tourDuration[1]) ?? undefined,
       guideId: data.guideId,
     };
-    console.log(expeditionData);
 
     try {
       if (expedition) {
@@ -79,7 +78,7 @@ export const EditExpedition: FC = () => {
   return (
     <>
       {isGetExpeditionLoading ? (
-        <ExpeditionFormSkeleton />
+        <Loader />
       ) : (
         <ExpeditionForm
           onSubmit={handleOnSubmit}
@@ -89,7 +88,7 @@ export const EditExpedition: FC = () => {
           guides={guides}
           buttonLabels={{
             cancel: 'Cancel',
-            submit: 'Edit expedition',
+            submit: 'Save changes',
           }}
         />
       )}

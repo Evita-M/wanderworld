@@ -60,8 +60,8 @@
 
 ```bash
 # Required environment variables
-NEXT_PUBLIC_API_URL=your_api_url
 GROQ_API_KEY=your_groq_api_key
+DATABASE_URL=your_database_url
 ```
 
 ## 🚀 Getting Started

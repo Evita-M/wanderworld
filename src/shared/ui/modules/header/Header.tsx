@@ -2,8 +2,8 @@
 import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
 import { routes } from '@/lib/config/routes';
-import { Logo } from '@/shared/ui/core/logo';
-import { Link as LinkType, NavLink } from '@/shared/ui/core/link';
+import { Logo } from '@/shared/ui/core/logo/logo';
+import { Link as LinkType, NavLink } from '@/shared/ui/core/link/nav-link';
 
 const navLinks: LinkType[] = [
   {

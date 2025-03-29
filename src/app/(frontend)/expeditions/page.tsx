@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import PageContent from './page-content';
-import { PageContainer } from '@/shared/ui/core/layout';
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
 
 export const metadata: Metadata = {
   title: 'Expeditions',

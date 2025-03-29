@@ -1,3 +1,3 @@
-export * from './RichTextEditor';
-export * from './MenuBar';
+export * from './rich-text-editor';
+export * from './menu-bar';
 export * from './types';

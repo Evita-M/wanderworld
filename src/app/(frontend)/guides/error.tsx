@@ -1,5 +1,5 @@
 'use client';
-import { ErrorBoundary } from '@/shared/ui/modules/error-boundary';
+import { ErrorBoundary } from '@/shared/ui/modules/error-boundary/error-boundary';
 
 interface ErrorProps {
   error: Error & {

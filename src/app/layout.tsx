@@ -6,7 +6,7 @@ import './globals.css';
 import { museoModerno, notoSans } from '@/styles/fonts';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/styles/theme';
-import { Header } from '@/shared/ui/modules/header';
+import { Header } from '@/shared/ui/modules/header/header';
 
 export const metadata: Metadata = {
   title: {

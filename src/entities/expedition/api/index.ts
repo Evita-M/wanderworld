@@ -5,7 +5,7 @@ import {
   UpdateExpeditionRequestBody,
   ExpeditionPayload,
 } from '@/app/(backend)/api/expeditions/schema';
-import { BaseResponse } from '@/utils/errorHandler';
+import { BaseResponse } from '@/utils/error-handler/error-handler';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api/expeditions',

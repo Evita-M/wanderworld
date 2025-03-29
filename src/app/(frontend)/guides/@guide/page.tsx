@@ -1,6 +1,6 @@
 'use client';
 import { useGetGuidesQuery } from '@/entities/guide/api';
-import { EmptyState } from '@/shared/ui/components/empty-state';
+import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
 import { borderRadius } from '@/styles/border-radius';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';

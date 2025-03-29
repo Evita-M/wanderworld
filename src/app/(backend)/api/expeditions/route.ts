@@ -5,7 +5,7 @@ import {
   getNotFoundResponse,
   getServerErrorResponse,
   getBadRequestResponse,
-} from '@/utils/errorHandler';
+} from '@/utils/error-handler/error-handler';
 import { Status } from '@prisma/client';
 import { apiExpeditionSchema, ExpeditionPayload } from './schema';
 

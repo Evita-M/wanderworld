@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ActionsProps } from './types';
 import { Stack } from '@mui/material';
-import { ActionButton } from './ActionButton';
+import { ActionButton } from './action-button';
 
 export const Actions: FC<ActionsProps> = ({
   actions,

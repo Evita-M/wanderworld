@@ -1,5 +1,5 @@
 import db from '@/lib/db';
-import { handleError } from '@/utils/errorHandler';
+import { handleError } from '@/utils/error-handler/error-handler';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';

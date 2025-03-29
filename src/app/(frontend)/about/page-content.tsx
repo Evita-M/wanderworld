@@ -2,8 +2,8 @@
 
 import { aboutContent } from '@/lib/data/about';
 import { features } from '@/lib/data/features';
-import { ResponsiveImage } from '@/shared/ui/core/layout';
-import { PageHeader } from '@/shared/ui/core/typography';
+import { ResponsiveImage } from '@/shared/ui/core/layout/responsive-image';
+import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { Stack, Typography, Box, Grid, useTheme } from '@mui/material';
 import { darken } from '@mui/material/styles';
 import MapIcon from '@mui/icons-material/Map';
@@ -68,7 +68,7 @@ const PageContent = () => {
         </Grid>
 
         <Box>
-          <Typography variant='h4' component='h2'mb='3.2rem'>
+          <Typography variant='h4' component='h2' mb='3.2rem'>
             {aboutContent.whatSetsUsApart.title}
           </Typography>
           <Grid container spacing={3}>
@@ -101,10 +101,12 @@ const PageContent = () => {
                       sx={{
                         color: customColors[index].main,
                         display: 'flex',
-                        alignItems: 'center'
+                        alignItems: 'center',
                       }}
                     >
-                      {createElement(iconComponents[feature.icon as IconName], { sx: { fontSize: '8rem' } })}
+                      {createElement(iconComponents[feature.icon as IconName], {
+                        sx: { fontSize: '8rem' },
+                      })}
                     </Box>
                   </Stack>
                 </Box>
@@ -124,7 +126,7 @@ const PageContent = () => {
               <Typography paragraph>
                 {aboutContent.community.paragraphs[1]}
               </Typography>
-              <Typography color='text.secondary' fontStyle="italic">
+              <Typography color='text.secondary' fontStyle='italic'>
                 {aboutContent.community.closing}
               </Typography>
             </Grid>

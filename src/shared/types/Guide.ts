@@ -1,5 +1,5 @@
-import { Expedition } from './Expedition';
-import { Language } from './Language';
+import { Expedition } from './expedition';
+import { Language } from './language';
 
 export type Guide = {
   id: string;
@@ -7,8 +7,8 @@ export type Guide = {
   lastName: string;
   email: string;
   phoneNumber: string;
-  description: string;
-  avatar: string;
+  description?: string | null;
+  avatar?: string;
   expeditions: Expedition[];
   languages: Language[];
 };

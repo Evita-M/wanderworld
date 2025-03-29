@@ -1,11 +1,12 @@
 'use client';
-import { CreateExpedition } from '@/features/expedition/create';
-import { BackButton } from '@/shared/ui/core/button';
-import { PageContainer } from '@/shared/ui/core/layout';
-import { PageHeader } from '@/shared/ui/core/typography';
+
 import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/lib/config/routes';
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
+import { PageHeader } from '@/shared/ui/core/typography/page-header';
+import { BackButton } from '@/shared/ui/core/button/back-button';
+import { CreateExpedition } from '@/features/create-expedition/create-expedition';
 
 const PageContent = () => {
   const router = useRouter();

@@ -3,11 +3,9 @@ import Groq from 'groq-sdk';
 import {
   getNotFoundResponse,
   getServerErrorResponse,
-} from '@/utils/errorHandler';
-import { countries } from '@/lib/data/countries';
-import { languages } from '@/lib/data/languages';
-import { activities } from '@/lib/data/activities';
-import { getNames } from '@/utils/get-names';
+} from '@/utils/error-handler/error-handler';
+import { Country } from '@/shared/types/country';
+import { Language } from '@/shared/types/language';
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -15,8 +13,8 @@ const groq = new Groq({
 
 interface GenerateExpeditionRequestBody {
   name: string;
-  countries: string[];
-  languages: string[];
+  countries: Country[];
+  languages: Language[];
   activities: string[];
   groupSize: [number, number];
   tourDuration: [Date, Date];
@@ -37,9 +35,9 @@ async function generateExpeditionDescription(request: NextRequest) {
 
 	# Description Data:
     - Name: ${requestBody.name}
-    - Countries: ${getNames(requestBody.countries, countries)}
-    - Languages: ${getNames(requestBody.languages, languages)}
-    - Activities: ${getNames(requestBody.activities, activities)}
+    - Countries: ${requestBody.countries.map((country) => country.name)}
+    - Languages: ${requestBody.languages.map((language) => language.name)}
+    - Activities: ${requestBody.activities.map((activity) => activity)}
     - Group size: ${requestBody.groupSize[0]} to ${requestBody.groupSize[1]} people
     - Duration: From ${new Date(requestBody.tourDuration[0]).toLocaleDateString()} to ${new Date(requestBody.tourDuration[1]).toLocaleDateString()}
     - Meeting date: ${new Date(requestBody.meetingDate).toLocaleString()}

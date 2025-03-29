@@ -1,8 +1,9 @@
 'use client';
+
 import { useGetGuidesQuery } from '@/entities/guide/api';
-import { GuidesListContent } from '@/entities/guide/ui/guide-list-content';
-import { EmptyState } from '@/shared/ui/components/empty-state';
-import { handleRTKQueryError } from '@/utils/errorHandler';
+import { GuidesListContent } from '@/entities/guide/ui/guide-list-content/guide-list-content';
+import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
+import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
 import { Stack } from '@mui/material';
 import { notFound } from 'next/navigation';
 

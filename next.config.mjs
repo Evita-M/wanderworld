@@ -5,15 +5,10 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-    ],
-  },
   transpilePackages: ['@mui/material', '@mui/system', '@mui/icons-material'],
+  images: {
+    domains: ['fakeimg.pl'],
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Ensure that all imports of 'yjs' resolve to the same instance

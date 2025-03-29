@@ -2,7 +2,7 @@
 import { Stack } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import { PageContainer } from '@/shared/ui/core/layout';
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
 
 export default function GuidesLayout({
   children,

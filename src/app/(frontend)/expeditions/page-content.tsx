@@ -4,14 +4,14 @@ import { Box, Grid, Stack } from '@mui/material';
 import { FC, useMemo, useState } from 'react';
 import { useGetExpeditionsQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
-import { Loader } from '@/shared/ui/core/loader';
-import { PageHeader } from '@/shared/ui/core/typography';
-import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item';
-import { EmptyState } from '@/shared/ui/components/empty-state';
-import { SortOrder } from '@/features/expedition/sort';
 import { sortByDate } from '@/utils/sort-by-date';
-import { handleRTKQueryError } from '@/utils/errorHandler';
 import { notFound } from 'next/navigation';
+import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
+import { Loader } from '@/shared/ui/core/loader/loader';
+import { SortOrder } from '@/features/sort-order/sort-order';
+import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item/expedition-item';
+import { PageHeader } from '@/shared/ui/core/typography/page-header';
+import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
 
 const PageContent: FC = () => {
   const {

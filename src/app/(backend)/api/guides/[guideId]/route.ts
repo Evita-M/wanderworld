@@ -7,7 +7,7 @@ import {
   getDuplicateResponse,
   getNotFoundResponse,
   getServerErrorResponse,
-} from '@/utils/errorHandler';
+} from '@/utils/error-handler/error-handler';
 import { RequestParams, GuidePayload, apiGuideSchema } from '../schema';
 
 export const dynamic = 'force-dynamic';

@@ -10,22 +10,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { routes } from '@/lib/config/routes';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { useGetGuideQuery } from '@/entities/guide/api';
-import { Loader } from '@/shared/ui/core/loader';
-import { Actions } from '@/shared/ui/modules/actions';
-import { PageHeader } from '@/shared/ui/core/typography';
-import { ModalConfirmation } from '@/shared/ui/modules/modal';
+import { Loader } from '@/shared/ui/core/loader/loader';
+import { PageHeader } from '@/shared/ui/core/typography/page-header';
+import { ModalConfirmation } from '@/shared/ui/modules/modal/modal-confirmation';
 import PeopleIcon from '@mui/icons-material/People';
-import { handleRTKQueryError } from '@/utils/errorHandler';
-import { useModal } from '@/lib/hooks/useModal';
-import { useSnackbar } from '@/lib/hooks/useSnackbar';
+import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
+import { useModal } from '@/lib/hooks/use-modal';
+import { useSnackbar } from '@/lib/hooks/use-snackbar';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Image from 'next/image';
 import { differenceInDays } from 'date-fns';
 import { ClockIcon } from '@mui/x-date-pickers';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import { GuideInfo } from '@/widgets/guide-info/ui/GuideInfo';
-import { FeatureList } from '@/widgets/feature-list/ui/FeatureList';
-import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/ExpeditionTabs';
+import { Actions } from '@/shared/ui/modules/actions';
+import { FeatureList } from '@/widgets/feature-list/ui/feature-list';
+import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
+import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/expedition-tabs';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -181,7 +181,16 @@ const PageContent = () => {
             <FeatureList features={features} />
           </div>
           <div className='space-y-6'>
-            <GuideInfo guide={guide} />
+            {guide ? (
+              <GuideInfo
+                id={guide?.id ?? ''}
+                fullName={`${guide?.firstName} ${guide?.lastName}`}
+                email={guide.email}
+                avatar={guide?.avatar ?? ''}
+              />
+            ) : (
+              <Typography>No guide assigned yet</Typography>
+            )}
           </div>
           <div className='space-y-6 pt-8 lg:col-span-2'>
             <ExpeditionTabs

@@ -1,5 +1,5 @@
-import { Country } from './Country';
-import { Language } from './Language';
+import { Country } from './country';
+import { Language } from './language';
 
 export interface Expedition {
   id: string;
@@ -12,8 +12,8 @@ export interface Expedition {
   maxGroupSize: number;
   startDate: Date;
   endDate: Date;
-  description?: string;
-  guideId?: string;
+  description?: string | null;
+  guideId: string | null;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt: Date | null;
 }

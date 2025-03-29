@@ -6,8 +6,8 @@ import theme from '@/styles/theme';
 import { CssBaseline } from '@mui/material/';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
-import { ModalProvider } from './ModalProvider';
-import { SnackbarProvider } from './SnackProvider';
+import { ModalProvider } from './modal-provider';
+import { SnackbarProvider } from './snack-provider';
 
 interface ProvidersProps {
   children: ReactNode;

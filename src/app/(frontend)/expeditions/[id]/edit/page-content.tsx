@@ -1,8 +1,8 @@
 'use client';
-import { EditExpedition } from '@/features/expedition/edit';
+import { EditExpedition } from '@/features/edit-expedition/edit-expedition';
 import { routes } from '@/lib/config/routes';
-import { BackButton } from '@/shared/ui/core/button';
-import { PageHeader } from '@/shared/ui/core/typography';
+import { BackButton } from '@/shared/ui/core/button/back-button';
+import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function PageContent() {

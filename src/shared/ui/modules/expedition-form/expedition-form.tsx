@@ -20,10 +20,10 @@ import { FC, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { activities } from '@/lib/data/activities';
-import { GuideCommon } from '@/entities/guide/model';
 import { useSnackbar } from '@/lib/hooks/use-snackbar';
 import { useGenerateDescriptionMutation } from '@/lib/api/groq-api';
 import { RichTextEditor } from '@/shared/ui/components/rich-text/editor';
+import { Guide } from '@/shared/types/guide';
 
 interface ExpeditionFormProps {
   onSubmit: (data: ExpeditionFormSchema) => Promise<void>;
@@ -64,7 +64,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
 
   // Memoize guides dropdown options
   const guidesOptions = useMemo(() => {
-    return guides?.map((guide: GuideCommon) => ({
+    return guides?.map((guide: Guide) => ({
       id: guide.id,
       label: `${guide.firstName} ${guide.lastName}`,
     }));

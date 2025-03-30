@@ -7,7 +7,7 @@ import { routes } from '@/lib/config/routes';
 import { sortByDate } from '@/utils/sort-by-date';
 import { notFound } from 'next/navigation';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
-import { Loader } from '@/shared/ui/core/loader/loader';
+// import { Loader } from '@/shared/ui/core/loader/loader';
 import { SortOrder } from '@/features/sort-order/sort-order';
 import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item/expedition-item';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
@@ -50,7 +50,7 @@ const PageContent: FC = () => {
           height='100%'
           flex='1 1 100%'
         >
-          <Loader />
+          {/* <Loader /> */}
         </Box>
       ) : expeditions?.length ? (
         <>

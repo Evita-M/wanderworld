@@ -9,7 +9,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
 import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/schema';
-import { Loader } from '@/shared/ui/core/loader/loader';
+// import { Loader } from '@/shared/ui/core/loader/loader';
 import { ExpeditionForm } from '@/shared/ui/modules/expedition-form/expedition-form';
 import { ExpeditionFormSchema } from '@/shared/ui/modules/expedition-form/validation';
 
@@ -77,7 +77,8 @@ export const EditExpedition: FC = () => {
   return (
     <>
       {isGetExpeditionLoading ? (
-        <Loader />
+        // <Loader />
+        <div>Loading...</div>
       ) : (
         <ExpeditionForm
           onSubmit={handleOnSubmit}

@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { routes } from '@/lib/config/routes';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { useGetGuideQuery } from '@/entities/guide/api';
-import { Loader } from '@/shared/ui/core/loader/loader';
+// import { Loader } from '@/shared/ui/core/loader/loader';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { ModalConfirmation } from '@/shared/ui/modules/modal/modal-confirmation';
 import PeopleIcon from '@mui/icons-material/People';
@@ -54,7 +54,7 @@ const PageContent = () => {
   if (isExpeditionLoading || isGuideLoading) {
     return (
       <Stack justifyContent='center' height='100%' flex='1 1 100%'>
-        <Loader />
+        {/* <Loader /> */}
       </Stack>
     );
   }

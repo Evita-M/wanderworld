@@ -12,7 +12,7 @@ import { Loader } from '@/shared/ui/core/loader/loader';
 
 export const EditGuide: FC = () => {
   const { id } = useParams();
-  const { data: guideData, isLoading: isGetGuideLoading } = useGetGuideQuery(
+  const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(
     id as string
   );
   const [updateGuide, { isLoading: isUpdateGuideLoading }] =
@@ -24,7 +24,7 @@ export const EditGuide: FC = () => {
     router.back();
   };
 
-  if (!guideData && !isGetGuideLoading) {
+  if (!guide && !isGetGuideLoading) {
     notFound();
   }
 
@@ -40,9 +40,9 @@ export const EditGuide: FC = () => {
     };
 
     try {
-      if (guideData) {
+      if (guide && guideData) {
         await updateGuide({
-          id: guideData.id,
+          id: guide.id,
           data: guideData,
         }).unwrap();
         showSnackBar('Your changes were saved!', 'success');
@@ -56,20 +56,16 @@ export const EditGuide: FC = () => {
     }
   }
 
-  if (!guideData && !isGetGuideLoading) {
-    notFound();
-  }
-
-  const remapedGuide = guideData
+  const remapedGuide = guide
     ? {
-        id: guideData.id,
-        firstName: guideData.firstName,
-        lastName: guideData.lastName,
-        email: guideData.email,
-        phoneNumber: guideData.phoneNumber,
-        description: guideData.description || undefined,
-        avatar: guideData.avatar,
-        languages: guideData.languages.map((l) => ({
+        id: guide.id,
+        firstName: guide.firstName,
+        lastName: guide.lastName,
+        email: guide.email,
+        phoneNumber: guide.phoneNumber,
+        description: guide.description || undefined,
+        avatar: guide.avatar,
+        languages: guide.languages.map((l) => ({
           code: l.code,
           name: l.name,
         })),

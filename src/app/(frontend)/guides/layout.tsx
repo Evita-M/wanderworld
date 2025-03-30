@@ -1,6 +1,6 @@
 'use client';
 import { Stack } from '@mui/material';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { PageContainer } from '@/shared/ui/core/layout/page-container';
 

@@ -1,6 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React, { FC, useEffect, useRef, useState, useMemo } from 'react';
+import { FC, useEffect, useRef, useState, useMemo } from 'react';
 import Underline from '@tiptap/extension-underline';
 
 import '../styles.css';

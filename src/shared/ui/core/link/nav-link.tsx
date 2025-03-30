@@ -1,7 +1,7 @@
 'use client';
 import { Typography } from '@mui/material';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { usePathname } from 'next/navigation';
 
 export interface Link {

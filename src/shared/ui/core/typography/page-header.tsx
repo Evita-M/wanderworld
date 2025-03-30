@@ -3,7 +3,7 @@ import { grey } from '@mui/material/colors';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
 
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface PageHeaderProps {
   title: string;

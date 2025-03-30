@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useState,
-  useEffect,
-  FC,
-  ReactNode,
-  isValidElement,
-} from 'react';
+import { useState, useEffect, FC, ReactNode, isValidElement } from 'react';
 
 interface TypewriterProps {
   children: ReactNode;

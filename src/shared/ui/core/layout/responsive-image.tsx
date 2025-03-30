@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 export type Image = {
   alt: string;

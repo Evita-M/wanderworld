@@ -27,7 +27,7 @@ export const GuideList: FC<GuideListProps> = ({ guides }) => {
           fullName={`${guide.firstName} ${guide.lastName}`}
           avatarSrc={guide.avatar ?? ''}
           languages={languages}
-          onClick={() => router.push(`/${routes.guides}/${id}`)}
+          onClick={() => router.push(`${routes.guides}/${id}`)}
           id={id}
         />
       ))}

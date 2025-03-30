@@ -98,11 +98,13 @@ async function updateExpedition(
             )
             .map((language) => ({ code: language.code })),
         },
-        guide: {
-          connect: {
-            id: guideId,
+        ...(guideId && {
+          guide: {
+            connect: {
+              id: guideId,
+            },
           },
-        },
+        }),
         status,
       },
       where: { id: expeditionId },

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Chip, darken, Stack } from '@mui/material';
 import { getLanguageColor } from '@/utils/get-language-color';
-import { Language } from '@/shared/types/Language';
+import { Language } from '@/shared/types/language';
 
 export type LanguageCode =
   | 'en'

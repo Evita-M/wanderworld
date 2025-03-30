@@ -1,4 +1,4 @@
-import { Option } from '@/lib/types';
+import { Option } from '@/shared/types/option';
 import {
   FormControl,
   FormControlLabel,
@@ -37,10 +37,10 @@ export function RHFRadioButtonGroup<T extends FieldValues>({
             <RadioGroup>
               {options?.map((option) => (
                 <FormControlLabel
-                  label={option.label}
-                  value={option.id}
-                  key={option.id}
-                  control={<Radio checked={option.id === field.value} />}
+                  label={option.name}
+                  value={option.code}
+                  key={option.code}
+                  control={<Radio checked={option.code === field.value} />}
                 />
               ))}
             </RadioGroup>

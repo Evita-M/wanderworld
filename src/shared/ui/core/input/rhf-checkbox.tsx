@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Controller, FieldValues, Path, Control } from 'react-hook-form';
-import { Option } from '@/lib/types';
+import { Option } from '@/shared/types/option';
 interface RHFCheckboxProps<T extends FieldValues> {
   name: Path<T>;
   control: Control<T>;

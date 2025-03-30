@@ -1,4 +1,4 @@
-import { Option } from '@/lib/types';
+import { Option } from '@/shared/types/option';
 import {
   Stack,
   ToggleButton,
@@ -35,12 +35,12 @@ export function RHFToggleButtonGroup<T extends FieldValues>({
                 onChange(newValue);
               }
             }}
-            value={value.length ? value : [options?.[0].id]}
+            value={value.length ? value : [options?.[0].code]}
             {...restField}
           >
             {options?.map((option) => (
-              <ToggleButton value={option.id} key={option.id}>
-                {option.label}
+              <ToggleButton value={option.code} key={option.code}>
+                {option.name}
               </ToggleButton>
             ))}
           </ToggleButtonGroup>

@@ -1,6 +1,13 @@
 'use client';
 
-import { useState, useEffect, FC, ReactNode, isValidElement } from 'react';
+import {
+  useState,
+  useEffect,
+  FC,
+  ReactNode,
+  isValidElement,
+  cloneElement,
+} from 'react';
 
 interface TypewriterProps {
   children: ReactNode;
@@ -41,6 +48,6 @@ export const Typewriter: FC<TypewriterProps> = ({
 
   // Render Typography with the typewriter effect
   return isValidElement(children)
-    ? React.cloneElement(children, {}, currentText)
+    ? cloneElement(children, {}, currentText)
     : null;
 };

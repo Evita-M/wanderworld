@@ -1,7 +1,7 @@
 'use client';
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { GuideDetail } from '@/entities/guide/ui/guide-details/guide-detaiks';
-// import { Loader } from '@/shared/ui/core/loader/loader';
+import { Loader } from '@/shared/ui/core/loader/loader';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
 import { notFound, useParams } from 'next/navigation';
 
@@ -27,8 +27,7 @@ const GuidePageContent = () => {
   }
 
   return isGetGuideLoading ? (
-    // <Loader />
-    <div>Loading...</div>
+    <Loader />
   ) : (
     guide && (
       <>

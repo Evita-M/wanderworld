@@ -8,7 +8,7 @@ import { GuideForm } from '@/shared/ui/modules/guide-form/guide-form';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import { GuideFormSchema } from '@/shared/ui/modules/guide-form/validation';
 import { UpdateGuideRequestBody } from '@/app/(backend)/api/guides/schema';
-// import { Loader } from '@/shared/ui/core/loader/loader';
+import { Loader } from '@/shared/ui/core/loader/loader';
 
 export const EditGuide: FC = () => {
   const { id } = useParams();
@@ -73,8 +73,7 @@ export const EditGuide: FC = () => {
     : undefined;
 
   return isGetGuideLoading ? (
-    // <Loader />
-    <div>Loading...</div>
+    <Loader />
   ) : (
     <GuideForm
       onSubmit={handleOnSubmit}

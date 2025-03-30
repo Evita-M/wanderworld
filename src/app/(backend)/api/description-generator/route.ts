@@ -29,15 +29,21 @@ async function generateExpeditionDescription(request: NextRequest) {
       return getNotFoundResponse('Form data input');
     }
 
+    // Transform countries and languages to match the expected format
+    const countryNames = requestBody.countries.map((country) => country.name);
+    const languageNames = requestBody.languages.map(
+      (language) => language.name
+    );
+
     const prompt = `
 	You are a travel expert AI assistant and professional content editor. Your job is to generate a detailed description
 	 for an expedition with the following Description Data in this specific Description Content and always following the Description Rules.
 
 	# Description Data:
     - Name: ${requestBody.name}
-    - Countries: ${requestBody.countries.map((country) => country.name)}
-    - Languages: ${requestBody.languages.map((language) => language.name)}
-    - Activities: ${requestBody.activities.map((activity) => activity)}
+    - Countries: ${countryNames.join(', ')}
+    - Languages: ${languageNames.join(', ')}
+    - Activities: ${requestBody.activities.join(', ')}
     - Group size: ${requestBody.groupSize[0]} to ${requestBody.groupSize[1]} people
     - Duration: From ${new Date(requestBody.tourDuration[0]).toLocaleDateString()} to ${new Date(requestBody.tourDuration[1]).toLocaleDateString()}
     - Meeting date: ${new Date(requestBody.meetingDate).toLocaleString()}
@@ -54,7 +60,8 @@ async function generateExpeditionDescription(request: NextRequest) {
 	- The description should be in 1000-1500 characters.
 	- The description should not contain lists of countries, languages or activities. Instead it should be a single or multiple paragraph with all the information.
 	- The description should be engaging and interesting.
-	- The description should be in HTML format with <p>, <strong>, <em> tags.`;
+	- The description should be in HTML format with <p>, <strong>, <em> tags.
+    - The dates in the description should be in the format of "January 1st, 2025".`;
 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',

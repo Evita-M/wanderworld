@@ -1,6 +1,51 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --animate-spin-slow: spin 1.4s linear infinite;
+  --animate-loader-path: loader-path 1.4s ease-in-out infinite;
+  --animate-pulse-brightness: pulse-brightness 3s ease-in-out infinite;
+
+  @keyframes loader-path {
+    0% {
+      stroke-dasharray: 0, 580, 0, 0, 0, 0, 0, 0, 0;
+    }
+    50% {
+      stroke-dasharray: 0, 450, 10, 30, 10, 30, 10, 30, 10;
+    }
+    100% {
+      stroke-dasharray: 0, 580, 0, 0, 0, 0, 0, 0, 0;
+    }
+  }
+  @keyframes pulse-brightness {
+    0% {
+      filter: brightness(0.9);
+    }
+    50% {
+      filter: brightness(1.2);
+    }
+    100% {
+      filter: brightness(0.9);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 *,
 *::before,

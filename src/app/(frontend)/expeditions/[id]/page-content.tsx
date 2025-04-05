@@ -26,6 +26,7 @@ import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/expedition-tabs';
 import { BackButton } from '@/shared/ui/core/button/back-button';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -103,7 +104,7 @@ const PageContent = () => {
       label: 'Delete',
       icon: <DeleteOutlinedIcon />,
       onClick: handleDeleteConfirmation,
-      color: 'error' as const,
+      color: 'secondary' as const,
     },
     {
       label: 'Edit',
@@ -168,9 +169,9 @@ const PageContent = () => {
                 <Chip
                   key={country.id}
                   label={country.name}
-                  color='primary'
+                  color='secondary'
                   size='medium'
-                  sx={{ backgroundColor: theme.palette.primary.main }}
+                  sx={{ backgroundColor: theme.palette.secondary.light }}
                 />
               ))}
             </div>
@@ -187,7 +188,7 @@ const PageContent = () => {
                 className='object-cover'
               />
             </div>
-            <FeatureList features={features} />
+            {/* <FeatureList features={features} /> */}
           </div>
           <div className='space-y-6'>
             {guide ? (
@@ -202,12 +203,14 @@ const PageContent = () => {
             )}
           </div>
           <div className='space-y-6 pt-8 lg:col-span-2'>
-            <ExpeditionTabs
-              description={expedition.description || ''}
-              languages={expedition.languages}
-              activities={expedition.activities || []}
-              meetingDate={expedition.meetingDate}
-            />
+            <RoundedContainer sx={{ minHeight: '50rem' }}>
+              <ExpeditionTabs
+                description={expedition.description || ''}
+                languages={expedition.languages}
+                activities={expedition.activities || []}
+                meetingDate={expedition.meetingDate}
+              />
+            </RoundedContainer>
           </div>
         </div>
       </>

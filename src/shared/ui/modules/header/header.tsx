@@ -37,9 +37,6 @@ export const Header = () => {
         {navLinks.map((link) => (
           <NavLink link={link} key={link.href} />
         ))}
-        <Button variant='contained' disabled onClick={() => null}>
-          Log in
-        </Button>
       </Stack>
     </Stack>
   );

@@ -11,7 +11,7 @@ import { Loader } from '@/shared/ui/core/loader/loader';
 import { SortOrder } from '@/features/sort-order/sort-order';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
-import { ExpeditionList } from '@/widgets/expedition-list/expedition-list';
+import { ExpeditionList } from '@/widgets/expedition-list/ui/expedition-list';
 
 const PageContent: FC = () => {
   const {

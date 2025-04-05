@@ -46,15 +46,15 @@ export const ExpeditionTabs: FC<ExpeditionTabsProps> = ({
                 '&::before': {
                   content: '""',
                   display: 'block',
-                  width: '8px',
-                  height: '8px',
+                  width: '0.8rem',
+                  height: '0.8rem',
                   borderRadius: '50%',
-                  marginRight: '16px',
+                  marginRight: '1.6rem',
                   backgroundColor: getRandomColor(theme, index, 0.2),
                 },
               }}
             >
-              <Typography fontSize='1.8rem'>{item}</Typography>
+              <Typography>{item}</Typography>
             </ListItem>
           ))}
         </List>

@@ -64,7 +64,6 @@ export const ExpeditionItem = ({
       <Link href={expeditionLink}>
         <Card
           sx={{
-            // p: '0.6rem',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
@@ -129,10 +128,6 @@ export const ExpeditionItem = ({
                   sx={{
                     backgroundColor: theme.palette.secondary.light,
                     color: theme.palette.secondary.contrastText,
-                    border: 'none',
-                    padding: '0.4rem 0.8rem',
-                    borderRadius: '0.8rem',
-                    letterSpacing: '0.08em',
                     '&:hover': {
                       backgroundColor: theme.palette.secondary.light,
                     },

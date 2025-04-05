@@ -29,6 +29,7 @@ export const BackButton: FC<BackButtonProps> = ({
         '&:hover': {
           color: theme.palette.tertiary.darker,
           backgroundColor: 'transparent',
+          boxShadow: 'none',
         },
         ...sx,
       }}

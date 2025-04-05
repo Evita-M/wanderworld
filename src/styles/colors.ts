@@ -8,6 +8,7 @@ const customPaletteColors = {
   lightGreen: 'rgb(21, 134, 44)',
   black: 'rgb(33, 36, 39)',
   offWhite: 'rgb(248, 237, 217)',
+  white: 'rgb(255, 255, 255)',
 };
 
 export const palette = {
@@ -15,32 +16,39 @@ export const palette = {
     main: customPaletteColors.green,
     light: lightenRGB(customPaletteColors.green, 30),
     dark: darkenRGB(customPaletteColors.green, 30),
-    contrastText: 'white',
+    contrastText: customPaletteColors.white,
   },
   secondary: {
     main: customPaletteColors.orange,
     light: lightenRGB(customPaletteColors.orange, 30),
     dark: darkenRGB(customPaletteColors.orange, 30),
-    contrastText: 'white',
+    contrastText: customPaletteColors.white,
   },
   tertiary: {
     main: customPaletteColors.beige,
     light: lightenRGB(customPaletteColors.beige, 30),
-    dark: darkenRGB(customPaletteColors.beige, 30),
-    darker: darkenRGB(customPaletteColors.beige, 50),
-    contrastText: customPaletteColors.black,
+    dark: darkenRGB(customPaletteColors.beige, 40),
+    darker: darkenRGB(customPaletteColors.beige, 60),
+    contrastText: customPaletteColors.white,
+  },
+  quaternary: {
+    main: customPaletteColors.black,
+    light: lightenRGB(customPaletteColors.black, 30),
+    dark: darkenRGB(customPaletteColors.black, 40),
+    darker: darkenRGB(customPaletteColors.black, 60),
+    contrastText: customPaletteColors.white,
   },
   error: {
     main: customPaletteColors.red,
     light: lightenRGB(customPaletteColors.red, 30),
     dark: darkenRGB(customPaletteColors.red, 30),
-    contrastText: 'white',
+    contrastText: customPaletteColors.white,
   },
   success: {
     main: customPaletteColors.lightGreen,
     light: lightenRGB(customPaletteColors.lightGreen, 30),
     dark: darkenRGB(customPaletteColors.lightGreen, 30),
-    contrastText: 'white',
+    contrastText: customPaletteColors.white,
   },
   text: {
     body: customPaletteColors.black,

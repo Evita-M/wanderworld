@@ -5,7 +5,6 @@ import { ActionButton } from './action-button';
 
 export const Actions: FC<ActionsProps> = ({
   actions,
-  variant = 'default',
   direction = 'row',
   gap = '1.2rem',
   className,
@@ -16,11 +15,11 @@ export const Actions: FC<ActionsProps> = ({
         <ActionButton
           key={`${action.label}-${index}`}
           onClick={action.onClick}
-          variant={variant}
           icon={action.icon}
           label={action.label}
           color={action.color}
           disabled={action.disabled}
+          variant={action.variant}
         />
       ))}
     </Stack>

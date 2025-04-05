@@ -39,7 +39,7 @@ export const ModalConfirmation: FC<ModalConfirmationProps> = ({
       <Stack direction='row' gap='1.2rem'>
         <Button
           variant='outlined'
-          color='secondary'
+          color='quaternary'
           onClick={handleOnCancel}
           fullWidth
         >
@@ -47,6 +47,7 @@ export const ModalConfirmation: FC<ModalConfirmationProps> = ({
         </Button>
         <Button
           variant='contained'
+          color='primary'
           onClick={onSubmit}
           disabled={isDisabled}
           fullWidth

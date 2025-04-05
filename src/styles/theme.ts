@@ -8,11 +8,13 @@ import { borderRadius } from './border-radius';
 declare module '@mui/material/styles' {
   interface Palette {
     tertiary: Palette['primary'];
+    quaternary: Palette['primary'];
     custom: Record<string, { main: string; text: string }>;
   }
 
   interface PaletteOptions {
     tertiary?: PaletteOptions['primary'];
+    quaternary?: PaletteOptions['primary'];
     custom?: Record<string, { main: string; text: string }>;
   }
 
@@ -33,6 +35,16 @@ declare module '@mui/material/styles' {
       medium: string;
       large: string;
     };
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    'contained-tertiary': true;
+  }
+  interface ButtonPropsColorOverrides {
+    quaternary: true;
+    tertiary: true;
   }
 }
 
@@ -136,45 +148,69 @@ const theme = createTheme({
       },
     },
     MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
-          borderRadius: borderRadius.small,
-          textTransform: 'none',
+          borderRadius: '3rem',
+          fontWeight: 500,
           lineHeight: 1.5,
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           padding: '8px 16px',
           letterSpacing: '0.05em',
+          boxShadow: '0 1px 1px rgba(0, 0, 0, 0)',
           '&.Mui-disabled': {
             backgroundColor: palette.tertiary.light,
             color: palette.tertiary.dark,
             opacity: 0.7,
           },
+          '&:hover': {
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)',
+          },
+          '&.MuiButton-containedQuaternary': {
+            backgroundColor: palette.quaternary.main,
+            color: palette.quaternary.contrastText,
+            '&:hover': {
+              backgroundColor: palette.quaternary.dark,
+            },
+            '&.Mui-disabled': {
+              backgroundColor: palette.tertiary.light,
+              boxShadow: 'none',
+              color: palette.tertiary.dark,
+            },
+          },
+          '&.MuiButton-outlinedQuaternary': {
+            borderColor: palette.quaternary.main,
+            color: palette.quaternary.main,
+            '&:hover': {
+              borderColor: palette.quaternary.dark,
+              color: palette.quaternary.dark,
+            },
+          },
         },
         sizeLarge: {
           height: '4.8rem',
           padding: '1.2rem 2.4rem',
-          borderRadius: '1.2rem',
         },
         sizeMedium: {
           height: '4rem',
           padding: '0.8rem 2.4rem',
-          borderRadius: '0.8rem',
         },
         sizeSmall: {
           height: '3.2rem',
           padding: '0.6rem 1.2rem',
-          borderRadius: '0.8rem',
+        },
+        outlined: {
+          '&:hover': {
+            backgroundColor: 'rgb(255, 255, 255)',
+          },
         },
         containedPrimary: {
           backgroundColor: palette.primary.main,
           color: palette.primary.contrastText,
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           '&:hover': {
             backgroundColor: palette.primary.dark,
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
-          },
-          '&:active': {
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           },
           '&.Mui-disabled': {
             backgroundColor: palette.tertiary.light,
@@ -185,13 +221,8 @@ const theme = createTheme({
         containedSecondary: {
           backgroundColor: palette.secondary.main,
           color: palette.secondary.contrastText,
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           '&:hover': {
             backgroundColor: palette.secondary.dark,
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
-          },
-          '&:active': {
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           },
           '&.Mui-disabled': {
             backgroundColor: palette.tertiary.light,
@@ -202,13 +233,8 @@ const theme = createTheme({
         containedError: {
           backgroundColor: palette.error.main,
           color: palette.error.contrastText,
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           '&:hover': {
             backgroundColor: palette.error.dark,
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
-          },
-          '&:active': {
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
           },
           '&.Mui-disabled': {
             backgroundColor: palette.tertiary.light,
@@ -216,10 +242,33 @@ const theme = createTheme({
             color: palette.tertiary.dark,
           },
         },
-        outlined: {
-          backgroundColor: 'white',
+        text: {
+          backgroundColor: 'rgb(255, 255, 255)',
+          border: 'none',
           '&:hover': {
-            backgroundColor: 'white',
+            backgroundColor: 'rgb(255, 255, 255)',
+          },
+          '&.MuiButton-textError': {
+            color: palette.error.main,
+            '&:hover': {
+              color: palette.error.dark,
+            },
+            '&.Mui-disabled': {
+              boxShadow: 'none',
+              color: palette.error.light,
+              backgroundColor: 'rgb(255, 255, 255, 0.9)',
+            },
+          },
+          '&.MuiButton-textTertiary': {
+            color: palette.text.caption,
+            '&:hover': {
+              color: palette.text.body,
+            },
+            '&.Mui-disabled': {
+              boxShadow: 'none',
+              color: palette.text.caption,
+              backgroundColor: 'rgb(255, 255, 255, 0.9)',
+            },
           },
         },
       },
@@ -265,23 +314,17 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: palette.primary.main,
-          color: '#fff',
-          height: '34px',
-          '&:hover': {
-            backgroundColor: palette.primary,
+          letterSpacing: '0.05em',
+          border: 'none',
+          padding: '0.4rem 0.8rem',
+          borderRadius: '2rem',
+          fontSize: '1.4rem',
+          '&.MuiChip-sizeMedium': {
+            height: '3.6rem',
           },
-          '&.MuiChip-deletable:hover': {
-            backgroundColor: palette.primary,
-          },
-        },
-        label: {
-          fontWeight: 500,
-        },
-        deleteIcon: {
-          color: '#fff',
-          '&:hover': {
-            color: '#fff',
+          '&.MuiChip-sizeSmall': {
+            height: '3.2rem',
+            padding: '0.2rem 0.8rem',
           },
         },
       },

@@ -4,9 +4,8 @@ import {
   useGetExpeditionQuery,
 } from '@/entities/expedition/api';
 import { notFound, useParams, useRouter } from 'next/navigation';
-import { Stack, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Chip, Stack, Typography, useTheme } from '@mui/material';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { routes } from '@/lib/config/routes';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { useGetGuideQuery } from '@/entities/guide/api';
@@ -21,12 +20,12 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Image from 'next/image';
 import { differenceInDays } from 'date-fns';
 import { ClockIcon } from '@mui/x-date-pickers';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Actions } from '@/shared/ui/modules/actions';
 import { FeatureList } from '@/widgets/feature-list/ui/feature-list';
 import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/expedition-tabs';
 import { BackButton } from '@/shared/ui/core/button/back-button';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -35,6 +34,7 @@ const PageContent = () => {
   const { showSnackBar } = useSnackbar();
   const [deleteExpedition, { isLoading: isDeleteExpeditionLoading }] =
     useDeleteExpeditionMutation();
+  const theme = useTheme();
 
   const {
     data: expedition,
@@ -100,15 +100,16 @@ const PageContent = () => {
 
   const actions = [
     {
-      label: 'Edit',
-      icon: <EditIcon />,
-      onClick: () => router.push(`${routes.expeditions}/${id}/edit`),
-    },
-    {
       label: 'Delete',
-      icon: <DeleteIcon />,
+      icon: <DeleteOutlinedIcon />,
       onClick: handleDeleteConfirmation,
       color: 'error' as const,
+    },
+    {
+      label: 'Edit',
+      icon: <ModeEditOutlineOutlinedIcon />,
+      onClick: () => router.push(`${routes.expeditions}/${id}/edit`),
+      color: 'tertiary' as const,
     },
   ];
 
@@ -157,23 +158,30 @@ const PageContent = () => {
           mb='2.4rem'
         >
           <div>
-            <PageHeader title={expedition.name} prefix={<BackButton />} />
-            <div className='mt-[2.4rem] flex items-center gap-2'>
-              <LocationOnOutlinedIcon color='primary' />
-              <Typography variant='h5' component='p'>
-                {expedition.countries
-                  ?.map((country) => country.name)
-                  .join(', ') || 'N/A'}
-              </Typography>
+            <PageHeader
+              title={expedition.name}
+              prefix={<BackButton />}
+              sx={{ mb: '3.6rem' }}
+            />
+            <div className='flex items-center gap-2'>
+              {expedition.countries?.map((country) => (
+                <Chip
+                  key={country.id}
+                  label={country.name}
+                  color='primary'
+                  size='medium'
+                  sx={{ backgroundColor: theme.palette.primary.main }}
+                />
+              ))}
             </div>
           </div>
           <Actions actions={actions} />
         </Stack>
         <div className='grid gap-8 lg:grid-cols-3'>
           <div className='space-y-6 lg:col-span-2'>
-            <div className='relative aspect-video overflow-hidden rounded-[16px]'>
+            <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>
               <Image
-                src='https://fakeimg.pl/600x400/d6e6eb/ffffff?text=WanderWorld&font=bebas'
+                src='https://fakeimg.pl/600x400/ADBEAF/ffffff?text=WanderWorld&font=bebas'
                 alt='Placeholder image'
                 fill
                 className='object-cover'

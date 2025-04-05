@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { ButtonProps } from '@mui/material';
-
 export type ActionColor = ButtonProps['color'];
 export type ActionVariant = 'default' | 'icon';
 
@@ -9,19 +8,15 @@ export interface ActionConfig {
   icon: ReactNode;
   onClick: VoidFunction;
   color?: ActionColor;
+  variant?: ButtonProps['variant'];
   disabled?: boolean;
 }
 
 export interface ActionsProps {
   actions: ActionConfig[];
-  variant?: ActionVariant;
   direction?: 'row' | 'column';
   gap?: string | number;
   className?: string;
-}
-
-export interface ActionButtonProps extends ActionConfig {
-  variant?: ActionVariant;
 }
 
 export interface ButtonIconProps {

@@ -31,14 +31,14 @@ interface ExpeditionCardProps {
   countries: Country[];
 }
 
-export function ExpeditionItem({
+export const ExpeditionItem = ({
   id,
   name,
   startDate,
   endDate,
   languages,
   countries,
-}: ExpeditionCardProps) {
+}: ExpeditionCardProps) => {
   const theme = useTheme();
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -145,4 +145,4 @@ export function ExpeditionItem({
       </Link>
     </Box>
   );
-}
+};

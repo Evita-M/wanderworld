@@ -38,7 +38,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
             {onClick ? (
               <Button
                 variant='contained'
-                color='secondary'
                 data-testid='page-header-button'
                 onClick={onClick}
               >
@@ -50,7 +49,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
                   <Button
                     component='span'
                     variant='contained'
-                    color='secondary'
                     data-testid='page-header-button'
                     startIcon={<AddIcon />}
                   >

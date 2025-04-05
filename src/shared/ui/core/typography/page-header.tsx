@@ -1,4 +1,12 @@
-import { Box, Button, Stack, Typography, SxProps, Theme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Stack,
+  Typography,
+  SxProps,
+  Theme,
+  useTheme,
+} from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
@@ -25,16 +33,25 @@ export const PageHeader: FC<PageHeaderProps> = ({
   sx,
 }) => {
   return (
-    <Stack sx={sx} gap={1}>
-      <Stack direction='row' alignItems='center' justifyContent='space-between'>
-        <Stack direction='row' alignItems='center' gap={3}>
-          {prefix}
+    <Stack sx={sx}>
+      <Box pb='2.4rem'>{prefix}</Box>
+      <Stack
+        direction='row'
+        alignItems='flex-end'
+        justifyContent='space-between'
+      >
+        <Stack gap='1.2rem'>
+          {subtitle && (
+            <Typography maxWidth='140rem' variant='body2'>
+              {subtitle}
+            </Typography>
+          )}
           <Typography variant='h2' component='h1'>
             {title}
           </Typography>
         </Stack>
         {buttonLabel && (
-          <Box>
+          <Box pb='0.4rem'>
             {onClick ? (
               <Button
                 variant='contained'
@@ -60,16 +77,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
           </Box>
         )}
       </Stack>
-      {subtitle && (
-        <Typography
-          fontSize='1.8rem'
-          maxWidth='140rem'
-          lineHeight={1.6}
-          color={grey[600]}
-        >
-          {subtitle}
-        </Typography>
-      )}
     </Stack>
   );
 };

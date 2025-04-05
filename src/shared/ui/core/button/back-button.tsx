@@ -1,38 +1,42 @@
 import { FC } from 'react';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import { useTheme } from '@mui/material';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import { Button, useTheme } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 interface BackButtonProps {
-  onClick: () => void;
-  color?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
+  onClick?: VoidFunction;
   sx?: object;
+  label?: string;
 }
 
 export const BackButton: FC<BackButtonProps> = ({
   onClick,
-  color = 'primary',
-  size = 'medium',
+  label = 'Back',
   sx,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
   return (
-    <IconButton
-      onClick={onClick}
-      color={color}
+    <Button
+      component='a'
+      onClick={onClick || (() => router.back())}
+      startIcon={<ArrowBackRoundedIcon fontSize='large' />}
+      className='group'
       sx={{
-        border: `2px solid ${
-          color === 'primary'
-            ? theme.palette.primary.main
-            : theme.palette.secondary.main
-        }`,
-        borderRadius: '50%',
+        color: theme.palette.tertiary.dark,
+        backgroundColor: 'transparent',
         p: '1.2rem',
+        '&:hover': {
+          color: theme.palette.tertiary.darker,
+          backgroundColor: 'transparent',
+        },
         ...sx,
       }}
     >
-      <ArrowBackIosNewRoundedIcon fontSize={size} />
-    </IconButton>
+      <span className='relative'>
+        {label}
+        <span className='absolute bottom-0 left-0 h-0.5 w-full origin-left bg-current transition-transform duration-300 ease-out group-hover:scale-x-0'></span>
+      </span>
+    </Button>
   );
 };

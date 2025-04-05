@@ -1,7 +1,7 @@
 import { darkenRGB, lightenRGB } from './utils';
 
 const customPaletteColors = {
-  green: 'rgb(49, 112, 57)',
+  green: 'rgb(20, 82, 66)',
   orange: 'rgb(204, 75, 36)',
   beige: 'rgb(238,234,231)',
   red: 'rgb(180, 53, 53)',
@@ -27,6 +27,7 @@ export const palette = {
     main: customPaletteColors.beige,
     light: lightenRGB(customPaletteColors.beige, 30),
     dark: darkenRGB(customPaletteColors.beige, 30),
+    darker: darkenRGB(customPaletteColors.beige, 50),
     contrastText: customPaletteColors.black,
   },
   error: {

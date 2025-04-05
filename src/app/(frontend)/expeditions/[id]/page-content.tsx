@@ -26,6 +26,7 @@ import { Actions } from '@/shared/ui/modules/actions';
 import { FeatureList } from '@/widgets/feature-list/ui/feature-list';
 import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/expedition-tabs';
+import { BackButton } from '@/shared/ui/core/button/back-button';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -156,7 +157,7 @@ const PageContent = () => {
           mb='2.4rem'
         >
           <div>
-            <PageHeader title={expedition.name} />
+            <PageHeader title={expedition.name} prefix={<BackButton />} />
             <div className='mt-[2.4rem] flex items-center gap-2'>
               <LocationOnOutlinedIcon color='primary' />
               <Typography variant='h5' component='p'>

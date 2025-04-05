@@ -11,6 +11,15 @@ declare module '@mui/material/styles' {
     custom: Record<string, { main: string; text: string }>;
   }
 
+  interface PaletteOptions {
+    tertiary?: PaletteOptions['primary'];
+    custom?: Record<string, { main: string; text: string }>;
+  }
+
+  interface PaletteColor {
+    darker?: string;
+  }
+
   interface Theme {
     borderRadius: {
       small: string;
@@ -33,6 +42,7 @@ const theme = createTheme({
     background: {
       default: palette.tertiary.light,
     },
+    custom: customColors,
   },
   typography: {
     htmlFontSize: 10,
@@ -79,9 +89,12 @@ const theme = createTheme({
       fontWeight: 400,
     },
     body2: {
-      fontSize: typography.bodySmall,
+      fontSize: typography.bodyMain,
+      color: palette.tertiary.darker,
       lineHeight: typography.lineHeightBody,
       fontWeight: 400,
+      letterSpacing: '0.05em',
+      textTransform: 'uppercase',
     },
     // Supporting text
     caption: {
@@ -203,46 +216,10 @@ const theme = createTheme({
             color: palette.tertiary.dark,
           },
         },
-        outlinedPrimary: {
-          borderColor: palette.primary.main,
-          color: palette.primary.main,
+        outlined: {
+          backgroundColor: 'white',
           '&:hover': {
-            backgroundColor: palette.primary.main,
-            color: palette.primary.contrastText,
-          },
-          '&.Mui-disabled': {
-            borderColor: palette.tertiary.dark,
-            color: palette.tertiary.dark,
-          },
-        },
-        outlinedSecondary: {
-          borderColor: palette.secondary.main,
-          color: palette.secondary.main,
-          '&:hover': {
-            backgroundColor: palette.secondary.main,
-            color: palette.secondary.contrastText,
-          },
-          '&.Mui-disabled': {
-            borderColor: palette.tertiary.dark,
-            color: palette.tertiary.dark,
-          },
-        },
-        textPrimary: {
-          color: palette.primary.main,
-          '&:hover': {
-            backgroundColor: 'rgba(34, 56, 67, 0.08)',
-          },
-          '&.Mui-disabled': {
-            color: palette.tertiary.dark,
-          },
-        },
-        textSecondary: {
-          color: palette.secondary.main,
-          '&:hover': {
-            backgroundColor: 'rgba(215, 122, 97, 0.08)',
-          },
-          '&.Mui-disabled': {
-            color: palette.tertiary.dark,
+            backgroundColor: 'white',
           },
         },
       },
@@ -395,7 +372,7 @@ const theme = createTheme({
           },
         },
         track: {
-          color: palette.primary,
+          color: palette.primary.main,
           height: '12px',
         },
         rail: {

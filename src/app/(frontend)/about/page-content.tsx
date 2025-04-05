@@ -38,7 +38,10 @@ const images = {
 
 const PageContent = () => {
   const theme = useTheme();
-  const customColors = Object.values(theme.palette.custom);
+  const customColorKeys = Object.keys(theme.palette.custom);
+  const customColorValues = customColorKeys.map(
+    (key) => theme.palette.custom[key]
+  );
 
   return (
     <>
@@ -77,14 +80,14 @@ const PageContent = () => {
                 <Box
                   p='3.6rem'
                   sx={{
-                    border: `2px solid ${customColors[index].main}`,
-                    boxShadow: `0 4px ${customColors[index].main}`,
+                    border: `2px solid ${customColorValues[index].main}`,
+                    boxShadow: `0 4px ${customColorValues[index].main}`,
                     height: '100%',
                     borderRadius: theme.borderRadius.large,
                     transition: 'border-color 0.2s, box-shadow 0.2s',
                     '&:hover': {
-                      boxShadow: `0 4px ${darken(customColors[index].main, 0.1)}`,
-                      borderColor: darken(customColors[index].main, 0.1),
+                      boxShadow: `0 4px ${darken(customColorValues[index].main, 0.1)}`,
+                      borderColor: darken(customColorValues[index].main, 0.1),
                     },
                   }}
                 >
@@ -99,7 +102,7 @@ const PageContent = () => {
                     </Stack>
                     <Box
                       sx={{
-                        color: customColors[index].main,
+                        color: customColorValues[index].main,
                         display: 'flex',
                         alignItems: 'center',
                       }}

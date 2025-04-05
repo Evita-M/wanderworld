@@ -5,21 +5,20 @@ export const typography = {
   display3: '6rem', // 60px
 
   // Headings
-  h1: '5.6rem', // 56px
-  h2: '4.8rem', // 48px
-  h3: '4rem', // 40px
-  h4: '3.2rem', // 32px
-  h5: '2.4rem', // 24px
-  h6: '2rem', // 20px
+  h1: '4.8rem', // 48px
+  h2: '4.0rem', // 40px
+  h3: '3.2rem', // 32px
+  h4: '2.4rem', // 24px
+  h5: '2rem', // 20px
 
   // Body text
-  bodyLarge: '1.8rem', // 18px
-  bodyMain: '1.6rem', // 16px
-  bodySmall: '1.4rem', // 14px
+  bodyLarge: '1.8rem',
+  bodyMain: '1.6rem',
+  bodySmall: '1.4rem',
 
   // Supporting text
-  caption: '1.2rem', // 12px
-  tiny: '1rem', // 10px
+  caption: '1.4rem',
+  tiny: '1.2rem',
 
   // Line heights
   lineHeightDisplay: 1, // Tighter for very large text

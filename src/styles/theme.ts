@@ -2,7 +2,7 @@
 import { createTheme } from '@mui/material/styles';
 import { green, grey } from '@mui/material/colors';
 import { typography } from './typography';
-import { palette, customColors, bgColor } from './colors';
+import { palette, customColors } from './colors';
 import { borderRadius } from './border-radius';
 
 declare module '@mui/material/styles' {
@@ -10,10 +10,7 @@ declare module '@mui/material/styles' {
     tertiary: Palette['primary'];
     custom: Record<string, { main: string; text: string }>;
   }
-  interface PaletteOptions {
-    tertiary?: PaletteOptions['primary'];
-    custom?: Record<string, { main: string; text: string }>;
-  }
+
   interface Theme {
     borderRadius: {
       small: string;
@@ -32,16 +29,10 @@ declare module '@mui/material/styles' {
 
 const theme = createTheme({
   palette: {
+    ...palette,
     background: {
-      default: bgColor,
+      default: palette.tertiary.light,
     },
-    primary: palette.primary,
-    secondary: palette.secondary,
-    tertiary: palette.tertiary,
-    error: palette.error,
-    warning: palette.warning,
-    info: palette.info,
-    custom: customColors,
   },
   typography: {
     htmlFontSize: 10,
@@ -81,12 +72,6 @@ const theme = createTheme({
       lineHeight: typography.lineHeightHeading,
       fontWeight: 500,
     },
-    h6: {
-      fontFamily: `var(--museo-moderno), cursive`,
-      fontSize: typography.h6,
-      lineHeight: typography.lineHeightHeading,
-      fontWeight: 500,
-    },
     // Body text
     body1: {
       fontSize: typography.bodyMain,
@@ -115,9 +100,9 @@ const theme = createTheme({
     },
     // Button text
     button: {
-      fontSize: typography.bodySmall,
-      fontWeight: 500,
+      fontSize: typography.bodyMain,
       textTransform: 'none',
+      letterSpacing: '0.05em',
     },
   },
   components: {
@@ -132,8 +117,133 @@ const theme = createTheme({
     MuiSkeleton: {
       styleOverrides: {
         root: {
-          background: palette.primary.lighter,
+          background: palette.primary.main,
           animation: 'none',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: borderRadius.small,
+          textTransform: 'none',
+          lineHeight: 1.5,
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          padding: '8px 16px',
+          letterSpacing: '0.05em',
+          '&.Mui-disabled': {
+            backgroundColor: palette.tertiary.light,
+            color: palette.tertiary.dark,
+            opacity: 0.7,
+          },
+        },
+        sizeLarge: {
+          height: '4.8rem',
+          padding: '1.2rem 2.4rem',
+          borderRadius: '1.2rem',
+        },
+        sizeMedium: {
+          height: '4rem',
+          padding: '0.8rem 2.4rem',
+          borderRadius: '0.8rem',
+        },
+        sizeSmall: {
+          height: '3.2rem',
+          padding: '0.6rem 1.2rem',
+          borderRadius: '0.8rem',
+        },
+        containedPrimary: {
+          backgroundColor: palette.primary.main,
+          color: palette.primary.contrastText,
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          '&:hover': {
+            backgroundColor: palette.primary.dark,
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
+          },
+          '&:active': {
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          },
+          '&.Mui-disabled': {
+            backgroundColor: palette.tertiary.light,
+            boxShadow: 'none',
+            color: palette.tertiary.dark,
+          },
+        },
+        containedSecondary: {
+          backgroundColor: palette.secondary.main,
+          color: palette.secondary.contrastText,
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          '&:hover': {
+            backgroundColor: palette.secondary.dark,
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
+          },
+          '&:active': {
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          },
+          '&.Mui-disabled': {
+            backgroundColor: palette.tertiary.light,
+            boxShadow: 'none',
+            color: palette.tertiary.dark,
+          },
+        },
+        containedError: {
+          backgroundColor: palette.error.main,
+          color: palette.error.contrastText,
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          '&:hover': {
+            backgroundColor: palette.error.dark,
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
+          },
+          '&:active': {
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
+          },
+          '&.Mui-disabled': {
+            backgroundColor: palette.tertiary.light,
+            boxShadow: 'none',
+            color: palette.tertiary.dark,
+          },
+        },
+        outlinedPrimary: {
+          borderColor: palette.primary.main,
+          color: palette.primary.main,
+          '&:hover': {
+            backgroundColor: palette.primary.main,
+            color: palette.primary.contrastText,
+          },
+          '&.Mui-disabled': {
+            borderColor: palette.tertiary.dark,
+            color: palette.tertiary.dark,
+          },
+        },
+        outlinedSecondary: {
+          borderColor: palette.secondary.main,
+          color: palette.secondary.main,
+          '&:hover': {
+            backgroundColor: palette.secondary.main,
+            color: palette.secondary.contrastText,
+          },
+          '&.Mui-disabled': {
+            borderColor: palette.tertiary.dark,
+            color: palette.tertiary.dark,
+          },
+        },
+        textPrimary: {
+          color: palette.primary.main,
+          '&:hover': {
+            backgroundColor: 'rgba(34, 56, 67, 0.08)',
+          },
+          '&.Mui-disabled': {
+            color: palette.tertiary.dark,
+          },
+        },
+        textSecondary: {
+          color: palette.secondary.main,
+          '&:hover': {
+            backgroundColor: 'rgba(215, 122, 97, 0.08)',
+          },
+          '&.Mui-disabled': {
+            color: palette.tertiary.dark,
+          },
         },
       },
     },
@@ -175,54 +285,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: borderRadius.small,
-          textTransform: 'none',
-          fontWeight: 500,
-          lineHeight: 1.5,
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-            backgroundColor: 'rgba(0, 0, 0, 0.05)',
-          },
-        },
-        containedPrimary: {
-          '&:hover': {
-            backgroundColor: 'rgba(33, 158, 188, 0.95)',
-          },
-        },
-        containedSecondary: {
-          '&:hover': {
-            backgroundColor: 'rgba(251, 133, 0, 0.95)',
-          },
-        },
-        containedError: {
-          '&:hover': {
-            backgroundColor: 'rgba(199, 0, 57, 0.95)',
-          },
-        },
-        sizeSmall: {
-          padding: '0.6rem 1.6rem',
-          fontSize: '1.4rem',
-          height: '3.2rem',
-          minWidth: '8rem',
-        },
-        sizeMedium: {
-          padding: '0.8rem 2.4rem',
-          fontSize: '1.6rem',
-          height: '4rem',
-          minWidth: '10rem',
-        },
-        sizeLarge: {
-          padding: '1.2rem 3.2rem',
-          fontSize: '1.8rem',
-          height: '4.8rem',
-          minWidth: '12rem',
-        },
-      },
-    },
     MuiChip: {
       styleOverrides: {
         root: {
@@ -230,10 +292,10 @@ const theme = createTheme({
           color: '#fff',
           height: '34px',
           '&:hover': {
-            backgroundColor: palette.primary.dark,
+            backgroundColor: palette.primary,
           },
           '&.MuiChip-deletable:hover': {
-            backgroundColor: palette.primary.dark,
+            backgroundColor: palette.primary,
           },
         },
         label: {
@@ -257,9 +319,17 @@ const theme = createTheme({
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          minWidth: '20rem',
+          fontSize: '1.6rem',
+          padding: '0.8rem 1.2rem',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
-            backgroundColor: bgColor,
+            backgroundColor: palette.tertiary.light,
+          },
+          '&.Mui-selected': {
+            backgroundColor: palette.tertiary.light,
+            '&:hover': {
+              backgroundColor: palette.tertiary.main,
+            },
           },
         },
       },
@@ -267,16 +337,18 @@ const theme = createTheme({
     MuiPopover: {
       styleOverrides: {
         paper: {
-          borderRadius: borderRadius.medium,
-          boxShadow: 'none',
-          border: `1px solid ${grey[300]}`,
+          marginTop: '0.4rem',
+          borderRadius: borderRadius.small,
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+          border: 'none',
+          backgroundColor: '#fff',
         },
       },
     },
     MuiDivider: {
       styleOverrides: {
         root: {
-          backgroundColor: palette.primary.light,
+          backgroundColor: palette.primary.main,
           opacity: 0.5,
         },
       },
@@ -289,8 +361,11 @@ const theme = createTheme({
             borderColor: palette.primary.main,
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: palette.primary.light,
+            borderColor: palette.primary,
           },
+        },
+        notchedOutline: {
+          border: 'none',
         },
       },
     },
@@ -316,11 +391,11 @@ const theme = createTheme({
           height: '24px',
           width: '24px',
           '&:hover': {
-            color: palette.primary.dark,
+            color: palette.primary,
           },
         },
         track: {
-          color: palette.primary.light,
+          color: palette.primary,
           height: '12px',
         },
         rail: {
@@ -360,12 +435,12 @@ const theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: palette.primary.light,
+          color: palette.primary.main,
           '&.Mui-checked': {
             color: palette.primary.main,
           },
           '&:hover': {
-            color: palette.primary.dark,
+            color: palette.primary.main,
             backgroundColor: 'transparent',
           },
           '&.Mui-checked:hover': {
@@ -385,21 +460,21 @@ const theme = createTheme({
             color: palette.primary.main,
           },
           '&.Mui-checked + .MuiSwitch-track': {
-            backgroundColor: palette.primary.light,
+            backgroundColor: palette.primary.main,
             opacity: 1,
           },
         },
         thumb: {
           color: palette.primary.main,
           '&:hover': {
-            color: palette.primary.dark,
+            color: palette.primary.main,
           },
         },
         track: {
           backgroundColor: grey[600],
           height: '12px',
           '&.Mui-checked': {
-            backgroundColor: palette.primary.light,
+            backgroundColor: palette.primary.main,
             opacity: 1,
           },
         },
@@ -415,34 +490,43 @@ const theme = createTheme({
         },
       },
     },
-    MuiToggleButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#fff',
-          borderColor: palette.primary.light,
-          '&.Mui-selected': {
-            backgroundColor: palette.primary.main,
-            color: '#fff',
-            '&:hover': {
-              backgroundColor: palette.primary.dark,
-            },
-          },
-          '&:hover': {
-            backgroundColor: palette.primary.lighter,
-          },
-        },
-      },
-    },
     MuiSelect: {
       styleOverrides: {
         root: {
-          borderColor: palette.primary.light,
+          backgroundColor: 'white',
+          cursor: 'pointer',
+          minWidth: '16rem',
+          borderRadius: '0.8rem',
           '&.Mui-focused': {
-            borderColor: palette.primary.main,
+            borderColor: 'transparent',
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: palette.tertiary.main,
+          },
+        },
+        select: {
+          padding: '0.8rem 2.4rem 0.8rem 2.4rem',
+          fontSize: '1.6rem',
+          borderRadius: '0.8rem',
+          border: 'none',
+          backgroundColor: 'white',
+          boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+          transition: 'all 0.2s ease-in-out',
+          '&:hover': {
+            backgroundColor: 'white',
+            boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.2)',
+          },
+          '&:focus': {
+            backgroundColor: 'white',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)',
+          },
+          '.MuiOutlinedInput-notchedOutline': {
+            border: 'none',
           },
         },
         icon: {
-          color: palette.primary.main,
+          color: palette.text.caption,
+          right: '1.2rem',
         },
       },
     },
@@ -496,7 +580,7 @@ const theme = createTheme({
           marginLeft: 0,
           marginRight: 0,
           '&:hover .MuiCheckbox-root': {
-            color: palette.primary.dark,
+            color: palette.primary,
             transition: 'color 0.3s ease',
           },
         },

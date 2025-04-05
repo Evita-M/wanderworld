@@ -1,52 +1,106 @@
+import { darkenRGB, lightenRGB } from './utils';
+
+const customPaletteColors = {
+  green: 'rgb(49, 112, 57)',
+  orange: 'rgb(204, 75, 36)',
+  beige: 'rgb(238,234,231)',
+  red: 'rgb(180, 53, 53)',
+  lightGreen: 'rgb(21, 134, 44)',
+  black: 'rgb(33, 36, 39)',
+  offWhite: 'rgb(248, 237, 217)',
+};
+
 export const palette = {
   primary: {
-    main: '#219ebc',
-    light: '#8ecae6',
-    lighter: '#e6f4f8',
-    dark: '#1a7b94',
+    main: customPaletteColors.green,
+    light: lightenRGB(customPaletteColors.green, 30),
+    dark: darkenRGB(customPaletteColors.green, 30),
+    contrastText: 'white',
   },
   secondary: {
-    main: '#fb8500',
-    contrastText: '#FFFFFF',
+    main: customPaletteColors.orange,
+    light: lightenRGB(customPaletteColors.orange, 30),
+    dark: darkenRGB(customPaletteColors.orange, 30),
+    contrastText: 'white',
   },
   tertiary: {
-    main: '#023047',
-    contrastText: '#FFFFFF',
+    main: customPaletteColors.beige,
+    light: lightenRGB(customPaletteColors.beige, 30),
+    dark: darkenRGB(customPaletteColors.beige, 30),
+    contrastText: customPaletteColors.black,
   },
   error: {
-    main: '#C70039',
-    contrastText: '#FFFFFF',
+    main: customPaletteColors.red,
+    light: lightenRGB(customPaletteColors.red, 30),
+    dark: darkenRGB(customPaletteColors.red, 30),
+    contrastText: 'white',
   },
-  warning: {
-    main: '#ffb703',
-    contrastText: '#000000',
+  success: {
+    main: customPaletteColors.lightGreen,
+    light: lightenRGB(customPaletteColors.lightGreen, 30),
+    dark: darkenRGB(customPaletteColors.lightGreen, 30),
+    contrastText: 'white',
   },
-  info: {
-    main: '#d4ebf2',
-    contrastText: '#000000',
+  text: {
+    body: customPaletteColors.black,
+    caption: customPaletteColors.black,
+    disabled: customPaletteColors.black,
   },
 };
 
 export const customColors = {
-  blue: { main: '#d1f0ff', text: '#3A5F5B' },
-  yellow: { main: '#FFEDAE', text: '#6C5208' },
-  beige: { main: '#E3E2D8', text: '#555451' },
-  mint: { main: '#D7ECDF', text: '#3D5A4F' },
-  red: { main: '#FFE5E5', text: '#A13453' },
-  gray: { main: '#E4E7E4', text: '#3B4859' },
-  lavender: { main: '#EAD7EC', text: '#582C5D' },
-  peach: { main: '#FFD890', text: '#754513' },
-  green: { main: '#D3E5C5', text: '#3A6E3A' },
-};
-
-export const bgColor = '#fff';
-
-export const colors = {
-  background: bgColor,
-  text: {
-    primary: '#000000',
-    secondary: '#666666',
-    disabled: '#999999',
+  blue: {
+    main: 'rgb(209, 240, 255)',
+    light: lightenRGB('rgb(209, 240, 255)', 30),
+    dark: darkenRGB('rgb(209, 240, 255)', 30),
+    text: 'rgb(58, 95, 91)',
   },
-  border: '#E0E0E0',
+  yellow: {
+    main: 'rgb(255, 237, 174)',
+    light: lightenRGB('rgb(255, 237, 174)', 30),
+    dark: darkenRGB('rgb(255, 237, 174)', 30),
+    text: 'rgb(108, 82, 8)',
+  },
+  beige: {
+    main: 'rgb(227, 226, 216)',
+    light: lightenRGB('rgb(227, 226, 216)', 30),
+    dark: darkenRGB('rgb(227, 226, 216)', 30),
+    text: 'rgb(85, 84, 81)',
+  },
+  mint: {
+    main: 'rgb(215, 236, 223)',
+    light: lightenRGB('rgb(215, 236, 223)', 30),
+    dark: darkenRGB('rgb(215, 236, 223)', 30),
+    text: 'rgb(61, 90, 79)',
+  },
+  red: {
+    main: 'rgb(255, 229, 229)',
+    light: lightenRGB('rgb(255, 229, 229)', 30),
+    dark: darkenRGB('rgb(255, 229, 229)', 30),
+    text: 'rgb(161, 52, 83)',
+  },
+  gray: {
+    main: 'rgb(228, 231, 228)',
+    light: lightenRGB('rgb(228, 231, 228)', 30),
+    dark: darkenRGB('rgb(228, 231, 228)', 30),
+    text: 'rgb(59, 72, 89)',
+  },
+  lavender: {
+    main: 'rgb(234, 215, 236)',
+    light: lightenRGB('rgb(234, 215, 236)', 30),
+    dark: darkenRGB('rgb(234, 215, 236)', 30),
+    text: 'rgb(88, 44, 93)',
+  },
+  peach: {
+    main: 'rgb(255, 216, 144)',
+    light: lightenRGB('rgb(255, 216, 144)', 30),
+    dark: darkenRGB('rgb(255, 216, 144)', 30),
+    text: 'rgb(117, 69, 19)',
+  },
+  green: {
+    main: 'rgb(211, 229, 197)',
+    light: lightenRGB('rgb(211, 229, 197)', 30),
+    dark: darkenRGB('rgb(211, 229, 197)', 30),
+    text: 'rgb(58, 110, 58)',
+  },
 };

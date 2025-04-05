@@ -9,9 +9,9 @@ import { notFound } from 'next/navigation';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
 import { Loader } from '@/shared/ui/core/loader/loader';
 import { SortOrder } from '@/features/sort-order/sort-order';
-import { ExpeditionItem } from '@/entities/expedition/ui/expedition-item/expedition-item';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
+import { ExpeditionList } from '@/widgets/expedition-list/expedition-list';
 
 const PageContent: FC = () => {
   const {
@@ -58,13 +58,7 @@ const PageContent: FC = () => {
             <SortOrder sortOrder={sortOrder} onSortChange={setSortOrder} />
           </Box>
           <h2 className='sr-only'>Expeditions List</h2>
-          <Grid container spacing={3}>
-            {sortedExpeditions?.map((expedition) => (
-              <Grid item xs={12} sm={6} md={4} key={expedition.id}>
-                <ExpeditionItem expedition={expedition} />
-              </Grid>
-            ))}
-          </Grid>
+          <ExpeditionList expeditions={sortedExpeditions} />
         </>
       ) : (
         <Stack height='100%' alignItems='center' justifyContent='center'>

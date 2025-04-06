@@ -40,16 +40,18 @@ export const ExpeditionTabs: FC<ExpeditionTabsProps> = ({
             <ListItem
               key={index}
               sx={{
-                display: 'flex',
-                gap: '0.6rem',
-                alignItems: 'center',
+                position: 'relative',
+                pl: '2.4rem',
+                py: '0.4rem',
                 '&::before': {
                   content: '""',
+                  position: 'absolute',
+                  left: 0,
                   display: 'block',
-                  width: '0.8rem',
-                  height: '0.8rem',
+                  width: '1rem',
+                  height: '1rem',
                   borderRadius: '50%',
-                  marginRight: '1.6rem',
+                  marginRight: '1.2rem',
                   backgroundColor: getRandomColor(theme, index, 0.2),
                 },
               }}

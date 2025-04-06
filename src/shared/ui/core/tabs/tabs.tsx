@@ -1,6 +1,5 @@
-import * as React from 'react';
-import MuiTabs from '@mui/material/Tabs';
-import MuiTab from '@mui/material/Tab';
+import { FC, useState } from 'react';
+import { Tabs as MuiTabs, Tab as MuiTab } from '@mui/material';
 import Box from '@mui/material/Box';
 
 interface TabPanelProps {
@@ -16,7 +15,7 @@ interface TabsProps {
   }[];
 }
 
-const CustomTabPanel = (props: TabPanelProps) => {
+const CustomTabPanel: FC<TabPanelProps> = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -27,7 +26,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ pt: '1,2rem' }}>{children}</Box>}
+      {value === index && <Box p='1.2rem'>{children}</Box>}
     </div>
   );
 };
@@ -39,8 +38,8 @@ function a11yProps(index: number) {
   };
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
-  const [value, setValue] = React.useState(0);
+export const Tabs: FC<TabsProps> = ({ tabs }) => {
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

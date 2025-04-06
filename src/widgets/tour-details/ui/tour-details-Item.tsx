@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 
 interface TourDetailsItemProps {
@@ -11,11 +11,9 @@ export const TourDetailsItem: FC<TourDetailsItemProps> = ({
   children,
 }) => {
   return (
-    <div className='flex flex-col gap-[1.4rem] rounded-[1.6rem] border border-gray-200 p-[1.8rem]'>
-      <Typography className='text-[1.2rem] font-light uppercase tracking-[0.1em] text-gray-700'>
-        {title}
-      </Typography>
+    <Stack direction='column' gap='0.8rem'>
+      <Typography color='text.secondary'>{title}</Typography>
       {children}
-    </div>
+    </Stack>
   );
 };

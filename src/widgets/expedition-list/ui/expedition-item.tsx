@@ -49,7 +49,7 @@ export const ExpeditionItem = ({
     languages?.map((language) => language.name).join(', ') || undefined;
 
   return (
-    <Box position='relative'>
+    <Box position='relative' component='article'>
       <FavoriteButton
         isFavorite={isFavorite}
         onToggle={setIsFavorite}
@@ -86,7 +86,7 @@ export const ExpeditionItem = ({
               height: 280,
               backgroundColor: theme.palette.primary.light,
             }}
-            image='https://fakeimg.pl/600x400/ADBEAF/ffffff?text=WanderWorld&font=bebas'
+            image='https://fakeimg.pl/600x400/acc2bc/ffffff?text=WanderWorld&font=bebas'
             alt={name}
           />
           <CardContent

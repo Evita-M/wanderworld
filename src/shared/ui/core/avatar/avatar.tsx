@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Avatar as MuiAvatar } from '@mui/material';
+import { Avatar as MuiAvatar, useTheme } from '@mui/material';
 
 interface AvatarProps {
   src?: string;
@@ -14,6 +14,7 @@ export const Avatar: FC<AvatarProps> = ({
   size = 140,
   initials = '',
 }) => {
+  const theme = useTheme();
   const displayInitials = initials?.slice(0, 2).toUpperCase() || '';
   const imgDimensions = {
     width: size,
@@ -25,7 +26,7 @@ export const Avatar: FC<AvatarProps> = ({
       <MuiAvatar
         sx={{
           ...imgDimensions,
-          bgcolor: '#d6e6eb',
+          bgcolor: theme.palette.primary.light,
           color: 'white',
           fontSize: `${size / 25}rem`,
         }}

@@ -1,4 +1,5 @@
-import { Box, SxProps } from '@mui/material';
+import theme from '@/styles/theme';
+import { Box, SxProps, useTheme } from '@mui/material';
 
 export const RoundedContainer = ({
   children,
@@ -7,8 +8,14 @@ export const RoundedContainer = ({
   children: React.ReactNode;
   sx?: SxProps;
 }) => {
+  const theme = useTheme();
   return (
-    <Box bgcolor='white' borderRadius='1.6rem' p='2.4rem' sx={{ ...sx }}>
+    <Box
+      bgcolor={theme.palette.background.paper}
+      borderRadius='2.4rem'
+      p='2.4rem'
+      sx={sx || {}}
+    >
       {children}
     </Box>
   );

@@ -53,7 +53,7 @@ export default function RootLayout({
           <Providers>
             <Stack height='100%'>
               <Header />
-              <Stack component='main' flex='0 0 100%'>
+              <Stack component='main' flex='1 1 100%'>
                 {children}
               </Stack>
             </Stack>

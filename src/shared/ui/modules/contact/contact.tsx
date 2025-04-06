@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Stack, useTheme } from '@mui/material';
+import { Stack, SxProps, useTheme } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import { ContactItem, ContactItemProps } from './contact-item';
@@ -10,12 +10,14 @@ export interface ContactProps {
   email?: string;
   phoneNumber?: string;
   variant?: 'row' | 'column';
+  sx?: SxProps;
 }
 
 export const Contact: FC<ContactProps> = ({
   email,
   phoneNumber,
   variant = 'row',
+  sx,
 }) => {
   const theme = useTheme();
 
@@ -47,6 +49,7 @@ export const Contact: FC<ContactProps> = ({
       direction={variant}
       gap={variant === 'row' ? '2.4rem' : '1.4rem'}
       flexWrap='wrap'
+      sx={sx}
     >
       {contactItems
         .filter((item) => item.text)

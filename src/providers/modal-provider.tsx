@@ -19,7 +19,7 @@ type ModalContextProps = {
     title?: string;
   }) => void;
 
-  closeModal: () => void;
+  closeModal: VoidFunction;
 };
 
 const initData: ModalContextProps = {
@@ -36,7 +36,7 @@ const modalWrapperStyles = {
   maxWidth: '52rem',
   minHeight: '24rem',
   width: '100%',
-  bgcolor: 'background.paper',
+  bgcolor: theme.palette.background.paper,
   borderRadius: theme.borderRadius.large,
   boxShadow: 24,
   p: '3.2rem 2.4rem',
@@ -69,10 +69,14 @@ const ModalProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ModalContext.Provider value={{ isOpen, openModal, closeModal }}>
       {children}
-      <Modal open={isOpen} onClose={closeModal}>
+      <Modal
+        open={isOpen}
+        onClose={closeModal}
+        sx={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+      >
         <Box sx={modalWrapperStyles}>
           {title && (
-            <Typography component='h2' variant='h5' mb='2.2rem'>
+            <Typography component='h2' variant='h4' mb='1.6rem'>
               {title}
             </Typography>
           )}

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { format } from 'date-fns';
-import { Typography, List, ListItem } from '@mui/material';
+import { Typography, List, ListItem, Stack } from '@mui/material';
 import { Language } from '@/shared/types/language';
 import { TourDetailsItem } from './tour-details-Item';
 import { LanguagesList } from '@/shared/ui/modules/languages/languages-list';
@@ -17,22 +17,15 @@ export const TourDetails: FC<TourDetailsProps> = ({
   activities,
 }) => {
   return (
-    <div>
-      <TourDetailsItem title='Languages'>
+    <Stack direction='column' gap='1.6rem'>
+      <TourDetailsItem title='Languages of the tour'>
         <LanguagesList languages={languages} />
       </TourDetailsItem>
-      <TourDetailsItem title='First meeting'>
-        <Typography fontSize='1.8rem'>
+      <TourDetailsItem title='Organization meeting'>
+        <Typography>
           {format(meetingDate, 'EEEE, d MMMM yyyy HH:mm')} in WanderWorld Cafe
         </Typography>
       </TourDetailsItem>
-      <TourDetailsItem title='Activities'>
-        <List sx={{ padding: 0 }}>
-          {activities.map((name, index) => (
-            <ListItem key={index}>{name}</ListItem>
-          ))}
-        </List>
-      </TourDetailsItem>
-    </div>
+    </Stack>
   );
 };

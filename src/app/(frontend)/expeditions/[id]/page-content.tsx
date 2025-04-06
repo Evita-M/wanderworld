@@ -22,11 +22,11 @@ import { differenceInDays } from 'date-fns';
 import { ClockIcon } from '@mui/x-date-pickers';
 import { Actions } from '@/shared/ui/modules/actions';
 import { FeatureList } from '@/widgets/feature-list/ui/feature-list';
-import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 import { ExpeditionTabs } from '@/widgets/expedition-tabs/ui/expedition-tabs';
 import { BackButton } from '@/shared/ui/core/button/back-button';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
+import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 
 const PageContent = () => {
   const { id } = useParams();
@@ -126,24 +126,24 @@ const PageContent = () => {
 
   const features = [
     {
-      icon: <LanguageOutlinedIcon color='primary' />,
+      icon: <LanguageOutlinedIcon />,
       title: 'Languages',
       text:
         expedition?.languages?.map((language) => language.name).join(', ') ||
         'N/A',
     },
     {
-      icon: <ClockIcon color='primary' />,
+      icon: <ClockIcon />,
       title: 'Duration',
       text: `${duration} days`,
     },
     {
-      icon: <PeopleIcon color='primary' />,
+      icon: <PeopleIcon />,
       title: 'Group Size',
       text: `${expedition?.minGroupSize} - ${expedition?.maxGroupSize}`,
     },
     {
-      icon: <FitnessCenterIcon color='primary' />,
+      icon: <FitnessCenterIcon />,
       title: 'Difficulty',
       text: 'Challenging',
     },
@@ -178,32 +178,38 @@ const PageContent = () => {
           </div>
           <Actions actions={actions} />
         </Stack>
+
         <div className='grid gap-8 lg:grid-cols-3'>
           <div className='space-y-6 lg:col-span-2'>
+            <FeatureList features={features} />
             <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>
               <Image
-                src='https://fakeimg.pl/600x400/ADBEAF/ffffff?text=WanderWorld&font=bebas'
+                src='https://fakeimg.pl/600x400/acc2bc/ffffff?text=WanderWorld&font=bebas'
                 alt='Placeholder image'
                 fill
                 className='object-cover'
               />
             </div>
-            {/* <FeatureList features={features} /> */}
           </div>
           <div className='space-y-6'>
-            {guide ? (
-              <GuideInfo
-                id={guide?.id ?? ''}
-                fullName={`${guide?.firstName} ${guide?.lastName}`}
-                email={guide.email}
-                avatar={guide?.avatar ?? ''}
-              />
-            ) : (
-              <Typography>No guide assigned yet</Typography>
-            )}
+            <RoundedContainer sx={{ p: 0 }}>
+              {guide ? (
+                <GuideInfo
+                  onClick={() => router.push(`${routes.guides}/${guide.id}`)}
+                  name={`${guide?.firstName} ${guide?.lastName}`}
+                  email={guide.email}
+                  phoneNumber={guide.phoneNumber}
+                  avatar={guide?.avatar ?? ''}
+                  languagesCount={guide?.languages?.length ?? 0}
+                  expeditionsCount={guide?.expeditions?.length ?? 0}
+                />
+              ) : (
+                <Typography>No guide assigned yet</Typography>
+              )}
+            </RoundedContainer>
           </div>
           <div className='space-y-6 pt-8 lg:col-span-2'>
-            <RoundedContainer sx={{ minHeight: '50rem' }}>
+            <RoundedContainer sx={{ minHeight: '48rem' }}>
               <ExpeditionTabs
                 description={expedition.description || ''}
                 languages={expedition.languages}

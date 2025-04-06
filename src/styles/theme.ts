@@ -54,6 +54,10 @@ const theme = createTheme({
     background: {
       default: palette.tertiary.light,
     },
+    text: {
+      ...palette.text,
+      secondary: palette.tertiary.dark,
+    },
     custom: customColors,
   },
   typography: {
@@ -113,7 +117,7 @@ const theme = createTheme({
       fontSize: typography.caption,
       lineHeight: typography.lineHeightSmall,
       fontWeight: 500,
-      color: grey[700],
+      color: palette.tertiary.dark,
       textTransform: 'uppercase',
     },
     overline: {
@@ -154,6 +158,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '3rem',
+          minWidth: '16rem',
           fontWeight: 500,
           lineHeight: 1.5,
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -275,31 +280,29 @@ const theme = createTheme({
     },
     MuiTabs: {
       styleOverrides: {
-        root: {
-          borderBottom: 'none', // Remove the default underline
-          paddingBottom: 0, // Remove extra space under the tabs
-        },
         indicator: {
           display: 'none',
         },
       },
     },
     MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
-          fontFamily: `var(--museo-moderno), cursive`,
-          fontSize: '1.8rem',
+          padding: '0.8rem 1.6rem',
+          color: palette.tertiary.dark,
           textTransform: 'none',
-          borderRight: '1px solid rgba(0, 0, 0, 0.12)', // Vertical separator between items
-          borderBottom: 'none',
-          padding: '0 2.4rem',
-          minHeight: '4rem',
-          '&:last-of-type': {
-            borderRight: 'none',
-            paddingRight: '0',
+          position: 'relative',
+          zIndex: 2,
+          '&:hover': {
+            color: palette.tertiary.darker,
           },
-          '&:first-of-type': {
-            paddingLeft: '0',
+          '&.Mui-selected': {
+            color: palette.tertiary.darker,
+            fontWeight: 600,
+            boxShadow: 'none',
           },
         },
       },

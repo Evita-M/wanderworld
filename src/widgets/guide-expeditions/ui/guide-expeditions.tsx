@@ -1,10 +1,10 @@
-import { Box, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 import Link from 'next/link';
 import FlightIcon from '@mui/icons-material/Flight';
 import { Expedition } from '@/shared/types/expedition';
 import { DateRange } from '@/shared/ui/components/date-range/date-range';
-import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
+import { routes } from '@/lib/config/routes';
 
 interface GuideExpeditionsProps {
   expeditions: Expedition[];
@@ -17,10 +17,11 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
 
   return (
     <>
-      {expeditions.map(({ name, startDate, endDate, id }, index) => (
+      {expeditions.map(({ name, startDate, endDate, id }) => (
         <Link
-          href={`/expeditions/${id}`}
+          href={`${routes.expeditions}/${id}`}
           passHref
+          key={id}
           aria-label={`View details for ${name} expedition`}
         >
           <Stack

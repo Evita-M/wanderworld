@@ -1,6 +1,5 @@
 'use client';
 import { useGetGuideQuery } from '@/entities/guide/api';
-import { GuideDetail } from '@/entities/guide/ui/guide-details/guide-detaiks';
 import { GuideActions } from '@/features/guide-actions/guide-actions';
 import { SortOrder } from '@/features/sort-order/sort-order';
 import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
@@ -9,6 +8,7 @@ import { Loader } from '@/shared/ui/core/loader/loader';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
 import { sortByDate } from '@/utils/sort-by-date';
+import { GuideDetail } from '@/widgets/guide-detail/ui/guide-detail';
 import { GuideExpeditions } from '@/widgets/guide-expeditions/ui/guide-expeditions';
 import { Box, Stack, Typography } from '@mui/material';
 import { notFound, useParams } from 'next/navigation';

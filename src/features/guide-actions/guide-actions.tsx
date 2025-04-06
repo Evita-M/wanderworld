@@ -36,5 +36,5 @@ export const GuideActions: FC<GuideActionsProps> = ({ id, fullName }) => {
     },
   ];
 
-  return <Actions actions={actions} variant='icon' />;
+  return <Actions actions={actions} />;
 };

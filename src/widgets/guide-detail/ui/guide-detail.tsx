@@ -15,7 +15,7 @@ export const GuideDetail: FC<GuideDetailProps> = ({ avatar, description }) => {
     <Stack flexDirection='row' gap='3.2rem'>
       <Avatar src={avatar} size={200} />
       <Box flexGrow={1}>
-        <Typography variant='caption' component='h4' mb='1.2rem'>
+        <Typography variant='caption' component='p' mb='1.2rem'>
           About me
         </Typography>
         <RichTextRenderer content={description || ''} />

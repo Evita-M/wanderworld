@@ -153,18 +153,19 @@ const PageContent = () => {
     expedition && (
       <>
         <Stack
-          direction='row'
-          alignItems='center'
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
           justifyContent='space-between'
-          mb='2.4rem'
+          mb={{ xs: '2.4rem', sm: '3.2rem' }}
+          spacing={{ xs: 2, sm: 0 }}
         >
           <div>
             <PageHeader
               title={expedition.name}
               prefix={<BackButton />}
-              sx={{ mb: '3.6rem' }}
+              sx={{ mb: '2.4rem' }}
             />
-            <div className='flex items-center gap-2'>
+            <div className='flex flex-wrap items-center gap-2'>
               {expedition.countries?.map((country) => (
                 <Chip
                   key={country.id}
@@ -178,20 +179,11 @@ const PageContent = () => {
           </div>
           <Actions actions={actions} />
         </Stack>
-
-        <div className='grid gap-8 lg:grid-cols-3'>
-          <div className='space-y-6 lg:col-span-2'>
+        <div className='grid gap-[2.4rem] md:grid-cols-2 lg:grid-cols-3'>
+          <div className='space-y-6 md:col-span-2'>
             <FeatureList features={features} />
-            <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>
-              <Image
-                src='https://fakeimg.pl/600x400/acc2bc/ffffff?text=WanderWorld&font=bebas'
-                alt='Placeholder image'
-                fill
-                className='object-cover'
-              />
-            </div>
           </div>
-          <div className='space-y-6'>
+          <div className='row-span-2 space-y-6'>
             <RoundedContainer sx={{ p: 0 }}>
               {guide ? (
                 <GuideInfo
@@ -208,8 +200,20 @@ const PageContent = () => {
               )}
             </RoundedContainer>
           </div>
-          <div className='space-y-6 pt-8 lg:col-span-2'>
-            <RoundedContainer sx={{ minHeight: '48rem' }}>
+          <div className='space-y-6 md:col-span-2'>
+            <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>
+              <Image
+                src='https://fakeimg.pl/600x400/acc2bc/ffffff?text=WanderWorld&font=bebas'
+                alt='Placeholder image'
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                priority
+              />
+            </div>
+          </div>
+          <div className='space-y-6 md:col-span-2 lg:col-span-2'>
+            <RoundedContainer sx={{ minHeight: { xs: '32rem', md: '48rem' } }}>
               <ExpeditionTabs
                 description={expedition.description || ''}
                 languages={expedition.languages}

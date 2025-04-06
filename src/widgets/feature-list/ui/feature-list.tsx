@@ -7,7 +7,7 @@ interface FeatureListProps {
 
 export const FeatureList: FC<FeatureListProps> = ({ features }) => {
   return (
-    <ul className='grid grid-cols-1 gap-[1.2rem] md:grid-cols-2 xl:grid-cols-4'>
+    <ul className='grid grid-cols-1 gap-[2.4rem] md:grid-cols-2 xl:grid-cols-4'>
       {features.map((feature) => (
         <li key={feature.title}>
           <FeatureItem {...feature} />

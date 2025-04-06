@@ -20,7 +20,7 @@ export const Stats: FC<StatsProps> = ({ data }) => {
           width='100%'
           justifyContent='center'
           alignItems='center'
-          p='1.2rem'
+          p='1.4rem'
           gap='0.8rem'
           sx={{
             borderRight:
@@ -29,7 +29,7 @@ export const Stats: FC<StatsProps> = ({ data }) => {
                 : 'none',
           }}
         >
-          <Typography variant='h4' component='p'>
+          <Typography variant='h6' component='p'>
             {dataItem.count}
           </Typography>
           <Typography variant='caption' color='text.secondary'>

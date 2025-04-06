@@ -13,8 +13,8 @@ export const FeatureItem: FC<FeatureItemProps> = ({ title, text, icon }) => {
     <Stack
       direction='column'
       className='rounded-[1.6rem]'
-      p='1.6rem'
-      gap='1.6rem'
+      p='1.2rem 2.4rem'
+      gap='0.8rem'
       bgcolor='#ffffff'
     >
       <Typography variant='h6' component='p'>

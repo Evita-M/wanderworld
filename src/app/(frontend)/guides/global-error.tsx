@@ -19,10 +19,6 @@ export default function Error({ error, reset }: ErrorProps) {
         label: 'Retry',
         onClick: reset,
       }}
-      sx={{
-        position: 'absolute',
-        inset: 0,
-      }}
     />
   );
 }

@@ -1,3 +1,4 @@
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
 import PageContent from './page-content';
 import { Metadata } from 'next';
 
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 };
 
 const EditGuidePage = () => {
-  return <PageContent />;
+  return (
+    <PageContainer>
+      <PageContent />
+    </PageContainer>
+  );
 };
 
 export default EditGuidePage;

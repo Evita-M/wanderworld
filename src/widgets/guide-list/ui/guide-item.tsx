@@ -1,31 +1,89 @@
-import { GuideHeader } from '@/entities/guide/ui/guide-header/guide-header';
 import { FC } from 'react';
 import { Language } from '@/shared/types/language';
+import { Box, Card, CardContent, Typography, Chip, Stack } from '@mui/material';
+import { routes } from '@/lib/config/routes';
+import Link from 'next/link';
+import { LanguagesList } from '@/shared/ui/modules/languages/languages-list';
+import { Avatar } from '@/shared/ui/core/avatar/avatar';
+import { RichTextRenderer } from '@/shared/ui/components/rich-text';
 
 interface GuideItemProps {
-  fullName: string;
+  name: string;
   languages: Language[];
-  avatarSrc: string;
   id: string;
-  email: string;
-  onClick: VoidFunction;
+  description?: string;
+  avatarSrc?: string;
 }
 
 export const GuideItem: FC<GuideItemProps> = ({
-  fullName,
+  name,
   languages,
+  description,
+  id,
   avatarSrc,
-  email,
-  onClick,
 }) => {
+  const guideLink = `${routes.guides}/${id}`;
   return (
-    <div onClick={onClick} className='cursor-pointer border-b border-gray-200'>
-      <GuideHeader
-        fullName={fullName}
-        languages={languages}
-        avatarSrc={avatarSrc}
-        email={email}
-      />
-    </div>
+    <Box position='relative' component='article'>
+      <Link href={guideLink}>
+        <Card
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            cursor: 'pointer',
+            gap: '2rem',
+            padding: '2.4rem',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            backgroundColor: 'white',
+            boxShadow: 'none',
+            borderRadius: '1.6rem',
+            overflow: 'hidden',
+            position: 'relative',
+            '&:hover': {
+              boxShadow: '0 12px 24px -10px rgba(0, 0, 0, 0.1)',
+            },
+          }}
+        >
+          <Stack direction='row' gap={2} alignItems='center'>
+            <Avatar alt={name} size={120} src={avatarSrc} />
+            <Stack gap='2rem' flexGrow={1} position='relative'>
+              <Chip
+                label='Pro'
+                size='small'
+                sx={{
+                  position: 'absolute',
+                  textTransform: 'uppercase',
+                  top: '0',
+                  right: '0',
+                  backgroundColor: '#EBBE4D',
+                }}
+              />
+              <Box>
+                <Typography variant='h4' component='p' mb='0.8rem'>
+                  {name}
+                </Typography>
+                <Typography variant='caption' color='text.secondary'>
+                  WanderWorld Guide
+                </Typography>
+              </Box>
+              <LanguagesList languages={languages} />
+            </Stack>
+          </Stack>
+          <Stack gap='0.8rem'>
+            <Typography variant='caption' color='text.secondary'>
+              About
+            </Typography>
+            {description?.length ? (
+              <RichTextRenderer content={description} />
+            ) : (
+              <Typography variant='caption' color='text.secondary'>
+                No info about this guide
+              </Typography>
+            )}
+          </Stack>
+        </Card>
+      </Link>
+    </Box>
   );
 };

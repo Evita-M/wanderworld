@@ -1,7 +1,10 @@
-'use client';
-
-import { GuidesPageHeader } from '@/entities/guide/ui/guide-page-header/guide=page-header';
+import PageContent from './page-content';
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
 
 export default function GuidesPage() {
-  return <GuidesPageHeader />;
+  return (
+    <PageContainer>
+      <PageContent />
+    </PageContainer>
+  );
 }

@@ -140,7 +140,7 @@ const PageContent = () => {
     {
       icon: <PeopleIcon />,
       title: 'Group Size',
-      text: `${expedition?.minGroupSize} - ${expedition?.maxGroupSize}`,
+      text: `${expedition?.minGroupSize} — ${expedition?.maxGroupSize} people`,
     },
     {
       icon: <FitnessCenterIcon />,

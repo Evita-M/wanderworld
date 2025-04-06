@@ -24,6 +24,7 @@ export const BackButton: FC<BackButtonProps> = ({
       className='group'
       sx={{
         color: theme.palette.tertiary.dark,
+        minWidth: 'auto',
         backgroundColor: 'transparent',
         p: '1.2rem',
         '&:hover': {

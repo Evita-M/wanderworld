@@ -1,17 +1,16 @@
 'use client';
 
-import { Box, Grid, Stack } from '@mui/material';
-import { FC, useMemo, useState } from 'react';
+import { Box, Stack } from '@mui/material';
+import { FC } from 'react';
 import { useGetExpeditionsQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
-import { sortByDate } from '@/utils/sort-by-date';
 import { notFound } from 'next/navigation';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
 import { Loader } from '@/shared/ui/core/loader/loader';
-import { SortOrder } from '@/features/sort-order/sort-order';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
 import { EmptyState } from '@/shared/ui/components/empty-state/empty-state';
 import { ExpeditionList } from '@/widgets/expedition-list/ui/expedition-list';
+import { SortExpeditions } from '@/features/sort-expeditions/sort-expeditions';
 
 const PageContent: FC = () => {
   const {
@@ -20,12 +19,6 @@ const PageContent: FC = () => {
     isError: isGetExpeditionsError,
     error: expeditionsError,
   } = useGetExpeditionsQuery();
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-
-  const sortedExpeditions = useMemo(() => {
-    if (!expeditions) return [];
-    return sortByDate([...expeditions], 'startDate', sortOrder);
-  }, [expeditions, sortOrder]);
 
   if (isGetExpeditionsError) {
     handleRTKQueryError(expeditionsError);
@@ -53,13 +46,14 @@ const PageContent: FC = () => {
           <Loader />
         </Box>
       ) : expeditions?.length ? (
-        <>
-          <Box alignSelf='flex-end'>
-            <SortOrder sortOrder={sortOrder} onSortChange={setSortOrder} />
-          </Box>
-          <h2 className='sr-only'>Expeditions List</h2>
-          <ExpeditionList expeditions={sortedExpeditions} />
-        </>
+        <SortExpeditions expeditions={expeditions}>
+          {(sortedExpeditions) => (
+            <>
+              <h2 className='sr-only'>Expeditions List</h2>
+              <ExpeditionList expeditions={sortedExpeditions} />
+            </>
+          )}
+        </SortExpeditions>
       ) : (
         <Stack height='100%' alignItems='center' justifyContent='center'>
           <EmptyState title='No Expeditions Found' />

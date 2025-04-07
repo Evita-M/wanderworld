@@ -8,7 +8,7 @@ interface SortProps {
   size?: 'small' | 'medium';
 }
 
-export const SortOrder = ({
+export const SortSelect = ({
   sortOrder,
   onSortChange,
   labelAsc = 'Oldest First',

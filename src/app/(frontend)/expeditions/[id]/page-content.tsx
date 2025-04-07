@@ -181,7 +181,7 @@ const PageContent = () => {
         </Stack>
         <div className='grid gap-[2.4rem] md:grid-cols-2 lg:grid-cols-3'>
           <div className='space-y-6 md:col-span-2'>
-            <FeatureList features={features} />
+            <FeatureList items={features} />
           </div>
           <div className='row-span-2 space-y-6'>
             <RoundedContainer sx={{ p: 0 }}>

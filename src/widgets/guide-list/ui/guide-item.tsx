@@ -29,10 +29,11 @@ export const GuideItem: FC<GuideItemProps> = ({
         <Card
           sx={{
             height: '100%',
+            minHeight: '30rem',
             display: 'flex',
             flexDirection: 'column',
+            gap: '2.4rem',
             cursor: 'pointer',
-            gap: '2rem',
             padding: '2.4rem',
             transition: 'transform 0.2s, box-shadow 0.2s',
             backgroundColor: 'white',
@@ -45,7 +46,7 @@ export const GuideItem: FC<GuideItemProps> = ({
             },
           }}
         >
-          <Stack direction='row' gap={2} alignItems='center'>
+          <Stack direction='row' gap={2} alignItems='flex-start'>
             <Avatar alt={name} size={120} src={avatarSrc} />
             <Stack gap='2rem' flexGrow={1} position='relative'>
               <Chip
@@ -70,12 +71,22 @@ export const GuideItem: FC<GuideItemProps> = ({
               <LanguagesList languages={languages} />
             </Stack>
           </Stack>
-          <Stack gap='0.8rem'>
+          <Stack gap='0.8rem' flexGrow={1}>
             <Typography variant='caption' color='text.secondary'>
               About
             </Typography>
             {description?.length ? (
-              <RichTextRenderer content={description} />
+              <Box
+                sx={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                <RichTextRenderer content={description} />
+              </Box>
             ) : (
               <Typography variant='caption' color='text.secondary'>
                 No info about this guide

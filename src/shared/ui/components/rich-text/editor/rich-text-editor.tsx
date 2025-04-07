@@ -115,6 +115,7 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
         borderRadius={theme.borderRadius.small}
         spacing={1}
         minHeight='10rem'
+        bgcolor='#ffffff'
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         sx={{
@@ -123,8 +124,8 @@ export const RichTextEditor: FC<RichTextEditorProps> = ({
             isHovered
               ? theme.palette.primary.light
               : isFocused
-                ? theme.palette.primary.main
-                : grey[400]
+                ? theme.palette.primary.light
+                : 'transparent'
           }`,
           outlineOffset: '-1px',
           fontFamily: theme.typography.fontFamily,

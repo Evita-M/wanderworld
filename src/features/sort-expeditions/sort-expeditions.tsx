@@ -1,18 +1,24 @@
 import { FC, ReactNode, useMemo, useState } from 'react';
-import { SortSelect } from '@/shared/ui/components/sort-select/sort-select';
+import {
+  SortOrder,
+  SortSelect,
+} from '@/shared/ui/components/sort-select/sort-select';
 import { sortByDate } from '@/utils/sort-by-date';
-import { ExpeditionPayload } from '@/app/(backend)/api/expeditions/schema';
+import { Expedition } from '@/shared/types/expedition';
+import { Box, Stack } from '@mui/material';
 
 interface SortExpeditionsProps {
-  expeditions: ExpeditionPayload[];
-  children: (sortedExpeditions: ExpeditionPayload[]) => ReactNode;
+  title?: ReactNode;
+  expeditions: Expedition[];
+  children: (sortedExpeditions: Expedition[]) => ReactNode;
 }
 
 export const SortExpeditions: FC<SortExpeditionsProps> = ({
+  title,
   expeditions,
   children,
 }) => {
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
 
   const sortedExpeditions = useMemo(() => {
     if (!expeditions?.length) return [];
@@ -21,9 +27,14 @@ export const SortExpeditions: FC<SortExpeditionsProps> = ({
 
   return (
     <>
-      <div className='mb-4 flex justify-end'>
-        <SortSelect sortOrder={sortOrder} onSortChange={setSortOrder} />
-      </div>
+      <Stack direction='row' justifyContent='space-between' alignItems='center'>
+        {title}
+        {expeditions?.length > 1 && (
+          <Box ml='auto'>
+            <SortSelect sortOrder={sortOrder} onSortChange={setSortOrder} />
+          </Box>
+        )}
+      </Stack>
       {children(sortedExpeditions)}
     </>
   );

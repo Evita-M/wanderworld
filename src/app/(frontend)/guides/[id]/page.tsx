@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import GuidePageContent from './page-content';
 import { PageContainer } from '@/shared/ui/core/layout/page-container';
+import PageContent from './page-content';
 
 export const metadata: Metadata = {
   title: 'Guide Detail',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function GuidePage() {
   return (
     <PageContainer>
-      <GuidePageContent />
+      <PageContent />
     </PageContainer>
   );
 }

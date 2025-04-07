@@ -182,7 +182,7 @@ const theme = createTheme({
             '&.Mui-disabled': {
               backgroundColor: palette.tertiary.light,
               boxShadow: 'none',
-              color: palette.tertiary.dark,
+              color: palette.primary.contrastText,
             },
           },
           '&.MuiButton-outlinedQuaternary': {
@@ -190,7 +190,7 @@ const theme = createTheme({
             color: palette.quaternary.main,
             '&:hover': {
               borderColor: palette.quaternary.dark,
-              color: palette.quaternary.dark,
+              color: palette.primary.contrastText,
             },
           },
         },
@@ -218,9 +218,9 @@ const theme = createTheme({
             backgroundColor: palette.primary.dark,
           },
           '&.Mui-disabled': {
-            backgroundColor: palette.tertiary.light,
+            backgroundColor: palette.primary.light,
             boxShadow: 'none',
-            color: palette.tertiary.dark,
+            color: palette.primary.contrastText,
           },
         },
         containedSecondary: {
@@ -230,9 +230,9 @@ const theme = createTheme({
             backgroundColor: palette.secondary.dark,
           },
           '&.Mui-disabled': {
-            backgroundColor: palette.tertiary.light,
+            backgroundColor: palette.secondary.light,
             boxShadow: 'none',
-            color: palette.tertiary.dark,
+            color: palette.secondary.contrastText,
           },
         },
         containedError: {
@@ -242,9 +242,9 @@ const theme = createTheme({
             backgroundColor: palette.error.dark,
           },
           '&.Mui-disabled': {
-            backgroundColor: palette.tertiary.light,
+            backgroundColor: palette.error.light,
             boxShadow: 'none',
-            color: palette.tertiary.dark,
+            color: palette.error.contrastText,
           },
         },
         text: {

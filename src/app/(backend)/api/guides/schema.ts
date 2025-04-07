@@ -8,6 +8,7 @@ export const apiGuideSchema = z.object({
   phoneNumber: z.string().min(1),
   description: z.string().optional(),
   avatar: z.string().optional().nullable(),
+  createdAt: z.string(),
   languages: z
     .array(
       z.object({

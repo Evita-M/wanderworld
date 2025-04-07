@@ -1,20 +1,23 @@
 'use client';
 import { useGetGuideQuery } from '@/entities/guide/api';
 import { GuideActions } from '@/features/guide-actions/guide-actions';
-import { SortOrder } from '@/features/sort-order/sort-order';
+import { SortExpeditions } from '@/features/sort-expeditions/sort-expeditions';
 import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
 import { BackButton } from '@/shared/ui/core/button/back-button';
 import { Loader } from '@/shared/ui/core/loader/loader';
 import { PageHeader } from '@/shared/ui/core/typography/page-header';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import { handleRTKQueryError } from '@/utils/error-handler/error-handler';
-import { sortByDate } from '@/utils/sort-by-date';
 import { GuideDetail } from '@/widgets/guide-detail/ui/guide-detail';
 import { GuideExpeditions } from '@/widgets/guide-expeditions/ui/guide-expeditions';
 import { Box, Stack, Typography } from '@mui/material';
 import { notFound, useParams } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { FeatureList } from '@/widgets/feature-list/ui/feature-list';
+import { format } from 'date-fns';
+import { FC } from 'react';
+import { LanguagesList } from '@/shared/ui/modules/languages/languages-list';
 
-const GuidePageContent = () => {
+const PageContent: FC = () => {
   const params = useParams();
   const id = params?.id as string;
 
@@ -26,14 +29,6 @@ const GuidePageContent = () => {
   } = useGetGuideQuery(id, {
     skip: !id,
   });
-
-  const hasExpeditions = Boolean(guide?.expeditions?.length);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-
-  const sortedExpeditions = useMemo(() => {
-    if (!hasExpeditions) return [];
-    return sortByDate([...(guide?.expeditions || [])], 'startDate', sortOrder);
-  }, [guide?.expeditions, sortOrder, hasExpeditions]);
 
   if (isGetGuideError) {
     handleRTKQueryError(guideError);
@@ -50,6 +45,26 @@ const GuidePageContent = () => {
       </Stack>
     );
   }
+
+  const features = [
+    {
+      icon: <LanguageOutlinedIcon />,
+      title: 'Expeditions',
+      text: guide?.expeditions?.length ?? 0,
+    },
+    {
+      icon: <LanguageOutlinedIcon />,
+      title: 'Languages',
+      text: guide?.languages?.length ?? 0,
+    },
+    {
+      icon: <LanguageOutlinedIcon />,
+      title: 'Joined',
+      text: guide?.createdAt
+        ? format(new Date(guide.createdAt), 'dd MMMM yyyy')
+        : 'N/A',
+    },
+  ];
 
   return (
     <>
@@ -88,46 +103,51 @@ const GuidePageContent = () => {
           </RoundedContainer>
         </div>
         <div className='row-span-2 space-y-6'>
-          <RoundedContainer sx={{ p: 0 }}>
-            <Typography variant='h6' sx={{ p: 2 }}>
-              Guide Profile
-            </Typography>
+          <Typography variant='h6' component='h2' sx={{ pb: '1.2rem' }}>
+            Languages
+          </Typography>
+          <RoundedContainer sx={{ p: 0, minHeight: '20rem' }}>
             <Box sx={{ p: 2 }}>
-              <Typography>Profile information will go here</Typography>
+              {guide?.languages && (
+                <LanguagesList languages={guide.languages} />
+              )}
             </Box>
           </RoundedContainer>
         </div>
 
         <div className='space-y-6 md:col-span-2'>
-          <RoundedContainer>
-            <Typography variant='h6' sx={{ mb: 2 }}>
-              Guide Statistics
-            </Typography>
-            <Box>
-              <Typography>Statistics information will go here</Typography>
-            </Box>
-          </RoundedContainer>
+          <Typography variant='h6' component='h2' sx={{ mb: '1.2rem' }}>
+            Statistics
+          </Typography>
+          <FeatureList items={features} />
         </div>
-
         <div className='space-y-6 md:col-span-2 lg:col-span-2'>
-          <Stack
-            flexDirection='row'
-            justifyContent='space-between'
-            alignItems='center'
-            mb='2rem'
-          >
-            <Typography variant='h6'>Guide Expeditions</Typography>
-            {hasExpeditions && (guide?.expeditions?.length ?? 0) > 1 && (
-              <SortOrder sortOrder={sortOrder} onSortChange={setSortOrder} />
+          <Box>
+            {guide?.expeditions && (
+              <SortExpeditions
+                title={
+                  <Typography variant='h6' component='h2'>
+                    Guide Expeditions
+                  </Typography>
+                }
+                expeditions={guide?.expeditions}
+              >
+                {(sortedExpeditions) => (
+                  <RoundedContainer sx={{ mt: '1.2rem', minHeight: '20rem' }}>
+                    {sortedExpeditions.length ? (
+                      <GuideExpeditions expeditions={sortedExpeditions} />
+                    ) : (
+                      <Typography>No expeditions found</Typography>
+                    )}
+                  </RoundedContainer>
+                )}
+              </SortExpeditions>
             )}
-          </Stack>
-          <RoundedContainer sx={{ minHeight: { xs: '32rem', md: '48rem' } }}>
-            <GuideExpeditions expeditions={sortedExpeditions} />
-          </RoundedContainer>
+          </Box>
         </div>
       </div>
     </>
   );
 };
 
-export default GuidePageContent;
+export default PageContent;

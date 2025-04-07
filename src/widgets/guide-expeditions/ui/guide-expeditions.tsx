@@ -1,4 +1,4 @@
-import { Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 import Link from 'next/link';
 import FlightIcon from '@mui/icons-material/Flight';
@@ -31,6 +31,7 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
             justifyContent='space-between'
             gap='0.4rem'
             overflow='hidden'
+            py='1.2rem'
             sx={{
               '&:hover .iconContainer': {
                 transform: 'translateY(0) translateX(-50%)',
@@ -55,8 +56,8 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
                 }}
               />
               <Typography
-                variant='h6'
                 className='nameText'
+                fontSize='1.8rem'
                 sx={{
                   transition: 'transform 0.3s ease',
                 }}
@@ -64,7 +65,9 @@ export const GuideExpeditions: FC<GuideExpeditionsProps> = ({
                 {name}
               </Typography>
             </Stack>
-            <DateRange startDate={startDate} endDate={endDate} />
+            <Box width='24rem'>
+              <DateRange startDate={startDate} endDate={endDate} />
+            </Box>
           </Stack>
         </Link>
       ))}

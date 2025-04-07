@@ -2,15 +2,15 @@ import { FC } from 'react';
 import { FeatureItem, FeatureItemProps } from './feature-Item';
 
 interface FeatureListProps {
-  features: FeatureItemProps[];
+  items: FeatureItemProps[];
 }
 
-export const FeatureList: FC<FeatureListProps> = ({ features }) => {
+export const FeatureList: FC<FeatureListProps> = ({ items }) => {
   return (
     <ul className='grid grid-cols-1 gap-[2.4rem] md:grid-cols-2 xl:grid-cols-4'>
-      {features.map((feature) => (
-        <li key={feature.title}>
-          <FeatureItem {...feature} />
+      {items.map((item) => (
+        <li key={item.title}>
+          <FeatureItem {...item} />
         </li>
       ))}
     </ul>

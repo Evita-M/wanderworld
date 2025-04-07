@@ -2,10 +2,10 @@
 
 import { Grid, Container } from '@mui/material';
 import { ExpeditionItem } from './expedition-item';
-import { ExpeditionPayload } from '@/app/(backend)/api/expeditions/schema';
+import { Expedition } from '@/shared/types/expedition';
 
 interface ExpeditionListProps {
-  expeditions: ExpeditionPayload[];
+  expeditions: Expedition[];
 }
 
 export const ExpeditionList = ({ expeditions }: ExpeditionListProps) => {

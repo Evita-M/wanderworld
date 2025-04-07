@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 
 export interface FeatureItemProps {
   title: string;
-  text: string;
+  text: string | number;
   icon?: ReactNode;
 }
 

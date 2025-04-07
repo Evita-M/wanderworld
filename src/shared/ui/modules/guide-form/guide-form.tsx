@@ -113,7 +113,7 @@ export const GuideForm: FC<GuideFormProps> = ({
             <Button
               type='button'
               onClick={onCancel}
-              variant='outlined'
+              variant='text'
               color='secondary'
               fullWidth
             >

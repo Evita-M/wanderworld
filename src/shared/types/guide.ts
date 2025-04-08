@@ -11,5 +11,4 @@ export type Guide = {
   avatar?: string;
   expeditions: Expedition[];
   languages: Language[];
-  createdAt?: Date;
 };

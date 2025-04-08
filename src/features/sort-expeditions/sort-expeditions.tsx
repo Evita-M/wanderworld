@@ -6,10 +6,11 @@ import {
 import { sortByDate } from '@/utils/sort-by-date';
 import { Expedition } from '@/shared/types/expedition';
 import { Box, Stack } from '@mui/material';
+import { ExpeditionPayload } from '@/app/(backend)/api/expeditions/schema';
 
 interface SortExpeditionsProps {
   title?: ReactNode;
-  expeditions: Expedition[];
+  expeditions: ExpeditionPayload[];
   children: (sortedExpeditions: Expedition[]) => ReactNode;
 }
 

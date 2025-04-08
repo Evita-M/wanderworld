@@ -1,12 +1,13 @@
 'use client';
-import { Typography } from '@mui/material';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
+import { Stack, Typography } from '@mui/material';
 
 export interface Link {
   label: string;
   href: string;
+  icon?: ReactNode;
 }
 
 interface NavLinkProps {
@@ -19,13 +20,28 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
 
   return (
     <Link href={link.href}>
-      <Typography
+      <Stack
         component='span'
-        color={isActive ? 'primary' : 'default'}
-        fontWeight={500}
+        direction='row'
+        gap='1.4rem'
+        borderRadius='0.8rem'
+        color={isActive ? 'primary.contrastText' : 'text.secondary'}
+        bgcolor={isActive ? 'primary.main' : 'transparent'}
+        p='1.2rem'
+        sx={{
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            bgcolor: isActive ? 'primary.dark' : 'background.default',
+            color: isActive ? 'primary.contrastText' : 'tertiary.darker',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
+          },
+        }}
       >
-        {link.label}
-      </Typography>
+        {link.icon}
+        <Typography component='span' fontWeight={500} color='inherit'>
+          {link.label}
+        </Typography>
+      </Stack>
     </Link>
   );
 };

@@ -14,7 +14,7 @@ const customPaletteColors = {
 export const palette = {
   primary: {
     main: customPaletteColors.green,
-    light: 'rgb(172, 194, 188)',
+    light: lightenRGB(customPaletteColors.green, 90),
     dark: darkenRGB(customPaletteColors.green, 30),
     contrastText: customPaletteColors.white,
   },

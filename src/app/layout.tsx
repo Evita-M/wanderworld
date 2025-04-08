@@ -6,7 +6,7 @@ import './globals.css';
 import { museoModerno, notoSans } from '@/styles/fonts';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/styles/theme';
-import { Header } from '@/shared/ui/modules/header/header';
+import { Navbar } from '@/shared/ui/modules/navbar/navbar';
 
 export const metadata: Metadata = {
   title: {
@@ -51,8 +51,8 @@ export default function RootLayout({
       >
         <body className={`${notoSans.variable} ${museoModerno.variable}`}>
           <Providers>
-            <Stack height='100%'>
-              <Header />
+            <Stack height='100%' direction='row'>
+              <Navbar />
               <Stack component='main' flex='1 1 100%'>
                 {children}
               </Stack>

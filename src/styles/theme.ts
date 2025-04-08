@@ -52,7 +52,7 @@ const theme = createTheme({
   palette: {
     ...palette,
     background: {
-      default: palette.tertiary.light,
+      default: '#F2F0EF',
     },
     text: {
       ...palette.text,

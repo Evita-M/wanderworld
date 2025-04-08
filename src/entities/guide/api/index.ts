@@ -21,7 +21,7 @@ const guideApi = createApi({
   tagTypes: ['Guide'],
   reducerPath: 'guideApi',
   endpoints: (build) => ({
-    getGuide: build.query<Guide, string>({
+    getGuide: build.query<GuidePayload, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -30,7 +30,7 @@ const guideApi = createApi({
         { type: 'Guide', id },
       ],
     }),
-    getGuides: build.query<Guide[], void>({
+    getGuides: build.query<GuidePayload[], void>({
       query: () => ({
         url: '/',
         method: 'GET',

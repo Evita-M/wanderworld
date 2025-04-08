@@ -86,7 +86,7 @@ export const ExpeditionItem = ({
               height: 280,
               backgroundColor: theme.palette.primary.light,
             }}
-            image='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png'
+            image='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png'
             alt={name}
           />
           <CardContent

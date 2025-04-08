@@ -30,7 +30,7 @@ export const GuideList: FC<GuideListProps> = ({ guides }) => {
             id,
             ...guide
           }) => (
-            <Grid item xs={12} md={6} lg={6} key={id}>
+            <Grid item xs={12} md={4} lg={3} key={id}>
               <GuideItem
                 id={id}
                 name={`${firstName} ${lastName}`}

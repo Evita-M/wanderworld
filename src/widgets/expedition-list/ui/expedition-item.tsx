@@ -86,7 +86,7 @@ export const ExpeditionItem = ({
               height: 280,
               backgroundColor: theme.palette.primary.light,
             }}
-            image='https://fakeimg.pl/600x400/acc2bc/ffffff?text=WanderWorld&font=bebas'
+            image='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png'
             alt={name}
           />
           <CardContent

@@ -157,7 +157,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: '3rem',
+          borderRadius: '1.2rem',
           minWidth: '16rem',
           fontWeight: 500,
           lineHeight: 1.5,

@@ -1,13 +1,14 @@
 'use client';
-import { Box, Button, Stack, useTheme } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/material';
 import Link from 'next/link';
 import { routes } from '@/lib/config/routes';
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExploreIcon from '@mui/icons-material/Explore';
 import GroupIcon from '@mui/icons-material/Group';
 import { Logo } from '@/shared/ui/core/logo/logo';
 import { Link as LinkType, NavLink } from '@/shared/ui/core/link/nav-link';
+import { FC } from 'react';
 
 const navLinks: LinkType[] = [
   {
@@ -27,7 +28,11 @@ const navLinks: LinkType[] = [
   },
 ];
 
-export const Navbar = () => {
+interface NavbarProps {
+  height: string;
+}
+
+export const Navbar: FC<NavbarProps> = ({ height }) => {
   const theme = useTheme();
   return (
     <Stack
@@ -39,14 +44,20 @@ export const Navbar = () => {
     >
       <Stack
         borderBottom={`2px solid ${theme.palette.background.default}`}
-        p='2.4rem 1.2rem'
+        justifyContent='center'
+        height={height}
         alignItems='center'
       >
         <Link href={routes.home} aria-label='Go home'>
           <Logo />
         </Link>
       </Stack>
-      <Stack component='ul' p='1.2rem' spacing='1.6rem' direction='column'>
+      <Stack
+        component='ul'
+        p='2.4rem 1.2rem'
+        spacing='1.6rem'
+        direction='column'
+      >
         {navLinks.map((link) => (
           <Box key={link.href} component='li'>
             <NavLink link={link} />

@@ -3,7 +3,7 @@
 const nextConfig = {
   transpilePackages: ['@mui/material', '@mui/system', '@mui/icons-material'],
   images: {
-    domains: ['fakeimg.pl'],
+    domains: ['raw.githubusercontent.com'],
   },
 };
 

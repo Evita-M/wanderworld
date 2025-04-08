@@ -7,6 +7,7 @@ import { museoModerno, notoSans } from '@/styles/fonts';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/styles/theme';
 import { Navbar } from '@/shared/ui/modules/navbar/navbar';
+import { TopBar } from '@/shared/ui/modules/topbar/topbar';
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +38,8 @@ export const metadata: Metadata = {
   ],
 };
 
+const BAR_HEIGHT = '7.6rem';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -52,8 +55,9 @@ export default function RootLayout({
         <body className={`${notoSans.variable} ${museoModerno.variable}`}>
           <Providers>
             <Stack height='100%' direction='row'>
-              <Navbar />
+              <Navbar height={BAR_HEIGHT} />
               <Stack component='main' flex='1 1 100%'>
+                <TopBar height={BAR_HEIGHT} />
                 {children}
               </Stack>
             </Stack>

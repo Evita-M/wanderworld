@@ -5,8 +5,8 @@ export const typography = {
   display3: '6rem', // 60px
 
   // Headings
-  h1: '4.8rem', // 48px
-  h2: '4.0rem', // 40px
+  h1: '4.0rem', // 40px
+  h2: '3.6rem', // 36px
   h3: '3.2rem', // 32px
   h4: '2.4rem', // 24px
   h5: '2rem', // 20px

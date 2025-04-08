@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { Avatar as MuiAvatar, useTheme } from '@mui/material';
+import { Avatar as MuiAvatar, Stack, useTheme } from '@mui/material';
+import { AvatarWrapper } from './avatar-wrapper';
 
 interface AvatarProps {
   src?: string;
@@ -23,26 +24,31 @@ export const Avatar: FC<AvatarProps> = ({
 
   if (!src) {
     return (
-      <MuiAvatar
-        sx={{
-          ...imgDimensions,
-          bgcolor: theme.palette.primary.light,
-          color: 'white',
-          fontSize: `${size / 25}rem`,
-        }}
-        aria-label={alt || 'Avatar with initials'}
-      >
-        {displayInitials}
-      </MuiAvatar>
+      <AvatarWrapper size={size}>
+        <MuiAvatar
+          sx={{
+            ...imgDimensions,
+            bgcolor: theme.palette.primary.light,
+            color: 'white',
+            border: `${size / 35}px solid ${theme.palette.tertiary.main}`,
+            fontSize: `${size / 25}rem`,
+          }}
+          aria-label={alt || 'Avatar with initials'}
+        >
+          {displayInitials}
+        </MuiAvatar>
+      </AvatarWrapper>
     );
   }
 
   return (
-    <MuiAvatar
-      src={src}
-      alt={alt}
-      sx={imgDimensions}
-      aria-label={alt || 'Avatar image'}
-    />
+    <AvatarWrapper size={size}>
+      <MuiAvatar
+        src={src}
+        alt={alt}
+        sx={imgDimensions}
+        aria-label={alt || 'Avatar image'}
+      />
+    </AvatarWrapper>
   );
 };

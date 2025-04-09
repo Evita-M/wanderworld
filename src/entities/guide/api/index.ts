@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { Guide } from '@/shared/types/guide';
 import {
   CreateGuideRequestBody,
-  GuidePayload,
+  GetGuidePayload,
   UpdateGuideRequestBody,
 } from '@/app/(backend)/api/guides/schema';
 import { BaseResponse } from '@/utils/error-handler/error-handler';
@@ -21,7 +21,7 @@ const guideApi = createApi({
   tagTypes: ['Guide'],
   reducerPath: 'guideApi',
   endpoints: (build) => ({
-    getGuide: build.query<GuidePayload, string>({
+    getGuide: build.query<GetGuidePayload, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -30,7 +30,7 @@ const guideApi = createApi({
         { type: 'Guide', id },
       ],
     }),
-    getGuides: build.query<GuidePayload[], void>({
+    getGuides: build.query<GetGuidePayload[], void>({
       query: () => ({
         url: '/',
         method: 'GET',

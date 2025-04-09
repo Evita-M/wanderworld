@@ -27,7 +27,8 @@ import { BackButton } from '@/shared/ui/core/button/back-button';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { RoundedContainer } from '@/shared/ui/components/rounded-container/rounded-container';
 import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
-
+import { Language } from '@/shared/types/language';
+import { Country } from '@/shared/types/country';
 const PageContent = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -129,8 +130,9 @@ const PageContent = () => {
       icon: <LanguageOutlinedIcon />,
       title: 'Languages',
       text:
-        expedition?.languages?.map((language) => language.name).join(', ') ||
-        'N/A',
+        expedition?.languages
+          ?.map((language: Language) => language.name)
+          .join(', ') || 'N/A',
     },
     {
       icon: <ClockIcon />,
@@ -166,7 +168,7 @@ const PageContent = () => {
               sx={{ mb: '2.4rem' }}
             />
             <div className='flex flex-wrap items-center gap-2'>
-              {expedition.countries?.map((country) => (
+              {expedition.countries?.map((country: Country) => (
                 <Chip
                   key={country.id}
                   label={country.name}

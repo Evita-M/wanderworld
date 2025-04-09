@@ -10,7 +10,7 @@ import { GuideFormSchema } from '@/shared/ui/modules/guide-form/validation';
 import { UpdateGuideRequestBody } from '@/app/(backend)/api/guides/schema';
 import { Loader } from '@/shared/ui/core/loader/loader';
 import { Stack } from '@mui/material';
-
+import { Language } from '@/shared/types/language';
 export const EditGuide: FC = () => {
   const { id } = useParams();
   const { data: guide, isLoading: isGetGuideLoading } = useGetGuideQuery(
@@ -66,7 +66,7 @@ export const EditGuide: FC = () => {
         phoneNumber: guide.phoneNumber,
         description: guide.description || undefined,
         avatar: guide.avatar,
-        languages: guide.languages.map((l) => ({
+        languages: guide.languages.map((l: Language) => ({
           code: l.code,
           name: l.name,
         })),

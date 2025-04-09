@@ -8,14 +8,14 @@ import {
   getNotFoundResponse,
   getServerErrorResponse,
 } from '@/utils/error-handler/error-handler';
-import { RequestParams, GuidePayload, apiGuideSchema } from '../schema';
+import { RequestParams, GetGuidePayload, apiGuideSchema } from '../schema';
 
 export const dynamic = 'force-dynamic';
 
 async function getGuide(
   _request: NextRequest,
   { params }: { params: RequestParams }
-): Promise<NextResponse<GuidePayload | ErrorResponse>> {
+): Promise<NextResponse<GetGuidePayload | ErrorResponse>> {
   const { guideId } = params;
 
   try {
@@ -28,7 +28,7 @@ async function getGuide(
       return getNotFoundResponse('Guide');
     }
 
-    return NextResponse.json<GuidePayload>(guide);
+    return NextResponse.json<GetGuidePayload>(guide);
   } catch (error) {
     return getServerErrorResponse(error);
   }

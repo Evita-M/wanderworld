@@ -14,6 +14,7 @@ export const AvatarWrapper: FC<{ size: number; children: React.ReactNode }> = ({
       bgcolor={theme.palette.primary.light}
       border={`${size / 28}px solid ${theme.palette.tertiary.main}`}
       borderRadius='50%'
+      flexShrink={0}
       width={size}
       height={size}
     >

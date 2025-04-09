@@ -23,12 +23,21 @@ export type RequestParams = {
   guideId: string;
 };
 
-export type GuidePayload = Prisma.GuideGetPayload<{
+export type GetGuidePayload = Prisma.GuideGetPayload<{
   include: {
     languages: true;
     expeditions: true;
   };
 }>;
 
-export type CreateGuideRequestBody = z.infer<typeof apiGuideSchema>;
-export type UpdateGuideRequestBody = Partial<CreateGuideRequestBody>;
+type CreateGuideInput = {
+  languages: { code: string; name: string }[];
+} & Omit<Prisma.GuideCreateInput, 'languages'>;
+
+type UpdateGuideInput = {
+  languages: { code: string; name: string }[];
+} & Omit<Prisma.GuideUpdateInput, 'languages'>;
+
+export type CreateGuideRequestBody = CreateGuideInput;
+
+export type UpdateGuideRequestBody = UpdateGuideInput;

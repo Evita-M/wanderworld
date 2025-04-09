@@ -55,7 +55,6 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
     watch,
     formState: { errors, isValid },
     setValue,
-    getValues,
   } = useForm<ExpeditionFormSchema>({
     defaultValues: expDefaultValues,
     resolver: zodResolver(expeditionFormSchema),
@@ -96,7 +95,6 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
       showSnackBar('Failed to generate description', 'error');
     }
   };
-  console.log(watch('guideId'));
 
   return (
     <Stack component='form' onSubmit={handleSubmit(onSubmit)}>

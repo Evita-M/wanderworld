@@ -7,7 +7,7 @@ import {
   getBadRequestResponse,
 } from '@/utils/error-handler/error-handler';
 import { Status } from '@prisma/client';
-import { apiExpeditionSchema, ExpeditionPayload } from './schema';
+import { apiExpeditionSchema, GetExpeditionPayload } from './schema';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +25,7 @@ async function getExpeditions(_request: NextRequest) {
       return getNotFoundResponse('Expeditions');
     }
 
-    return NextResponse.json<ExpeditionPayload[]>(expeditions);
+    return NextResponse.json<GetExpeditionPayload[]>(expeditions);
   } catch (error) {
     return getServerErrorResponse(error);
   }
@@ -46,28 +46,26 @@ async function createExpedition(request: NextRequest) {
 
     const status = guideId ? Status.FINALIZED : Status.PENDING;
 
-    await db.expedition.create({
-      data: {
-        ...rest,
-        countries: {
-          connectOrCreate: countries.map((c) => ({
-            where: { code: c.code },
-            create: c,
-          })),
-        },
-        languages: {
-          connectOrCreate: languages.map((l) => ({
-            where: { code: l.code },
-            create: l,
-          })),
-        },
-        guide: {
-          connect: {
-            id: guideId,
-          },
-        },
-        status,
+    const prismaData = {
+      ...rest,
+      countries: {
+        connectOrCreate: countries.map((c) => ({
+          where: { code: c.code },
+          create: c,
+        })),
       },
+      languages: {
+        connectOrCreate: languages.map((l) => ({
+          where: { code: l.code },
+          create: l,
+        })),
+      },
+      guide: guideId ? { connect: { id: guideId } } : undefined,
+      status,
+    };
+
+    await db.expedition.create({
+      data: prismaData,
     });
 
     return NextResponse.json<BaseResponse>({

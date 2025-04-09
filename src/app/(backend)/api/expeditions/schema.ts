@@ -33,7 +33,7 @@ export type RequestParams = {
   expeditionId: string;
 };
 
-export type ExpeditionPayload = Prisma.ExpeditionGetPayload<{
+export type GetExpeditionPayload = Prisma.ExpeditionGetPayload<{
   include: {
     countries: true;
     languages: true;
@@ -41,5 +41,12 @@ export type ExpeditionPayload = Prisma.ExpeditionGetPayload<{
   };
 }>;
 
-export type CreateExpeditionRequestBody = z.infer<typeof apiExpeditionSchema>;
-export type UpdateExpeditionRequestBody = Partial<CreateExpeditionRequestBody>;
+export type ExpeditionRequestBody = {
+  countries: { code: string; name: string }[];
+  languages: { code: string; name: string }[];
+  guideId: string | undefined;
+} & Omit<Prisma.ExpeditionCreateInput, 'countries' | 'languages' | 'guide'>;
+
+export type UpdateExpeditionRequestBody = ExpeditionRequestBody;
+
+export type CreateExpeditionRequestBody = ExpeditionRequestBody;

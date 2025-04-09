@@ -8,7 +8,7 @@ export type Guide = {
   email: string;
   phoneNumber: string;
   description?: string | null;
-  avatar?: string;
+  avatar?: string | null;
   expeditions: Expedition[];
   languages: Language[];
 };

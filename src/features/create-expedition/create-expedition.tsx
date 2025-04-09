@@ -30,7 +30,7 @@ export const CreateExpedition: FC = () => {
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guideId: data.guideId,
+      guideId: data.guideId ?? undefined,
     };
 
     try {

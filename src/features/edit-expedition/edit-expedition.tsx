@@ -4,7 +4,6 @@ import { FC } from 'react';
 import { useUpdateExpeditionMutation } from '@/entities/expedition/api';
 import { useSnackbar } from '@/lib/hooks/use-snackbar';
 import { useGetGuidesQuery } from '@/entities/guide/api';
-
 import { useParams, useRouter } from 'next/navigation';
 import { useGetExpeditionQuery } from '@/entities/expedition/api';
 import { routes } from '@/lib/config/routes';
@@ -41,7 +40,7 @@ export const EditExpedition: FC = () => {
       maxGroupSize: data.groupSize[1],
       startDate: new Date(data.tourDuration[0]) ?? undefined,
       endDate: new Date(data.tourDuration[1]) ?? undefined,
-      guideId: data.guideId,
+      guideId: data.guideId ?? undefined,
     };
 
     try {

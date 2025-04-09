@@ -203,7 +203,7 @@ const PageContent = () => {
           <div className='space-y-6 md:col-span-2'>
             <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>
               <Image
-                src='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png'
+                src='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png'
                 alt='Placeholder image'
                 fill
                 className='object-cover'

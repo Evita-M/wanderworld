@@ -10,7 +10,7 @@ import {
 import { Status } from '@prisma/client';
 import {
   apiExpeditionSchema,
-  ExpeditionPayload,
+  GetExpeditionPayload,
   RequestParams,
 } from '../schema';
 
@@ -19,7 +19,7 @@ export const dynamic = 'force-dynamic';
 async function getExpedition(
   _request: NextRequest,
   { params }: { params: RequestParams }
-): Promise<NextResponse<ExpeditionPayload | ErrorResponse>> {
+): Promise<NextResponse<GetExpeditionPayload | ErrorResponse>> {
   const { expeditionId } = params;
 
   try {
@@ -36,7 +36,7 @@ async function getExpedition(
       return getNotFoundResponse('Expedition');
     }
 
-    return NextResponse.json<ExpeditionPayload>(expedition);
+    return NextResponse.json<GetExpeditionPayload>(expedition);
   } catch (error) {
     return getServerErrorResponse(error);
   }

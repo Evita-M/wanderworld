@@ -79,7 +79,7 @@ export const EditExpedition: FC = () => {
         <Loader />
       ) : (
         <ExpeditionForm
-          onSubmit={handleOnSubmit}
+          onSubmitCallback={handleOnSubmit}
           isSubmitting={isUpdateExeditionLoading}
           onCancel={redirectToExpedition}
           expedition={remapedExpedition}

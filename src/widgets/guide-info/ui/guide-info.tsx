@@ -70,7 +70,11 @@ export const GuideInfo: FC<GuideInfoProps> = ({
         sx={{ justifyContent: 'center', mb: '1.6rem' }}
       />
       <Box>
-        <Button variant='contained' color='primary' onClick={() => onClick?.()}>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={() => onClick?.()}
+        >
           View Profile
         </Button>
       </Box>

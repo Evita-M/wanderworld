@@ -105,13 +105,15 @@ const PageContent = () => {
       label: 'Delete',
       icon: <DeleteOutlinedIcon />,
       onClick: handleDeleteConfirmation,
-      color: 'secondary' as const,
+      color: 'error' as const,
+      variant: 'outlined' as const,
     },
     {
       label: 'Edit',
+      variant: 'contained' as const,
       icon: <ModeEditOutlineOutlinedIcon />,
       onClick: () => router.push(`${routes.expeditions}/${id}/edit`),
-      color: 'tertiary' as const,
+      color: 'primary' as const,
     },
   ];
 

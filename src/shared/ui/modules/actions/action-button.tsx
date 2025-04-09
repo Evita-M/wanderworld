@@ -7,8 +7,8 @@ export const ActionButton: FC<ActionConfig> = ({
   onClick,
   icon,
   label,
-  color = 'tertiary',
-  variant = 'text',
+  color = 'primary',
+  variant = 'outlined',
   disabled = false,
 }) => (
   <Button

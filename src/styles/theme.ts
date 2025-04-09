@@ -157,7 +157,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: '1.2rem',
+          borderRadius: '0.8rem',
           minWidth: '16rem',
           fontWeight: 500,
           lineHeight: 1.5,
@@ -185,29 +185,23 @@ const theme = createTheme({
               color: palette.primary.contrastText,
             },
           },
-          '&.MuiButton-outlinedQuaternary': {
-            borderColor: palette.quaternary.main,
-            color: palette.quaternary.main,
-            '&:hover': {
-              borderColor: palette.quaternary.dark,
-              color: palette.primary.contrastText,
-            },
-          },
         },
         sizeLarge: {
           height: '4.8rem',
           padding: '1.2rem 2.4rem',
         },
         sizeMedium: {
-          height: '4rem',
-          padding: '0.8rem 2.4rem',
+          height: '4.4rem',
+          padding: '0.6rem 2.4rem',
         },
         sizeSmall: {
-          height: '3.2rem',
+          height: '3.6rem',
           padding: '0.6rem 1.2rem',
         },
         outlined: {
+          borderWidth: '2px',
           '&:hover': {
+            borderWidth: '2px',
             backgroundColor: 'rgb(255, 255, 255)',
           },
         },

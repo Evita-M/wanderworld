@@ -47,7 +47,7 @@ export const CreateExpedition: FC = () => {
 
   return (
     <ExpeditionForm
-      onSubmit={handleOnSubmit}
+      onSubmitCallback={handleOnSubmit}
       onCancel={() => router.push(routes.expeditions)}
       guides={guides}
       isSubmitting={isCreateExpeditionLoading}

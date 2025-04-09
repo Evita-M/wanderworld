@@ -26,7 +26,7 @@ import { RichTextEditor } from '@/shared/ui/components/rich-text/editor';
 import { Guide } from '@/shared/types/guide';
 
 interface ExpeditionFormProps {
-  onSubmit: (data: ExpeditionFormSchema) => Promise<void>;
+  onSubmitCallback: (data: ExpeditionFormSchema) => Promise<void>;
   isSubmitting?: boolean;
   onCancel: VoidFunction;
   guides: any;
@@ -38,7 +38,7 @@ interface ExpeditionFormProps {
 }
 
 export const ExpeditionForm: FC<ExpeditionFormProps> = ({
-  onSubmit,
+  onSubmitCallback,
   isSubmitting,
   guides,
   onCancel,
@@ -97,7 +97,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
   };
 
   return (
-    <Stack component='form' onSubmit={handleSubmit(onSubmit)} pb={4}>
+    <Stack component='form' onSubmit={handleSubmit(onSubmitCallback)} pb={4}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
           <RHFTextField
@@ -203,7 +203,6 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
               type='button'
               onClick={onCancel}
               variant='outlined'
-              color='secondary'
               fullWidth
             >
               {buttonLabels.cancel}

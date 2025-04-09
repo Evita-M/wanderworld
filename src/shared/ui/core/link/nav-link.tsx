@@ -27,7 +27,7 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
         borderRadius='0.8rem'
         color={isActive ? 'primary.contrastText' : 'text.secondary'}
         bgcolor={isActive ? 'primary.main' : 'transparent'}
-        p='1.2rem'
+        p='1rem 1.2rem'
         sx={{
           transition: 'all 0.3s ease',
           '&:hover': {

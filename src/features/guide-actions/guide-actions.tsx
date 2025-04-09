@@ -23,16 +23,19 @@ export const GuideActions: FC<GuideActionsProps> = ({ id, fullName }) => {
   };
   const actions = [
     {
-      label: 'Edit',
-      icon: <EditIcon />,
-      onClick: redirectToEdit,
-    },
-    {
       label: 'Delete',
       icon: <DeleteIcon />,
       onClick: handleDelete,
       disabled: isDeleteGuideLoading,
       color: 'error' as const,
+      variant: 'outlined' as const,
+    },
+    {
+      label: 'Edit',
+      icon: <EditIcon />,
+      onClick: redirectToEdit,
+      variant: 'outlined' as const,
+      color: 'primary' as const,
     },
   ];
 

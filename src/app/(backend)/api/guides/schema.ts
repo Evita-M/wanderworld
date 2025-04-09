@@ -26,7 +26,17 @@ export type RequestParams = {
 export type GetGuidePayload = Prisma.GuideGetPayload<{
   include: {
     languages: true;
-    expeditions: true;
+    expeditions: {
+      include: {
+        countries: true;
+        languages: true;
+        guide: {
+          include: {
+            languages: true;
+          };
+        };
+      };
+    };
   };
 }>;
 

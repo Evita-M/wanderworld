@@ -60,7 +60,7 @@ const PageContent: FC = () => {
     {
       icon: <LanguageOutlinedIcon />,
       title: 'Joined',
-      text: guide.createdAt
+      text: guide?.createdAt
         ? format(new Date(guide.createdAt), 'dd MMMM yyyy')
         : 'N/A',
     },

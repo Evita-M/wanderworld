@@ -21,7 +21,20 @@ async function getGuide(
   try {
     const guide = await db.guide.findUnique({
       where: { id: guideId },
-      include: { expeditions: true, languages: true },
+      include: {
+        expeditions: {
+          include: {
+            countries: true,
+            languages: true,
+            guide: {
+              include: {
+                languages: true,
+              },
+            },
+          },
+        },
+        languages: true,
+      },
     });
 
     if (!guide) {
@@ -53,7 +66,16 @@ async function updateGuide(
   try {
     const guide = await db.guide.findUnique({
       where: { id: guideId },
-      include: { expeditions: true, languages: true },
+      include: {
+        expeditions: {
+          include: {
+            countries: true,
+            languages: true,
+            guide: true,
+          },
+        },
+        languages: true,
+      },
     });
 
     if (!guide) {

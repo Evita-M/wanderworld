@@ -15,7 +15,17 @@ async function getGuides(_request: NextRequest) {
   try {
     const guides = await db.guide.findMany({
       include: {
-        expeditions: true,
+        expeditions: {
+          include: {
+            countries: true,
+            languages: true,
+            guide: {
+              include: {
+                languages: true,
+              },
+            },
+          },
+        },
         languages: true,
       },
     });

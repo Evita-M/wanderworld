@@ -20,7 +20,7 @@ export const Logo: FC = () => {
     <Stack height='28px' flexDirection='row' alignItems='center'>
       {renderLogoText('WanderW')}
       <Box component='span' pb='0.4rem'>
-        <Image src='images/globe.svg' width={26} height={26} alt='Globe icon' />
+        <Image src='/globe.svg' width={26} height={26} alt='Globe icon' />
       </Box>
       {renderLogoText('rld')}
     </Stack>

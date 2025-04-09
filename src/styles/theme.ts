@@ -291,7 +291,6 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: '0.8rem 1.6rem',
           color: palette.tertiary.dark,
           textTransform: 'none',
           position: 'relative',

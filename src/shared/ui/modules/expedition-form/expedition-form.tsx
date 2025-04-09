@@ -97,7 +97,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
   };
 
   return (
-    <Stack component='form' onSubmit={handleSubmit(onSubmit)}>
+    <Stack component='form' onSubmit={handleSubmit(onSubmit)} pb={4}>
       <Grid container spacing={3} rowSpacing={5}>
         <Grid item xs={6}>
           <RHFTextField

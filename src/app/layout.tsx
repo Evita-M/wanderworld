@@ -8,6 +8,7 @@ import { ThemeProvider } from '@mui/material';
 import theme from '@/styles/theme';
 import { Navbar } from '@/shared/ui/modules/navbar/navbar';
 import { TopBar } from '@/shared/ui/modules/topbar/topbar';
+import { PageContainer } from '@/shared/ui/core/layout/page-container';
 
 export const metadata: Metadata = {
   title: {
@@ -56,9 +57,16 @@ export default function RootLayout({
           <Providers>
             <Stack height='100%' direction='row'>
               <Navbar height={BAR_HEIGHT} />
-              <Stack component='main' flex='1 1 100%'>
+              <Stack component='main' flex='1 1 100%' overflow='hidden'>
                 <TopBar height={BAR_HEIGHT} />
-                {children}
+                <Stack
+                  height={`calc(100% - ${BAR_HEIGHT})`}
+                  sx={{
+                    overflowY: 'auto',
+                  }}
+                >
+                  {children}
+                </Stack>
               </Stack>
             </Stack>
           </Providers>

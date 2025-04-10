@@ -7,7 +7,7 @@ import {
   getBadRequestResponse,
 } from '@/utils/error-handler/error-handler';
 import { Status } from '@prisma/client';
-import { apiExpeditionSchema, GetExpeditionPayload } from './schema';
+import { apiExpeditionSchema, Expedition } from './schema';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +25,7 @@ async function getExpeditions(_request: NextRequest) {
       return getNotFoundResponse('Expeditions');
     }
 
-    return NextResponse.json<GetExpeditionPayload[]>(expeditions);
+    return NextResponse.json<Expedition[]>(expeditions);
   } catch (error) {
     return getServerErrorResponse(error);
   }

@@ -33,7 +33,7 @@ export type RequestParams = {
   expeditionId: string;
 };
 
-export type GetExpeditionPayload = Prisma.ExpeditionGetPayload<{
+export type Expedition = Prisma.ExpeditionGetPayload<{
   include: {
     countries: true;
     languages: true;

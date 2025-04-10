@@ -8,18 +8,14 @@ import {
   getServerErrorResponse,
 } from '@/utils/error-handler/error-handler';
 import { Status } from '@prisma/client';
-import {
-  apiExpeditionSchema,
-  GetExpeditionPayload,
-  RequestParams,
-} from '../schema';
+import { apiExpeditionSchema, Expedition, RequestParams } from '../schema';
 
 export const dynamic = 'force-dynamic';
 
 async function getExpedition(
   _request: NextRequest,
   { params }: { params: RequestParams }
-): Promise<NextResponse<GetExpeditionPayload | ErrorResponse>> {
+): Promise<NextResponse<Expedition | ErrorResponse>> {
   const { expeditionId } = params;
 
   try {
@@ -36,7 +32,7 @@ async function getExpedition(
       return getNotFoundResponse('Expedition');
     }
 
-    return NextResponse.json<GetExpeditionPayload>(expedition);
+    return NextResponse.json<Expedition>(expedition);
   } catch (error) {
     return getServerErrorResponse(error);
   }

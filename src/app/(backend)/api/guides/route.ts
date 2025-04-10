@@ -7,7 +7,7 @@ import {
   getNotFoundResponse,
   getServerErrorResponse,
 } from '@/utils/error-handler/error-handler';
-import { apiGuideSchema, GetGuidePayload } from './schema';
+import { apiGuideSchema, Guide } from './schema';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,7 +34,7 @@ async function getGuides(_request: NextRequest) {
       return getNotFoundResponse('Guides');
     }
 
-    return NextResponse.json<GetGuidePayload[]>(guides);
+    return NextResponse.json<Guide[]>(guides);
   } catch (error) {
     return getServerErrorResponse(error);
   }

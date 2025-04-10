@@ -23,7 +23,7 @@ export type RequestParams = {
   guideId: string;
 };
 
-export type GetGuidePayload = Prisma.GuideGetPayload<{
+export type Guide = Prisma.GuideGetPayload<{
   include: {
     languages: true;
     expeditions: {

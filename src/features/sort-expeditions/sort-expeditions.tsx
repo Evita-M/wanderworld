@@ -4,13 +4,12 @@ import {
   SortSelect,
 } from '@/shared/ui/components/sort-select/sort-select';
 import { sortByDate } from '@/utils/sort-by-date';
-import { Expedition } from '@/shared/types/expedition';
 import { Box, Stack } from '@mui/material';
-import { GetExpeditionPayload } from '@/app/(backend)/api/expeditions/schema';
+import { Expedition } from '@/shared/types/expedition';
 
 interface SortExpeditionsProps {
   title?: ReactNode;
-  expeditions: GetExpeditionPayload[];
+  expeditions: Expedition[];
   children: (sortedExpeditions: Expedition[]) => ReactNode;
 }
 

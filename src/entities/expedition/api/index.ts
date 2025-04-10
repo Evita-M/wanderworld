@@ -3,7 +3,7 @@ import { ExpeditionTag } from './types';
 import {
   CreateExpeditionRequestBody,
   UpdateExpeditionRequestBody,
-  GetExpeditionPayload,
+  Expedition,
 } from '@/app/(backend)/api/expeditions/schema';
 import { BaseResponse } from '@/utils/error-handler/error-handler';
 
@@ -20,7 +20,7 @@ export const expeditionApi = createApi({
   tagTypes: ['Expedition'],
   reducerPath: 'expeditionApi',
   endpoints: (build) => ({
-    getExpedition: build.query<GetExpeditionPayload, string>({
+    getExpedition: build.query<Expedition, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'GET',
@@ -29,7 +29,7 @@ export const expeditionApi = createApi({
         { type: 'Expedition', id },
       ],
     }),
-    getExpeditions: build.query<GetExpeditionPayload[], void>({
+    getExpeditions: build.query<Expedition[], void>({
       query: () => ({
         url: '/',
         method: 'GET',

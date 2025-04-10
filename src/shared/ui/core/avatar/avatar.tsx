@@ -28,7 +28,7 @@ export const Avatar: FC<AvatarProps> = ({
         <MuiAvatar
           sx={{
             ...imgDimensions,
-            bgcolor: theme.palette.tertiary.main,
+            bgcolor: theme.palette.tertiary.light,
             color: 'white',
             border: `${size / 35}px solid ${theme.palette.tertiary.main}`,
             fontSize: `${size / 25}rem`,

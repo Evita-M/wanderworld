@@ -1,8 +1,8 @@
 import { darkenRGB, lightenRGB } from './utils';
 
 const customPaletteColors = {
-  green: 'rgb(20, 82, 66)',
-  orange: 'rgb(204, 75, 36)',
+  green: 'rgb(103, 146, 103)',
+  orange: 'rgb(242, 140, 40)',
   beige: 'rgb(238,234,231)',
   red: 'rgb(180, 53, 53)',
   lightGreen: 'rgb(21, 134, 44)',
@@ -14,22 +14,23 @@ const customPaletteColors = {
 export const palette = {
   primary: {
     main: customPaletteColors.green,
-    light: lightenRGB(customPaletteColors.green, 60),
     lighter: lightenRGB(customPaletteColors.green, 90),
-    dark: darkenRGB(customPaletteColors.green, 30),
+    light: lightenRGB(customPaletteColors.green, 30),
+    dark: darkenRGB(customPaletteColors.green, 10),
+    darker: darkenRGB(customPaletteColors.green, 30),
     contrastText: customPaletteColors.white,
   },
   secondary: {
     main: customPaletteColors.orange,
-    light: lightenRGB(customPaletteColors.orange, 30),
-    dark: darkenRGB(customPaletteColors.orange, 30),
+    light: lightenRGB(customPaletteColors.orange, 20),
+    dark: darkenRGB(customPaletteColors.orange, 10),
     contrastText: customPaletteColors.white,
   },
   tertiary: {
     main: customPaletteColors.beige,
     light: lightenRGB(customPaletteColors.beige, 30),
-    dark: darkenRGB(customPaletteColors.beige, 40),
-    darker: darkenRGB(customPaletteColors.beige, 60),
+    dark: darkenRGB(customPaletteColors.beige, 10),
+    darker: darkenRGB(customPaletteColors.beige, 40),
     contrastText: customPaletteColors.white,
   },
   quaternary: {

@@ -8,7 +8,7 @@ export const Logo: FC = () => {
       variant='h5'
       component='p'
       fontWeight={600}
-      color='#000'
+      color='#fff'
       letterSpacing='0.025em'
       fontSize='2.4rem'
     >

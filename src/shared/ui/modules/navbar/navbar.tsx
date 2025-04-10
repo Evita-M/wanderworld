@@ -2,10 +2,11 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import Link from 'next/link';
 import { routes } from '@/lib/config/routes';
-
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ExploreIcon from '@mui/icons-material/Explore';
-import GroupIcon from '@mui/icons-material/Group';
+import {
+  IconCompass,
+  IconLayoutDashboard,
+  IconUsers,
+} from '@tabler/icons-react';
 import { Logo } from '@/shared/ui/core/logo/logo';
 import { Link as LinkType, NavLink } from '@/shared/ui/core/link/nav-link';
 import { FC } from 'react';
@@ -14,17 +15,17 @@ const navLinks: LinkType[] = [
   {
     label: 'Dashboard',
     href: routes.home,
-    icon: <DashboardIcon />,
+    icon: <IconLayoutDashboard />,
   },
   {
     label: 'Expeditions',
     href: routes.expeditions,
-    icon: <ExploreIcon />,
+    icon: <IconCompass />,
   },
   {
     label: 'Guides',
     href: routes.guides,
-    icon: <GroupIcon />,
+    icon: <IconUsers />,
   },
 ];
 
@@ -38,16 +39,11 @@ export const Navbar: FC<NavbarProps> = ({ height }) => {
     <Stack
       component='nav'
       height='100%'
+      borderRadius='2.4rem'
       width='34rem'
-      bgcolor='background.paper'
-      borderRight={`2px solid ${theme.palette.background.default}`}
+      bgcolor={theme.palette.primary.main}
     >
-      <Stack
-        borderBottom={`2px solid ${theme.palette.background.default}`}
-        justifyContent='center'
-        height={height}
-        alignItems='center'
-      >
+      <Stack justifyContent='center' height={height} alignItems='center'>
         <Link href={routes.home} aria-label='Go home'>
           <Logo />
         </Link>

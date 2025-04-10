@@ -52,11 +52,11 @@ const theme = createTheme({
   palette: {
     ...palette,
     background: {
-      default: '#F2F0EF',
+      default: 'rgb(238,234,231)',
     },
     text: {
       ...palette.text,
-      secondary: palette.tertiary.dark,
+      secondary: palette.tertiary.darker,
     },
     custom: customColors,
   },
@@ -117,7 +117,7 @@ const theme = createTheme({
       fontSize: typography.caption,
       lineHeight: typography.lineHeightSmall,
       fontWeight: 500,
-      color: palette.tertiary.dark,
+      color: palette.tertiary.darker,
       textTransform: 'uppercase',
     },
     overline: {
@@ -135,19 +135,28 @@ const theme = createTheme({
     },
   },
   components: {
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: '6px',
-          padding: '4px',
-        },
-      },
-    },
     MuiSkeleton: {
       styleOverrides: {
         root: {
           background: palette.primary.main,
           animation: 'none',
+        },
+      },
+    },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff',
+          borderRadius: '4rem',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: '0 1px 1px rgba(0, 0, 0, 0)',
+          '&:hover': {
+            backgroundColor: '#ffffff',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)',
+          },
         },
       },
     },
@@ -311,6 +320,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           letterSpacing: '0.05em',
+          fontWeight: 500,
           border: 'none',
           padding: '0.4rem 0.8rem',
           borderRadius: '2rem',

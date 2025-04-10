@@ -25,14 +25,14 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
         direction='row'
         gap='1.4rem'
         borderRadius='0.8rem'
-        color={isActive ? 'primary.contrastText' : 'text.secondary'}
-        bgcolor={isActive ? 'primary.main' : 'transparent'}
+        color='primary.contrastText'
+        bgcolor={isActive ? 'primary.dark' : 'transparent'}
         p='1rem 1.2rem'
         sx={{
           transition: 'all 0.3s ease',
           '&:hover': {
-            bgcolor: isActive ? 'primary.dark' : 'background.default',
-            color: isActive ? 'primary.contrastText' : 'tertiary.darker',
+            bgcolor: isActive ? 'primary.darker' : 'primary.dark',
+            color: 'primary.contrastText',
             boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
           },
         }}

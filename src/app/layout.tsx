@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { Providers } from '@/providers/index';
 import { ReactNode } from 'react';
 import './globals.css';
@@ -56,7 +56,9 @@ export default function RootLayout({
         <body className={`${notoSans.variable} ${museoModerno.variable}`}>
           <Providers>
             <Stack height='100%' direction='row'>
-              <Navbar height={BAR_HEIGHT} />
+              <Box p='2.4rem'>
+                <Navbar height={BAR_HEIGHT} />
+              </Box>
               <Stack component='main' flex='1 1 100%' overflow='hidden'>
                 <TopBar height={BAR_HEIGHT} />
                 <Stack

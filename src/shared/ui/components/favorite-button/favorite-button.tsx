@@ -55,7 +55,7 @@ export function FavoriteButton({
       {isFavorite ? (
         <FavoriteIcon
           sx={{
-            color: theme.palette.secondary.main,
+            color: theme.palette.error.main,
             fontSize: ICON_SIZE,
           }}
         />

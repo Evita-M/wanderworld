@@ -29,8 +29,8 @@ export const palette = {
   tertiary: {
     main: customPaletteColors.beige,
     light: lightenRGB(customPaletteColors.beige, 30),
-    dark: darkenRGB(customPaletteColors.beige, 10),
-    darker: darkenRGB(customPaletteColors.beige, 40),
+    dark: darkenRGB(customPaletteColors.beige, 30),
+    darker: darkenRGB(customPaletteColors.beige, 60),
     contrastText: customPaletteColors.white,
   },
   quaternary: {

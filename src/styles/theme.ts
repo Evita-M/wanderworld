@@ -48,6 +48,8 @@ declare module '@mui/material/Button' {
   }
 }
 
+const DEFAULT_TRANSITION = '0.2s ease-out';
+
 const theme = createTheme({
   palette: {
     ...palette,
@@ -151,7 +153,7 @@ const theme = createTheme({
         root: {
           backgroundColor: '#ffffff',
           borderRadius: '4rem',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: `background-color ${DEFAULT_TRANSITION}, box-shadow ${DEFAULT_TRANSITION}`,
           boxShadow: '0 1px 1px rgba(0, 0, 0, 0)',
           '&:hover': {
             backgroundColor: '#ffffff',
@@ -167,10 +169,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '0.8rem',
-          minWidth: '16rem',
+          minWidth: '18rem',
           fontWeight: 500,
           lineHeight: 1.5,
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: `background-color ${DEFAULT_TRANSITION}, box-shadow ${DEFAULT_TRANSITION}`,
           padding: '8px 16px',
           letterSpacing: '0.05em',
           boxShadow: '0 1px 1px rgba(0, 0, 0, 0)',
@@ -181,18 +183,6 @@ const theme = createTheme({
           },
           '&:hover': {
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)',
-          },
-          '&.MuiButton-containedQuaternary': {
-            backgroundColor: palette.quaternary.main,
-            color: palette.quaternary.contrastText,
-            '&:hover': {
-              backgroundColor: palette.quaternary.dark,
-            },
-            '&.Mui-disabled': {
-              backgroundColor: palette.tertiary.light,
-              boxShadow: 'none',
-              color: palette.primary.contrastText,
-            },
           },
         },
         sizeLarge: {
@@ -209,9 +199,11 @@ const theme = createTheme({
         },
         outlined: {
           borderWidth: '2px',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          transition: `border-color ${DEFAULT_TRANSITION}, background-color ${DEFAULT_TRANSITION}`,
           '&:hover': {
             borderWidth: '2px',
-            backgroundColor: 'rgb(255, 255, 255)',
+            backgroundColor: 'rgba(255, 255, 255, 1)',
           },
         },
         containedPrimary: {
@@ -250,35 +242,6 @@ const theme = createTheme({
             color: palette.error.contrastText,
           },
         },
-        text: {
-          backgroundColor: 'rgb(255, 255, 255)',
-          border: 'none',
-          '&:hover': {
-            backgroundColor: 'rgb(255, 255, 255)',
-          },
-          '&.MuiButton-textError': {
-            color: palette.error.main,
-            '&:hover': {
-              color: palette.error.dark,
-            },
-            '&.Mui-disabled': {
-              boxShadow: 'none',
-              color: palette.error.light,
-              backgroundColor: 'rgb(255, 255, 255, 0.9)',
-            },
-          },
-          '&.MuiButton-textTertiary': {
-            color: palette.text.caption,
-            '&:hover': {
-              color: palette.text.body,
-            },
-            '&.Mui-disabled': {
-              boxShadow: 'none',
-              color: palette.text.caption,
-              backgroundColor: 'rgb(255, 255, 255, 0.9)',
-            },
-          },
-        },
       },
     },
     MuiTabs: {
@@ -298,6 +261,7 @@ const theme = createTheme({
           textTransform: 'none',
           position: 'relative',
           zIndex: 2,
+          transition: `color ${DEFAULT_TRANSITION}`,
           '&:hover': {
             color: palette.tertiary.darker,
           },
@@ -347,7 +311,7 @@ const theme = createTheme({
         root: {
           fontSize: '1.6rem',
           padding: '0.8rem 1.2rem',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: `background-color ${DEFAULT_TRANSITION}`,
           '&:hover': {
             backgroundColor: palette.tertiary.light,
           },
@@ -537,7 +501,7 @@ const theme = createTheme({
           border: 'none',
           backgroundColor: 'white',
           boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
-          transition: 'all 0.2s ease-in-out',
+          transition: `background-color ${DEFAULT_TRANSITION}, box-shadow ${DEFAULT_TRANSITION}`,
           '&:hover': {
             backgroundColor: 'white',
             boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.2)',
@@ -607,7 +571,7 @@ const theme = createTheme({
           marginRight: 0,
           '&:hover .MuiCheckbox-root': {
             color: palette.primary,
-            transition: 'color 0.3s ease',
+            transition: `color ${DEFAULT_TRANSITION}`,
           },
         },
         label: {

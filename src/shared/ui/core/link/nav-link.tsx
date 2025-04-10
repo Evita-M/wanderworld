@@ -12,9 +12,10 @@ export interface Link {
 
 interface NavLinkProps {
   link: Link;
+  isOpen: boolean;
 }
 
-export const NavLink: FC<NavLinkProps> = ({ link }) => {
+export const NavLink: FC<NavLinkProps> = ({ link, isOpen }) => {
   const pathname = usePathname();
   const isActive = pathname === link.href;
 
@@ -38,9 +39,11 @@ export const NavLink: FC<NavLinkProps> = ({ link }) => {
         }}
       >
         {link.icon}
-        <Typography component='span' fontWeight={500} color='inherit'>
-          {link.label}
-        </Typography>
+        {isOpen && (
+          <Typography component='span' fontWeight={500} color='inherit'>
+            {link.label}
+          </Typography>
+        )}
       </Stack>
     </Link>
   );

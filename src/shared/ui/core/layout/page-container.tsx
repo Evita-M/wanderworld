@@ -16,7 +16,6 @@ export const PageContainer = ({
     <Stack
       sx={{
         maxWidth,
-        p: '2.4rem',
         mx: 'auto',
         width: '100%',
         height: 'auto',

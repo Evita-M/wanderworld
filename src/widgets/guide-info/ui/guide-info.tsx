@@ -38,7 +38,7 @@ export const GuideInfo: FC<GuideInfoProps> = ({
         textTransform: 'uppercase',
         top: '2.4rem',
         right: '2.4rem',
-        backgroundColor: '#EBBE4D',
+        backgroundColor: 'rgb(255, 215, 0)',
       }}
     />
     <Stack

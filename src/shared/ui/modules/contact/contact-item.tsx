@@ -20,7 +20,11 @@ export const ContactItem: FC<ContactItemProps> = ({ icon, text, link }) => {
         borderRadius='3.4rem'
         color='#ffffff'
         bgcolor={theme.palette.primary.light}
-        sx={{ '& svg': { color: '#ffffff' } }}
+        border={`2px solid rgba(255, 255, 255, 0.1)`}
+        sx={{
+          outline: `2px solid ${theme.palette.primary.light}`,
+          '& svg': { color: '#ffffff' },
+        }}
       >
         {icon}
       </Stack>

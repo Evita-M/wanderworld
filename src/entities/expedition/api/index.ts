@@ -68,19 +68,40 @@ export const expeditionApi = createApi({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (_result, _error, { id }): ExpeditionTag[] => [
-        { type: 'Expedition', id },
-        { type: 'Expedition', id: 'LIST' },
-      ],
+      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          expeditionApi.util.updateQueryData('getExpedition', id, (draft) => {
+            Object.assign(draft, patch);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     deleteExpedition: build.mutation<BaseResponse, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (): ExpeditionTag[] => [
-        { type: 'Expedition', id: 'LIST' },
-      ],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          expeditionApi.util.updateQueryData(
+            'getExpeditions',
+            undefined,
+            (draft) => {
+              return draft.filter((expedition) => expedition.id !== id);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });

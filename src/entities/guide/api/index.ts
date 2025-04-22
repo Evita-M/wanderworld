@@ -62,17 +62,36 @@ const guideApi = createApi({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (_result, _error, { id }): GuideTag[] => [
-        { type: 'Guide', id },
-        { type: 'Guide', id: 'LIST' },
-      ],
+      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          guideApi.util.updateQueryData('getGuide', id, (draft) => {
+            Object.assign(draft, patch);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     deleteGuide: build.mutation<{ id: string }, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (): GuideTag[] => [{ type: 'Guide', id: 'LIST' }],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          guideApi.util.updateQueryData('getGuides', undefined, (draft) => {
+            return draft.filter((expedition) => expedition.id !== id);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });

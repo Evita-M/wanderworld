@@ -328,8 +328,6 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           marginTop: '0.4rem',
-          borderRadius: borderRadius.small,
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
           border: 'none',
           backgroundColor: '#fff',
         },
@@ -385,12 +383,19 @@ const theme = createTheme({
           },
         },
         track: {
-          color: palette.primary.main,
+          color: palette.primary.light,
           height: '12px',
         },
         rail: {
-          color: grey[300],
+          color: grey[500],
           height: '12px',
+        },
+      },
+    },
+    MuiPopper: {
+      styleOverrides: {
+        root: {
+          paddingTop: '0.4rem',
         },
       },
     },
@@ -418,6 +423,7 @@ const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         input: {
+          borderRadius: '0.8rem',
           backgroundColor: '#fff',
         },
       },
@@ -486,7 +492,6 @@ const theme = createTheme({
           backgroundColor: 'white',
           cursor: 'pointer',
           minWidth: '16rem',
-          borderRadius: '0.8rem',
           '&.Mui-focused': {
             borderColor: 'transparent',
           },
@@ -495,24 +500,12 @@ const theme = createTheme({
           },
         },
         select: {
-          padding: '0.8rem 2.4rem 0.8rem 2.4rem',
+          padding: '1.6rem 1.4rem',
           fontSize: '1.6rem',
           borderRadius: '0.8rem',
           border: 'none',
           backgroundColor: 'white',
           boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
-          transition: `background-color ${DEFAULT_TRANSITION}, box-shadow ${DEFAULT_TRANSITION}`,
-          '&:hover': {
-            backgroundColor: 'white',
-            boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.2)',
-          },
-          '&:focus': {
-            backgroundColor: 'white',
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)',
-          },
-          '.MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
         },
         icon: {
           color: palette.text.caption,

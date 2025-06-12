@@ -4,7 +4,7 @@ import {
   useGetExpeditionQuery,
 } from '@/entities/expedition/api';
 import { notFound, useParams, useRouter } from 'next/navigation';
-import { Chip, Stack, Typography, useTheme } from '@mui/material';
+import { Button, Chip, Stack, Typography, useTheme } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { routes } from '@/lib/config/routes';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
@@ -29,6 +29,7 @@ import { RoundedContainer } from '@/shared/ui/components/rounded-container/round
 import { GuideInfo } from '@/widgets/guide-info/ui/guide-info';
 import { Language } from '@/shared/types/language';
 import { Country } from '@/shared/types/country';
+
 const PageContent = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -100,6 +101,10 @@ const PageContent = () => {
     });
   };
 
+  const redirectToEdit = (id: string) => {
+    router.push(`${routes.expeditions}/${id}/edit`);
+  };
+
   const actions = [
     {
       label: 'Delete',
@@ -112,7 +117,7 @@ const PageContent = () => {
       label: 'Edit',
       variant: 'contained' as const,
       icon: <ModeEditOutlineOutlinedIcon />,
-      onClick: () => router.push(`${routes.expeditions}/${id}/edit`),
+      onClick: () => redirectToEdit(id as string),
       color: 'primary' as const,
     },
   ];
@@ -188,8 +193,8 @@ const PageContent = () => {
             <FeatureList items={features} />
           </div>
           <div className='row-span-2 space-y-6'>
-            <RoundedContainer sx={{ p: 0 }}>
-              {guide ? (
+            {guide ? (
+              <RoundedContainer sx={{ p: 0 }}>
                 <GuideInfo
                   onClick={() => router.push(`${routes.guides}/${guide.id}`)}
                   name={`${guide?.firstName} ${guide?.lastName}`}
@@ -199,10 +204,28 @@ const PageContent = () => {
                   languagesCount={guide?.languages?.length ?? 0}
                   expeditionsCount={guide?.expeditions?.length ?? 0}
                 />
-              ) : (
-                <Typography>No guide assigned yet</Typography>
-              )}
-            </RoundedContainer>
+              </RoundedContainer>
+            ) : (
+              <RoundedContainer
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Typography mb='3.2rem'>No guide assigned yet</Typography>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='small'
+                  onClick={() => redirectToEdit(id as string)}
+                  startIcon={<ModeEditOutlineOutlinedIcon />}
+                >
+                  Assign guide
+                </Button>
+              </RoundedContainer>
+            )}
           </div>
           <div className='space-y-6 md:col-span-2'>
             <div className='relative aspect-video overflow-hidden rounded-[2.4rem]'>

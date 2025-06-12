@@ -62,18 +62,26 @@ const guideApi = createApi({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+      async onQueryStarted({ id, data }, { dispatch, queryFulfilled }) {
+        const patchGuide = dispatch(
           guideApi.util.updateQueryData('getGuide', id, (draft) => {
-            Object.assign(draft, patch);
+            Object.assign(draft, data);
+          })
+        );
+        const patchList = dispatch(
+          guideApi.util.updateQueryData('getGuides', undefined, (draft) => {
+            const index = draft.findIndex((g) => g.id === id);
+            if (index !== -1) Object.assign(draft[index], data);
           })
         );
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo();
+          patchGuide.undo();
+          patchList.undo();
         }
       },
+      invalidatesTags: (): GuideTag[] => [{ type: 'Guide', id: 'LIST' }],
     }),
     deleteGuide: build.mutation<{ id: string }, string>({
       query: (id) => ({
@@ -81,15 +89,19 @@ const guideApi = createApi({
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+        const patchList = dispatch(
           guideApi.util.updateQueryData('getGuides', undefined, (draft) => {
-            return draft.filter((expedition) => expedition.id !== id);
+            return draft.filter((guide) => guide.id !== id);
           })
+        );
+        const patchSingle = dispatch(
+          guideApi.util.updateQueryData('getGuide', id, () => undefined)
         );
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo();
+          patchList.undo();
+          patchSingle.undo();
         }
       },
     }),

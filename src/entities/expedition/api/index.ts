@@ -68,18 +68,34 @@ export const expeditionApi = createApi({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+      async onQueryStarted({ id, data }, { dispatch, queryFulfilled }) {
+        // Optimistically update the single expedition
+        const patchExpedition = dispatch(
           expeditionApi.util.updateQueryData('getExpedition', id, (draft) => {
-            Object.assign(draft, patch);
+            Object.assign(draft, data);
           })
+        );
+        // Optimistically update the expedition list
+        const patchList = dispatch(
+          expeditionApi.util.updateQueryData(
+            'getExpeditions',
+            undefined,
+            (draft) => {
+              const index = draft.findIndex((e) => e.id === id);
+              if (index !== -1) Object.assign(draft[index], data);
+            }
+          )
         );
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo();
+          patchExpedition.undo();
+          patchList.undo();
         }
       },
+      invalidatesTags: (): ExpeditionTag[] => [
+        { type: 'Expedition', id: 'LIST' },
+      ],
     }),
     deleteExpedition: build.mutation<BaseResponse, string>({
       query: (id) => ({
@@ -87,7 +103,7 @@ export const expeditionApi = createApi({
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+        const patchList = dispatch(
           expeditionApi.util.updateQueryData(
             'getExpeditions',
             undefined,
@@ -96,10 +112,18 @@ export const expeditionApi = createApi({
             }
           )
         );
+        const patchSingle = dispatch(
+          expeditionApi.util.updateQueryData(
+            'getExpedition',
+            id,
+            () => undefined
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo();
+          patchList.undo();
+          patchSingle.undo();
         }
       },
     }),

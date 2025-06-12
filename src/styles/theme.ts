@@ -508,7 +508,6 @@ const theme = createTheme({
           boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
         },
         icon: {
-          color: palette.text.caption,
           right: '1.2rem',
         },
       },

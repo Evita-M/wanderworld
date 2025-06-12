@@ -11,6 +11,7 @@ import { UpdateExpeditionRequestBody } from '@/app/(backend)/api/expeditions/sch
 import { Loader } from '@/shared/ui/core/loader/loader';
 import { ExpeditionForm } from '@/shared/ui/modules/expedition-form/expedition-form';
 import { ExpeditionFormSchema } from '@/shared/ui/modules/expedition-form/validation';
+import { Stack } from '@mui/material';
 
 export const EditExpedition: FC = () => {
   const { id } = useParams();
@@ -26,6 +27,14 @@ export const EditExpedition: FC = () => {
   const redirectToExpedition = () => {
     router.push(`${routes.expeditions}/${id}`);
   };
+
+  if (isGetExpeditionLoading) {
+    return (
+      <Stack justifyContent='center' height='100%' flex='1 1 100%'>
+        <Loader />
+      </Stack>
+    );
+  }
 
   // Submit handler
   async function handleOnSubmit(data: ExpeditionFormSchema) {
@@ -74,22 +83,16 @@ export const EditExpedition: FC = () => {
     : undefined;
 
   return (
-    <>
-      {isGetExpeditionLoading ? (
-        <Loader />
-      ) : (
-        <ExpeditionForm
-          onSubmitCallback={handleOnSubmit}
-          isSubmitting={isUpdateExeditionLoading}
-          onCancel={redirectToExpedition}
-          expedition={remapedExpedition}
-          guides={guides}
-          buttonLabels={{
-            cancel: 'Cancel',
-            submit: 'Save changes',
-          }}
-        />
-      )}
-    </>
+    <ExpeditionForm
+      onSubmitCallback={handleOnSubmit}
+      isSubmitting={isUpdateExeditionLoading}
+      onCancel={redirectToExpedition}
+      expedition={remapedExpedition}
+      guides={guides}
+      buttonLabels={{
+        cancel: 'Cancel',
+        submit: 'Save changes',
+      }}
+    />
   );
 };

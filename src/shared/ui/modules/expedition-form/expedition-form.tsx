@@ -203,6 +203,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
               type='button'
               onClick={onCancel}
               variant='outlined'
+              color='secondary'
               fullWidth
             >
               {buttonLabels.cancel}
@@ -211,6 +212,7 @@ export const ExpeditionForm: FC<ExpeditionFormProps> = ({
               fullWidth
               type='submit'
               variant='contained'
+              color='secondary'
               disabled={!isValid || isSubmitting}
             >
               {buttonLabels.submit}

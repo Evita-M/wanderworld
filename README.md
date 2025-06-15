@@ -11,7 +11,7 @@
 
 A modern web application built with Next.js 14 for managing and exploring expeditions.
 
-<img width="680" alt="image" src="https://github.com/user-attachments/assets/33812f84-4ad6-4d34-98ba-6643d253038f" />
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/0ff0e4ea-2687-4232-8423-5c080a758c17" />
 
 ## ✨ Features
 

@@ -6,7 +6,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com/)
-[![Groq AI](https://img.shields.io/badge/Groq_AI-Enabled-FF6B6B?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
+[![Groq AI](https://img.shields.io/badge/Groq_AI-FF6B6B?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 
 A modern web application built with Next.js 14 for managing and exploring expeditions.

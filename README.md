@@ -1,33 +1,17 @@
-# WanderWorld App
+# WanderWorld App ![In Progress](https://img.shields.io/badge/IN_PROGRESS-C23F84?style=flat-square&labelColor=C23F84&color=C23F84&logoColor=white)
 
-> A modern web application built with Next.js 14 for managing and exploring expeditions.
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)](https://redux-toolkit.js.org/)
+[![ReactHookForm](https://img.shields.io/badge/react--hook--form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com/)
+[![Groq AI](https://img.shields.io/badge/Groq_AI-Enabled-FF6B6B?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8)](https://tailwindcss.com/)
-[![MUI](https://img.shields.io/badge/MUI-5-007FFF)](https://mui.com/)
-[![Groq AI](https://img.shields.io/badge/Groq_AI-Enabled-FF6B6B)](https://groq.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-5-2D3748)](https://www.prisma.io/)
-[![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC)](https://redux-toolkit.js.org/)
-[![License](https://img.shields.io/badge/License-Private-red)]()
+A modern web application built with Next.js 14 for managing and exploring expeditions.
 
-> 🎓 **Note**: This is a personal pet project where I actively experiment with new technologies and development patterns. It serves as both a practical application and a learning environment for modern web development practices.
-
-## 🛠️ Tech Stack
-
-- **Framework:** Next.js 14 with App Router
-- **Language:** TypeScript
-- **UI:** TailwindCSS, MUI
-- **AI Integration:** Groq AI
-- **Forms:** React Hook Form with Zod validation
-- **Database:** Prisma ORM
-- **State Management:** Redux Toolkit
-- **Data Fetching:** TanStack Query (React Query)
-- **Rich Text Editor:** Tiptap
-- **Testing:** Jest
-- **Date Handling:** date-fns
-- **API Client:** Axios
-- **Code Quality:** ESLint, Prettier
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/33812f84-4ad6-4d34-98ba-6643d253038f" />
 
 ## ✨ Features
 
@@ -129,52 +113,3 @@ src/
 ├── styles/       # Global styles
 └── utils/        # Utility functions
 ```
-
-## 📋 Development Guidelines
-
-- Use React Server Components by default
-- Minimize client-side JavaScript with selective 'use client' directives
-- Implement proper loading and error states
-- Use semantic HTML elements
-- Write comprehensive tests for critical functionality
-- Follow the established project structure
-
-## ⚖️ License
-
-Private - All rights reserved
-
-## 🤝 Contributing
-
-This is a private project.
-
-## 🎯 Planned Implementations
-
-- 🔄 **Framework & UI Updates**
-
-  - Upgrade to Next.js 15
-  - Migrate to TailwindCSS 4.0
-  - Optimize bundle size and performance
-  - Implement searching and filtering functionalities
-
-- 🔄 **CI/CD Pipeline**
-
-  - GitHub Actions workflow
-  - Deployment automation
-  - Code quality checks
-
-- 🔐 **Authentication & Authorization**
-
-  - Role-based access control (RBAC)
-  - Protected routes
-  - Social login providers
-
-- 📱 **Responsive Web Design**
-
-  - Mobile-first approach
-  - Tablet, Desktop optimization
-  - Cross-browser compatibility
-
-- ✅ **Testing Suite**
-  - Unit tests with Jest
-  - Integration tests
-  - E2E tests with Playwright

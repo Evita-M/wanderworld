@@ -28,13 +28,13 @@ A modern web application built with Next.js 14 for managing and exploring expedi
 
 ## 🎮 Core Functionalities
 
-### 📝 Expedition Management
+### Expedition Management
 
 - Create, read, update, delete expeditions
 - Rich text editor for detailed descriptions
 - Connect guides to expeditions
 
-### 👥 Guide Management
+### Guide Management
 
 - Create, read, update, delete guides
 - Rich text editor for details about a guide
